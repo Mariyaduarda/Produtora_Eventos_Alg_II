@@ -1,4 +1,4 @@
-#include "menu.h"
+#include "menuView.h"
 
 // Aqui tem tds as funcoes de exibicao de menus
 
@@ -11,6 +11,7 @@ void printMenuPrincipal(){
         "\n 5. Gerenciar Recursos e Equipamentos  "
         "\n 6. Gerenciar Operadores do Sistema    "
         "\n 0. Sair                               "
+        "\n => "
     );
 }
 
@@ -22,6 +23,7 @@ void printMenuClientes(){
         "\n 4. Buscar"
         "\n 5. Listar"
         "\n 0. Voltar "
+        "\n => "
     );
 }
 
@@ -33,6 +35,7 @@ void printMenuFornecedoresParceiros(){
         "\n 4. Buscar"
         "\n 5. Listar"
         "\n 0. Voltar "
+        "\n => "
     );
 }
 
@@ -44,6 +47,7 @@ void printMenuProdutora(){
         "\n 4. Buscar"
         "\n 5. Listar"
         "\n 0. Voltar "
+        "\n => "
     );
 
 }
@@ -56,6 +60,7 @@ void printMenuEquipeInterna(){
         "\n 4. Buscar"
         "\n 5. Listar"
         "\n 0. Voltar "
+        "\n => "
     );
 
 }
@@ -68,6 +73,7 @@ void printMenuRecursosEquipamentos(){
         "\n 4. Buscar"
         "\n 5. Listar"
         "\n 0. Voltar "
+        "\n => "
     );
 
 }
@@ -80,5 +86,6 @@ void printMenuOperadoresSistema(){
         "\n 4. Buscar"
         "\n 5. Listar"
         "\n 0. Voltar "
+        "\n => "
     );
 }
