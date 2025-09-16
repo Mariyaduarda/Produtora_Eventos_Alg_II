@@ -1,5 +1,5 @@
-#ifndef OPERADORESSISTEMA_H
-#define OPERADORESSISTEMA_H
+#ifndef OPERADORSISTEMA_H
+#define OPERADORSISTEMA_H
 
 #include <stdio.h>
 #include <string.h>
@@ -9,11 +9,11 @@ typedef struct {
     char nome[100];
     char usuario[50];
     char senha[50];
-} OperadoresSistema;
+} TipoOperadorSistema;
 
 typedef struct {
-    ListaOperadoresSistema *prox;
-    OperadoresSistema operador;
-} ListaOperadoresSistema;
+    ListaOperadorSistema *prox;
+    TipoOperadorSistema operador;
+} ListaOperadorSistema;
 
-#endif OPERADORESSISTEMA_H
+#endif OPERADORSISTEMA_H

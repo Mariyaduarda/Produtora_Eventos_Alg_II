@@ -1,5 +1,5 @@
-#ifndef RECURSOS_EQUIPAMENTOS_H
-#define RECURSOS_EQUIPAMENTOS_H
+#ifndef RECURSO_EQUIPAMENTO_H
+#define RECURSO_EQUIPAMENTO_H
 
 #include <stdio.h>
 #include <string.h>
@@ -11,11 +11,11 @@ typedef struct {
     int qtdEstoque;
     float precoCusto;
     float valorLocacao;
-} RecursosEquipamentos;
+} TipoRecursoEquipamento;
 
-typedef struct ListaRecursosEquipamentos {
-    struct ListaRecursosEquipamentos *prox;
-    RecursosEquipamentos recurso;
-} ListaRecursosEquipamentos;
+typedef struct {
+    struct ListaRecursoEquipamento *prox;
+    TipoRecursoEquipamento recurso;
+} ListaRecursoEquipamento;
 
-#endif RECURSOS_EQUIPAMENTOS_H
+#endif RECURSO_EQUIPAMENTO_H

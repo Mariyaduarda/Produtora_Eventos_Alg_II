@@ -10,11 +10,11 @@ typedef struct {
     char cpf[11+1];
     char funcao[50];
     float valorDiariaHora;
-} EquipeInterna;
+} TipoEquipeInterna;
 
 typedef struct {
     ListaEquipeInterna *prox;
-    EquipeInterna equipe;
+    TipoEquipeInterna equipe;
 } ListaEquipeInterna;
 
 #endif EQUIPEINTERNA_H
