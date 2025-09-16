@@ -2,7 +2,7 @@
 #include <string.h>
 #include "../entities/equipeInterna.h"
 
-void incializarEquipeInterna(EquipeInterna *equipe){
+void incializarEquipeInterna(TipoEquipeInterna *equipe){
     equipe->id = 0;
     strcpy(equipe->nome, "");
     strcpy(equipe->cpf, "");
@@ -10,7 +10,7 @@ void incializarEquipeInterna(EquipeInterna *equipe){
     equipe->valorDiariaHora = 0.0;
 }
 
-void cadastrarEquipeInterna(EquipeInterna *equipe, int id, const char *nome, const char *cpf, const char *funcao, float valorDiariaHora){
+void cadastrarEquipeInterna(TipoEquipeInterna *equipe, int id, const char *nome, const char *cpf, const char *funcao, float valorDiariaHora){
     equipe->id = id;
     strcpy(equipe->nome, nome);
     strcpy(equipe->cpf, cpf);
@@ -23,7 +23,7 @@ void inicializarListaEquipeInterna(ListaEquipeInterna *lista){
     incializarEquipeInterna(&lista->equipe);
 }
 
-int adicionarEquipeInterna(ListaEquipeInterna **lista, EquipeInterna equipe){
+int adicionarEquipeInterna(ListaEquipeInterna **lista, TipoEquipeInterna equipe){
     // aloca o espaco para um novo no'
     ListaEquipeInterna *novo = (ListaEquipeInterna *)malloc(sizeof(ListaEquipeInterna));
     
@@ -76,7 +76,7 @@ int removerEquipeInterna(ListaEquipeInterna **lista, int id){
     return 0;
 }
 
-int atualizarEquipeInterna(ListaEquipeInterna *lista, EquipeInterna equipeAtualizado){
+int atualizarEquipeInterna(ListaEquipeInterna *lista, TipoEquipeInterna equipeAtualizado){
     // variavel auxiliar para percorrer a lista
     ListaEquipeInterna *atual = lista;
 
@@ -97,7 +97,7 @@ int atualizarEquipeInterna(ListaEquipeInterna *lista, EquipeInterna equipeAtuali
     return 0;
 }
 
-EquipeInterna* buscarEquipeInterna(ListaEquipeInterna *lista, int id){
+TipoEquipeInterna* buscarEquipeInterna(ListaEquipeInterna *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaEquipeInterna *atual = lista;
 

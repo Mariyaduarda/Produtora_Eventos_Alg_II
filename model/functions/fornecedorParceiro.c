@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/fornecedoresParceiros.h"
+#include "../entities/fornecedorParceiro.h"
 
-void inicializarFornecedoresParceiros(FornecedoresParceiros *fornecedor){
+void inicializarFornecedoresParceiros(TipoFornecedorParceiro *fornecedor){
     fornecedor->id = 0;
     strcpy(fornecedor->nomeFantasia, "");
     strcpy(fornecedor->razaoSocial, "");
@@ -12,7 +12,7 @@ void inicializarFornecedoresParceiros(FornecedoresParceiros *fornecedor){
     strcpy(fornecedor->tipoServico, "");
 }
 
-void cadastrarFornecedoresParceiros(FornecedoresParceiros *fornecedor, int id, const char *nomeFantasia, const char *razaoSocial, const char *cpf_cnpj, const char *endereco, const char *telefone, const char *tipoServico){
+void cadastrarFornecedoresParceiros(TipoFornecedorParceiro *fornecedor, int id, const char *nomeFantasia, const char *razaoSocial, const char *cpf_cnpj, const char *endereco, const char *telefone, const char *tipoServico){
     fornecedor->id = id;
     strcpy(fornecedor->nomeFantasia, nomeFantasia);
     strcpy(fornecedor->razaoSocial, razaoSocial);
@@ -22,14 +22,14 @@ void cadastrarFornecedoresParceiros(FornecedoresParceiros *fornecedor, int id, c
     strcpy(fornecedor->tipoServico, tipoServico);
 }
 
-void inicializarListaFornecedoresParceiros(ListaFornecedoresParceiros *lista){
+void inicializarListaFornecedoresParceiros(ListaFornecedorParceiro *lista){
     lista->prox = NULL;
     inicializarFornecedoresParceiros(&lista->fornecedor);
 }
 
-int adicionarFornecedoresParceiros(ListaFornecedoresParceiros **lista, FornecedoresParceiros fornecedor){
+int adicionarFornecedoresParceiros(ListaFornecedorParceiro **lista, TipoFornecedorParceiro fornecedor){
     // aloca o espaco para um novo no'
-    ListaFornecedoresParceiros *novo = (ListaFornecedoresParceiros *)malloc(sizeof(ListaFornecedoresParceiros));
+    ListaFornecedorParceiro *novo = (ListaFornecedorParceiro *)malloc(sizeof(ListaFornecedorParceiro));
     
     // se n conseguir alocar, retorna erro
     if(novo == NULL) return 0;
@@ -45,10 +45,10 @@ int adicionarFornecedoresParceiros(ListaFornecedoresParceiros **lista, Fornecedo
     return 1;
 }
 
-int removerFornecedoresParceiros(ListaFornecedoresParceiros **lista, int id){
+int removerFornecedoresParceiros(ListaFornecedorParceiro **lista, int id){
     // variaveis auxiliares para percorrer a lista
-    ListaFornecedoresParceiros *atual = *lista;
-    ListaFornecedoresParceiros *anterior = NULL;
+    ListaFornecedorParceiro *atual = *lista;
+    ListaFornecedorParceiro *anterior = NULL;
 
     // percorre a lista ate' encontrar o fornecedor com o id ou o final da lista
     // - se oq eu to olhando n e' nulo e o id atual n e' oq eu quero, avanca
@@ -80,9 +80,9 @@ int removerFornecedoresParceiros(ListaFornecedoresParceiros **lista, int id){
     return 0;
 }
 
-int atualizarFornecedoresParceiros(ListaFornecedoresParceiros *lista, FornecedoresParceiros fornecedorAtualizado){
+int atualizarFornecedoresParceiros(ListaFornecedorParceiro *lista, TipoFornecedorParceiro fornecedorAtualizado){
     // variavel auxiliar para percorrer a lista
-    ListaFornecedoresParceiros *atual = lista;
+    ListaFornecedorParceiro *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -101,9 +101,9 @@ int atualizarFornecedoresParceiros(ListaFornecedoresParceiros *lista, Fornecedor
     return 0;
 }
 
-FornecedoresParceiros* buscarFornecedoresParceirosPorId(ListaFornecedoresParceiros *lista, int id){
+TipoFornecedorParceiro* buscarFornecedoresParceirosPorId(ListaFornecedorParceiro *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaFornecedoresParceiros *atual = lista;
+    ListaFornecedorParceiro *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){

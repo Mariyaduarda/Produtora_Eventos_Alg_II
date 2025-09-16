@@ -1,5 +1,5 @@
-#ifndef FORNECEDORESPARCEIROS_H
-#define FORNECEDORESPARCEIROS_H
+#ifndef FORNECEDORPARCEIRO_H
+#define FORNECEDORPARCEIRO_H
 
 #include <stdio.h>
 #include <string.h>
@@ -12,11 +12,11 @@ typedef struct {
     char endereco[100];
     char telefone[15];
     char tipoServico[100];
-} FornecedoresParceiros;
+} TipoFornecedorParceiro;
 
 typedef struct {
-    ListaFornecedoresParceiros *prox;
-    FornecedoresParceiros fornecedor;
-} ListaFornecedoresParceiros;
+    ListaFornecedorParceiro *prox;
+    TipoFornecedorParceiro fornecedor;
+} ListaFornecedorParceiro;
 
-#endif FORNECEDORESPARCEIROS_H
+#endif FORNECEDORPARCEIRO_H

@@ -2,7 +2,7 @@
 #include <string.h>
 #include "../entities/cliente.h"
 
-void inicializarCliente(Clientes *cliente){
+void inicializarCliente(TipoCliente *cliente){
     cliente->id = 0;
     strcpy(cliente->nome, "");
     strcpy(cliente->cpf_cnpj, "");
@@ -11,7 +11,7 @@ void inicializarCliente(Clientes *cliente){
     strcpy(cliente->nomeDoContato, "");
 }
 
-void cadastrarCliente(Clientes *cliente, int id, const char *nome, const char *cpf_cnpj, const char *telefone, const char *email, const char *nomeDoContato){
+void cadastrarCliente(TipoCliente *cliente, int id, const char *nome, const char *cpf_cnpj, const char *telefone, const char *email, const char *nomeDoContato){
     cliente->id = id;
     strcpy(cliente->nome, nome);
     strcpy(cliente->cpf_cnpj, cpf_cnpj);
@@ -25,7 +25,7 @@ void inicializarListaCliente(ListaClientes *lista){
     inicializarCliente(&lista->cliente);
 }
 
-int adicionarCliente(ListaClientes **lista, Clientes cliente){
+int adicionarCliente(ListaClientes **lista, TipoCliente cliente){
     // aloca o espaco para um novo no'
     ListaClientes *novo = (ListaClientes *)malloc(sizeof(ListaClientes));
     
@@ -78,7 +78,7 @@ int removerCliente(ListaClientes **lista, int id){
     return 0;
 }
 
-int atualizarCliente(ListaClientes *lista, Clientes clienteAtualizado){
+int atualizarCliente(ListaClientes *lista, TipoCliente clienteAtualizado){
     // variavel auxiliar para percorrer a lista
     ListaClientes *atual = lista;
 
@@ -100,7 +100,7 @@ int atualizarCliente(ListaClientes *lista, Clientes clienteAtualizado){
     return 0;
 }
 
-Clientes* buscarCliente(ListaClientes *lista, int id){
+TipoCliente* buscarCliente(ListaClientes *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaClientes *atual = lista;
 

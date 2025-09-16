@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include "../view/menuView.h"
+#include "../view/menuView.c"
+#include "../utils/utils_tela.c"
+#include "../model/entities/cliente.h"
+#include "../model/entities/fornecedorParceiro.h"
+#include "../model/entities/produtora.h"
+#include "../model/entities/equipeInterna.h"
+#include "../model/entities/recursoEquipamento.h"
+#include "../model/entities/operadorSistema.h"
+#include "menuCrud/menuCliente.c"
+#include "menuCrud/menuEquipeInterna.c"
+#include "menuCrud/menuFornecedoresParceiros.c"
+#include "menuCrud/menuOperadoresSistema.c"
+#include "menuCrud/menuProdutora.c"
+#include "menuCrud/menuRecursosEquipamentos.c"
+
+void menuClientes();
+void menuFornecedoresParceiros();
+void menuProdutora();
+void menuEquipeInterna();
+void menuRecursosEquipamentos();
+void menuOperadoresSistema();
+void menuPrincipal();

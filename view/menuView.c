@@ -4,7 +4,7 @@
 
 void printMenuPrincipal(){
     printf("\n => Menu Principal"
-        "\n 1. Gerenciar Clientes                 "
+        "\n 1. Gerenciar TipoCliente                 "
         "\n 2. Gerenciar Fornecedores e Parceiros "
         "\n 3. Gerenciar Produtora                "
         "\n 4. Gerenciar Equipe Interna           "
@@ -16,7 +16,7 @@ void printMenuPrincipal(){
 }
 
 void printMenuClientes(){
-    printf("\n => Clientes"
+    printf("\n => TipoCliente"
         "\n 1. Adicionar"
         "\n 2. Remover"
         "\n 3. Atualizar"

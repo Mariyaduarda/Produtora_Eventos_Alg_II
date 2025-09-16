@@ -11,11 +11,11 @@ typedef struct {
     char telefone[15];
     char email[100];
     char nomeDoContato[100];
-} Clientes;
+} TipoCliente;
 
 typedef struct {
     ListaClientes *prox;
-    Clientes cliente;
+    TipoCliente cliente;
 } ListaClientes;
 
 #endif CLIENTE_H

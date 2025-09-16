@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/recursosEquipamentos.h"
+#include "../entities/recursoEquipamento.h"
 
-void inicializarRecursosEquipamentos(RecursosEquipamentos *recurso){
+void inicializarRecursosEquipamentos(TipoRecursoEquipamento *recurso){
     recurso->id = 0;
     strcpy(recurso->descricao, "");
     strcpy(recurso->categoria, "");
@@ -11,7 +11,7 @@ void inicializarRecursosEquipamentos(RecursosEquipamentos *recurso){
     recurso->valorLocacao = 0.0;
 }
 
-void cadastrarRecursosEquipamentos(RecursosEquipamentos *recurso, int id, const char *descricao, const char *categoria, int qtdEstoque, float precoCusto, float valorLocacao){
+void cadastrarRecursosEquipamentos(TipoRecursoEquipamento *recurso, int id, const char *descricao, const char *categoria, int qtdEstoque, float precoCusto, float valorLocacao){
     recurso->id = id;
     strcpy(recurso->descricao, descricao);
     strcpy(recurso->categoria, categoria);
@@ -20,14 +20,14 @@ void cadastrarRecursosEquipamentos(RecursosEquipamentos *recurso, int id, const 
     recurso->valorLocacao = valorLocacao;
 }
 
-void inicializarListaRecursosEquipamentos(ListaRecursosEquipamentos *lista){
+void inicializarListaRecursosEquipamentos(ListaRecursoEquipamento *lista){
     lista->prox = NULL;
     inicializarRecursosEquipamentos(&lista->recurso);
 }
 
-int adicionarRecursosEquipamentos(ListaRecursosEquipamentos **lista, RecursosEquipamentos recurso){
+int adicionarRecursosEquipamentos(ListaRecursoEquipamento **lista, TipoRecursoEquipamento recurso){
     // aloca o espaco para um novo no'
-    ListaRecursosEquipamentos *novo = (ListaRecursosEquipamentos *)malloc(sizeof(ListaRecursosEquipamentos));
+    ListaRecursoEquipamento *novo = (ListaRecursoEquipamento *)malloc(sizeof(ListaRecursoEquipamento));
     
     // se n conseguir alocar, retorna erro
     if(novo == NULL) return 0;
@@ -43,10 +43,10 @@ int adicionarRecursosEquipamentos(ListaRecursosEquipamentos **lista, RecursosEqu
     return 1;
 }
 
-int removerRecursosEquipamentos(ListaRecursosEquipamentos **lista, int id){
+int removerRecursosEquipamentos(ListaRecursoEquipamento **lista, int id){
     // variaveis auxiliares para percorrer a lista
-    ListaRecursosEquipamentos *atual = *lista;
-    ListaRecursosEquipamentos *anterior = NULL;
+    ListaRecursoEquipamento *atual = *lista;
+    ListaRecursoEquipamento *anterior = NULL;
 
     // percorre a lista ate' encontrar o recurso com o id ou o final da lista
     // - se oq eu to olhando n e' nulo e o id atual n e' oq eu quero, avanca
@@ -78,9 +78,9 @@ int removerRecursosEquipamentos(ListaRecursosEquipamentos **lista, int id){
     return 0;
 }
 
-int atualizarRecursosEquipamentos(ListaRecursosEquipamentos *lista, int id, const char *descricao, const char *categoria, int qtdEstoque, float precoCusto, float valorLocacao){
+int atualizarRecursosEquipamentos(ListaRecursoEquipamento *lista, int id, const char *descricao, const char *categoria, int qtdEstoque, float precoCusto, float valorLocacao){
     // variavel auxiliar para percorrer a lista
-    ListaRecursosEquipamentos *atual = lista;
+    ListaRecursoEquipamento *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -103,9 +103,9 @@ int atualizarRecursosEquipamentos(ListaRecursosEquipamentos *lista, int id, cons
     return 0;
 }
 
-RecursosEquipamentos* buscarRecursosEquipamentosPorId(ListaRecursosEquipamentos *lista, int id){
+TipoRecursoEquipamento* buscarRecursosEquipamentosPorId(ListaRecursoEquipamento *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaRecursosEquipamentos *atual = lista;
+    ListaRecursoEquipamento *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
