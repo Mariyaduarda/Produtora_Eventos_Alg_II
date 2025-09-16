@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "../view/menuView.h"
-#include "../view/menuView.c"
 #include "../utils/utils_tela.c"
 #include "../model/entities/cliente.h"
 #include "../model/entities/fornecedorParceiro.h"

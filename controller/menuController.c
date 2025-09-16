@@ -1,12 +1,6 @@
 #include "menuController.h"
 
-void menuPrincipal() {
-    // Declara as listas
-
-
-    // Inicializa as listas
-    inicializarListas();
-
+void menuPrincipal(ListaCliente **listaCliente, ListaFornecedorParceiro **listaFornecedoresParceiros, ListaProdutora **listaProdutoras, ListaEquipeInterna **listaEquipeInterna, ListaRecursoEquipamento **listaRecursosEquipamentos, ListaOperadorSistema **listaOperadoresSistema) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha;
     while (escolha != 0){

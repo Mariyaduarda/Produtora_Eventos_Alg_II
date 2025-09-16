@@ -20,14 +20,14 @@ void cadastrarCliente(TipoCliente *cliente, int id, const char *nome, const char
     strcpy(cliente->nomeDoContato, nomeDoContato);
 }
 
-void inicializarListaCliente(ListaClientes *lista){
+void inicializarListaCliente(ListaCliente *lista){
     lista->prox = NULL;
     inicializarCliente(&lista->cliente);
 }
 
-int adicionarCliente(ListaClientes **lista, TipoCliente cliente){
+int adicionarCliente(ListaCliente **lista, TipoCliente cliente){
     // aloca o espaco para um novo no'
-    ListaClientes *novo = (ListaClientes *)malloc(sizeof(ListaClientes));
+    ListaCliente *novo = (ListaCliente *)malloc(sizeof(ListaCliente));
     
     // se n conseguir alocar, retorna erro
     if(novo == NULL) return 0;
@@ -43,10 +43,10 @@ int adicionarCliente(ListaClientes **lista, TipoCliente cliente){
     return 1;
 }
 
-int removerCliente(ListaClientes **lista, int id){
+int removerCliente(ListaCliente **lista, int id){
     // variaveis auxiliares para percorrer a lista
-    ListaClientes *atual = *lista;
-    ListaClientes *anterior = NULL;
+    ListaCliente *atual = *lista;
+    ListaCliente *anterior = NULL;
 
     // percorre a lista ate' encontrar o cliente com o id ou o final da lista
     // - se oq eu to olhando n e' nulo e o id atual n e' oq eu quero, avanca
@@ -78,9 +78,9 @@ int removerCliente(ListaClientes **lista, int id){
     return 0;
 }
 
-int atualizarCliente(ListaClientes *lista, TipoCliente clienteAtualizado){
+int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado){
     // variavel auxiliar para percorrer a lista
-    ListaClientes *atual = lista;
+    ListaCliente *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -100,9 +100,9 @@ int atualizarCliente(ListaClientes *lista, TipoCliente clienteAtualizado){
     return 0;
 }
 
-TipoCliente* buscarCliente(ListaClientes *lista, int id){
+TipoCliente* buscarCliente(ListaCliente *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaClientes *atual = lista;
+    ListaCliente *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){

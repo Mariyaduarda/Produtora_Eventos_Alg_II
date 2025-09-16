@@ -14,8 +14,8 @@ typedef struct {
 } TipoCliente;
 
 typedef struct {
-    ListaClientes *prox;
+    ListaCliente *prox;
     TipoCliente cliente;
-} ListaClientes;
+} ListaCliente;
 
 #endif CLIENTE_H

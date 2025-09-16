@@ -2,5 +2,6 @@
 #include "controller/menuController.c"
 
 int main(){
-    menuPrincipal();
+    inicializarSistema();
+    return 0;
 }
