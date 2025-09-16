@@ -18,7 +18,7 @@ void menuPrincipal() {
         scanf("%d", &escolha);
         switch (escolha){
             case 1:
-                // Gerenciar Clientes
+                // Gerenciar TipoCliente
                 menuClientes();
                 break;
             case 2:

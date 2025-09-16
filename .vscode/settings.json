@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "menuview.h": "c",
-        "menucontroller.h": "c"
+        "menucontroller.h": "c",
+        "operadorsistema.h": "c"
     }
 }
