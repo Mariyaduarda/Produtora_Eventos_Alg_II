@@ -2,6 +2,7 @@
     "files.associations": {
         "menuview.h": "c",
         "menucontroller.h": "c",
-        "operadorsistema.h": "c"
+        "operadorsistema.h": "c",
+        "stdio.h": "c"
     }
 }
