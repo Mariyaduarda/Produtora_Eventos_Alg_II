@@ -1,11 +1,11 @@
-#include "menuCliente.h"
+#include "menuFornecedorParceiro.h"
 
-void menuCliente(ListaCliente **listaCliente) {
+void menuFornecedorParceiro(ListaFornecedorParceiro **listaFornecedorParceiro) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=1;
     while (escolha != 0){
-        // Exibe o menu de Cliente
-        printMenuCliente();
+        // Exibe o menu de Fornecedor e Parceiro
+        printMenuFornecedorParceiro();
 
         // Recebe a escolha do usuario
         scanf("%d", &escolha);

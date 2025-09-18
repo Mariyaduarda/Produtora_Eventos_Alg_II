@@ -1,12 +1,17 @@
+#ifndef MENU_VIEW_H
+#define MENU_VIEW_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
 // Tem tds as funcoes de exibicao de menus
 
 void printMenuPrincipal();
-void printMenuClientes();
-void printMenuFornecedoresParceiros();
+void printMenuCliente();
+void printMenuFornecedorParceiro();
 void printMenuProdutora();
 void printMenuEquipeInterna();
-void printMenuRecursosEquipamentos();
-void printMenuOperadoresSistema();
+void printMenuRecursoEquipamento();
+void printMenuOperadorSistema();
+
+#endif // MENU_VIEW_H

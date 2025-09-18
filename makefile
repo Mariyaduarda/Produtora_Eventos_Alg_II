@@ -5,17 +5,19 @@ CFLAGS = -Wall -g
 # Nome do executável
 TARGET = produtora_eventos.exe
 
+
 # Diretórios do projeto
-SRC_DIRS = . controller controller\menuCrud model\functions utils view
+SRC_DIRS = . controller controller\menuCrud model model\functions utils view
 INCLUDES = -Imodel\entities -Icontroller -Iview -Iutils
 
 # Encontra todos os arquivos .c em todos os diretórios
 SRCS = $(wildcard *.c) \
-       $(wildcard controller/*.c) \
-       $(wildcard controller/menuCrud/*.c) \
-       $(wildcard model/functions/*.c) \
-       $(wildcard utils/*.c) \
-       $(wildcard view/*.c)
+	$(wildcard controller/*.c) \
+	$(wildcard controller/menuCrud/*.c) \
+	$(wildcard model/*.c) \
+	$(wildcard model/functions/*.c) \
+	$(wildcard utils/*.c) \
+	$(wildcard view/*.c)
 
 # Gera lista de arquivos objeto
 OBJS = $(SRCS:.c=.o)
