@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/cliente.h"
+#include "cliente.h"
 
 void inicializarCliente(TipoCliente *cliente){
     cliente->id = 0;

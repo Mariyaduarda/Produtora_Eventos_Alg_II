@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/produtora.h"
+#include "produtora.h"
 
 void inicializarProdutora(Produtora *produtora){
     produtora->id = 0;

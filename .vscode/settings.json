@@ -3,6 +3,10 @@
         "menuview.h": "c",
         "menucontroller.h": "c",
         "operadorsistema.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "fornecedorparceiro.h": "c",
+        "cliente.h": "c",
+        "produtora.h": "c",
+        "string.h": "c"
     }
 }

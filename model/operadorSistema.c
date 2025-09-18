@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/operadorSistema.h"
+#include "operadorSistema.h"
 
 void inicializarOperadoresSistema(TipoOperadorSistema *operador){
     operador->id = 0;

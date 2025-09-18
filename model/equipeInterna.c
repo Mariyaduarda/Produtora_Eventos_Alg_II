@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/equipeInterna.h"
+#include "equipeInterna.h"
 
 void incializarEquipeInterna(TipoEquipeInterna *equipe){
     equipe->id = 0;

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include "../entities/fornecedorParceiro.h"
+#include "fornecedorParceiro.h"
 
 void inicializarFornecedoresParceiros(TipoFornecedorParceiro *fornecedor){
     fornecedor->id = 0;
