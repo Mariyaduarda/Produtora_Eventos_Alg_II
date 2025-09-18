@@ -13,11 +13,11 @@ void menuPrincipal(ListaCliente **listaCliente, ListaFornecedorParceiro **listaF
         switch (escolha){
             case 1:
                 // Gerenciar TipoCliente
-                menuClientes();
+                menuCliente(*listaCliente);
                 break;
             case 2:
                 // Gerenciar Fornecedores e Parceiros
-                menuFornecedoresParceiros();
+                menuFornecedorParceiro();
                 break;
             case 3:
                 // Gerenciar Produtora
@@ -29,11 +29,11 @@ void menuPrincipal(ListaCliente **listaCliente, ListaFornecedorParceiro **listaF
                 break;
             case 5:
                 // Gerenciar Recursos e Equipamentos
-                menuRecursosEquipamentos();
+                menuRecursoEquipamento();
                 break;
             case 6:
                 // Gerenciar Operadores do Sistema
-                menuOperadoresSistema();
+                menuOperadorSistema();
                 break;
             case 0:
                 // Sair
