@@ -1,5 +1,12 @@
 #include "menuCliente.h"
 
+TipoCliente menuClienteRecebe() {
+    // Recebe um novo Cliente do usuario e retorna o cliente preenchido
+    TipoCliente cliente;
+    inicializarCliente(&cliente);
+    
+}
+
 void menuCliente(ListaCliente **listaCliente) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=1;
