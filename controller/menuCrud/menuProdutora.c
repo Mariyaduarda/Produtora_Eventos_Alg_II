@@ -52,6 +52,31 @@ void menuProdutora(ListaProdutora **listaProdutora) {
 
         switch (escolha){
             case 1:
+                // Adicionar Produtora
+                if ( adicionarProdutora(listaProdutora, menuProdutoraRecebe()) ) printAdicionarSucesso();
+                else printAdicionarFalha();
+                esperaEnter();
+                break;
+            case 2:
+                // Remover Produtora
+                if ( removerProdutora(listaProdutora, recebeID()) ) printRemoverSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
+                break;
+            case 3:
+                // Atualizar Produtora
+                if ( atualizarProdutora(*listaProdutora, menuProdutoraRecebe(), recebeID()) ) printAtualizarSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
+                break;
+            case 4:
+                // Buscar Produtora
+                TipoProdutora *produtora = buscarProdutora(*listaProdutora, recebeID());
+                if (produtora != NULL) printItemProdutora(*produtora);
+                else printNaoEncontrado();
+                esperaEnter();
+                break;
+            case 5:
                 // Listar Produtoras
                 listarProdutoras(*listaProdutora);
                 esperaEnter();
@@ -61,9 +86,9 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 printf("\n => Voltando ao menu principal...\n");
                 break;
             default:
-                printf("\n => Opcao invalida! Tente novamente.\n");
+                // Opcao invalida
+                printOpcaoInvalida();
                 esperaEnter();
-                break;
         }
     }
 }

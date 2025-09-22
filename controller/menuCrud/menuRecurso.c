@@ -73,9 +73,9 @@ void menuRecurso(ListaRecurso **listaRecurso) {
                 printf("\nVoltando ao menu principal...\n");
                 break;
             default:
-                printf("\nOpcao invalida! Tente novamente.\n");
+                // Opcao invalida
+                printOpcaoInvalida();
                 esperaEnter();
-                break;
         }
     }
 }

@@ -41,7 +41,8 @@ void menuPrincipal(ListaCliente **listaCliente, ListaFornecedor **listaFornecedo
                 exit(0);
             default:
                 // Opcao invalida
-                opcaoInvalida();
+                printOpcaoInvalida();
+                esperaEnter();
         }
     }
     

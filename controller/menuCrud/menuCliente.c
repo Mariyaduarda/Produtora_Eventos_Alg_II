@@ -47,19 +47,27 @@ void menuCliente(ListaCliente **listaCliente) {
         switch (escolha){
             case 1:
                 // Adicionar Cliente
-                adicionarCliente(listaCliente, menuClienteRecebe());
+                if ( adicionarCliente(listaCliente, menuClienteRecebe()) ) printAdicionarSucesso();
+                else printAdicionarFalha();
+                esperaEnter();
                 break;
             case 2:
                 // Remover Cliente
-                removerCliente(listaCliente, recebeID());
+                if ( removerCliente(listaCliente, recebeID()) ) printRemoverSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 3:
                 // Atualizar Cliente
-                atualizarCliente(*listaCliente, menuClienteRecebe(), recebeID());
+                if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeID()) ) printAtualizarSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 4:
                 // Buscar Cliente
-                printItemCliente(*buscarCliente(*listaCliente, recebeID()));
+                TipoCliente *cliente = buscarCliente(*listaCliente, recebeID());
+                if (cliente != NULL) printItemCliente(*cliente);
+                else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 5:
@@ -73,7 +81,8 @@ void menuCliente(ListaCliente **listaCliente) {
                 break;
             default:
                 // Opcao invalida
-                opcaoInvalida();
+                printOpcaoInvalida();
+                esperaEnter();
         }
     }
     

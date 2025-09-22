@@ -16,6 +16,7 @@
         "menufornecedor.h": "c",
         "utils_tela.h": "c",
         "stdlib.h": "c",
-        "recebedados.h": "c"
+        "recebedados.h": "c",
+        "mostraritem.h": "c"
     }
 }

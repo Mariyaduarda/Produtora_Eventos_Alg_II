@@ -47,19 +47,27 @@ void menuEquipe(ListaEquipe **listaEquipe) {
         switch (escolha){
             case 1:
                 // Adicionar Equipe Interna
-                adicionarEquipe(listaEquipe, menuEquipeRecebe());
+                if ( adicionarEquipe(listaEquipe, menuEquipeRecebe()) ) printAdicionarSucesso();
+                else printAdicionarFalha();
+                esperaEnter();
                 break;
             case 2:
                 // Remover Equipe Interna
-                removerEquipe(listaEquipe, recebeID());
+                if ( removerEquipe(listaEquipe, recebeID()) ) printRemoverSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 3:
                 // Atualizar Equipe Interna
-                atualizarEquipe(*listaEquipe, menuEquipeRecebe(), recebeID());
+                if (atualizarEquipe(*listaEquipe, menuEquipeRecebe(), recebeID())) printAtualizarSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 4:
                 // Buscar Equipe Interna
-                buscarEquipe(*listaEquipe, recebeID());
+                TipoEquipe *equipe = buscarEquipe(*listaEquipe, recebeID());
+                if (equipe != NULL) printItemEquipe(*equipe);
+                else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 5:
@@ -72,9 +80,9 @@ void menuEquipe(ListaEquipe **listaEquipe) {
                 printf("\n => Voltando ao menu principal...\n");
                 break;
             default:
-                printf("\n => Opcao invalida! Tente novamente.\n");
+                // Opcao invalida
+                printOpcaoInvalida();
                 esperaEnter();
-                break;
         }
     }
 }

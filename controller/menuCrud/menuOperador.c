@@ -46,19 +46,27 @@ void menuOperador(ListaOperador **listaOperador) {
         switch (escolha){
             case 1:
                 // Adicionar Operador do Sistema
-                adicionarOperador(listaOperador, menuOperadorRecebe());
+                if ( adicionarOperador(listaOperador, menuOperadorRecebe()) ) printAdicionarSucesso();
+                else printAdicionarFalha();
+                esperaEnter();
                 break;
             case 2:
                 // Remover Operador do Sistema
-                removerOperador(listaOperador, recebeID());
+                if ( removerOperador(listaOperador, recebeID()) ) printRemoverSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 3:
                 // Atualizar Operador do Sistema
-                atualizarOperador(*listaOperador, menuOperadorRecebe(), recebeID());
+                if (atualizarOperador(*listaOperador, menuOperadorRecebe(), recebeID())) printAtualizarSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 4:
                 // Buscar Operador do Sistema
-                buscarOperador(*listaOperador, recebeID());
+                TipoOperador *operador = buscarOperador(*listaOperador, recebeID());
+                if (operador != NULL) printItemOperador(*operador);
+                else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 5:
@@ -71,7 +79,8 @@ void menuOperador(ListaOperador **listaOperador) {
                 printf("\n => Voltando ao menu principal...\n");
                 break;
             default:
-                printf("\n => Opcao invalida! Tente novamente.\n");
+                // Opcao invalida
+                printOpcaoInvalida();
                 esperaEnter();
         }
     }

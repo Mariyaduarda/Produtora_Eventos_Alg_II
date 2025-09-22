@@ -49,19 +49,27 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
         switch (escolha){
             case 1:
                 // Adicionar Fornecedor/Parceiro
-                adicionarFornecedor(listaFornecedor, menuFornecedorRecebe());
+                if (adicionarFornecedor(listaFornecedor, menuFornecedorRecebe())) printAdicionarSucesso();
+                else printAdicionarFalha();
+                esperaEnter();
                 break;
             case 2:
                 // Remover Fornecedor/Parceiro
-                removerFornecedor(listaFornecedor, recebeID());
+                if (removerFornecedor(listaFornecedor, recebeID())) printRemoverSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 3:
                 // Atualizar Fornecedor/Parceiro
-                atualizarFornecedor(*listaFornecedor, menuFornecedorRecebe(), recebeID());
+                if (atualizarFornecedor(*listaFornecedor, menuFornecedorRecebe(), recebeID())) printAtualizarSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 4:
                 // Buscar Fornecedor/Parceiro
-                printItemFornecedor(*buscarFornecedor(*listaFornecedor, recebeID()));
+                TipoFornecedor *fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
+                if (fornecedor != NULL) printItemFornecedor(*fornecedor);
+                else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 5:
@@ -74,9 +82,9 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
                 printf("\n => Voltando ao menu principal...\n");
                 break;
             default:
-                printf("\n => Opcao invalida! Tente novamente.\n");
+                // Opcao invalida
+                printOpcaoInvalida();
                 esperaEnter();
-                break;
         }
     }
     

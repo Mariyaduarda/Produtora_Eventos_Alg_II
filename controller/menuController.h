@@ -3,8 +3,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "../view/menuView.h"
+#include "../view/mensagens.h"
+
 #include "../utils/utils_tela.h"
+
 #include "../model/cliente.h"
 #include "../model/fornecedor.h"
 #include "../model/produtora.h"
