@@ -1,7 +1,9 @@
 #ifndef MENU_FORNECEDOR_PARCEIRO_H
 #define MENU_FORNECEDOR_PARCEIRO_H
 
-#include "menuCrud.h"
+#include "../../model/fornecedorParceiro.h"
+#include "../../view/menuView.h"
+#include "../../utils/utils_tela.h"
 
 void menuFornecedorParceiro(ListaFornecedorParceiro **listaFornecedorParceiro);
 

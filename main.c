@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "controller/inicializarSistema.c"
-#include "controller/menuController.c"
-#include "view/menuView.c"
+#include "controller/inicializarSistema.h"
+#include "controller/menuController.h"
+#include "view/menuView.h"
 
 int main(){
     inicializarSistema();

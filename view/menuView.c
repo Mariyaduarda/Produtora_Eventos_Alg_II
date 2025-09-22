@@ -5,7 +5,7 @@
 void printMenuPrincipal(){
     limparTela();
     printf("\n => Menu Principal"
-        "\n 1. Gerenciar TipoCliente                 "
+        "\n 1. Gerenciar Clientes                 "
         "\n 2. Gerenciar Fornecedores e Parceiros "
         "\n 3. Gerenciar Produtora                "
         "\n 4. Gerenciar Equipe Interna           "
@@ -18,7 +18,7 @@ void printMenuPrincipal(){
 
 void printMenuCliente(){
     limparTela();
-    printf("\n => TipoCliente"
+    printf("\n => Cliente"
         "\n 1. Adicionar"
         "\n 2. Remover"
         "\n 3. Atualizar"

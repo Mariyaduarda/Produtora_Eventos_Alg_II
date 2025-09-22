@@ -9,6 +9,11 @@
         "produtora.h": "c",
         "string.h": "c",
         "menucrud.h": "c",
-        "menucliente.h": "c"
+        "menucliente.h": "c",
+        "menuequipeinterna.h": "c",
+        "recursoequipamento.h": "c",
+        "equipeinterna.h": "c",
+        "menufornecedorparceiro.h": "c",
+        "utils_tela.h": "c"
     }
 }

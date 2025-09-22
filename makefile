@@ -1,54 +1,24 @@
-# Compilador e flags
 CC = gcc
 CFLAGS = -Wall -g
-
-# Nome do executável
-TARGET = produtora_eventos.exe
-
-
-# Diretórios do projeto
-SRC_DIRS = . controller controller\menuCrud model model\functions utils view
-INCLUDES = -Imodel\entities -Icontroller -Iview -Iutils
-
-# Encontra todos os arquivos .c em todos os diretórios
-SRCS = $(wildcard *.c) \
-	$(wildcard controller/*.c) \
-	$(wildcard controller/menuCrud/*.c) \
-	$(wildcard model/*.c) \
-	$(wildcard model/functions/*.c) \
-	$(wildcard utils/*.c) \
-	$(wildcard view/*.c)
-
-# Gera lista de arquivos objeto
+SRC_DIRS = model controller controller/menuCrud utils view
+SRCS = main.c $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 OBJS = $(SRCS:.c=.o)
+TARGET = main.exe
 
-# Regra principal
+
+# Alvo padrão: compila, executa e limpa
 all: $(TARGET)
+	./$(TARGET)
+	$(MAKE) clean
 
-# Como gerar o executável
 $(TARGET): $(OBJS)
-	@echo Compilando o executavel $(TARGET)...
-	$(CC) $(OBJS) $(CFLAGS) -o $(TARGET)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
-# Como gerar os arquivos objeto
 %.o: %.c
-	@echo Compilando $<...
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Limpar arquivos gerados
+
 clean:
-	@echo Limpando arquivos gerados...
-	del /F /Q *.o 2>nul || exit 0
-	del /F /Q controller\*.o 2>nul || exit 0
-	del /F /Q controller\menuCrud\*.o 2>nul || exit 0
-	del /F /Q model\functions\*.o 2>nul || exit 0
-	del /F /Q utils\*.o 2>nul || exit 0
-	del /F /Q view\*.o 2>nul || exit 0
-	del /F /Q $(TARGET) 2>nul || exit 0
-	@echo Limpeza concluida!
+	del /Q $(OBJS) $(TARGET) 2>nul || rm -f $(OBJS) $(TARGET)
 
-# Regra para recompilar tudo
-rebuild: clean all
-
-# Marcar alvos que não são arquivos
-.PHONY: all clean rebuild
+.PHONY: all clean

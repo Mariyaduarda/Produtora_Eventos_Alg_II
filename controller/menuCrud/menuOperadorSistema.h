@@ -1,7 +1,9 @@
 #ifndef MENU_OPERADOR_SISTEMA_H
 #define MENU_OPERADOR_SISTEMA_H
 
-#include "menuCrud.h"
+#include "../../model/operadorSistema.h"
+#include "../../view/menuView.h"
+#include "../../utils/utils_tela.h"
 
 void menuOperadorSistema(ListaOperadorSistema **listaOperadorSistema);
 

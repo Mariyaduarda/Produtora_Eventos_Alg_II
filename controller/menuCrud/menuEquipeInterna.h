@@ -1,7 +1,9 @@
 #ifndef MENU_EQUIPE_INTERNA_H
 #define MENU_EQUIPE_INTERNA_H
 
-#include "menuCrud.h"
+#include "../../model/equipeInterna.h"
+#include "../../view/menuView.h"
+#include "../../utils/utils_tela.h"
 
 void menuEquipeInterna(ListaEquipeInterna **listaEquipeInterna);
 

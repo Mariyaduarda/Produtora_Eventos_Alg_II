@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "../utils/utils_tela.h"
 
 // Tem tds as funcoes de exibicao de menus
 

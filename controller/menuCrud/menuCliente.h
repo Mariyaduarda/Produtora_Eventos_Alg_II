@@ -1,7 +1,9 @@
 #ifndef MENU_CLIENTE_H
 #define MENU_CLIENTE_H
 
-#include "menuCrud.h"
+#include "../../model/cliente.h"
+#include "../../view/menuView.h"
+#include "../../utils/utils_tela.h"
 
 void menuCliente(ListaCliente **listaCliente);
 

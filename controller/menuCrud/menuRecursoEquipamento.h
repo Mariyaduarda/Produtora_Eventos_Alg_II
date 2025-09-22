@@ -1,7 +1,9 @@
 #ifndef MENU_RECURSO_EQUIPAMENTO_H
 #define MENU_RECURSO_EQUIPAMENTO_H
 
-#include "menuCrud.h"
+#include "../../model/recursoEquipamento.h"
+#include "../../view/menuView.h"
+#include "../../utils/utils_tela.h"
 
 void menuRecursoEquipamento(ListaRecursoEquipamento **listaRecursoEquipamento);
 

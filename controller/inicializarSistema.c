@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include "../model/cliente.c"
-#include "../model/fornecedorParceiro.c"
-#include "../model/produtora.c"
-#include "../model/equipeInterna.c"
-#include "../model/recursoEquipamento.c"
-#include "../model/operadorSistema.c"
-#include "menuController.h"
+#include "inicializarSistema.h"
 
 void inicializarListas(ListaCliente **listaCliente, ListaFornecedorParceiro **listaFornecedoresParceiros, ListaProdutora **listaProdutoras, ListaEquipeInterna **listaEquipeInterna, ListaRecursoEquipamento **listaRecursosEquipamentos, ListaOperadorSistema **listaOperadoresSistema) {
     // Inicializa cada lista chamando a funcao correspondente
