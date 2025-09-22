@@ -5,6 +5,8 @@
 #include "../../view/menuView.h"
 #include "../../utils/utils_tela.h"
 
+#include "../../view/recebeDados.h"
+
 void menuFornecedorParceiro(ListaFornecedorParceiro **listaFornecedorParceiro);
 
 #endif // MENU_FORNECEDOR_PARCEIRO_H

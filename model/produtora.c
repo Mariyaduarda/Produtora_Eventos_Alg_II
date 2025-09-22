@@ -3,6 +3,7 @@
 #include "produtora.h"
 
 void inicializarProdutora(Produtora *produtora){
+    produtora->ativo = true;
     produtora->id = 0;
     strcpy(produtora->nomeFantasia, "");
     strcpy(produtora->razaoSocial, "");
@@ -16,20 +17,6 @@ void inicializarProdutora(Produtora *produtora){
     produtora->margemDeLucro = 0.0;
 }
 
-void cadastrarProdutora(Produtora *produtora, int id, const char *nomeFantasia, const char *razaoSocial, const char *inscricaoEstadual, const char *cnpj, const char *endereco, const char *telefone, const char *email, const char *nomeDoResponsavel, const char *telefoneDoResponsavel, float margemDeLucro){
-    produtora->id = id;
-    strcpy(produtora->nomeFantasia, nomeFantasia);
-    strcpy(produtora->razaoSocial, razaoSocial);
-    strcpy(produtora->inscricaoEstadual, inscricaoEstadual);
-    strcpy(produtora->cnpj, cnpj);
-    strcpy(produtora->endereco, endereco);
-    strcpy(produtora->telefone, telefone);
-    strcpy(produtora->email, email);
-    strcpy(produtora->nomeDoResponsavel, nomeDoResponsavel);
-    strcpy(produtora->telefoneDoResponsavel, telefoneDoResponsavel);
-    produtora->margemDeLucro = margemDeLucro;
-}
-
 void inicializarListaProdutora(ListaProdutora *lista){
     lista->prox = NULL;
     inicializarProdutora(&lista->produtora);
@@ -38,67 +25,68 @@ void inicializarListaProdutora(ListaProdutora *lista){
 int adicionarProdutora(ListaProdutora **lista, Produtora produtora){
     // aloca o espaco para um novo no'
     ListaProdutora *novo = (ListaProdutora *)malloc(sizeof(ListaProdutora));
-    
-    // se n conseguir alocar, retorna erro
     if(novo == NULL) return 0;
 
     // atribui os dados ao novo no'
     novo->produtora = produtora;
-    novo->prox = *lista;
+    novo->produtora.ativo = true;
+    novo->prox = NULL;
 
-    // atribui o novo no' como o inicio da lista
-    *lista = novo;
+    
+    if(*lista == NULL){ // se a lista estiver vazia, o novo no' sera o primeiro
+        novo->produtora.id = 1;
+        *lista = novo;
+    } else { // se n estiver vazia, percorre ate' o final da lista
+
+        // variavel auxiliar para percorrer a lista
+        ListaProdutora *atual = *lista;
+        // percorre ate' o final da lista
+        while(atual->prox != NULL) atual = atual->prox;
+
+        // atribui o ID do novo no' como o ID do ultimo mais um
+        novo->produtora.id = atual->produtora.id + 1;
+        // adiciona o novo no' no final da lista
+        atual->prox = novo;
+
+    }
 
     // retorna sucesso
     return 1;
 }
 
 int removerProdutora(ListaProdutora **lista, int id){
-    // variaveis auxiliares para percorrer a lista
+    // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = *lista;
-    ListaProdutora *anterior = NULL;
 
-    // percorre a lista ate' encontrar a produtora com o id ou o final da lista
-    // - se oq eu to olhando n e' nulo e o id atual n e' oq eu quero, avanca
-    while(atual != NULL && atual->produtora.id != id){
-        anterior = atual;
-        atual = atual->prox;
-    }
+    // enquanto oq eu to olhando n for nulo, avanca
+    while(atual != NULL){
 
-    // quando sair do loop, ou achou a produtora q eu quero ou chegou no final da lista
-    // - se n for nulo, achei a produtora
-    if(atual != NULL){
-
-        if(anterior == NULL){
-            // se for o primeiro da lista, coloca a lista como o proximo do atual
-            *lista = atual->prox;
-        } else {
-            // se n for o primeiro, liga o anterior com o proximo do atual
-            anterior->prox = atual->prox;
+        // se o id da produtora atual for o id q eu quero, marca como inativo
+        if(atual->produtora.id == id){
+            // marca a produtora como inativo
+            atual->produtora.ativo = false;
+            return 1; // sucesso
         }
-
-        // libera a memoria
-        free(atual);
-
-        // retorna sucesso
-        return 1;
+        
+        // avanca
+        atual = atual->prox;
     }
 
     // se chegar aqui, n achei a produtora
     return 0;
 }
 
-int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada){
+int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada, int id){
     // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
-
         // se o id da produtora atual for o id q eu quero, atualiza os dados
-        if(atual->produtora.id == produtoraAtualizada.id){
+        if(atual->produtora.id == id){
             atual->produtora = produtoraAtualizada;
-            return 1; // retorna sucesso
+            atual->produtora.id = id; // garante q o id n vai ser alterado
+            return 1; // sucesso
         }
         
         // avanca

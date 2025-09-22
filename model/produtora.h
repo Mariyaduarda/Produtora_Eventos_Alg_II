@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct {
+    bool ativo;
     int id;
     char nomeFantasia[100];
     char razaoSocial[100];
@@ -25,11 +27,10 @@ typedef struct ListaProdutora{
 } ListaProdutora;
 
 void inicializarProdutora(Produtora *produtora);
-void cadastrarProdutora(Produtora *produtora, int id, const char *nomeFantasia, const char *razaoSocial, const char *inscricaoEstadual, const char *cnpj, const char *endereco, const char *telefone, const char *email, const char *nomeDoResponsavel, const char *telefoneDoResponsavel, float margemDeLucro);
 void inicializarListaProdutora(ListaProdutora *lista);
 int adicionarProdutora(ListaProdutora **lista, Produtora produtora);
 int removerProdutora(ListaProdutora **lista, int id);
-int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada);
+int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada, int id);
 Produtora* buscarProdutora(ListaProdutora *lista, int id);
 
 #endif // PRODUTORA_H

@@ -1,6 +1,23 @@
 #include "recebeDados.h"
 
-// Rececbe um nome
+// Recebe um ID
+int recebeID() {
+    int id;
+    //enquanto o id for invalido, pede para digitar novamente
+    do {
+        //mensagem pro usuario
+        printf("\n => Digite o ID (maior ou igual a 0):\n");
+
+        //le o id
+        scanf("%d", &id);
+        getchar(); // Limpa o buffer do teclado
+
+    } while (id < 0);
+
+    return id;
+}
+
+// Recebe um nome
 void recebeNome(char *nome, int maxTam) {
     //enquanto o nome for invalido, pede para digitar novamente
     do {

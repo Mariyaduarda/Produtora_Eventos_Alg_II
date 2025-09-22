@@ -6,6 +6,7 @@
 #include <string.h>
 
 //Funcoes para receber dados do usuario
+int recebeID();
 void recebeNome(char *nome, int maxTam);
 void recebeCPF(char *cpf);
 void recebeCNPJ(char *cnpj);

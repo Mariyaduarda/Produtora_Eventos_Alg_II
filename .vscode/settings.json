@@ -14,6 +14,7 @@
         "recursoequipamento.h": "c",
         "equipeinterna.h": "c",
         "menufornecedorparceiro.h": "c",
-        "utils_tela.h": "c"
+        "utils_tela.h": "c",
+        "stdlib.h": "c"
     }
 }

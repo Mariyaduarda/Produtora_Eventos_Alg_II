@@ -4,8 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef struct {
+    bool ativo;
     int id;
     char nome[100];
     char cpf_cnpj[14+1];
@@ -20,11 +22,10 @@ typedef struct ListaCliente{
 } ListaCliente;
 
 void inicializarCliente(TipoCliente *cliente);
-void cadastrarCliente(TipoCliente *cliente, int id, const char *nome, const char *cpf_cnpj, const char *telefone, const char *email, const char *nomeDoContato);
 void inicializarListaCliente(ListaCliente *lista);
 int adicionarCliente(ListaCliente **lista, TipoCliente cliente);
 int removerCliente(ListaCliente **lista, int id);
-int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado);
+int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado, int id);
 TipoCliente* buscarCliente(ListaCliente *lista, int id);
 
 #endif // CLIENTE_H
