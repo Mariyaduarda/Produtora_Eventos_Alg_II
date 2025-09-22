@@ -29,7 +29,7 @@ void printMenuCliente(){
     );
 }
 
-void printMenuFornecedorParceiro(){
+void printMenuFornecedor(){
     limparTela();
     printf("\n => Fornecedores & Parceiros"
         "\n 1. Adicionar"
@@ -56,7 +56,7 @@ void printMenuProdutora(){
 
 }
 
-void printMenuEquipeInterna(){
+void printMenuEquipe(){
     limparTela();
     printf("\n => Equipe Interna"
         "\n 1. Adicionar"
@@ -70,7 +70,7 @@ void printMenuEquipeInterna(){
 
 }
 
-void printMenuRecursoEquipamento(){
+void printMenuRecurso(){
     limparTela();
     printf("\n => Recursos & Equipamentos"
         "\n 1. Adicionar"
@@ -84,7 +84,7 @@ void printMenuRecursoEquipamento(){
 
 }
 
-void printMenuOperadorSistema(){
+void printMenuOperador(){
     limparTela();
     printf("\n => Operadores do Sistema"
         "\n 1. Adicionar"

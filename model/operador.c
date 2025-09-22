@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "operadorSistema.h"
+#include "operador.h"
 
-void inicializarOperadoresSistema(TipoOperadorSistema *operador){
+void inicializarOperador(TipoOperador *operador){
     operador->ativo = true;
     operador->id = 0;
     strcpy(operador->nome, "");
@@ -10,14 +10,14 @@ void inicializarOperadoresSistema(TipoOperadorSistema *operador){
     strcpy(operador->senha, "");
 }
 
-void inicializarListaOperadoresSistema(ListaOperadorSistema *lista){
+void inicializarListaOperador(ListaOperador *lista){
     lista->prox = NULL;
-    inicializarOperadoresSistema(&lista->operador);
+    inicializarOperador(&lista->operador);
 }
 
-int adicionarOperadoresSistema(ListaOperadorSistema **lista, TipoOperadorSistema operador){
+int adicionarOperador(ListaOperador **lista, TipoOperador operador){
     // aloca o espaco para um novo no'
-    ListaOperadorSistema *novo = (ListaOperadorSistema *)malloc(sizeof(ListaOperadorSistema));
+    ListaOperador *novo = (ListaOperador *)malloc(sizeof(ListaOperador));
     if(novo == NULL) return 0;
 
     // atribui os dados ao novo no'
@@ -31,7 +31,7 @@ int adicionarOperadoresSistema(ListaOperadorSistema **lista, TipoOperadorSistema
     } else { // se n estiver vazia, percorre ate' o final da lista
 
         // variavel auxiliar para percorrer a lista
-        ListaOperadorSistema *atual = *lista;
+        ListaOperador *atual = *lista;
         // percorre ate' o final da lista
         while(atual->prox != NULL) atual = atual->prox;
 
@@ -46,9 +46,9 @@ int adicionarOperadoresSistema(ListaOperadorSistema **lista, TipoOperadorSistema
     return 1;
 }
 
-int removerOperadoresSistema(ListaOperadorSistema **lista, int id){
+int removerOperador(ListaOperador **lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaOperadorSistema *atual = *lista;
+    ListaOperador *atual = *lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -68,9 +68,9 @@ int removerOperadoresSistema(ListaOperadorSistema **lista, int id){
     return 0;
 }
 
-int atualizarOperadoresSistema(ListaOperadorSistema *lista, TipoOperadorSistema operadorAtualizado, int id){
+int atualizarOperador(ListaOperador *lista, TipoOperador operadorAtualizado, int id){
     // variavel auxiliar para percorrer a lista
-    ListaOperadorSistema *atual = lista;
+    ListaOperador *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -89,9 +89,9 @@ int atualizarOperadoresSistema(ListaOperadorSistema *lista, TipoOperadorSistema 
     return 0;
 }
 
-TipoOperadorSistema* buscarOperadoresSistema(ListaOperadorSistema *lista, int id){
+TipoOperador* buscarOperador(ListaOperador *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaOperadorSistema *atual = lista;
+    ListaOperador *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){

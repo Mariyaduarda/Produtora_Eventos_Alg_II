@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "fornecedorParceiro.h"
+#include "fornecedor.h"
 
-void inicializarFornecedoresParceiros(TipoFornecedorParceiro *fornecedor){
+void inicializarFornecedor(TipoFornecedor *fornecedor){
     fornecedor->ativo = true;
     fornecedor->id = 0;
     strcpy(fornecedor->nomeFantasia, "");
@@ -13,14 +13,14 @@ void inicializarFornecedoresParceiros(TipoFornecedorParceiro *fornecedor){
     strcpy(fornecedor->tipoServico, "");
 }
 
-void inicializarListaFornecedoresParceiros(ListaFornecedorParceiro *lista){
+void inicializarListaFornecedor(ListaFornecedor *lista){
     lista->prox = NULL;
-    inicializarFornecedoresParceiros(&lista->fornecedor);
+    inicializarFornecedor(&lista->fornecedor);
 }
 
-int adicionarFornecedoresParceiros(ListaFornecedorParceiro **lista, TipoFornecedorParceiro fornecedor){
+int adicionarFornecedor(ListaFornecedor **lista, TipoFornecedor fornecedor){
     // aloca o espaco para um novo no'
-    ListaFornecedorParceiro *novo = (ListaFornecedorParceiro *)malloc(sizeof(ListaFornecedorParceiro));
+    ListaFornecedor *novo = (ListaFornecedor *)malloc(sizeof(ListaFornecedor));
     if(novo == NULL) return 0;
 
     // atribui os dados ao novo no'
@@ -35,7 +35,7 @@ int adicionarFornecedoresParceiros(ListaFornecedorParceiro **lista, TipoForneced
     } else { // se n estiver vazia, percorre ate' o final da lista
 
         // variavel auxiliar para percorrer a lista
-        ListaFornecedorParceiro *atual = *lista;
+        ListaFornecedor *atual = *lista;
         // percorre ate' o final da lista
         while(atual->prox != NULL) atual = atual->prox;
 
@@ -50,9 +50,9 @@ int adicionarFornecedoresParceiros(ListaFornecedorParceiro **lista, TipoForneced
     return 1;
 }
 
-int removerFornecedoresParceiros(ListaFornecedorParceiro **lista, int id){
+int removerFornecedor(ListaFornecedor **lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaFornecedorParceiro *atual = *lista;
+    ListaFornecedor *atual = *lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -72,9 +72,9 @@ int removerFornecedoresParceiros(ListaFornecedorParceiro **lista, int id){
     return 0;
 }
 
-int atualizarFornecedoresParceiros(ListaFornecedorParceiro *lista, TipoFornecedorParceiro fornecedorAtualizado, int id){
+int atualizarFornecedor(ListaFornecedor *lista, TipoFornecedor fornecedorAtualizado, int id){
     // variavel auxiliar para percorrer a lista
-    ListaFornecedorParceiro *atual = lista;
+    ListaFornecedor *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -93,9 +93,9 @@ int atualizarFornecedoresParceiros(ListaFornecedorParceiro *lista, TipoFornecedo
     return 0;
 }
 
-TipoFornecedorParceiro* buscarFornecedoresParceirosPorId(ListaFornecedorParceiro *lista, int id){
+TipoFornecedor* buscarFornecedor(ListaFornecedor *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaFornecedorParceiro *atual = lista;
+    ListaFornecedor *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){

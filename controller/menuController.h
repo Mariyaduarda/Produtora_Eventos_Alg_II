@@ -6,19 +6,19 @@
 #include "../view/menuView.h"
 #include "../utils/utils_tela.h"
 #include "../model/cliente.h"
-#include "../model/fornecedorParceiro.h"
+#include "../model/fornecedor.h"
 #include "../model/produtora.h"
-#include "../model/equipeInterna.h"
-#include "../model/recursoEquipamento.h"
-#include "../model/operadorSistema.h"
+#include "../model/equipe.h"
+#include "../model/recurso.h"
+#include "../model/operador.h"
 
 // Inclui todos os menus CRUD
 #include "menuCrud/menuCliente.h"
-#include "menuCrud/menuFornecedorParceiro.h"
+#include "menuCrud/menuFornecedor.h"
 #include "menuCrud/menuProdutora.h"
-#include "menuCrud/menuEquipeInterna.h"
-#include "menuCrud/menuRecursoEquipamento.h"
-#include "menuCrud/menuOperadorSistema.h"
+#include "menuCrud/menuEquipe.h"
+#include "menuCrud/menuRecurso.h"
+#include "menuCrud/menuOperador.h"
 
 void menuPrincipal();
 

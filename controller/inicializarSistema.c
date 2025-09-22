@@ -1,27 +1,27 @@
 #include "inicializarSistema.h"
 
-void inicializarListas(ListaCliente **listaCliente, ListaFornecedorParceiro **listaFornecedoresParceiros, ListaProdutora **listaProdutoras, ListaEquipeInterna **listaEquipeInterna, ListaRecursoEquipamento **listaRecursosEquipamentos, ListaOperadorSistema **listaOperadoresSistema) {
+void inicializarListas(ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaProdutora **listaProdutoras, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador) {
     // Inicializa cada lista chamando a funcao correspondente
     inicializarListaCliente(*listaCliente);
-    inicializarListaFornecedoresParceiros(*listaFornecedoresParceiros);
+    inicializarListaFornecedor(*listaFornecedor);
     inicializarListaProdutora(*listaProdutoras);
-    inicializarListaEquipeInterna(*listaEquipeInterna);
-    inicializarListaRecursosEquipamentos(*listaRecursosEquipamentos);
-    inicializarListaOperadoresSistema(*listaOperadoresSistema);
+    inicializarListaEquipe(*listaEquipe);
+    inicializarListaRecurso(*listaRecurso);
+    inicializarListaOperador(*listaOperador);
 }
 
 
 void inicializarSistema() {
     // Declara as listas e inicializa elas
     ListaCliente* listaCliente = (ListaCliente*)malloc(sizeof(ListaCliente));
-    ListaFornecedorParceiro* listaFornecedoresParceiros = (ListaFornecedorParceiro*)malloc(sizeof(ListaFornecedorParceiro));
+    ListaFornecedor* listaFornecedor = (ListaFornecedor*)malloc(sizeof(ListaFornecedor));
     ListaProdutora* listaProdutoras = (ListaProdutora*)malloc(sizeof(ListaProdutora));
-    ListaEquipeInterna* listaEquipeInterna = (ListaEquipeInterna*)malloc(sizeof(ListaEquipeInterna));
-    ListaRecursoEquipamento* listaRecursosEquipamentos = (ListaRecursoEquipamento*)malloc(sizeof(ListaRecursoEquipamento));
-    ListaOperadorSistema* listaOperadoresSistema = (ListaOperadorSistema*)malloc(sizeof(ListaOperadorSistema));
-    inicializarListas(&listaCliente, &listaFornecedoresParceiros, &listaProdutoras, &listaEquipeInterna, &listaRecursosEquipamentos, &listaOperadoresSistema);
+    ListaEquipe* listaEquipe = (ListaEquipe*)malloc(sizeof(ListaEquipe));
+    ListaRecurso* listaRecurso = (ListaRecurso*)malloc(sizeof(ListaRecurso));
+    ListaOperador* listaOperador = (ListaOperador*)malloc(sizeof(ListaOperador));
+    inicializarListas(&listaCliente, &listaFornecedor, &listaProdutoras, &listaEquipe, &listaRecurso, &listaOperador);
 
     //roda o menu principal
-    menuPrincipal(&listaCliente, &listaFornecedoresParceiros, &listaProdutoras, &listaEquipeInterna, &listaRecursosEquipamentos, &listaOperadoresSistema);
+    menuPrincipal(&listaCliente, &listaFornecedor, &listaProdutoras, &listaEquipe, &listaRecurso, &listaOperador);
     
 }

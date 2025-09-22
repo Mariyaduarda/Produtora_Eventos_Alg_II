@@ -1,6 +1,6 @@
-#include "equipeInterna.h"
+#include "equipe.h"
 
-void incializarEquipeInterna(TipoEquipeInterna *equipe){
+void inicializarEquipe(TipoEquipe *equipe){
     equipe->ativo = true;
     equipe->id = 0;
     strcpy(equipe->nome, "");
@@ -9,14 +9,14 @@ void incializarEquipeInterna(TipoEquipeInterna *equipe){
     equipe->valorDiariaHora = 0.0;
 }
 
-void inicializarListaEquipeInterna(ListaEquipeInterna *lista){
+void inicializarListaEquipe(ListaEquipe *lista){
     lista->prox = NULL;
-    incializarEquipeInterna(&lista->equipe);
+    inicializarEquipe(&lista->equipe);
 }
 
-int adicionarEquipeInterna(ListaEquipeInterna **lista, TipoEquipeInterna equipe){
+int adicionarEquipe(ListaEquipe **lista, TipoEquipe equipe){
     // aloca o espaco para um novo no'
-    ListaEquipeInterna *novo = (ListaEquipeInterna *)malloc(sizeof(ListaEquipeInterna));
+    ListaEquipe *novo = (ListaEquipe *)malloc(sizeof(ListaEquipe));
     if(novo == NULL) return 0;
 
     // atribui os dados ao novo no'
@@ -31,7 +31,7 @@ int adicionarEquipeInterna(ListaEquipeInterna **lista, TipoEquipeInterna equipe)
     } else { // se n estiver vazia, percorre ate' o final da lista
 
         // variavel auxiliar para percorrer a lista
-        ListaEquipeInterna *atual = *lista;
+        ListaEquipe *atual = *lista;
         // percorre ate' o final da lista
         while(atual->prox != NULL) atual = atual->prox;
 
@@ -47,9 +47,9 @@ int adicionarEquipeInterna(ListaEquipeInterna **lista, TipoEquipeInterna equipe)
 
 }
 
-int removerEquipeInterna(ListaEquipeInterna **lista, int id){
+int removerEquipe(ListaEquipe **lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaEquipeInterna *atual = *lista;
+    ListaEquipe *atual = *lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -69,9 +69,9 @@ int removerEquipeInterna(ListaEquipeInterna **lista, int id){
     return 0;
 }
 
-int atualizarEquipeInterna(ListaEquipeInterna *lista, TipoEquipeInterna equipeAtualizado, int id){
+int atualizarEquipe(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id){
     // variavel auxiliar para percorrer a lista
-    ListaEquipeInterna *atual = lista;
+    ListaEquipe *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -90,9 +90,9 @@ int atualizarEquipeInterna(ListaEquipeInterna *lista, TipoEquipeInterna equipeAt
     return 0;
 }
 
-TipoEquipeInterna* buscarEquipeInterna(ListaEquipeInterna *lista, int id){
+TipoEquipe* buscarEquipe(ListaEquipe *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaEquipeInterna *atual = lista;
+    ListaEquipe *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){

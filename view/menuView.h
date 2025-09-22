@@ -9,10 +9,10 @@
 
 void printMenuPrincipal();
 void printMenuCliente();
-void printMenuFornecedorParceiro();
+void printMenuFornecedor();
 void printMenuProdutora();
-void printMenuEquipeInterna();
-void printMenuRecursoEquipamento();
-void printMenuOperadorSistema();
+void printMenuEquipe();
+void printMenuRecurso();
+void printMenuOperador();
 
 #endif // MENU_VIEW_H

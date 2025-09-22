@@ -2,7 +2,7 @@
 #include <string.h>
 #include "produtora.h"
 
-void inicializarProdutora(Produtora *produtora){
+void inicializarProdutora(TipoProdutora *produtora){
     produtora->ativo = true;
     produtora->id = 0;
     strcpy(produtora->nomeFantasia, "");
@@ -22,7 +22,7 @@ void inicializarListaProdutora(ListaProdutora *lista){
     inicializarProdutora(&lista->produtora);
 }
 
-int adicionarProdutora(ListaProdutora **lista, Produtora produtora){
+int adicionarProdutora(ListaProdutora **lista, TipoProdutora produtora){
     // aloca o espaco para um novo no'
     ListaProdutora *novo = (ListaProdutora *)malloc(sizeof(ListaProdutora));
     if(novo == NULL) return 0;
@@ -76,7 +76,7 @@ int removerProdutora(ListaProdutora **lista, int id){
     return 0;
 }
 
-int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada, int id){
+int atualizarProdutora(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id){
     // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = lista;
 
@@ -97,7 +97,7 @@ int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada, int
     return 0;
 }
 
-Produtora* buscarProdutoraPorId(ListaProdutora *lista, int id){
+TipoProdutora* buscarProdutora(ListaProdutora *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = lista;
 

@@ -4,8 +4,8 @@ TipoCliente menuClienteRecebe() {
     // Recebe um novo Cliente do usuario e retorna o cliente preenchido
     TipoCliente cliente;
     inicializarCliente(&cliente);
-    
-    //Recebe os dados do cliente
+
+    // Recebe os dados do cliente
     cliente.id = 0; // ID sera atribuido automaticamente
     recebeNome(cliente.nome, 100);
     recebeCPF(cliente.cpf_cnpj);
@@ -13,6 +13,24 @@ TipoCliente menuClienteRecebe() {
     recebeEmail(cliente.email, 100);
 
     return cliente;
+}
+
+void listarClientes(ListaCliente *lista) {
+    limparTela();
+
+    // Lista todos os clientes cadastrados
+    if (lista == NULL) {
+        printf("\n => Nenhum cliente cadastrado.\n");
+        return;
+    }
+
+    ListaCliente *atual = lista->prox; // Pula o no' cabeca
+    while (atual != NULL) {
+        // Se Item estiver ativo, printa
+        if (atual->cliente.ativo) printItemCliente(atual->cliente);
+        atual = atual->prox;
+    }
+    printf("\n");
 }
 
 void menuCliente(ListaCliente **listaCliente) {
@@ -24,6 +42,8 @@ void menuCliente(ListaCliente **listaCliente) {
 
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
+        getchar(); // Limpa o buffer do teclado
+
         switch (escolha){
             case 1:
                 // Adicionar Cliente
@@ -39,11 +59,13 @@ void menuCliente(ListaCliente **listaCliente) {
                 break;
             case 4:
                 // Buscar Cliente
-                buscaCliente(*listaCliente, recebeID());
+                printItemCliente(*buscarCliente(*listaCliente, recebeID()));
+                esperaEnter();
                 break;
             case 5:
                 // Listar Clientes
                 listarClientes(*listaCliente);
+                esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal

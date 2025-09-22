@@ -26,7 +26,6 @@ void recebeNome(char *nome, int maxTam) {
 
         //le o nome
         fgets(nome, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         nome[strcspn(nome, "\n")] = 0;
@@ -43,12 +42,11 @@ void recebeCPF(char *cpf) {
 
         //le o cpf
         fgets(cpf, 12, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         cpf[strcspn(cpf, "\n")] = 0;
 
-    } while (strlen(cpf) != 11);
+    } while (strlen(cpf) > 11);
 }
 
 // Recebe um CNPJ
@@ -60,12 +58,11 @@ void recebeCNPJ(char *cnpj) {
 
         //le o cnpj
         fgets(cnpj, 15, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         cnpj[strcspn(cnpj, "\n")] = 0;
 
-    } while (strlen(cnpj) != 14);
+    } while (strlen(cnpj) > 14);
 }
 
 // Recebe um telefone
@@ -77,7 +74,6 @@ void recebeTelefone(char *telefone) {
 
         //le o telefone
         fgets(telefone, 16, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         telefone[strcspn(telefone, "\n")] = 0;
@@ -94,7 +90,6 @@ void recebeEmail(char *email, int maxTam) {
 
         //le o email
         fgets(email, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         email[strcspn(email, "\n")] = 0;
@@ -111,7 +106,6 @@ void recebeNomeDoContato(char *nomeDoContato, int maxTam) {
 
         //le o nome do contato
         fgets(nomeDoContato, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         nomeDoContato[strcspn(nomeDoContato, "\n")] = 0;
@@ -128,7 +122,6 @@ void recebeFuncao(char *funcao, int maxTam) {
 
         //le a funcao
         fgets(funcao, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         funcao[strcspn(funcao, "\n")] = 0;
@@ -179,7 +172,6 @@ void recebeNomeFantasia(char *nomeFantasia, int maxTam) {
 
         //le o nome fantasia
         fgets(nomeFantasia, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         nomeFantasia[strcspn(nomeFantasia, "\n")] = 0;
@@ -196,7 +188,6 @@ void recebeRazaoSocial(char *razaoSocial, int maxTam) {
 
         //le a razao social
         fgets(razaoSocial, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         razaoSocial[strcspn(razaoSocial, "\n")] = 0;
@@ -213,7 +204,6 @@ void recebeEndereco(char *endereco, int maxTam) {
 
         //le o endereco
         fgets(endereco, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         endereco[strcspn(endereco, "\n")] = 0;
@@ -230,7 +220,6 @@ void recebeTipoServico(char *tipoServico, int maxTam) {
 
         //le o tipo de servico
         fgets(tipoServico, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         tipoServico[strcspn(tipoServico, "\n")] = 0;
@@ -247,7 +236,6 @@ void recebeNomeUsuario(char *nomeUsuario, int maxTam) {
 
         //le o nome de usuario
         fgets(nomeUsuario, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         nomeUsuario[strcspn(nomeUsuario, "\n")] = 0;
@@ -264,8 +252,6 @@ void recebeSenha(char *senha, int maxTam) {
 
         //le a senha
         fgets(senha, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
-
         // tira o \n do final da string, ja que o fgets pega ele
         senha[strcspn(senha, "\n")] = 0;
 
@@ -281,7 +267,6 @@ void recebeInscricaoEstadual(char *inscricaoEstadual) {
 
         //le a inscricao estadual
         fgets(inscricaoEstadual, 11, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         inscricaoEstadual[strcspn(inscricaoEstadual, "\n")] = 0;
@@ -315,7 +300,6 @@ void recebeDescricao(char *descricao, int maxTam) {
 
         //le a descricao
         fgets(descricao, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         descricao[strcspn(descricao, "\n")] = 0;
@@ -332,7 +316,6 @@ void recebeCategoria(char *categoria, int maxTam) {
 
         //le a categoria
         fgets(categoria, maxTam, stdin);
-        getchar(); // Limpa o buffer do teclado
 
         // tira o \n do final da string, ja que o fgets pega ele
         categoria[strcspn(categoria, "\n")] = 0;

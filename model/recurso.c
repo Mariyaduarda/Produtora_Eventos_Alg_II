@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include "recursoEquipamento.h"
+#include "recurso.h"
 
-void inicializarRecursosEquipamentos(TipoRecursoEquipamento *recurso){
+void inicializarRecurso(TipoRecurso *recurso){
     recurso->ativo = true;
     recurso->id = 0;
     strcpy(recurso->descricao, "");
@@ -12,14 +12,14 @@ void inicializarRecursosEquipamentos(TipoRecursoEquipamento *recurso){
     recurso->valorLocacao = 0.0;
 }
 
-void inicializarListaRecursosEquipamentos(ListaRecursoEquipamento *lista){
+void inicializarListaRecurso(ListaRecurso *lista){
     lista->prox = NULL;
-    inicializarRecursosEquipamentos(&lista->recurso);
+    inicializarRecurso(&lista->recurso);
 }
 
-int adicionarRecursosEquipamentos(ListaRecursoEquipamento **lista, TipoRecursoEquipamento recurso){
+int adicionarRecurso(ListaRecurso **lista, TipoRecurso recurso){
     // aloca o espaco para um novo no'
-    ListaRecursoEquipamento *novo = (ListaRecursoEquipamento *)malloc(sizeof(ListaRecursoEquipamento));
+    ListaRecurso *novo = (ListaRecurso *)malloc(sizeof(ListaRecurso));
     if(novo == NULL) return 0;
 
     // atribui os dados ao novo no'
@@ -34,7 +34,7 @@ int adicionarRecursosEquipamentos(ListaRecursoEquipamento **lista, TipoRecursoEq
     } else { // se n estiver vazia, percorre ate' o final da lista
 
         // variavel auxiliar para percorrer a lista
-        ListaRecursoEquipamento *atual = *lista;
+        ListaRecurso *atual = *lista;
         // percorre ate' o final da lista
         while(atual->prox != NULL) atual = atual->prox;
 
@@ -49,9 +49,9 @@ int adicionarRecursosEquipamentos(ListaRecursoEquipamento **lista, TipoRecursoEq
     return 1;
 }
 
-int removerRecursosEquipamentos(ListaRecursoEquipamento **lista, int id){
+int removerRecurso(ListaRecurso **lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaRecursoEquipamento *atual = *lista;
+    ListaRecurso *atual = *lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -71,9 +71,9 @@ int removerRecursosEquipamentos(ListaRecursoEquipamento **lista, int id){
     return 0;
 }
 
-int atualizarRecursosEquipamentos(ListaRecursoEquipamento *lista, TipoRecursoEquipamento recursoAtualizado, int id){
+int atualizarRecurso(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id){
     // variavel auxiliar para percorrer a lista
-    ListaRecursoEquipamento *atual = lista;
+    ListaRecurso *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
@@ -92,9 +92,9 @@ int atualizarRecursosEquipamentos(ListaRecursoEquipamento *lista, TipoRecursoEqu
     return 0;
 }
 
-TipoRecursoEquipamento* buscarRecursosEquipamentosPorId(ListaRecursoEquipamento *lista, int id){
+TipoRecurso* buscarRecurso(ListaRecurso *lista, int id){
     // variavel auxiliar para percorrer a lista
-    ListaRecursoEquipamento *atual = lista;
+    ListaRecurso *atual = lista;
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){

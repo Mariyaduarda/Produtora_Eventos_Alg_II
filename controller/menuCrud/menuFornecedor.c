@@ -1,0 +1,83 @@
+#include "menuFornecedor.h"
+
+TipoFornecedor menuFornecedorRecebe() {
+    // Recebe um novo Fornecedor/Parceiro do usuario e retorna o fornecedor/parceiro preenchido
+    TipoFornecedor fornecedor;
+    inicializarFornecedor(&fornecedor);
+
+    // Recebe os dados do fornecedor/parceiro
+    fornecedor.id = 0; // ID sera atribuido automaticamente
+    recebeNomeFantasia(fornecedor.nomeFantasia, 100);
+    recebeRazaoSocial(fornecedor.razaoSocial, 100);
+    recebeCPF(fornecedor.cpf_cnpj);
+    recebeEndereco(fornecedor.endereco, 100);
+    recebeTelefone(fornecedor.telefone);
+    recebeTipoServico(fornecedor.tipoServico, 100);
+
+    return fornecedor;
+}
+
+void listarFornecedor(ListaFornecedor *lista) {
+    limparTela();
+
+    // Lista todos os fornecedores/parceiros cadastrados
+    if (lista == NULL) {
+        printf("\n => Nenhum fornecedor/parceiro cadastrado.\n");
+        return;
+    }
+
+    ListaFornecedor *atual = lista->prox; // Pula o no' cabeca
+    while (atual != NULL) {
+        // Se Item estiver ativo, printa
+        if (atual->fornecedor.ativo) printItemFornecedor(atual->fornecedor);
+        atual = atual->prox;
+    }
+    printf("\n");
+}
+
+void menuFornecedor(ListaFornecedor **listaFornecedor) {
+    // Enquanto o usuario n quiser sair, continua no menu
+    int escolha=1;
+    while (escolha != 0){
+        // Exibe o menu de Fornecedor/Parceiro
+        printMenuFornecedor();
+
+        // Recebe a escolha do usuario
+        scanf("%d", &escolha);
+        getchar(); // Limpa o buffer do teclado
+
+        switch (escolha){
+            case 1:
+                // Adicionar Fornecedor/Parceiro
+                adicionarFornecedor(listaFornecedor, menuFornecedorRecebe());
+                break;
+            case 2:
+                // Remover Fornecedor/Parceiro
+                removerFornecedor(listaFornecedor, recebeID());
+                break;
+            case 3:
+                // Atualizar Fornecedor/Parceiro
+                atualizarFornecedor(*listaFornecedor, menuFornecedorRecebe(), recebeID());
+                break;
+            case 4:
+                // Buscar Fornecedor/Parceiro
+                printItemFornecedor(*buscarFornecedor(*listaFornecedor, recebeID()));
+                esperaEnter();
+                break;
+            case 5:
+                // Listar Fornecedores/Parceiros
+                listarFornecedor(*listaFornecedor);
+                esperaEnter();
+                break;
+            case 0:
+                // Voltar ao menu principal
+                printf("\n => Voltando ao menu principal...\n");
+                break;
+            default:
+                printf("\n => Opcao invalida! Tente novamente.\n");
+                esperaEnter();
+                break;
+        }
+    }
+    
+}

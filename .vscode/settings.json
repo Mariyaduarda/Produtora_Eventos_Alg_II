@@ -2,19 +2,20 @@
     "files.associations": {
         "menuview.h": "c",
         "menucontroller.h": "c",
-        "operadorsistema.h": "c",
+        "operador.h": "c",
         "stdio.h": "c",
-        "fornecedorparceiro.h": "c",
+        "fornecedor.h": "c",
         "cliente.h": "c",
         "produtora.h": "c",
         "string.h": "c",
         "menucrud.h": "c",
         "menucliente.h": "c",
-        "menuequipeinterna.h": "c",
-        "recursoequipamento.h": "c",
-        "equipeinterna.h": "c",
-        "menufornecedorparceiro.h": "c",
+        "menuequipe.h": "c",
+        "recurso.h": "c",
+        "equipe.h": "c",
+        "menufornecedor.h": "c",
         "utils_tela.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "recebedados.h": "c"
     }
 }

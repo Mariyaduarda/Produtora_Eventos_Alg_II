@@ -2,10 +2,12 @@
 #define MENU_PRODUTORA_H
 
 #include "../../model/produtora.h"
-#include "../../view/menuView.h"
+
 #include "../../utils/utils_tela.h"
 
 #include "../../view/recebeDados.h"
+#include "../../view/menuView.h"
+#include "../../view/mostrarItem.h"
 
 void menuProdutora(ListaProdutora **listaProdutora);
 

@@ -19,18 +19,18 @@ typedef struct {
     char nomeDoResponsavel[50];
     char telefoneDoResponsavel[15];
     float margemDeLucro;
-} Produtora;
+} TipoProdutora;
 
 typedef struct ListaProdutora{
     struct ListaProdutora *prox;
-    Produtora produtora;
+    TipoProdutora produtora;
 } ListaProdutora;
 
-void inicializarProdutora(Produtora *produtora);
+void inicializarProdutora(TipoProdutora *produtora);
 void inicializarListaProdutora(ListaProdutora *lista);
-int adicionarProdutora(ListaProdutora **lista, Produtora produtora);
+int adicionarProdutora(ListaProdutora **lista, TipoProdutora produtora);
 int removerProdutora(ListaProdutora **lista, int id);
-int atualizarProdutora(ListaProdutora *lista, Produtora produtoraAtualizada, int id);
-Produtora* buscarProdutora(ListaProdutora *lista, int id);
+int atualizarProdutora(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id);
+TipoProdutora* buscarProdutora(ListaProdutora *lista, int id);
 
 #endif // PRODUTORA_H
