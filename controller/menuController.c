@@ -9,6 +9,7 @@ void menuPrincipal(ListaCliente **listaCliente, ListaFornecedor **listaFornecedo
 
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
+        getchar(); // Limpa o buffer do teclado
         switch (escolha){
             case 1:
                 // Gerenciar TipoCliente

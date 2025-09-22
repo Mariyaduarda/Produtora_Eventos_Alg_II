@@ -6,7 +6,7 @@ int recebeID() {
     //enquanto o id for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o ID (maior ou igual a 0):\n");
+        printf(" => Digite o ID (maior ou igual a 0):\n");
 
         //le o id
         scanf("%d", &id);
@@ -22,7 +22,7 @@ void recebeNome(char *nome, int maxTam) {
     //enquanto o nome for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o nome (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o nome (max %d caracteres):\n", maxTam - 1);
 
         //le o nome
         fgets(nome, maxTam, stdin);
@@ -38,7 +38,7 @@ void recebeCPF(char *cpf) {
     //enquanto o cpf for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o CPF (somente numeros, 11 digitos):\n");
+        printf(" => Digite o CPF (somente numeros, 11 digitos):\n");
 
         //le o cpf
         fgets(cpf, 12, stdin);
@@ -54,7 +54,7 @@ void recebeCNPJ(char *cnpj) {
     //enquanto o cnpj for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o CNPJ (somente numeros, 14 digitos):\n");
+        printf(" => Digite o CNPJ (somente numeros, 14 digitos):\n");
 
         //le o cnpj
         fgets(cnpj, 15, stdin);
@@ -70,7 +70,7 @@ void recebeTelefone(char *telefone) {
     //enquanto o telefone for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o telefone (somente numeros, max 15 digitos):\n");
+        printf(" => Digite o telefone (somente numeros, max 15 digitos):\n");
 
         //le o telefone
         fgets(telefone, 16, stdin);
@@ -86,7 +86,7 @@ void recebeEmail(char *email, int maxTam) {
     //enquanto o email for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o email (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o email (max %d caracteres):\n", maxTam - 1);
 
         //le o email
         fgets(email, maxTam, stdin);
@@ -102,7 +102,7 @@ void recebeNomeDoContato(char *nomeDoContato, int maxTam) {
     //enquanto o nome do contato for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o nome do contato (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o nome do contato (max %d caracteres):\n", maxTam - 1);
 
         //le o nome do contato
         fgets(nomeDoContato, maxTam, stdin);
@@ -118,7 +118,7 @@ void recebeFuncao(char *funcao, int maxTam) {
     //enquanto a funcao for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a funcao (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite a funcao (max %d caracteres):\n", maxTam - 1);
 
         //le a funcao
         fgets(funcao, maxTam, stdin);
@@ -135,7 +135,7 @@ float recebeValorDiaria() {
     //enquanto o valor for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o valor da diaria (maior ou igual a 0):\n");
+        printf(" => Digite o valor da diaria (maior ou igual a 0):\n");
 
         //le o valor
         scanf("%f", &valor);
@@ -152,7 +152,7 @@ float recebeValorHora() {
     //enquanto o valor for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o valor da hora (maior ou igual a 0):\n");
+        printf(" => Digite o valor da hora (maior ou igual a 0):\n");
 
         //le o valor
         scanf("%f", &valor);
@@ -168,7 +168,7 @@ void recebeNomeFantasia(char *nomeFantasia, int maxTam) {
     //enquanto o nome fantasia for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o nome fantasia (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o nome fantasia (max %d caracteres):\n", maxTam - 1);
 
         //le o nome fantasia
         fgets(nomeFantasia, maxTam, stdin);
@@ -184,7 +184,7 @@ void recebeRazaoSocial(char *razaoSocial, int maxTam) {
     //enquanto a razao social for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a razao social (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite a razao social (max %d caracteres):\n", maxTam - 1);
 
         //le a razao social
         fgets(razaoSocial, maxTam, stdin);
@@ -200,7 +200,7 @@ void recebeEndereco(char *endereco, int maxTam) {
     //enquanto o endereco for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o endereco (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o endereco (max %d caracteres):\n", maxTam - 1);
 
         //le o endereco
         fgets(endereco, maxTam, stdin);
@@ -216,7 +216,7 @@ void recebeTipoServico(char *tipoServico, int maxTam) {
     //enquanto o tipo de servico for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o tipo de servico (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o tipo de servico (max %d caracteres):\n", maxTam - 1);
 
         //le o tipo de servico
         fgets(tipoServico, maxTam, stdin);
@@ -232,7 +232,7 @@ void recebeNomeUsuario(char *nomeUsuario, int maxTam) {
     //enquanto o nome de usuario for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o nome de usuario (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite o nome de usuario (max %d caracteres):\n", maxTam - 1);
 
         //le o nome de usuario
         fgets(nomeUsuario, maxTam, stdin);
@@ -248,7 +248,7 @@ void recebeSenha(char *senha, int maxTam) {
     //enquanto a senha for invalida, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a senha (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite a senha (max %d caracteres):\n", maxTam - 1);
 
         //le a senha
         fgets(senha, maxTam, stdin);
@@ -263,7 +263,7 @@ void recebeInscricaoEstadual(char *inscricaoEstadual) {
     //enquanto a inscricao estadual for invalida, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a inscricao estadual (somente numeros, 10 digitos):\n");
+        printf(" => Digite a inscricao estadual (somente numeros, 10 digitos):\n");
 
         //le a inscricao estadual
         fgets(inscricaoEstadual, 11, stdin);
@@ -280,7 +280,7 @@ float recebeMargemDeLucro() {
     //enquanto a margem de lucro for invalida, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a margem de lucro (entre 0 e 100):\n");
+        printf(" => Digite a margem de lucro (entre 0 e 100):\n");
 
         //le a margem de lucro
         scanf("%f", &margem);
@@ -296,7 +296,7 @@ void recebeDescricao(char *descricao, int maxTam) {
     //enquanto a descricao for invalida, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a descricao (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite a descricao (max %d caracteres):\n", maxTam - 1);
 
         //le a descricao
         fgets(descricao, maxTam, stdin);
@@ -312,7 +312,7 @@ void recebeCategoria(char *categoria, int maxTam) {
     //enquanto a categoria for invalida, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a categoria (max %d caracteres):\n", maxTam - 1);
+        printf(" => Digite a categoria (max %d caracteres):\n", maxTam - 1);
 
         //le a categoria
         fgets(categoria, maxTam, stdin);
@@ -329,7 +329,7 @@ int recebeQuantidadeEstoque() {
     //enquanto a quantidade em estoque for invalida, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite a quantidade em estoque (maior ou igual a 0):\n");
+        printf(" => Digite a quantidade em estoque (maior ou igual a 0):\n");
 
         //le a quantidade em estoque
         scanf("%d", &qtd);
@@ -346,7 +346,7 @@ float recebePrecoCusto() {
     //enquanto o preco de custo for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o preco de custo (maior ou igual a 0):\n");
+        printf(" => Digite o preco de custo (maior ou igual a 0):\n");
 
         //le o preco de custo
         scanf("%f", &preco);
@@ -363,7 +363,7 @@ float recebeValorLocacao() {
     //enquanto o valor de locacao for invalido, pede para digitar novamente
     do {
         //mensagem pro usuario
-        printf("\n => Digite o valor de locacao (maior ou igual a 0):\n");
+        printf(" => Digite o valor de locacao (maior ou igual a 0):\n");
 
         //le o valor de locacao
         scanf("%f", &valor);
