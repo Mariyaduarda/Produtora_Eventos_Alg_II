@@ -21,5 +21,6 @@ void printValorInvalido();
 
 // gen
 void printMensagem(char *msg1, char *msg2);
+int printConfirma();
 
 #endif // MENSAGENS_H

@@ -45,7 +45,7 @@ void printValorInvalido() {
 }
 
 // ====================================
-// GENERICO
+// OUTROS
 void printMensagem(char *msg1, char *msg2){
     //printa msg no seguinte formato, com 70 chars no total
     // " [msg1]========================[msg2] "
@@ -58,4 +58,20 @@ void printMensagem(char *msg1, char *msg2){
     printf(" [ %s ]",msg1);                 //msg 1
     for (int i=0 ; i<=n ; i++) printf("="); // =
     printf("[ %s ] ",msg2);                 //msg 2
+}
+
+int printConfirma(){
+    // guarda a escolha
+    int confirma; 
+
+    // Enquanto usuario n digitar 1 ou 0, fica perguntando
+    do{
+        printMensagem("Voce tem certeza?", "1.Sim | 0.Nao");
+        scanf("%d",&confirma);
+        getchar(); // Limpa o buffer do teclado
+
+    }while ( confirma != 1 && confirma != 0);
+    
+    //retorna a escolha
+    return confirma;
 }
