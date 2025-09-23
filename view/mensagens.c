@@ -53,7 +53,9 @@ void printMensagem(char *msg1, char *msg2){
     int tam1 = strlen(msg1);
     int tam2 = strlen(msg2);
 
+    // Calcula quantos '=' vai ser colocado
     int n = total - tam1 - tam2 - 11;
+    if (n<0) n = 0;
 
     printf(" [ %s ]",msg1);                 //msg 1
     for (int i=0 ; i<=n ; i++) printf("="); // =
