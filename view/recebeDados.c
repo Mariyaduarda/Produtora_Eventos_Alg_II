@@ -7,14 +7,15 @@ int recebeID() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o ID (maior ou igual a 0):\n");
+        printf(" [ Digite o ID ]=============================================[Min. 1] ");
+        printf("\n => ");
 
         //le o id
         scanf("%d", &id);
         getchar(); // Limpa o buffer do teclado
 
         //confere se ta tudo ok
-        if (id >= 0) break;
+        if (id >= 1) break;
         printValorInvalido();
     }
 
@@ -28,7 +29,9 @@ void recebeNome(char *nome, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o nome (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o nome ]==============================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
+
 
         //le o nome
         fgets(nome, maxTam, stdin);
@@ -48,7 +51,8 @@ void recebeCPF(char *cpf) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o CPF (somente numeros, 11 digitos):\n");
+        printf(" [ Digite o CPF ]========================================[11 digitos] ");
+        printf("\n => ");
 
         //le o cpf
         fgets(cpf, 12, stdin);
@@ -57,7 +61,7 @@ void recebeCPF(char *cpf) {
         cpf[strcspn(cpf, "\n")] = 0;
 
         //confere se ta tudo ok
-        if (strlen(cpf) == 11) break;
+        if (strlen(cpf) <= 11) break;
         printValorInvalido();
     }
     
@@ -69,7 +73,8 @@ void recebeCNPJ(char *cnpj) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o CNPJ (somente numeros, 14 digitos):\n");
+        printf(" [ Digite o CNPJ ]=======================================[14 digitos] ");
+        printf("\n => ");
 
         //le o cnpj
         fgets(cnpj, 15, stdin);
@@ -78,7 +83,7 @@ void recebeCNPJ(char *cnpj) {
         cnpj[strcspn(cnpj, "\n")] = 0;
 
         //confere se ta tudo ok
-        if (strlen(cnpj) == 14) break;
+        if (strlen(cnpj) <= 14) break;
         printValorInvalido();
     }
 }
@@ -89,7 +94,8 @@ void recebeTelefone(char *telefone) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o telefone (somente numeros, 10 ou 11 digitos):\n");
+        printf(" [ Digite o Telefone ]=============================[10 ou 11 digitos] ");
+        printf("\n => ");
 
         //le o telefone
         fgets(telefone, 12, stdin);
@@ -98,7 +104,7 @@ void recebeTelefone(char *telefone) {
         telefone[strcspn(telefone, "\n")] = 0;
 
         //confere se ta tudo ok
-        if (strlen(telefone) == 10 || strlen(telefone) == 11) break;
+        if (strlen(telefone) <= 10 || strlen(telefone) <= 11) break;
         printValorInvalido();
     }
 }
@@ -109,7 +115,8 @@ void recebeEmail(char *email, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o email (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o Email ]=============================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le o email
         fgets(email, maxTam, stdin);
@@ -129,7 +136,8 @@ void recebeNomeDoContato(char *nomeDoContato, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o nome do contato (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o Nome do Contato ]===================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le o nome do contato
         fgets(nomeDoContato, maxTam, stdin);
@@ -150,7 +158,8 @@ void recebeFuncao(char *funcao, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a funcao (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite a Funcao ]============================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le a funcao
         fgets(funcao, maxTam, stdin);
@@ -171,7 +180,8 @@ float recebeValorDiaria() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o valor da diaria (maior ou igual a 0):\n");
+        printf(" [ Digite o Valor da Diaria ]================================[Min. 0] ");
+        printf("\n => ");
 
         //le o valor
         scanf("%f", &valor);
@@ -192,7 +202,8 @@ float recebeValorHora() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o valor da hora (maior ou igual a 0):\n");
+        printf(" [ Digite o Valor da Hora ]==================================[Min. 0] ");
+        printf("\n => ");
 
         //le o valor
         scanf("%f", &valor);
@@ -212,7 +223,8 @@ void recebeNomeFantasia(char *nomeFantasia, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o nome fantasia (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o Nome Fantasia ]=====================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le o nome fantasia
         fgets(nomeFantasia, maxTam, stdin);
@@ -232,7 +244,8 @@ void recebeRazaoSocial(char *razaoSocial, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a razao social (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite a Razao Social ]======================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le a razao social
         fgets(razaoSocial, maxTam, stdin);
@@ -252,7 +265,8 @@ void recebeEndereco(char *endereco, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o endereco (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o Endereco ]==========================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le o endereco
         fgets(endereco, maxTam, stdin);
@@ -272,7 +286,8 @@ void recebeTipoServico(char *tipoServico, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o tipo de servico (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o Tipo de Servico ]===================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le o tipo de servico
         fgets(tipoServico, maxTam, stdin);
@@ -292,7 +307,8 @@ void recebeNomeUsuario(char *nomeUsuario, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o nome de usuario (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite o Nome de Usuario ]===================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le o nome de usuario
         fgets(nomeUsuario, maxTam, stdin);
@@ -313,7 +329,8 @@ void recebeSenha(char *senha, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a senha (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite a Senha ]=============================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le a senha
         fgets(senha, maxTam, stdin);
@@ -334,7 +351,8 @@ void recebeInscricaoEstadual(char *inscricaoEstadual) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a inscricao estadual (somente numeros, 9 digitos):\n");
+        printf(" [ Digite a Inscricao Estadual ]==========================[9 digitos] ");
+        printf("\n => ");
 
         //le a inscricao estadual
         fgets(inscricaoEstadual, 10, stdin);
@@ -343,7 +361,7 @@ void recebeInscricaoEstadual(char *inscricaoEstadual) {
         inscricaoEstadual[strcspn(inscricaoEstadual, "\n")] = 0;
 
         //confere se ta tudo ok
-        if (strlen(inscricaoEstadual) == 9) break;
+        if (strlen(inscricaoEstadual) <= 9) break;
         printValorInvalido();
     }
     
@@ -356,7 +374,8 @@ float recebeMargemDeLucro() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a margem de lucro (entre 0 e 100):\n");
+        printf(" [ Digite a Margem de Lucro ]=========================[Entre 0 e 100] ");
+        printf("\n => ");
 
         //le a margem de lucro
         scanf("%f", &margem);
@@ -377,7 +396,8 @@ void recebeDescricao(char *descricao, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a descricao (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite a Descricao ]=========================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le a descricao
         fgets(descricao, maxTam, stdin);
@@ -397,7 +417,8 @@ void recebeCategoria(char *categoria, int maxTam) {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a categoria (max %d caracteres):\n", maxTam - 1);
+        printf(" [ Digite a Categoria ]=========================[Max. %3d caracteres] ", maxTam - 1);
+        printf("\n => ");
 
         //le a categoria
         fgets(categoria, maxTam, stdin);
@@ -418,7 +439,8 @@ int recebeQuantidadeEstoque() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite a quantidade em estoque (maior ou igual a 0):\n");
+        printf(" [ Digite a Qtd. em Estoque ]================================[Min. 0] ");
+        printf("\n => ");
 
         //le a quantidade em estoque
         scanf("%d", &qtd);
@@ -439,7 +461,8 @@ float recebePrecoCusto() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o preco de custo (maior ou igual a 0):\n");
+        printf(" [ Digite o Preco de Custo ]=================================[Min. 0] ");
+        printf("\n => ");
 
         //le o preco de custo
         scanf("%f", &preco);
@@ -460,7 +483,8 @@ float recebeValorLocacao() {
     while (1)
     {
         //mensagem pro usuario
-        printf(" => Digite o valor de locacao (maior ou igual a 0):\n");
+        printf(" [ Digite o Valor de Locacao ]===============================[Min. 0] ");
+        printf("\n => ");
 
         //le o valor de locacao
         scanf("%f", &valor);

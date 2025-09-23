@@ -30,19 +30,24 @@ void listarProdutoras(ListaProdutora *lista) {
         return;
     }
 
+    printTabelaLinha();
     ListaProdutora *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->produtora.ativo) printItemProdutora(atual->produtora);
         atual = atual->prox;
+
+        // se n for o ultimo, printa a linha horizontal p dividir
+        if (atual != NULL) printTabelaLinhaInterior();
     }
+    printTabelaLinha();
     printf("\n");
 }
 
 void menuProdutora(ListaProdutora **listaProdutora) {
     // Enquanto o usuario n quiser sair, continua no menu
-    int escolha=1;
-    while (escolha != 0){
+    int escolha=0;
+    do{
         // Exibe o menu de Produtora
         printMenuProdutora();
 
@@ -72,7 +77,11 @@ void menuProdutora(ListaProdutora **listaProdutora) {
             case 4:
                 // Buscar Produtora
                 TipoProdutora *produtora = buscarProdutora(*listaProdutora, recebeID());
-                if (produtora != NULL) printItemProdutora(*produtora);
+                if (produtora != NULL) {
+                    printTabelaLinha();
+                    printItemProdutora(*produtora);
+                    printTabelaLinha();
+                }
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
@@ -90,5 +99,5 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 printOpcaoInvalida();
                 esperaEnter();
         }
-    }
+    }while (escolha != 0);
 }

@@ -25,19 +25,24 @@ void listarRecurso(ListaRecurso *lista) {
         return;
     }
 
+    printTabelaLinha();
     ListaRecurso *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->recurso.ativo) printItemRecurso(atual->recurso);
         atual = atual->prox;
+
+        // se n for o ultimo, printa a linha horizontal p dividir
+        if (atual != NULL) printTabelaLinhaInterior();
     }
+    printTabelaLinha();
     printf("\n");
 }
 
 void menuRecurso(ListaRecurso **listaRecurso) {
     // Enquanto o usuario n quiser sair, continua no menu
-    int escolha=1;
-    while (escolha != 0){
+    int escolha=0;
+    do{
         // Exibe o menu de Recurso/Equipamento
         printMenuRecurso();
 
@@ -48,19 +53,31 @@ void menuRecurso(ListaRecurso **listaRecurso) {
         switch (escolha){
             case 1:
                 // Adicionar Recurso/Equipamento
-                adicionarRecurso(listaRecurso, menuRecursoRecebe());
+                if ( adicionarRecurso(listaRecurso, menuRecursoRecebe()) ) printAdicionarSucesso();
+                else printAdicionarFalha();
+                esperaEnter();
                 break;
             case 2:
                 // Remover Recurso/Equipamento
-                removerRecurso(listaRecurso, recebeID());
+                if ( removerRecurso(listaRecurso, recebeID()) ) printRemoverSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 3:
                 // Atualizar Recurso/Equipamento
-                atualizarRecurso(*listaRecurso, menuRecursoRecebe(), recebeID());
+                if ( atualizarRecurso(*listaRecurso, menuRecursoRecebe(), recebeID()) ) printAtualizarSucesso();
+                else printNaoEncontrado();
+                esperaEnter();
                 break;
             case 4:
-                // Buscar Recurso/Equipamento
-                printItemRecurso(*buscarRecurso(*listaRecurso, recebeID()));
+                // Buscar Recurso
+                TipoRecurso *recurso = buscarRecurso(*listaRecurso, recebeID());
+                if (recurso != NULL) {
+                    printTabelaLinha();
+                    printItemRecurso(*recurso);
+                    printTabelaLinha();
+                }
+                else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 5:
@@ -77,5 +94,5 @@ void menuRecurso(ListaRecurso **listaRecurso) {
                 printOpcaoInvalida();
                 esperaEnter();
         }
-    }
+    }while (escolha != 0);
 }

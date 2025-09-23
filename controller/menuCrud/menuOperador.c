@@ -23,19 +23,24 @@ void listarOperador(ListaOperador *lista) {
         return;
     }
 
+    printTabelaLinha();
     ListaOperador *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->operador.ativo) printItemOperador(atual->operador);
         atual = atual->prox;
+
+        // se n for o ultimo, printa a linha horizontal p dividir
+        if (atual != NULL) printTabelaLinhaInterior();
     }
+    printTabelaLinha();
     printf("\n");
 }
 
 void menuOperador(ListaOperador **listaOperador) {
     // Enquanto o usuario n quiser sair, continua no menu
-    int escolha=1;
-    while (escolha != 0){
+    int escolha=0;
+    do{
         // Exibe o menu de Operador do Sistema
         printMenuOperador();
 
@@ -65,7 +70,11 @@ void menuOperador(ListaOperador **listaOperador) {
             case 4:
                 // Buscar Operador do Sistema
                 TipoOperador *operador = buscarOperador(*listaOperador, recebeID());
-                if (operador != NULL) printItemOperador(*operador);
+                if (operador != NULL) {
+                    printTabelaLinha();
+                    printItemOperador(*operador);
+                    printTabelaLinha();
+                }
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
@@ -83,6 +92,6 @@ void menuOperador(ListaOperador **listaOperador) {
                 printOpcaoInvalida();
                 esperaEnter();
         }
-    }
+    }while (escolha != 0);
     
 }

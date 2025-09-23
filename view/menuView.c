@@ -4,53 +4,73 @@
 
 void printMenuPrincipal(){
     limparTela();
-    printf("\n => Menu Principal"
-        "\n 1. Gerenciar Clientes                 "
-        "\n 2. Gerenciar Fornecedores e Parceiros "
-        "\n 3. Gerenciar Produtora                "
-        "\n 4. Gerenciar Equipe Interna           "
-        "\n 5. Gerenciar Recursos e Equipamentos  "
-        "\n 6. Gerenciar Operadores do Sistema    "
-        "\n 0. Sair                               "
+    printf(
+        "\n======================================================================"
+        "\n | # Menu Principal                                                 | "
+        "\n |==================================================================| "
+        "\n |   1. Gerenciar Clientes                                          | "
+        "\n |   2. Gerenciar Fornecedores e Parceiros                          | "
+        "\n |   3. Gerenciar Produtora                                         | "
+        "\n |   4. Gerenciar Equipe Interna                                    | "
+        "\n |   5. Gerenciar Recursos e Equipamentos                           | "
+        "\n |   6. Gerenciar Operadores do Sistema                             | "
+        "\n |==================================================================| "
+        "\n |   0. Sair                                                        | "
+        "\n======================================================================"
         "\n => "
     );
 }
 
 void printMenuCliente(){
     limparTela();
-    printf("\n => Cliente"
-        "\n 1. Adicionar"
-        "\n 2. Remover"
-        "\n 3. Atualizar"
-        "\n 4. Buscar"
-        "\n 5. Listar"
-        "\n 0. Voltar "
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Clientes                                      | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar                                                   | "
+        "\n |   2. Remover                                                     | "
+        "\n |   3. Atualizar                                                   | "
+        "\n |   4. Buscar                                                      | "
+        "\n |   5. Listar                                                      | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
         "\n => "
     );
 }
 
 void printMenuFornecedor(){
     limparTela();
-    printf("\n => Fornecedores & Parceiros"
-        "\n 1. Adicionar"
-        "\n 2. Remover"
-        "\n 3. Atualizar"
-        "\n 4. Buscar"
-        "\n 5. Listar"
-        "\n 0. Voltar "
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Fornecedores e Parceiros                      | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar                                                   | "
+        "\n |   2. Remover                                                     | "
+        "\n |   3. Atualizar                                                   | "
+        "\n |   4. Buscar                                                      | "
+        "\n |   5. Listar                                                      | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
         "\n => "
     );
 }
 
 void printMenuProdutora(){
     limparTela();
-    printf("\n => Produtora"
-        "\n 1. Adicionar"
-        "\n 2. Remover"
-        "\n 3. Atualizar"
-        "\n 4. Buscar"
-        "\n 5. Listar"
-        "\n 0. Voltar "
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Produtoras                                    | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar                                                   | "
+        "\n |   2. Remover                                                     | "
+        "\n |   3. Atualizar                                                   | "
+        "\n |   4. Buscar                                                      | "
+        "\n |   5. Listar                                                      | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
         "\n => "
     );
 
@@ -58,13 +78,18 @@ void printMenuProdutora(){
 
 void printMenuEquipe(){
     limparTela();
-    printf("\n => Equipe Interna"
-        "\n 1. Adicionar"
-        "\n 2. Remover"
-        "\n 3. Atualizar"
-        "\n 4. Buscar"
-        "\n 5. Listar"
-        "\n 0. Voltar "
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Equipes Internas                              | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar                                                   | "
+        "\n |   2. Remover                                                     | "
+        "\n |   3. Atualizar                                                   | "
+        "\n |   4. Buscar                                                      | "
+        "\n |   5. Listar                                                      | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
         "\n => "
     );
 
@@ -72,13 +97,18 @@ void printMenuEquipe(){
 
 void printMenuRecurso(){
     limparTela();
-    printf("\n => Recursos & Equipamentos"
-        "\n 1. Adicionar"
-        "\n 2. Remover"
-        "\n 3. Atualizar"
-        "\n 4. Buscar"
-        "\n 5. Listar"
-        "\n 0. Voltar "
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Recursos e Equipamentos                       | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar                                                   | "
+        "\n |   2. Remover                                                     | "
+        "\n |   3. Atualizar                                                   | "
+        "\n |   4. Buscar                                                      | "
+        "\n |   5. Listar                                                      | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
         "\n => "
     );
 
@@ -86,13 +116,26 @@ void printMenuRecurso(){
 
 void printMenuOperador(){
     limparTela();
-    printf("\n => Operadores do Sistema"
-        "\n 1. Adicionar"
-        "\n 2. Remover"
-        "\n 3. Atualizar"
-        "\n 4. Buscar"
-        "\n 5. Listar"
-        "\n 0. Voltar "
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Operadores de Sistema                         | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar                                                   | "
+        "\n |   2. Remover                                                     | "
+        "\n |   3. Atualizar                                                   | "
+        "\n |   4. Buscar                                                      | "
+        "\n |   5. Listar                                                      | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
         "\n => "
     );
+}
+
+void printTabelaLinha(){
+    printf("\n======================================================================");
+}
+
+void printTabelaLinhaInterior(){
+    printf("\n |==================================================================| ");
 }

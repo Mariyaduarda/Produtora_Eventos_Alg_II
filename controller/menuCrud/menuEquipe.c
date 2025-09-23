@@ -24,19 +24,24 @@ void listarEquipesInternas(ListaEquipe *lista) {
         return;
     }
 
+    printTabelaLinha();
     ListaEquipe *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->equipe.ativo) printItemEquipe(atual->equipe);
         atual = atual->prox;
+
+        // se n for o ultimo, printa a linha horizontal p dividir
+        if (atual != NULL) printTabelaLinhaInterior();
     }
+    printTabelaLinha();
     printf("\n");
 }
 
 void menuEquipe(ListaEquipe **listaEquipe) {
     // Enquanto o usuario n quiser sair, continua no menu
-    int escolha=1;
-    while (escolha != 0){
+    int escolha=0;
+    do{
         // Exibe o menu de Equipe Interna
         printMenuEquipe();
 
@@ -66,7 +71,11 @@ void menuEquipe(ListaEquipe **listaEquipe) {
             case 4:
                 // Buscar Equipe Interna
                 TipoEquipe *equipe = buscarEquipe(*listaEquipe, recebeID());
-                if (equipe != NULL) printItemEquipe(*equipe);
+                if (equipe != NULL) {
+                    printTabelaLinha();
+                    printItemEquipe(*equipe);   
+                    printTabelaLinha();
+                }
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
@@ -84,5 +93,5 @@ void menuEquipe(ListaEquipe **listaEquipe) {
                 printOpcaoInvalida();
                 esperaEnter();
         }
-    }
+    }while (escolha != 0);
 }

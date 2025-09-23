@@ -26,19 +26,24 @@ void listarFornecedor(ListaFornecedor *lista) {
         return;
     }
 
+    printTabelaLinha();
     ListaFornecedor *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->fornecedor.ativo) printItemFornecedor(atual->fornecedor);
         atual = atual->prox;
+
+        // se n for o ultimo, printa a linha horizontal p dividir
+        if (atual != NULL) printTabelaLinhaInterior();
     }
+    printTabelaLinha();
     printf("\n");
 }
 
 void menuFornecedor(ListaFornecedor **listaFornecedor) {
     // Enquanto o usuario n quiser sair, continua no menu
-    int escolha=1;
-    while (escolha != 0){
+    int escolha=0;
+    do{
         // Exibe o menu de Fornecedor/Parceiro
         printMenuFornecedor();
 
@@ -68,7 +73,11 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
             case 4:
                 // Buscar Fornecedor/Parceiro
                 TipoFornecedor *fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
-                if (fornecedor != NULL) printItemFornecedor(*fornecedor);
+                if (fornecedor != NULL) {
+                    printTabelaLinha();
+                    printItemFornecedor(*fornecedor);
+                    printTabelaLinha();
+                }
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
@@ -86,6 +95,6 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
                 printOpcaoInvalida();
                 esperaEnter();
         }
-    }
+    }while (escolha != 0);
     
 }

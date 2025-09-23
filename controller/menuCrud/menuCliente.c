@@ -24,19 +24,24 @@ void listarClientes(ListaCliente *lista) {
         return;
     }
 
+    printTabelaLinha();
     ListaCliente *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->cliente.ativo) printItemCliente(atual->cliente);
         atual = atual->prox;
+
+        // se n for o ultimo, printa a linha horizontal p dividir
+        if (atual != NULL) printTabelaLinhaInterior();
     }
+    printTabelaLinha();
     printf("\n");
 }
 
 void menuCliente(ListaCliente **listaCliente) {
     // Enquanto o usuario n quiser sair, continua no menu
-    int escolha=1;
-    while (escolha != 0){
+    int escolha=0;
+    do{
         // Exibe o menu de Cliente
         printMenuCliente();
 
@@ -66,7 +71,11 @@ void menuCliente(ListaCliente **listaCliente) {
             case 4:
                 // Buscar Cliente
                 TipoCliente *cliente = buscarCliente(*listaCliente, recebeID());
-                if (cliente != NULL) printItemCliente(*cliente);
+                if (cliente != NULL){
+                    printTabelaLinha();
+                    printItemCliente(*cliente);
+                    printTabelaLinha();
+                }
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
@@ -84,6 +93,6 @@ void menuCliente(ListaCliente **listaCliente) {
                 printOpcaoInvalida();
                 esperaEnter();
         }
-    }
+    }while (escolha != 0);
     
 }
