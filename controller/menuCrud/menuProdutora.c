@@ -54,6 +54,7 @@ void menuProdutora(ListaProdutora **listaProdutora) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
+        TipoProdutora *produtora; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
@@ -76,7 +77,7 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 break;
             case 4:
                 // Buscar Produtora
-                TipoProdutora *produtora = buscarProdutora(*listaProdutora, recebeID());
+                produtora = buscarProdutora(*listaProdutora, recebeID());
                 if (produtora != NULL) {
                     printTabelaLinha();
                     printItemProdutora(*produtora);

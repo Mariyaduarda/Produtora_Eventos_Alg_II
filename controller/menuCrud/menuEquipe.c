@@ -48,7 +48,8 @@ void menuEquipe(ListaEquipe **listaEquipe) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-
+        TipoEquipe *equipe; // Para guardar resultado de busca
+        
         switch (escolha){
             case 1:
                 // Adicionar Equipe Interna
@@ -70,7 +71,7 @@ void menuEquipe(ListaEquipe **listaEquipe) {
                 break;
             case 4:
                 // Buscar Equipe Interna
-                TipoEquipe *equipe = buscarEquipe(*listaEquipe, recebeID());
+                equipe = buscarEquipe(*listaEquipe, recebeID());
                 if (equipe != NULL) {
                     printTabelaLinha();
                     printItemEquipe(*equipe);   

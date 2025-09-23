@@ -50,6 +50,7 @@ void menuCliente(ListaCliente **listaCliente) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
+        TipoCliente *cliente; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
@@ -72,7 +73,7 @@ void menuCliente(ListaCliente **listaCliente) {
                 break;
             case 4:
                 // Buscar Cliente
-                TipoCliente *cliente = buscarCliente(*listaCliente, recebeID());
+                cliente = buscarCliente(*listaCliente, recebeID());
                 if (cliente != NULL){
                     printTabelaLinha();
                     printItemCliente(*cliente);

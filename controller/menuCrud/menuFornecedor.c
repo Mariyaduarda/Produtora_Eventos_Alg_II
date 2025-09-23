@@ -50,6 +50,7 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
+        TipoFornecedor *fornecedor; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
@@ -72,7 +73,7 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
                 break;
             case 4:
                 // Buscar Fornecedor/Parceiro
-                TipoFornecedor *fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
+                fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
                 if (fornecedor != NULL) {
                     printTabelaLinha();
                     printItemFornecedor(*fornecedor);

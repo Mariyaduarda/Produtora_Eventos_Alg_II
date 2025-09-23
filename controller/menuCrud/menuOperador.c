@@ -47,6 +47,7 @@ void menuOperador(ListaOperador **listaOperador) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
+        TipoOperador *operador; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
@@ -69,7 +70,7 @@ void menuOperador(ListaOperador **listaOperador) {
                 break;
             case 4:
                 // Buscar Operador do Sistema
-                TipoOperador *operador = buscarOperador(*listaOperador, recebeID());
+                operador = buscarOperador(*listaOperador, recebeID());
                 if (operador != NULL) {
                     printTabelaLinha();
                     printItemOperador(*operador);

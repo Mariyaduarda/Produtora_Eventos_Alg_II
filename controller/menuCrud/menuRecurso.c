@@ -50,6 +50,7 @@ void menuRecurso(ListaRecurso **listaRecurso) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
+        TipoRecurso *recurso; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
@@ -72,7 +73,7 @@ void menuRecurso(ListaRecurso **listaRecurso) {
                 break;
             case 4:
                 // Buscar Recurso
-                TipoRecurso *recurso = buscarRecurso(*listaRecurso, recebeID());
+                recurso = buscarRecurso(*listaRecurso, recebeID());
                 if (recurso != NULL) {
                     printTabelaLinha();
                     printItemRecurso(*recurso);
