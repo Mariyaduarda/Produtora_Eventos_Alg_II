@@ -2,6 +2,7 @@
 
 // Recebe uma String
 void recebeString(char *str, int maxTam, char *msg1, char *msg2){
+    // Recebe uma String de no maximo 'maxTam' caracteres
     while (1) {
         // Mostra a mensagem
         printMensagem(msg1, msg2);
@@ -15,6 +16,42 @@ void recebeString(char *str, int maxTam, char *msg1, char *msg2){
         if (strlen(str) > 0 && strlen(str) < maxTam) break;
         printValorInvalido();
     }
+}
+
+int recebeInt(int min, int max, char *msg1, char *msg2){
+    // Recebe um inteiro entre min e max
+    int n;
+    while (1) {
+        // Mostra a mensagem
+        printMensagem(msg1, msg2);
+        printf("\n => ");
+
+        // Realmente recebe o inteiro
+        scanf("%d",&n);
+        
+        // Confere se o int e' valido
+        if (n >= min && n <= max) break;
+        printValorInvalido();
+    }
+    return n;
+}
+
+float recebeFloat(float min, float max, char *msg1, char *msg2){
+    // Recebe um float entre min e max
+    float n;
+    while (1) {
+        // Mostra a mensagem
+        printMensagem(msg1, msg2);
+        printf("\n => ");
+
+        // Realmente recebe o float
+        scanf("%f",&n);
+        
+        // Confere se o float e' valido
+        if (n >= min && n <= max) break;
+        printValorInvalido();
+    }
+    return n;
 }
 
 //=======================================================
