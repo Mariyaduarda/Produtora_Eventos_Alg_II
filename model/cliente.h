@@ -10,6 +10,7 @@ typedef struct {
     bool ativo;
     int id;
     char nome[100];
+    char endereco[100];
     char cpf_cnpj[14+1];
     char telefone[15];
     char email[100];

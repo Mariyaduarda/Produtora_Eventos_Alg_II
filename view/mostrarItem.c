@@ -4,11 +4,13 @@
 // - Cliente, Produtora etc
 
 void printItemCliente(TipoCliente cliente) {
-    printf("\n | ID       | %-53d | ", cliente.id);
-    printf("\n | Nome     | %-53s | ", cliente.nome);
-    printf("\n | CPF/CNPJ | %-53s | ", cliente.cpf_cnpj);
-    printf("\n | Telefone | %-53s | ", cliente.telefone);
-    printf("\n | Email    | %-53s | ", cliente.email);
+    printf("\n | ID           | %-49d | ", cliente.id);
+    printf("\n | Nome         | %-49s | ", cliente.nome);
+    printf("\n | Endereco     | %-49s | ", cliente.endereco);
+    printf("\n | CPF/CNPJ     | %-49s | ", cliente.cpf_cnpj);
+    printf("\n | Telefone     | %-49s | ", cliente.telefone);
+    printf("\n | Email        | %-49s | ", cliente.email);
+    printf("\n | Nome Contato | %-49s | ", cliente.nomeDoContato);
 }
 
 void printItemEquipe(TipoEquipe equipe) {

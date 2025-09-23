@@ -4,6 +4,7 @@ void inicializarCliente(TipoCliente *cliente){
     cliente->ativo = true;
     cliente->id = 0;
     strcpy(cliente->nome, "");
+    strcpy(cliente->endereco, "");
     strcpy(cliente->cpf_cnpj, "");
     strcpy(cliente->telefone, "");
     strcpy(cliente->email, "");
