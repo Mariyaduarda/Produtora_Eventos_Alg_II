@@ -7,10 +7,10 @@ TipoCliente menuClienteRecebe() {
 
     // Recebe os dados do cliente
     cliente.id = 0; // ID sera atribuido automaticamente
-    recebeNome(cliente.nome, 100);
-    recebeCPF(cliente.cpf_cnpj);
-    recebeTelefone(cliente.telefone);
-    recebeEmail(cliente.email, 100);
+    recebeString(cliente.nome, 100, "Digite o Nome","Max. 100");
+    recebeString(cliente.cpf_cnpj, 11, "Digite o CPF","11 Digitos");
+    recebeString(cliente.telefone, 11, "Digite o Telefone","10 ou 11 Digitos");
+    recebeString(cliente.email, 100, "Digite o Email","Max. 100");
 
     return cliente;
 }

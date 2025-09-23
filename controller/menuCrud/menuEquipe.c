@@ -7,9 +7,9 @@ TipoEquipe menuEquipeRecebe() {
 
     // Recebe os dados da equipe interna
     equipe.id = 0; // ID sera atribuido automaticamente
-    recebeNome(equipe.nome, 100);
-    recebeCPF(equipe.cpf);
-    recebeFuncao(equipe.funcao, 50);
+    recebeString(equipe.nome, 100, "Digite o Nome","Max. 100");
+    recebeString(equipe.cpf, 11, "Digite o CPF","11 Digitos");
+    recebeString(equipe.funcao, 50, "Digite a Funcao","Max. 50");
     recebeValorDiaria(&equipe.valorDiariaHora);
 
     return equipe;

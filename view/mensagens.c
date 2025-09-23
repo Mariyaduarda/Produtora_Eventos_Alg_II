@@ -43,3 +43,19 @@ void printOpcaoInvalida() {
 void printValorInvalido() {
     printf("\n [ Valor Invalido ]============================================[ERRO] \n");
 }
+
+// ====================================
+// GENERICO
+void printMensagem(char *msg1, char *msg2){
+    //printa msg no seguinte formato, com 70 chars no total
+    // " [msg1]========================[msg2] "
+    int total = 70;
+    int tam1 = strlen(msg1);
+    int tam2 = strlen(msg2);
+
+    int n = total - tam1 - tam2 - 11;
+
+    printf(" [ %s ]",msg1);                 //msg 1
+    for (int i=0 ; i<=n ; i++) printf("="); // =
+    printf("[ %s ] ",msg2);                 //msg 2
+}

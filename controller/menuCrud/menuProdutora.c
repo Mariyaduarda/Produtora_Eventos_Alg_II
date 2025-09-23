@@ -7,15 +7,15 @@ TipoProdutora menuProdutoraRecebe() {
 
     // Recebe os dados da produtora
     produtora.id = 0; // ID sera atribuido automaticamente
-    recebeNomeFantasia(produtora.nomeFantasia, 100);
-    recebeRazaoSocial(produtora.razaoSocial, 100);
-    recebeInscricaoEstadual(produtora.inscricaoEstadual);
-    recebeCNPJ(produtora.cnpj);
-    recebeEndereco(produtora.endereco, 100);
-    recebeTelefone(produtora.telefone);
-    recebeEmail(produtora.email, 100);
-    recebeNome(produtora.nomeDoResponsavel, 50);
-    recebeTelefone(produtora.telefoneDoResponsavel);
+    recebeString(produtora.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
+    recebeString(produtora.razaoSocial, 100, "Digite a Razao Social","Max. 100");
+    recebeString(produtora.razaoSocial, 9, "Digite a Razao Social","9 Digitos");
+    recebeString(produtora.cnpj, 14, "Digite o CPF","14 Digitos");
+    recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100");
+    recebeString(produtora.telefone, 11, "Digite o Telefone","10 ou 11 Digitos");
+    recebeString(produtora.email, 100, "Digite o Email","Max. 100");
+    recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100");
+    recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos");
     produtora.margemDeLucro = recebeMargemDeLucro();
 
     return produtora;

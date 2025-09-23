@@ -7,8 +7,9 @@ TipoRecurso menuRecursoRecebe() {
 
     // Recebe os dados do recurso/equipamento
     recurso.id = 0; // ID sera atribuido automaticamente
-    recebeDescricao(recurso.descricao, 150);
-    recebeCategoria(recurso.categoria, 50);
+    
+    recebeString(recurso.descricao, 150, "Digite a Descricao","Max. 150");
+    recebeString(recurso.categoria, 50, "Digite a Categoria","Max. 50");
     recurso.qtdEstoque = recebeQuantidadeEstoque();
     recurso.precoCusto = recebePrecoCusto();
     recurso.valorLocacao = recebeValorLocacao();

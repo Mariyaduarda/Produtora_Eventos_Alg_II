@@ -7,9 +7,9 @@ TipoOperador menuOperadorRecebe() {
 
     // Recebe os dados do operador do sistema
     operador.id = 0; // ID sera atribuido automaticamente
-    recebeNome(operador.nome, 100);
-    recebeNomeUsuario(operador.usuario, 50);
-    recebeSenha(operador.senha, 50);
+    recebeString(operador.nome, 100, "Digite o Nome","Max. 100");
+    recebeString(operador.usuario, 100, "Digite o Nome de Usuario","Max. 100");
+    recebeString(operador.senha, 100, "Digite a Senha","Max. 100");
 
     return operador;
 }

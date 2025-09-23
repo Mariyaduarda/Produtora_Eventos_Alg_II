@@ -19,4 +19,7 @@ void printListaVazia();
 void printNaoEncontrado();
 void printValorInvalido();
 
+// gen
+void printMensagem(char *msg1, char *msg2);
+
 #endif // MENSAGENS_H

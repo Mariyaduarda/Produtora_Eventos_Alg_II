@@ -1,5 +1,24 @@
 #include "recebeDados.h"
 
+// Recebe uma String
+void recebeString(char *str, int maxTam, char *msg1, char *msg2){
+    while (1) {
+        // Mostra a mensagem
+        printMensagem(msg1, msg2);
+        printf("\n => ");
+
+        // Realmente recebe a string
+        fgets(str, maxTam, stdin);
+        str[strcspn(str, "\n")] = 0; // remove \n
+        
+        // Confere se a string e' valida
+        if (strlen(str) > 0 && strlen(str) < maxTam) break;
+        printValorInvalido();
+    }
+}
+
+//=======================================================
+//VELHO
 // Recebe um ID
 int recebeID() {
     int id;

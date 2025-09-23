@@ -7,12 +7,12 @@ TipoFornecedor menuFornecedorRecebe() {
 
     // Recebe os dados do fornecedor/parceiro
     fornecedor.id = 0; // ID sera atribuido automaticamente
-    recebeNomeFantasia(fornecedor.nomeFantasia, 100);
-    recebeRazaoSocial(fornecedor.razaoSocial, 100);
-    recebeCPF(fornecedor.cpf_cnpj);
-    recebeEndereco(fornecedor.endereco, 100);
-    recebeTelefone(fornecedor.telefone);
-    recebeTipoServico(fornecedor.tipoServico, 100);
+    recebeString(fornecedor.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
+    recebeString(fornecedor.razaoSocial, 100, "Digite a Razao Social","Max. 100");
+    recebeString(fornecedor.cpf_cnpj, 11, "Digite o CPF","11 Digitos");
+    recebeString(fornecedor.endereco, 100, "Digite o Endereco","Max. 100");
+    recebeString(fornecedor.telefone, 11, "Digite o Telefone","10 ou 11 Digitos");
+    recebeString(fornecedor.tipoServico, 100, "Digite o Telefone","Max. 100");
 
     return fornecedor;
 }

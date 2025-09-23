@@ -7,7 +7,11 @@
 
 #include "mensagens.h"
 
+
 //Funcoes para receber dados do usuario
+void recebeString(char *str, int maxTam, char *msg1, char *msg2);
+
+//VELHOS
 int recebeID();
 void recebeNome(char *nome, int maxTam);
 void recebeCPF(char *cpf);
