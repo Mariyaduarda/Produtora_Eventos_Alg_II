@@ -11,8 +11,8 @@ typedef struct {
     int id;
     char nome[100];
     char endereco[100];
-    char cpf_cnpj[14+1];
-    char telefone[15];
+    char cpf_cnpj[20];
+    char telefone[20];
     char email[100];
     char nomeDoContato[100];
 } TipoCliente;

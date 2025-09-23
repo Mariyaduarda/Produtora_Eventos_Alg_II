@@ -11,13 +11,13 @@ typedef struct {
     int id;
     char nomeFantasia[100];
     char razaoSocial[100];
-    char inscricaoEstadual[11];
-    char cnpj[14+1];
+    char inscricaoEstadual[20];
+    char cnpj[20];
     char endereco[100];
-    char telefone[15];
+    char telefone[20];
     char email[100];
     char nomeDoResponsavel[50];
-    char telefoneDoResponsavel[15];
+    char telefoneDoResponsavel[20];
     float margemDeLucro;
 } TipoProdutora;
 

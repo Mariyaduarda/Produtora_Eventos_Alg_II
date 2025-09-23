@@ -10,7 +10,7 @@ typedef struct {
     bool ativo;
     int id;
     char nome[100];
-    char cpf[11+1];
+    char cpf[20];
     char funcao[50];
     float valorDiariaHora;
 } TipoEquipe;
