@@ -28,6 +28,7 @@ int recebeInt(int min, int max, char *msg1, char *msg2){
 
         // Realmente recebe o inteiro
         scanf("%d",&n);
+        getchar(); // Limpa o buffer do teclado
         
         // Confere se o int e' valido
         if (n >= min && n <= max) break;
@@ -46,6 +47,7 @@ float recebeFloat(float min, float max, char *msg1, char *msg2){
 
         // Realmente recebe o float
         scanf("%f",&n);
+        getchar(); // Limpa o buffer do teclado
         
         // Confere se o float e' valido
         if (n >= min && n <= max) break;
@@ -56,6 +58,7 @@ float recebeFloat(float min, float max, char *msg1, char *msg2){
 
 //=======================================================
 //VELHO
+/*
 // Recebe um ID
 int recebeID() {
     int id;
@@ -553,3 +556,5 @@ float recebeValorLocacao() {
 
     return valor;
 }
+
+*/

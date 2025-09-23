@@ -61,19 +61,19 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
                 break;
             case 2:
                 // Remover Fornecedor/Parceiro
-                if (removerFornecedor(listaFornecedor, recebeID())) printRemoverSucesso();
+                if (removerFornecedor(listaFornecedor, recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printRemoverSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Fornecedor/Parceiro
-                if (atualizarFornecedor(*listaFornecedor, menuFornecedorRecebe(), recebeID())) printAtualizarSucesso();
+                if (atualizarFornecedor(*listaFornecedor, menuFornecedorRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printAtualizarSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Fornecedor/Parceiro
-                fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
+                fornecedor = buscarFornecedor(*listaFornecedor, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (fornecedor != NULL) {
                     printTabelaLinha();
                     printItemFornecedor(*fornecedor);

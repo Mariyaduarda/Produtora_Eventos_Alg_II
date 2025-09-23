@@ -10,9 +10,9 @@ TipoRecurso menuRecursoRecebe() {
     
     recebeString(recurso.descricao, 150, "Digite a Descricao","Max. 150");
     recebeString(recurso.categoria, 50, "Digite a Categoria","Max. 50");
-    recurso.qtdEstoque = recebeQuantidadeEstoque();
-    recurso.precoCusto = recebePrecoCusto();
-    recurso.valorLocacao = recebeValorLocacao();
+    recurso.qtdEstoque = recebeInt(0, 1000000, "Digite a Qtd no Estoque", "Entre 0 e 1m");
+    recurso.precoCusto = recebeFloat(0, 1000000, "Digite o Preco Custo", "Entre 0 e 1m");
+    recurso.valorLocacao = recebeFloat(0, 1000000, "Digite o Valor de Locacao", "Entre 0 e 1m");
 
     return recurso;
 }
@@ -61,19 +61,19 @@ void menuRecurso(ListaRecurso **listaRecurso) {
                 break;
             case 2:
                 // Remover Recurso/Equipamento
-                if ( removerRecurso(listaRecurso, recebeID()) ) printRemoverSucesso();
+                if ( removerRecurso(listaRecurso, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Recurso/Equipamento
-                if ( atualizarRecurso(*listaRecurso, menuRecursoRecebe(), recebeID()) ) printAtualizarSucesso();
+                if ( atualizarRecurso(*listaRecurso, menuRecursoRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Recurso
-                recurso = buscarRecurso(*listaRecurso, recebeID());
+                recurso = buscarRecurso(*listaRecurso, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (recurso != NULL) {
                     printTabelaLinha();
                     printItemRecurso(*recurso);

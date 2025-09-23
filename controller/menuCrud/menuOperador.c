@@ -58,19 +58,19 @@ void menuOperador(ListaOperador **listaOperador) {
                 break;
             case 2:
                 // Remover Operador do Sistema
-                if ( removerOperador(listaOperador, recebeID()) ) printRemoverSucesso();
+                if ( removerOperador(listaOperador, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Operador do Sistema
-                if (atualizarOperador(*listaOperador, menuOperadorRecebe(), recebeID())) printAtualizarSucesso();
+                if (atualizarOperador(*listaOperador, menuOperadorRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printAtualizarSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Operador do Sistema
-                operador = buscarOperador(*listaOperador, recebeID());
+                operador = buscarOperador(*listaOperador, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (operador != NULL) {
                     printTabelaLinha();
                     printItemOperador(*operador);

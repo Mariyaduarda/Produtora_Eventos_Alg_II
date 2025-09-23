@@ -16,7 +16,7 @@ TipoProdutora menuProdutoraRecebe() {
     recebeString(produtora.email, 100, "Digite o Email","Max. 100");
     recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100");
     recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos");
-    produtora.margemDeLucro = recebeMargemDeLucro();
+    produtora.margemDeLucro = recebeFloat(0, 1000000, "Digite a Margem de Lucro", "Entre 0 e 1m");
 
     return produtora;
 }
@@ -65,19 +65,19 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 break;
             case 2:
                 // Remover Produtora
-                if ( removerProdutora(listaProdutora, recebeID()) ) printRemoverSucesso();
+                if ( removerProdutora(listaProdutora, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Produtora
-                if ( atualizarProdutora(*listaProdutora, menuProdutoraRecebe(), recebeID()) ) printAtualizarSucesso();
+                if ( atualizarProdutora(*listaProdutora, menuProdutoraRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Produtora
-                produtora = buscarProdutora(*listaProdutora, recebeID());
+                produtora = buscarProdutora(*listaProdutora, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (produtora != NULL) {
                     printTabelaLinha();
                     printItemProdutora(*produtora);

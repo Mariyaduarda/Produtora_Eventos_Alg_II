@@ -61,19 +61,19 @@ void menuCliente(ListaCliente **listaCliente) {
                 break;
             case 2:
                 // Remover Cliente
-                if ( removerCliente(listaCliente, recebeID()) ) printRemoverSucesso();
+                if ( removerCliente(listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Cliente
-                if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeID()) ) printAtualizarSucesso();
+                if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Cliente
-                cliente = buscarCliente(*listaCliente, recebeID());
+                cliente = buscarCliente(*listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (cliente != NULL){
                     printTabelaLinha();
                     printItemCliente(*cliente);

@@ -10,7 +10,7 @@ TipoEquipe menuEquipeRecebe() {
     recebeString(equipe.nome, 100, "Digite o Nome","Max. 100");
     recebeString(equipe.cpf, 11, "Digite o CPF","11 Digitos");
     recebeString(equipe.funcao, 50, "Digite a Funcao","Max. 50");
-    recebeValorDiaria(&equipe.valorDiariaHora);
+    equipe.valorDiariaHora = recebeFloat(0, 1000000, "Digite o Valor da Diaria", "Entre 0 e 1m");
 
     return equipe;
 }
@@ -59,19 +59,19 @@ void menuEquipe(ListaEquipe **listaEquipe) {
                 break;
             case 2:
                 // Remover Equipe Interna
-                if ( removerEquipe(listaEquipe, recebeID()) ) printRemoverSucesso();
+                if ( removerEquipe(listaEquipe, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Equipe Interna
-                if (atualizarEquipe(*listaEquipe, menuEquipeRecebe(), recebeID())) printAtualizarSucesso();
+                if (atualizarEquipe(*listaEquipe, menuEquipeRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printAtualizarSucesso();
                 else printNaoEncontrado();
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Equipe Interna
-                equipe = buscarEquipe(*listaEquipe, recebeID());
+                equipe = buscarEquipe(*listaEquipe, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (equipe != NULL) {
                     printTabelaLinha();
                     printItemEquipe(*equipe);   
