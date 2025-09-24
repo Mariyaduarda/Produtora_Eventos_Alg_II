@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "utils_tela.h"
 // Funcoes de utilidade para mudar a tela
 
 void limparTela() {
@@ -10,3 +10,4 @@ void esperaEnter() {
     // Espera o usuario apertar enter
     while (getchar() != '\n' && getchar() != EOF);
 }
+
