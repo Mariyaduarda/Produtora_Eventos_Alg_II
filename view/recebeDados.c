@@ -111,6 +111,10 @@ void recebeTelefone(char *str){
 
 }
 
+int recebeID(){
+    return recebeInt(1, 1000000, "Digite o ID", "Min. 1");
+}
+
 //=======================================================
 //VELHO
 /*

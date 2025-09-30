@@ -17,7 +17,73 @@ TipoCliente menuClienteRecebe() {
     return cliente;
 }
 
-void listarClientes(ListaCliente *lista) {
+void menuClienteAdicionar(ListaCliente **listaCliente){
+    TipoCliente novo; // Guarda o novo item
+    
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuClienteRecebe(); // Recebe os valroes do usuario
+        
+        // Mostra os dados que foram inseridos
+        printTabelaLinha();
+        printItemCliente(novo);
+        printTabelaLinha();
+        
+        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+    }
+    
+    // Realmente adiciona na lista
+    if ( adicionarCliente(listaCliente, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
+    
+    esperaEnter();
+}
+
+void menuClienteRemover(ListaCliente **listaCliente){
+    int ID = recebeID(); // recebe o ID do item que vai ser removido
+    
+    // Busca o Item q vai ser removido
+    TipoCliente *cliente; // Para guardar resultado de busca
+    cliente = buscarCliente(*listaCliente, ID);
+    if (cliente == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Mostra o Item que vai ser removido
+    printTabelaLinha();
+    printItemCliente(*cliente);
+    printTabelaLinha();
+    
+    // Pede confirmacao, se tiver ok, remove o cliente
+    if (printConfirma()){
+        removerCliente(listaCliente, ID);
+        printRemoverSucesso();
+    }
+    
+    esperaEnter();
+}
+
+void menuClienteAtualizar(ListaCliente **listaCliente){
+    if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
+    else printNaoEncontrado();
+    esperaEnter();
+    
+}
+
+void menuClienteBuscar(ListaCliente **listaCliente){
+    TipoCliente *cliente; // Para guardar resultado de busca
+    cliente = buscarCliente(*listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
+    if (cliente != NULL){
+        printTabelaLinha();
+        printItemCliente(*cliente);
+        printTabelaLinha();
+    }
+    else printNaoEncontrado();
+    esperaEnter();
+}
+
+void menuClienteListar(ListaCliente *lista) {
     limparTela();
 
     // Lista todos os clientes cadastrados
@@ -37,7 +103,9 @@ void listarClientes(ListaCliente *lista) {
         if (atual != NULL) printTabelaLinhaInterior();
     }
     printTabelaLinha();
+
     printf("\n");
+    esperaEnter();
 }
 
 void menuCliente(ListaCliente **listaCliente) {
@@ -50,42 +118,27 @@ void menuCliente(ListaCliente **listaCliente) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-        TipoCliente *cliente; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
                 // Adicionar Cliente
-                if ( adicionarCliente(listaCliente, menuClienteRecebe()) ) printAdicionarSucesso();
-                else printAdicionarFalha();
-                esperaEnter();
+                menuClienteAdicionar(listaCliente);
                 break;
             case 2:
                 // Remover Cliente
-                if ( removerCliente(listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
-                else printNaoEncontrado();
-                esperaEnter();
+                menuClienteRemover(listaCliente);
                 break;
             case 3:
                 // Atualizar Cliente
-                if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
-                else printNaoEncontrado();
-                esperaEnter();
+                menuClienteAtualizar(listaCliente);
                 break;
             case 4:
                 // Buscar Cliente
-                cliente = buscarCliente(*listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
-                if (cliente != NULL){
-                    printTabelaLinha();
-                    printItemCliente(*cliente);
-                    printTabelaLinha();
-                }
-                else printNaoEncontrado();
-                esperaEnter();
+                menuClienteBuscar(listaCliente);
                 break;
             case 5:
                 // Listar Clientes
-                listarClientes(*listaCliente);
-                esperaEnter();
+                menuClienteListar(*listaCliente);
                 break;
             case 0:
                 // Voltar ao menu principal
