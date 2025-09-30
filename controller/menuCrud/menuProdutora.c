@@ -10,10 +10,10 @@ TipoProdutora menuProdutoraRecebe() {
     recebeString(produtora.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
     recebeString(produtora.razaoSocial, 100, "Digite a Razao Social","Max. 100");
     recebeString(produtora.inscricaoEstadual, 20, "Digite a Razao Social","9 Digitos");
-    recebeString(produtora.cnpj, 20, "Digite o CPF","14 Digitos");
+    recebeCNPJ(produtora.cnpj);
     recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100");
-    recebeString(produtora.telefone, 20, "Digite o Telefone","10 ou 11 Digitos");
-    recebeString(produtora.email, 100, "Digite o Email","Max. 100");
+    recebeTelefone(produtora.cnpj);
+    recebeEmail(produtora.email);
     recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100");
     recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos");
     produtora.margemDeLucro = recebeFloat(0, 1000000, "Digite a Margem de Lucro", "Entre 0 e 1m");

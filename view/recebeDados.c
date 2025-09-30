@@ -1,5 +1,8 @@
 #include "recebeDados.h"
 
+//=======================================================
+// RECEBE OS TIPOS
+
 // Recebe uma String
 void recebeString(char *str, int maxTam, char *msg1, char *msg2){
     // Recebe uma String de no maximo 'maxTam' caracteres
@@ -14,12 +17,12 @@ void recebeString(char *str, int maxTam, char *msg1, char *msg2){
         
         // Confere se a string e' valida
         if (strlen(str) > 0 && strlen(str) < maxTam) break;
-        printValorInvalido();
+        printMensagem("Tamanho excede o maximo!","ERRO");
     }
 }
 
+// Recebe um inteiro entre min e max
 int recebeInt(int min, int max, char *msg1, char *msg2){
-    // Recebe um inteiro entre min e max
     int n;
     while (1) {
         // Mostra a mensagem
@@ -32,13 +35,13 @@ int recebeInt(int min, int max, char *msg1, char *msg2){
         
         // Confere se o int e' valido
         if (n >= min && n <= max) break;
-        printValorInvalido();
+        printMensagem("Valor excede os limites!","ERRO");
     }
     return n;
 }
 
+// Recebe um float entre min e max
 float recebeFloat(float min, float max, char *msg1, char *msg2){
-    // Recebe um float entre min e max
     float n;
     while (1) {
         // Mostra a mensagem
@@ -51,9 +54,61 @@ float recebeFloat(float min, float max, char *msg1, char *msg2){
         
         // Confere se o float e' valido
         if (n >= min && n <= max) break;
-        printValorInvalido();
+        printMensagem("Valor excede os limites!","ERRO");
     }
     return n;
+}
+
+//=======================================================
+// RECEBE COM VALIDACAO
+
+// Recebe um cpf em string - ja faz a validacao
+void recebeCPF(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 20, "Digite o CPF","11 Digitos");
+
+        // aqui vai a validacao
+        if (1) break;
+        printMensagem("CPF invalido!","ERRO");
+    }
+}
+
+// Recebe um CNPJ em string - ja faz a validacao
+void recebeCNPJ(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 20, "Digite o CNPJ","14 Digitos");
+
+        // aqui vai a validacao
+        if (1) break;
+        printMensagem("CNPJ invalido!","ERRO");
+    }
+}
+
+// Recebe um Email em string - ja faz a validacao
+void recebeEmail(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 100, "Digite o Email","Max. 100");
+
+        // aqui vai a validacao
+        if (1) break;
+        printMensagem("Email invalido!","ERRO");
+    }
+}
+
+// Recebe um Telefone em string - ja faz a validacao
+void recebeTelefone(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 20, "Digite o Telefone","10 ou 11 Digitos");
+
+        // aqui vai a validacao
+        if (1) break;
+        printMensagem("Telefone invalido!","ERRO");
+    }
+
 }
 
 //=======================================================
