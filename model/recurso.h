@@ -7,8 +7,11 @@
 #include <stdbool.h>
 
 typedef struct {
-    bool ativo;
+    // Atributos de estado
     int id;
+    bool ativo;
+
+    // Atributos
     char descricao[150];
     char categoria[50];
     int qtdEstoque;

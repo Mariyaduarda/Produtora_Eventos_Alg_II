@@ -18,6 +18,8 @@
         "stdlib.h": "c",
         "recebedados.h": "c",
         "mostraritem.h": "c",
-        "mensagens.h": "c"
+        "mensagens.h": "c",
+        "stdbool.h": "c",
+        "cmath": "c"
     }
 }

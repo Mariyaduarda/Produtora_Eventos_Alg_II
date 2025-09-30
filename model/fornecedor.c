@@ -3,8 +3,10 @@
 #include "fornecedor.h"
 
 void inicializarFornecedor(TipoFornecedor *fornecedor){
-    fornecedor->ativo = true;
-    fornecedor->id = 0;
+    fornecedor->ativo = true;     // td objeto comeca como ativo
+    fornecedor->usa_CNPJ = false; // por padrao usa cpf ao inves de cnpj
+    fornecedor->id = 0;           // id vai ser calculado automaticamente
+    
     strcpy(fornecedor->nomeFantasia, "");
     strcpy(fornecedor->razaoSocial, "");
     strcpy(fornecedor->cpf_cnpj, "");

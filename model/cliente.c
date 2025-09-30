@@ -1,14 +1,17 @@
 #include "cliente.h"
 
 void inicializarCliente(TipoCliente *cliente){
-    cliente->ativo = true;
-    cliente->id = 0;
-    strcpy(cliente->nome, "");
-    strcpy(cliente->endereco, "");
-    strcpy(cliente->cpf_cnpj, "");
-    strcpy(cliente->telefone, "");
-    strcpy(cliente->email, "");
-    strcpy(cliente->nomeDoContato, "");
+    cliente->ativo = true;     // td cliente comeca como ativo
+    cliente->usa_CNPJ = false; // por padrao usa cpf ao inves de cnpj
+    cliente->id = 0;           // id vai ser calculado automaticamente
+
+    // Atributos comecam vazios pra tirar lixo de memoria
+    strcpy(cliente->nome, "");          //
+    strcpy(cliente->endereco, "");      //
+    strcpy(cliente->cpf_cnpj, "");      //
+    strcpy(cliente->telefone, "");      //
+    strcpy(cliente->email, "");         //
+    strcpy(cliente->nomeDoContato, ""); //
 }
 
 void inicializarListaCliente(ListaCliente *lista){
