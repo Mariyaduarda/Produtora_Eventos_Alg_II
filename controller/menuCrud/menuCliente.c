@@ -18,8 +18,9 @@ TipoCliente menuClienteRecebe() {
 }
 
 void menuClienteAdicionar(ListaCliente **listaCliente){
-    TipoCliente novo; // Guarda o novo item
-    
+    // Guarda o novo item
+    TipoCliente novo;
+
     // Enquanto o usuario nao confirmar, roda dnv
     while (1){
         novo = menuClienteRecebe(); // Recebe os valroes do usuario
@@ -35,8 +36,6 @@ void menuClienteAdicionar(ListaCliente **listaCliente){
     // Realmente adiciona na lista
     if ( adicionarCliente(listaCliente, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
-    
-    esperaEnter();
 }
 
 void menuClienteRemover(ListaCliente **listaCliente){
@@ -60,27 +59,58 @@ void menuClienteRemover(ListaCliente **listaCliente){
         removerCliente(listaCliente, ID);
         printRemoverSucesso();
     }
-    
-    esperaEnter();
 }
 
 void menuClienteAtualizar(ListaCliente **listaCliente){
-    if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
-    else printNaoEncontrado();
-    esperaEnter();
+    // Declara um novo item pra receber os dados atualizados
+    TipoCliente novoCliente;
+    TipoCliente* velhoCliente;
+
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID();
+    velhoCliente = buscarCliente(*listaCliente, ID);
+
+    // Se esse ID n existe, mostra erro
+    if (velhoCliente == NULL){
+        printNaoEncontrado();
+        return;
+    }
     
+    // Caso contrario, recebe os novos dados
+    novoCliente = menuClienteRecebe();
+
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    printTabelaLinha();
+    printItemCliente(*velhoCliente);
+    printTabelaLinha();
+    
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    printTabelaLinha();
+    printItemCliente(novoCliente);
+    printTabelaLinha();
+    
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (printConfirma()){
+        atualizarCliente(*listaCliente, novoCliente, ID);
+        printAtualizarSucesso();
+    }
 }
 
 void menuClienteBuscar(ListaCliente **listaCliente){
     TipoCliente *cliente; // Para guardar resultado de busca
-    cliente = buscarCliente(*listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
+    cliente = buscarCliente(*listaCliente, recebeID());
     if (cliente != NULL){
         printTabelaLinha();
         printItemCliente(*cliente);
         printTabelaLinha();
     }
     else printNaoEncontrado();
-    esperaEnter();
 }
 
 void menuClienteListar(ListaCliente *lista) {
@@ -105,7 +135,6 @@ void menuClienteListar(ListaCliente *lista) {
     printTabelaLinha();
 
     printf("\n");
-    esperaEnter();
 }
 
 void menuCliente(ListaCliente **listaCliente) {
@@ -123,22 +152,27 @@ void menuCliente(ListaCliente **listaCliente) {
             case 1:
                 // Adicionar Cliente
                 menuClienteAdicionar(listaCliente);
+                esperaEnter();
                 break;
             case 2:
                 // Remover Cliente
                 menuClienteRemover(listaCliente);
+                esperaEnter();
                 break;
             case 3:
                 // Atualizar Cliente
                 menuClienteAtualizar(listaCliente);
+                esperaEnter();
                 break;
             case 4:
                 // Buscar Cliente
                 menuClienteBuscar(listaCliente);
+                esperaEnter();
                 break;
             case 5:
                 // Listar Clientes
                 menuClienteListar(*listaCliente);
+                esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal
