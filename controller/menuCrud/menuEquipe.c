@@ -24,17 +24,14 @@ void listarEquipesInternas(ListaEquipe *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaEquipe *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->equipe.ativo) printItemEquipe(atual->equipe);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
     printf("\n");
 }
 
@@ -73,9 +70,9 @@ void menuEquipe(ListaEquipe **listaEquipe) {
                 // Buscar Equipe Interna
                 equipe = buscarEquipe(*listaEquipe, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (equipe != NULL) {
-                    printTabelaLinha();
+                    
                     printItemEquipe(*equipe);   
-                    printTabelaLinha();
+                    
                 }
                 else printNaoEncontrado();
                 esperaEnter();

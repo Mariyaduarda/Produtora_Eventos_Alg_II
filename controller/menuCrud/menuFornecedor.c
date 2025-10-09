@@ -26,17 +26,14 @@ void listarFornecedor(ListaFornecedor *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaFornecedor *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->fornecedor.ativo) printItemFornecedor(atual->fornecedor);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
     printf("\n");
 }
 
@@ -75,9 +72,9 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
                 // Buscar Fornecedor/Parceiro
                 fornecedor = buscarFornecedor(*listaFornecedor, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (fornecedor != NULL) {
-                    printTabelaLinha();
+                    
                     printItemFornecedor(*fornecedor);
-                    printTabelaLinha();
+                    
                 }
                 else printNaoEncontrado();
                 esperaEnter();

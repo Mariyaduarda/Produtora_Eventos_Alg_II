@@ -30,17 +30,14 @@ void listarProdutoras(ListaProdutora *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaProdutora *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->produtora.ativo) printItemProdutora(atual->produtora);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
     printf("\n");
 }
 
@@ -79,9 +76,9 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 // Buscar Produtora
                 produtora = buscarProdutora(*listaProdutora, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (produtora != NULL) {
-                    printTabelaLinha();
+                    
                     printItemProdutora(*produtora);
-                    printTabelaLinha();
+                    
                 }
                 else printNaoEncontrado();
                 esperaEnter();

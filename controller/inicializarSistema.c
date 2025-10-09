@@ -21,7 +21,6 @@ void inicializarSistema() {
     ListaOperador* listaOperador = (ListaOperador*)malloc(sizeof(ListaOperador));
     inicializarListas(&listaCliente, &listaFornecedor, &listaProdutoras, &listaEquipe, &listaRecurso, &listaOperador);
 
-    //roda o menu principal
+    // roda o menu principal
     menuPrincipal(&listaCliente, &listaFornecedor, &listaProdutoras, &listaEquipe, &listaRecurso, &listaOperador);
-    
 }

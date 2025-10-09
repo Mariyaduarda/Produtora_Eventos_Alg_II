@@ -26,9 +26,7 @@ void menuClienteAdicionar(ListaCliente **listaCliente){
         novo = menuClienteRecebe(); // Recebe os valroes do usuario
         
         // Mostra os dados que foram inseridos
-        printTabelaLinha();
         printItemCliente(novo);
-        printTabelaLinha();
         
         if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
     }
@@ -50,9 +48,9 @@ void menuClienteRemover(ListaCliente **listaCliente){
     }
     
     // Mostra o Item que vai ser removido
-    printTabelaLinha();
+    
     printItemCliente(*cliente);
-    printTabelaLinha();
+    
     
     // Pede confirmacao, se tiver ok, remove o cliente
     if (printConfirma()){
@@ -84,15 +82,15 @@ void menuClienteAtualizar(ListaCliente **listaCliente){
 
     // Printa os antigos dados
     printMensagem("Dados Antigos","=");
-    printTabelaLinha();
+    
     printItemCliente(*velhoCliente);
-    printTabelaLinha();
+    
     
     // Printa os novos dados
     printMensagem("Dados Novos","=");
-    printTabelaLinha();
+    
     printItemCliente(novoCliente);
-    printTabelaLinha();
+    
     
     // ===============================
     // Confirma se o usuario realmente quer atualizar
@@ -106,9 +104,9 @@ void menuClienteBuscar(ListaCliente **listaCliente){
     TipoCliente *cliente; // Para guardar resultado de busca
     cliente = buscarCliente(*listaCliente, recebeID());
     if (cliente != NULL){
-        printTabelaLinha();
+        
         printItemCliente(*cliente);
-        printTabelaLinha();
+        
     }
     else printNaoEncontrado();
 }
@@ -122,17 +120,14 @@ void menuClienteListar(ListaCliente *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaCliente *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->cliente.ativo) printItemCliente(atual->cliente);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
 
     printf("\n");
 }

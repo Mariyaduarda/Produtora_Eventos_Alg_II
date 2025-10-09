@@ -26,17 +26,14 @@ void listarRecurso(ListaRecurso *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaRecurso *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->recurso.ativo) printItemRecurso(atual->recurso);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
     printf("\n");
 }
 
@@ -75,9 +72,7 @@ void menuRecurso(ListaRecurso **listaRecurso) {
                 // Buscar Recurso
                 recurso = buscarRecurso(*listaRecurso, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
                 if (recurso != NULL) {
-                    printTabelaLinha();
                     printItemRecurso(*recurso);
-                    printTabelaLinha();
                 }
                 else printNaoEncontrado();
                 esperaEnter();
