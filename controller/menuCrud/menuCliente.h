@@ -11,7 +11,10 @@
 #include "../../view/mensagens.h"
 
 void menuCliente(ListaCliente **listaCliente);
-void listarClientes(ListaCliente *lista);
+void menuClienteAdicionar(ListaCliente **listaCliente);
+void menuClienteRemover(ListaCliente **listaCliente);
+void menuClienteAtualizar(ListaCliente **listaCliente);
+void menuClienteBuscar(ListaCliente **listaCliente);
 
 
 #endif // MENU_CLIENTE_H

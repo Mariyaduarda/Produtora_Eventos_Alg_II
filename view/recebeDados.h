@@ -18,6 +18,7 @@ void recebeCPF(char *str);
 void recebeCNPJ(char *str);
 void recebeEmail(char *str);
 void recebeTelefone(char *str);
+int recebeID();
 
 
 //VELHOS
