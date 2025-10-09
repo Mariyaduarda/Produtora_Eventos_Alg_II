@@ -111,3 +111,16 @@ TipoRecurso* buscarRecurso(ListaRecurso *lista, int id){
     // se chegar aqui, n achei o recurso
     return NULL;
 }
+
+void liberarListaRecurso(ListaRecurso* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaRecurso* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
+}

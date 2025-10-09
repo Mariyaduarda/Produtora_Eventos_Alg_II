@@ -10,7 +10,7 @@
 #include "../model/operador.h"
 #include "menuController.h"
 
-void inicializarListas(ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaProdutora **listaProdutoras, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
+void inicializarListas(ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaProdutora **listaProdutora, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
 void inicializarSistema();
 
 #endif // INICIALIZAR_SISTEMA_H

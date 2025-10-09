@@ -116,3 +116,16 @@ TipoProdutora* buscarProdutora(ListaProdutora *lista, int id){
     // se chegar aqui, n achei a produtora
     return NULL;
 }
+
+void liberarListaProdutora(ListaProdutora* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaProdutora* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
+}

@@ -32,5 +32,6 @@ int adicionarCliente(ListaCliente **lista, TipoCliente cliente);
 int removerCliente(ListaCliente **lista, int id);
 int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado, int id);
 TipoCliente* buscarCliente(ListaCliente *lista, int id);
+void liberarListaCliente(ListaCliente* lista);
 
 #endif // CLIENTE_H

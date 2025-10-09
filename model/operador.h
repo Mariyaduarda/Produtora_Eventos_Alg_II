@@ -28,5 +28,6 @@ int adicionarOperador(ListaOperador **lista, TipoOperador operador);
 int removerOperador(ListaOperador **lista, int id);
 int atualizarOperador(ListaOperador *lista, TipoOperador operadorAtualizado, int id);
 TipoOperador* buscarOperador(ListaOperador *lista, int id);
+void liberarListaOperador(ListaOperador* lista);
 
 #endif // OPERADOR_H

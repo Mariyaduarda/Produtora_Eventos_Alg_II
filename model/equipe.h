@@ -29,5 +29,6 @@ int adicionarEquipe(ListaEquipe **lista, TipoEquipe equipe);
 int removerEquipe(ListaEquipe **lista, int id);
 int atualizarEquipe(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id);
 TipoEquipe* buscarEquipe(ListaEquipe *lista, int id);
+void liberarListaEquipe(ListaEquipe* lista);
 
 #endif // EQUIPE_H

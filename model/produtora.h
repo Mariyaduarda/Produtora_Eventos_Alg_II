@@ -35,5 +35,6 @@ int adicionarProdutora(ListaProdutora **lista, TipoProdutora produtora);
 int removerProdutora(ListaProdutora **lista, int id);
 int atualizarProdutora(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id);
 TipoProdutora* buscarProdutora(ListaProdutora *lista, int id);
+void liberarListaProdutora(ListaProdutora* lista);
 
 #endif // PRODUTORA_H

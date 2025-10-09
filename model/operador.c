@@ -108,3 +108,16 @@ TipoOperador* buscarOperador(ListaOperador *lista, int id){
     // se chegar aqui, n achei o operador
     return NULL;
 }
+
+void liberarListaOperador(ListaOperador* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaOperador* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
+}

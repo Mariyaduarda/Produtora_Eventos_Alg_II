@@ -110,3 +110,16 @@ TipoCliente* buscarCliente(ListaCliente *lista, int id){
     // se chegar aqui, n achei o cliente
     return NULL;
 }
+
+void liberarListaCliente(ListaCliente* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaCliente* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
+}

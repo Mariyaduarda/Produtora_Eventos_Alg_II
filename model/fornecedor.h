@@ -32,5 +32,6 @@ int adicionarFornecedor(ListaFornecedor **lista, TipoFornecedor fornecedor);
 int removerFornecedor(ListaFornecedor **lista, int id);
 int atualizarFornecedor(ListaFornecedor *lista, TipoFornecedor fornecedorAtualizado, int id);
 TipoFornecedor* buscarFornecedor(ListaFornecedor *lista, int id);
+void liberarListaFornecedor(ListaFornecedor* lista);
 
 #endif // FORNECEDOR_H

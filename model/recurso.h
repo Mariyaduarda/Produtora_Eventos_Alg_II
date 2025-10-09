@@ -30,5 +30,6 @@ int adicionarRecurso(ListaRecurso **lista, TipoRecurso recurso);
 int removerRecurso(ListaRecurso **lista, int id);
 int atualizarRecurso(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id);
 TipoRecurso* buscarRecurso(ListaRecurso *lista, int id);
+void liberarListaRecurso(ListaRecurso* lista);
 
 #endif // RECURSO_H

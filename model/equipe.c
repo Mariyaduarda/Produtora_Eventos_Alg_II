@@ -109,3 +109,16 @@ TipoEquipe* buscarEquipe(ListaEquipe *lista, int id){
     // se chegar aqui, n achei o cliente
     return NULL;
 }
+
+void liberarListaEquipe(ListaEquipe* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaEquipe* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
+}
