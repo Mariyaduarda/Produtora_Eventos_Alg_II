@@ -90,9 +90,10 @@ bool validarCNPJ(const char *cpf_cnpj) {
 bool validarEmail(const char *email) {
     int i, arroba = -1, ponto = -1; // arroba e ponto nao encontrado (-1)
     int len_email = strlen(email);
-    // valida quantidade de caracteres no email
+    // valida quantidade de caracteres no email: m@m.v
     if (len_email < 3) return false;
 
+    // verificar caracteres validos e posicao do @
     for (i = 0; i < len_email; i++) {
         if (email[i] == '@') {
             if (arroba != -1) return false;
@@ -104,6 +105,7 @@ bool validarEmail(const char *email) {
             return false;
         }
     }
+    // verifica esqueleto basico
     if (arroba <= 0 || arroba == len_email -1 ) return false;
     if (ponto == -1 || ponto <= arroba + 1 || ponto == len_email - 1) return false;
     if (email[0] == '.' || email[len_email - 1] == '.') return false;
@@ -112,5 +114,16 @@ bool validarEmail(const char *email) {
 }
 
 // ===== VALIDACAO DO TELEFONE ======
+bool validarTelefone(const char *telefone) {
+    int i, digitos = 0;
+
+    // conta apenas digitos
+    for (i = 0, telefone[i] != '\0'; i++) {
+        if (isdigit(telefone[i])) {
+            digitos++;
+        } else if (telefone[i] != ' ' && telefone[i] != '(' &&
+                    telefone[i] !) {}
+    }
+}
 
 // // ===== VALIDACAO DO NOME ======
