@@ -15,7 +15,4 @@ void printMenuEquipe();
 void printMenuRecurso();
 void printMenuOperador();
 
-void printTabelaLinha();
-void printTabelaLinhaInterior();
-
 #endif // MENU_VIEW_H

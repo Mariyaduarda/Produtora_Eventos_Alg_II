@@ -24,11 +24,12 @@ typedef struct ListaRecurso{
     TipoRecurso recurso;
 } ListaRecurso;
 
-void inicializarRecurso(TipoRecurso *recurso);
-void inicializarListaRecurso(ListaRecurso *lista);
-int adicionarRecurso(ListaRecurso **lista, TipoRecurso recurso);
-int removerRecurso(ListaRecurso **lista, int id);
-int atualizarRecurso(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id);
-TipoRecurso* buscarRecurso(ListaRecurso *lista, int id);
+void recursoInit(TipoRecurso *recurso);
+void recursoListaInit(ListaRecurso *lista);
+int recursoAdicionar(ListaRecurso **lista, TipoRecurso recurso);
+int recursoRemover(ListaRecurso **lista, int id);
+int recursoAtualizar(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id);
+TipoRecurso* recursoBuscar(ListaRecurso *lista, int id);
+void recursoListaLiberar(ListaRecurso* lista);
 
 #endif // RECURSO_H

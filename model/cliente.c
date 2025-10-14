@@ -1,25 +1,25 @@
 #include "cliente.h"
 
-void inicializarCliente(TipoCliente *cliente){
+void clienteInit(TipoCliente *cliente){
     cliente->ativo = true;     // td cliente comeca como ativo
     cliente->usa_CNPJ = false; // por padrao usa cpf ao inves de cnpj
     cliente->id = 0;           // id vai ser calculado automaticamente
 
     // Atributos comecam vazios pra tirar lixo de memoria
-    strcpy(cliente->nome, "");          //
-    strcpy(cliente->endereco, "");      //
-    strcpy(cliente->cpf_cnpj, "");      //
-    strcpy(cliente->telefone, "");      //
-    strcpy(cliente->email, "");         //
-    strcpy(cliente->nomeDoContato, ""); //
+    strcpy(cliente->nome,          "");
+    strcpy(cliente->endereco,      "");
+    strcpy(cliente->cpf_cnpj,      "");
+    strcpy(cliente->telefone,      "");
+    strcpy(cliente->email,         "");
+    strcpy(cliente->nomeDoContato, "");
 }
 
-void inicializarListaCliente(ListaCliente *lista){
+void clienteListaInit(ListaCliente *lista){
     lista->prox = NULL;
-    inicializarCliente(&lista->cliente);
+    clienteInit(&lista->cliente);
 }
 
-int adicionarCliente(ListaCliente **lista, TipoCliente cliente){
+int clienteAdicionar(ListaCliente **lista, TipoCliente cliente){
     // aloca o espaco para um novo no'
     ListaCliente *novo = (ListaCliente *)malloc(sizeof(ListaCliente));
     if(novo == NULL) return 0;
@@ -52,7 +52,7 @@ int adicionarCliente(ListaCliente **lista, TipoCliente cliente){
 
 }
 
-int removerCliente(ListaCliente **lista, int id){
+int clienteRemover(ListaCliente **lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaCliente *atual = *lista;
 
@@ -73,7 +73,7 @@ int removerCliente(ListaCliente **lista, int id){
     return 0;
 }
 
-int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado, int id){
+int clienteAtualizar(ListaCliente *lista, TipoCliente clienteAtualizado, int id){
     // variavel auxiliar para percorrer a lista
     ListaCliente *atual = lista;
 
@@ -93,7 +93,7 @@ int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado, int id)
 
 }
 
-TipoCliente* buscarCliente(ListaCliente *lista, int id){
+TipoCliente* clienteBuscar(ListaCliente *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaCliente *atual = lista;
 
@@ -109,4 +109,17 @@ TipoCliente* buscarCliente(ListaCliente *lista, int id){
 
     // se chegar aqui, n achei o cliente
     return NULL;
+}
+
+void clienteListaLiberar(ListaCliente* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaCliente* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
 }

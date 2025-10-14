@@ -3,7 +3,7 @@
 TipoRecurso menuRecursoRecebe() {
     // Recebe um novo Recurso/Equipamento do usuario e retorna o recurso/equipamento preenchido
     TipoRecurso recurso;
-    inicializarRecurso(&recurso);
+    recursoInit(&recurso);
 
     // Recebe os dados do recurso/equipamento
     recurso.id = 0; // ID sera atribuido automaticamente
@@ -17,7 +17,101 @@ TipoRecurso menuRecursoRecebe() {
     return recurso;
 }
 
-void listarRecurso(ListaRecurso *lista) {
+void menuRecursoAdicionar(ListaRecurso **listaRecurso){
+    // Guarda o novo item
+    TipoRecurso novo;
+
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuRecursoRecebe(); // Recebe os valroes do usuario
+        
+        // Mostra os dados que foram inseridos
+        printItemRecurso(novo);
+        
+        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+    }
+    
+    // Realmente adiciona na lista
+    if ( recursoAdicionar(listaRecurso, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
+}
+
+void menuRecursoRemover(ListaRecurso **listaRecurso){
+    int ID = recebeID(); // recebe o ID do item que vai ser removido
+    
+    // Busca o Item q vai ser removido
+    TipoRecurso *Recurso; // Para guardar resultado de busca
+    Recurso = recursoBuscar(*listaRecurso, ID);
+    if (Recurso == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Mostra o Item que vai ser removido
+    
+    printItemRecurso(*Recurso);
+    
+    
+    // Pede confirmacao, se tiver ok, remove o Recurso
+    if (printConfirma()){
+        recursoRemover(listaRecurso, ID);
+        printRemoverSucesso();
+    }
+}
+
+void menuRecursoAtualizar(ListaRecurso **listaRecurso){
+    // Declara um novo item pra receber os dados atualizados
+    TipoRecurso novoRecurso;
+    TipoRecurso* velhoRecurso;
+
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID();
+    velhoRecurso = recursoBuscar(*listaRecurso, ID);
+
+    // Se esse ID n existe, mostra erro
+    if (velhoRecurso == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Caso contrario, recebe os novos dados
+    novoRecurso = menuRecursoRecebe();
+
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    
+    printItemRecurso(*velhoRecurso);
+    
+    
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    
+    printItemRecurso(novoRecurso);
+    
+    
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (printConfirma()){
+        recursoAtualizar(*listaRecurso, novoRecurso, ID);
+        printAtualizarSucesso();
+    }
+}
+
+void menuRecursoBuscar(ListaRecurso **listaRecurso){
+    TipoRecurso *Recurso; // Para guardar resultado de busca
+    Recurso = recursoBuscar(*listaRecurso, recebeID());
+    if (Recurso != NULL){
+        
+        printItemRecurso(*Recurso);
+        
+    }
+    else printNaoEncontrado();
+}
+
+void menuRecursoListar(ListaRecurso *lista) {
     limparTela();
 
     // Lista todos os recursos/equipamentos cadastrados
@@ -26,17 +120,14 @@ void listarRecurso(ListaRecurso *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaRecurso *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->recurso.ativo) printItemRecurso(atual->recurso);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
     printf("\n");
 }
 
@@ -44,52 +135,42 @@ void menuRecurso(ListaRecurso **listaRecurso) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
-        // Exibe o menu de Recurso/Equipamento
+        // Exibe o menu de Recurso
         printMenuRecurso();
 
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-        TipoRecurso *recurso; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
-                // Adicionar Recurso/Equipamento
-                if ( adicionarRecurso(listaRecurso, menuRecursoRecebe()) ) printAdicionarSucesso();
-                else printAdicionarFalha();
+                // Adicionar Recurso
+                menuRecursoAdicionar(listaRecurso);
                 esperaEnter();
                 break;
             case 2:
-                // Remover Recurso/Equipamento
-                if ( removerRecurso(listaRecurso, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
-                else printNaoEncontrado();
+                // Remover Recurso
+                menuRecursoRemover(listaRecurso);
                 esperaEnter();
                 break;
             case 3:
-                // Atualizar Recurso/Equipamento
-                if ( atualizarRecurso(*listaRecurso, menuRecursoRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
-                else printNaoEncontrado();
+                // Atualizar Recurso
+                menuRecursoAtualizar(listaRecurso);
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Recurso
-                recurso = buscarRecurso(*listaRecurso, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
-                if (recurso != NULL) {
-                    printTabelaLinha();
-                    printItemRecurso(*recurso);
-                    printTabelaLinha();
-                }
-                else printNaoEncontrado();
+                menuRecursoBuscar(listaRecurso);
                 esperaEnter();
                 break;
             case 5:
-                // Listar Recursos/Equipamentos
-                listarRecurso(*listaRecurso);
+                // Listar Recursos
+                menuRecursoListar(*listaRecurso);
                 esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\nVoltando ao menu principal...\n");
+                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida
@@ -97,4 +178,5 @@ void menuRecurso(ListaRecurso **listaRecurso) {
                 esperaEnter();
         }
     }while (escolha != 0);
+    
 }

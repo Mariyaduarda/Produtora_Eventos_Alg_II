@@ -131,11 +131,3 @@ void printMenuOperador(){
         "\n => "
     );
 }
-
-void printTabelaLinha(){
-    printf("\n======================================================================");
-}
-
-void printTabelaLinhaInterior(){
-    printf("\n |==================================================================| ");
-}

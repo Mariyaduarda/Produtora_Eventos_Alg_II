@@ -3,7 +3,7 @@
 TipoCliente menuClienteRecebe() {
     // Recebe um novo Cliente do usuario e retorna o cliente preenchido
     TipoCliente cliente;
-    inicializarCliente(&cliente);
+    clienteInit(&cliente);
 
     // Recebe os dados do cliente
     cliente.id = 0; // ID sera atribuido automaticamente
@@ -17,7 +17,101 @@ TipoCliente menuClienteRecebe() {
     return cliente;
 }
 
-void listarClientes(ListaCliente *lista) {
+void menuClienteAdicionar(ListaCliente **listaCliente){
+    // Guarda o novo item
+    TipoCliente novo;
+
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuClienteRecebe(); // Recebe os valroes do usuario
+        
+        // Mostra os dados que foram inseridos
+        printItemCliente(novo);
+        
+        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+    }
+    
+    // Realmente adiciona na lista
+    if ( clienteAdicionar(listaCliente, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
+}
+
+void menuClienteRemover(ListaCliente **listaCliente){
+    int ID = recebeID(); // recebe o ID do item que vai ser removido
+    
+    // Busca o Item q vai ser removido
+    TipoCliente *cliente; // Para guardar resultado de busca
+    cliente = clienteBuscar(*listaCliente, ID);
+    if (cliente == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Mostra o Item que vai ser removido
+    
+    printItemCliente(*cliente);
+    
+    
+    // Pede confirmacao, se tiver ok, remove o cliente
+    if (printConfirma()){
+        clienteRemover(listaCliente, ID);
+        printRemoverSucesso();
+    }
+}
+
+void menuClienteAtualizar(ListaCliente **listaCliente){
+    // Declara um novo item pra receber os dados atualizados
+    TipoCliente novoCliente;
+    TipoCliente* velhoCliente;
+
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID();
+    velhoCliente = clienteBuscar(*listaCliente, ID);
+
+    // Se esse ID n existe, mostra erro
+    if (velhoCliente == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Caso contrario, recebe os novos dados
+    novoCliente = menuClienteRecebe();
+
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    
+    printItemCliente(*velhoCliente);
+    
+    
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    
+    printItemCliente(novoCliente);
+    
+    
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (printConfirma()){
+        clienteAtualizar(*listaCliente, novoCliente, ID);
+        printAtualizarSucesso();
+    }
+}
+
+void menuClienteBuscar(ListaCliente **listaCliente){
+    TipoCliente *cliente; // Para guardar resultado de busca
+    cliente = clienteBuscar(*listaCliente, recebeID());
+    if (cliente != NULL){
+        
+        printItemCliente(*cliente);
+        
+    }
+    else printNaoEncontrado();
+}
+
+void menuClienteListar(ListaCliente *lista) {
     limparTela();
 
     // Lista todos os clientes cadastrados
@@ -26,17 +120,15 @@ void listarClientes(ListaCliente *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaCliente *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->cliente.ativo) printItemCliente(atual->cliente);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
+
     printf("\n");
 }
 
@@ -50,41 +142,31 @@ void menuCliente(ListaCliente **listaCliente) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-        TipoCliente *cliente; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
                 // Adicionar Cliente
-                if ( adicionarCliente(listaCliente, menuClienteRecebe()) ) printAdicionarSucesso();
-                else printAdicionarFalha();
+                menuClienteAdicionar(listaCliente);
                 esperaEnter();
                 break;
             case 2:
                 // Remover Cliente
-                if ( removerCliente(listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
-                else printNaoEncontrado();
+                menuClienteRemover(listaCliente);
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Cliente
-                if ( atualizarCliente(*listaCliente, menuClienteRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
-                else printNaoEncontrado();
+                menuClienteAtualizar(listaCliente);
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Cliente
-                cliente = buscarCliente(*listaCliente, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
-                if (cliente != NULL){
-                    printTabelaLinha();
-                    printItemCliente(*cliente);
-                    printTabelaLinha();
-                }
-                else printNaoEncontrado();
+                menuClienteBuscar(listaCliente);
                 esperaEnter();
                 break;
             case 5:
                 // Listar Clientes
-                listarClientes(*listaCliente);
+                menuClienteListar(*listaCliente);
                 esperaEnter();
                 break;
             case 0:

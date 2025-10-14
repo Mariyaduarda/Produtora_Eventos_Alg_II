@@ -2,7 +2,7 @@
 #include <string.h>
 #include "recurso.h"
 
-void inicializarRecurso(TipoRecurso *recurso){
+void recursoInit(TipoRecurso *recurso){
     recurso->ativo = true;
     recurso->id = 0;
     strcpy(recurso->descricao, "");
@@ -12,12 +12,12 @@ void inicializarRecurso(TipoRecurso *recurso){
     recurso->valorLocacao = 0.0;
 }
 
-void inicializarListaRecurso(ListaRecurso *lista){
+void recursoListaInit(ListaRecurso *lista){
     lista->prox = NULL;
-    inicializarRecurso(&lista->recurso);
+    recursoInit(&lista->recurso);
 }
 
-int adicionarRecurso(ListaRecurso **lista, TipoRecurso recurso){
+int recursoAdicionar(ListaRecurso **lista, TipoRecurso recurso){
     // aloca o espaco para um novo no'
     ListaRecurso *novo = (ListaRecurso *)malloc(sizeof(ListaRecurso));
     if(novo == NULL) return 0;
@@ -49,7 +49,7 @@ int adicionarRecurso(ListaRecurso **lista, TipoRecurso recurso){
     return 1;
 }
 
-int removerRecurso(ListaRecurso **lista, int id){
+int recursoRemover(ListaRecurso **lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaRecurso *atual = *lista;
 
@@ -71,7 +71,7 @@ int removerRecurso(ListaRecurso **lista, int id){
     return 0;
 }
 
-int atualizarRecurso(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id){
+int recursoAtualizar(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id){
     // variavel auxiliar para percorrer a lista
     ListaRecurso *atual = lista;
 
@@ -92,7 +92,7 @@ int atualizarRecurso(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id)
     return 0;
 }
 
-TipoRecurso* buscarRecurso(ListaRecurso *lista, int id){
+TipoRecurso* recursoBuscar(ListaRecurso *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaRecurso *atual = lista;
 
@@ -110,4 +110,17 @@ TipoRecurso* buscarRecurso(ListaRecurso *lista, int id){
 
     // se chegar aqui, n achei o recurso
     return NULL;
+}
+
+void recursoListaLiberar(ListaRecurso* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaRecurso* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
 }

@@ -2,7 +2,7 @@
 #include <string.h>
 #include "produtora.h"
 
-void inicializarProdutora(TipoProdutora *produtora){
+void produtoraInit(TipoProdutora *produtora){
     produtora->ativo = true;
     produtora->id = 0;
     strcpy(produtora->nomeFantasia, "");
@@ -17,12 +17,12 @@ void inicializarProdutora(TipoProdutora *produtora){
     produtora->margemDeLucro = 0.0;
 }
 
-void inicializarListaProdutora(ListaProdutora *lista){
+void produtoraListaInit(ListaProdutora *lista){
     lista->prox = NULL;
-    inicializarProdutora(&lista->produtora);
+    produtoraInit(&lista->produtora);
 }
 
-int adicionarProdutora(ListaProdutora **lista, TipoProdutora produtora){
+int produtoraAdicionar(ListaProdutora **lista, TipoProdutora produtora){
     // aloca o espaco para um novo no'
     ListaProdutora *novo = (ListaProdutora *)malloc(sizeof(ListaProdutora));
     if(novo == NULL) return 0;
@@ -54,7 +54,7 @@ int adicionarProdutora(ListaProdutora **lista, TipoProdutora produtora){
     return 1;
 }
 
-int removerProdutora(ListaProdutora **lista, int id){
+int produtoraRemover(ListaProdutora **lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = *lista;
 
@@ -76,7 +76,7 @@ int removerProdutora(ListaProdutora **lista, int id){
     return 0;
 }
 
-int atualizarProdutora(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id){
+int produtoraAtualizar(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id){
     // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = lista;
 
@@ -97,7 +97,7 @@ int atualizarProdutora(ListaProdutora *lista, TipoProdutora produtoraAtualizada,
     return 0;
 }
 
-TipoProdutora* buscarProdutora(ListaProdutora *lista, int id){
+TipoProdutora* produtoraBuscar(ListaProdutora *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaProdutora *atual = lista;
 
@@ -115,4 +115,17 @@ TipoProdutora* buscarProdutora(ListaProdutora *lista, int id){
 
     // se chegar aqui, n achei a produtora
     return NULL;
+}
+
+void produtoraListaLiberar(ListaProdutora* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaProdutora* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
 }

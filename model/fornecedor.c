@@ -2,7 +2,7 @@
 #include <string.h>
 #include "fornecedor.h"
 
-void inicializarFornecedor(TipoFornecedor *fornecedor){
+void fornecedorInit(TipoFornecedor *fornecedor){
     fornecedor->ativo = true;     // td objeto comeca como ativo
     fornecedor->usa_CNPJ = false; // por padrao usa cpf ao inves de cnpj
     fornecedor->id = 0;           // id vai ser calculado automaticamente
@@ -15,12 +15,12 @@ void inicializarFornecedor(TipoFornecedor *fornecedor){
     strcpy(fornecedor->tipoServico, "");
 }
 
-void inicializarListaFornecedor(ListaFornecedor *lista){
+void fornecedorListaInit(ListaFornecedor *lista){
     lista->prox = NULL;
-    inicializarFornecedor(&lista->fornecedor);
+    fornecedorInit(&lista->fornecedor);
 }
 
-int adicionarFornecedor(ListaFornecedor **lista, TipoFornecedor fornecedor){
+int fornecedorAdicionar(ListaFornecedor **lista, TipoFornecedor fornecedor){
     // aloca o espaco para um novo no'
     ListaFornecedor *novo = (ListaFornecedor *)malloc(sizeof(ListaFornecedor));
     if(novo == NULL) return 0;
@@ -52,7 +52,7 @@ int adicionarFornecedor(ListaFornecedor **lista, TipoFornecedor fornecedor){
     return 1;
 }
 
-int removerFornecedor(ListaFornecedor **lista, int id){
+int fornecedorRemover(ListaFornecedor **lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaFornecedor *atual = *lista;
 
@@ -74,7 +74,7 @@ int removerFornecedor(ListaFornecedor **lista, int id){
     return 0;
 }
 
-int atualizarFornecedor(ListaFornecedor *lista, TipoFornecedor fornecedorAtualizado, int id){
+int fornecedorAtualizar(ListaFornecedor *lista, TipoFornecedor fornecedorAtualizado, int id){
     // variavel auxiliar para percorrer a lista
     ListaFornecedor *atual = lista;
 
@@ -95,7 +95,7 @@ int atualizarFornecedor(ListaFornecedor *lista, TipoFornecedor fornecedorAtualiz
     return 0;
 }
 
-TipoFornecedor* buscarFornecedor(ListaFornecedor *lista, int id){
+TipoFornecedor* fornecedorBuscar(ListaFornecedor *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaFornecedor *atual = lista;
 
@@ -113,4 +113,17 @@ TipoFornecedor* buscarFornecedor(ListaFornecedor *lista, int id){
 
     // se chegar aqui, n achei o fornecedor
     return NULL;
+}
+
+void fornecedorListaLiberar(ListaFornecedor* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaFornecedor* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
 }

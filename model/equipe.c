@@ -1,6 +1,6 @@
 #include "equipe.h"
 
-void inicializarEquipe(TipoEquipe *equipe){
+void equipeInit(TipoEquipe *equipe){
     equipe->ativo = true;
     equipe->id = 0;
     strcpy(equipe->nome, "");
@@ -9,12 +9,12 @@ void inicializarEquipe(TipoEquipe *equipe){
     equipe->valorDiariaHora = 0.0;
 }
 
-void inicializarListaEquipe(ListaEquipe *lista){
+void equipeListaInit(ListaEquipe *lista){
     lista->prox = NULL;
-    inicializarEquipe(&lista->equipe);
+    equipeInit(&lista->equipe);
 }
 
-int adicionarEquipe(ListaEquipe **lista, TipoEquipe equipe){
+int equipeAdicionar(ListaEquipe **lista, TipoEquipe equipe){
     // aloca o espaco para um novo no'
     ListaEquipe *novo = (ListaEquipe *)malloc(sizeof(ListaEquipe));
     if(novo == NULL) return 0;
@@ -47,7 +47,7 @@ int adicionarEquipe(ListaEquipe **lista, TipoEquipe equipe){
 
 }
 
-int removerEquipe(ListaEquipe **lista, int id){
+int equipeRemover(ListaEquipe **lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaEquipe *atual = *lista;
 
@@ -69,7 +69,7 @@ int removerEquipe(ListaEquipe **lista, int id){
     return 0;
 }
 
-int atualizarEquipe(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id){
+int equipeAtualizar(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id){
     // variavel auxiliar para percorrer a lista
     ListaEquipe *atual = lista;
 
@@ -90,7 +90,7 @@ int atualizarEquipe(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id){
     return 0;
 }
 
-TipoEquipe* buscarEquipe(ListaEquipe *lista, int id){
+TipoEquipe* equipeBuscar(ListaEquipe *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaEquipe *atual = lista;
 
@@ -108,4 +108,17 @@ TipoEquipe* buscarEquipe(ListaEquipe *lista, int id){
 
     // se chegar aqui, n achei o cliente
     return NULL;
+}
+
+void equipeListaLiberar(ListaEquipe* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaEquipe* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
 }
