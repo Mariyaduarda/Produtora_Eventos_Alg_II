@@ -122,8 +122,22 @@ bool validarTelefone(const char *telefone) {
         if (isdigit(telefone[i])) {
             digitos++;
         } else if (telefone[i] != ' ' && telefone[i] != '(' &&
-                    telefone[i] !) {}
+                    telefone[i] !=  ')' && telefone[i] != '-') {
+            return false;
+        }
     }
+    return (digitos == 10 || digitos == 11);
 }
 
 // // ===== VALIDACAO DO NOME ======
+bool validarNome(const char *nome) {
+    int i, len = strlen(nome);
+    bool tem_espaco = false;
+
+    if (len < 3) return false;
+
+    for (i = 0; i < len; i++) {
+        if (isalpha(nome[i]) || nome[i] == ' ' || nome[i] == '\''
+            || nome[i] == '-' || nome[i] == '.' || (unsigned char)nome[i] >= 0xC0) {}
+    }
+}
