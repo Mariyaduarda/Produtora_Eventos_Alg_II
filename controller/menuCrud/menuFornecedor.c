@@ -17,7 +17,101 @@ TipoFornecedor menuFornecedorRecebe() {
     return fornecedor;
 }
 
-void listarFornecedor(ListaFornecedor *lista) {
+void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor){
+    // Guarda o novo item
+    TipoFornecedor novo;
+
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuFornecedorRecebe(); // Recebe os valroes do usuario
+        
+        // Mostra os dados que foram inseridos
+        printItemFornecedor(novo);
+        
+        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+    }
+    
+    // Realmente adiciona na lista
+    if ( adicionarFornecedor(listaFornecedor, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
+}
+
+void menuFornecedorRemover(ListaFornecedor **listaFornecedor){
+    int ID = recebeID(); // recebe o ID do item que vai ser removido
+    
+    // Busca o Item q vai ser removido
+    TipoFornecedor *Fornecedor; // Para guardar resultado de busca
+    Fornecedor = buscarFornecedor(*listaFornecedor, ID);
+    if (Fornecedor == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Mostra o Item que vai ser removido
+    
+    printItemFornecedor(*Fornecedor);
+    
+    
+    // Pede confirmacao, se tiver ok, remove o Fornecedor
+    if (printConfirma()){
+        removerFornecedor(listaFornecedor, ID);
+        printRemoverSucesso();
+    }
+}
+
+void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
+    // Declara um novo item pra receber os dados atualizados
+    TipoFornecedor novoFornecedor;
+    TipoFornecedor* velhoFornecedor;
+
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID();
+    velhoFornecedor = buscarFornecedor(*listaFornecedor, ID);
+
+    // Se esse ID n existe, mostra erro
+    if (velhoFornecedor == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Caso contrario, recebe os novos dados
+    novoFornecedor = menuFornecedorRecebe();
+
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    
+    printItemFornecedor(*velhoFornecedor);
+    
+    
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    
+    printItemFornecedor(novoFornecedor);
+    
+    
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (printConfirma()){
+        atualizarFornecedor(*listaFornecedor, novoFornecedor, ID);
+        printAtualizarSucesso();
+    }
+}
+
+void menuFornecedorBuscar(ListaFornecedor **listaFornecedor){
+    TipoFornecedor *Fornecedor; // Para guardar resultado de busca
+    Fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
+    if (Fornecedor != NULL){
+        
+        printItemFornecedor(*Fornecedor);
+        
+    }
+    else printNaoEncontrado();
+}
+
+void menuFornecedorListar(ListaFornecedor *lista) {
     limparTela();
 
     // Lista todos os fornecedores/parceiros cadastrados
@@ -41,52 +135,42 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
-        // Exibe o menu de Fornecedor/Parceiro
+        // Exibe o menu de Fornecedor
         printMenuFornecedor();
 
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-        TipoFornecedor *fornecedor; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
-                // Adicionar Fornecedor/Parceiro
-                if (adicionarFornecedor(listaFornecedor, menuFornecedorRecebe())) printAdicionarSucesso();
-                else printAdicionarFalha();
+                // Adicionar Fornecedor
+                menuFornecedorAdicionar(listaFornecedor);
                 esperaEnter();
                 break;
             case 2:
-                // Remover Fornecedor/Parceiro
-                if (removerFornecedor(listaFornecedor, recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printRemoverSucesso();
-                else printNaoEncontrado();
+                // Remover Fornecedor
+                menuFornecedorRemover(listaFornecedor);
                 esperaEnter();
                 break;
             case 3:
-                // Atualizar Fornecedor/Parceiro
-                if (atualizarFornecedor(*listaFornecedor, menuFornecedorRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printAtualizarSucesso();
-                else printNaoEncontrado();
+                // Atualizar Fornecedor
+                menuFornecedorAtualizar(listaFornecedor);
                 esperaEnter();
                 break;
             case 4:
-                // Buscar Fornecedor/Parceiro
-                fornecedor = buscarFornecedor(*listaFornecedor, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
-                if (fornecedor != NULL) {
-                    
-                    printItemFornecedor(*fornecedor);
-                    
-                }
-                else printNaoEncontrado();
+                // Buscar Fornecedor
+                menuFornecedorBuscar(listaFornecedor);
                 esperaEnter();
                 break;
             case 5:
-                // Listar Fornecedores/Parceiros
-                listarFornecedor(*listaFornecedor);
+                // Listar Fornecedors
+                menuFornecedorListar(*listaFornecedor);
                 esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal...\n");
+                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida

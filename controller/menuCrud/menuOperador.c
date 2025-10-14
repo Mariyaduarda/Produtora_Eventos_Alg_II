@@ -14,7 +14,101 @@ TipoOperador menuOperadorRecebe() {
     return operador;
 }
 
-void listarOperador(ListaOperador *lista) {
+void menuOperadorAdicionar(ListaOperador **listaOperador){
+    // Guarda o novo item
+    TipoOperador novo;
+
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuOperadorRecebe(); // Recebe os valroes do usuario
+        
+        // Mostra os dados que foram inseridos
+        printItemOperador(novo);
+        
+        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+    }
+    
+    // Realmente adiciona na lista
+    if ( adicionarOperador(listaOperador, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
+}
+
+void menuOperadorRemover(ListaOperador **listaOperador){
+    int ID = recebeID(); // recebe o ID do item que vai ser removido
+    
+    // Busca o Item q vai ser removido
+    TipoOperador *Operador; // Para guardar resultado de busca
+    Operador = buscarOperador(*listaOperador, ID);
+    if (Operador == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Mostra o Item que vai ser removido
+    
+    printItemOperador(*Operador);
+    
+    
+    // Pede confirmacao, se tiver ok, remove o Operador
+    if (printConfirma()){
+        removerOperador(listaOperador, ID);
+        printRemoverSucesso();
+    }
+}
+
+void menuOperadorAtualizar(ListaOperador **listaOperador){
+    // Declara um novo item pra receber os dados atualizados
+    TipoOperador novoOperador;
+    TipoOperador* velhoOperador;
+
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID();
+    velhoOperador = buscarOperador(*listaOperador, ID);
+
+    // Se esse ID n existe, mostra erro
+    if (velhoOperador == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Caso contrario, recebe os novos dados
+    novoOperador = menuOperadorRecebe();
+
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    
+    printItemOperador(*velhoOperador);
+    
+    
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    
+    printItemOperador(novoOperador);
+    
+    
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (printConfirma()){
+        atualizarOperador(*listaOperador, novoOperador, ID);
+        printAtualizarSucesso();
+    }
+}
+
+void menuOperadorBuscar(ListaOperador **listaOperador){
+    TipoOperador *Operador; // Para guardar resultado de busca
+    Operador = buscarOperador(*listaOperador, recebeID());
+    if (Operador != NULL){
+        
+        printItemOperador(*Operador);
+        
+    }
+    else printNaoEncontrado();
+}
+
+void menuOperadorListar(ListaOperador *lista) {
     limparTela();
 
     // Lista todos os operadores do sistema cadastrados
@@ -38,52 +132,42 @@ void menuOperador(ListaOperador **listaOperador) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
-        // Exibe o menu de Operador do Sistema
+        // Exibe o menu de Operador
         printMenuOperador();
 
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-        TipoOperador *operador; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
-                // Adicionar Operador do Sistema
-                if ( adicionarOperador(listaOperador, menuOperadorRecebe()) ) printAdicionarSucesso();
-                else printAdicionarFalha();
+                // Adicionar Operador
+                menuOperadorAdicionar(listaOperador);
                 esperaEnter();
                 break;
             case 2:
-                // Remover Operador do Sistema
-                if ( removerOperador(listaOperador, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
-                else printNaoEncontrado();
+                // Remover Operador
+                menuOperadorRemover(listaOperador);
                 esperaEnter();
                 break;
             case 3:
-                // Atualizar Operador do Sistema
-                if (atualizarOperador(*listaOperador, menuOperadorRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1"))) printAtualizarSucesso();
-                else printNaoEncontrado();
+                // Atualizar Operador
+                menuOperadorAtualizar(listaOperador);
                 esperaEnter();
                 break;
             case 4:
-                // Buscar Operador do Sistema
-                operador = buscarOperador(*listaOperador, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
-                if (operador != NULL) {
-                    
-                    printItemOperador(*operador);
-                    
-                }
-                else printNaoEncontrado();
+                // Buscar Operador
+                menuOperadorBuscar(listaOperador);
                 esperaEnter();
                 break;
             case 5:
-                // Listar Operadores do Sistema
-                listarOperador(*listaOperador);
+                // Listar Operadors
+                menuOperadorListar(*listaOperador);
                 esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal...\n");
+                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida
