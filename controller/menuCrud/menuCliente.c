@@ -3,7 +3,7 @@
 TipoCliente menuClienteRecebe() {
     // Recebe um novo Cliente do usuario e retorna o cliente preenchido
     TipoCliente cliente;
-    inicializarCliente(&cliente);
+    clienteInit(&cliente);
 
     // Recebe os dados do cliente
     cliente.id = 0; // ID sera atribuido automaticamente
@@ -32,7 +32,7 @@ void menuClienteAdicionar(ListaCliente **listaCliente){
     }
     
     // Realmente adiciona na lista
-    if ( adicionarCliente(listaCliente, novo) ) printAdicionarSucesso();
+    if ( clienteAdicionar(listaCliente, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
 }
 
@@ -41,7 +41,7 @@ void menuClienteRemover(ListaCliente **listaCliente){
     
     // Busca o Item q vai ser removido
     TipoCliente *cliente; // Para guardar resultado de busca
-    cliente = buscarCliente(*listaCliente, ID);
+    cliente = clienteBuscar(*listaCliente, ID);
     if (cliente == NULL){
         printNaoEncontrado();
         return;
@@ -54,7 +54,7 @@ void menuClienteRemover(ListaCliente **listaCliente){
     
     // Pede confirmacao, se tiver ok, remove o cliente
     if (printConfirma()){
-        removerCliente(listaCliente, ID);
+        clienteRemover(listaCliente, ID);
         printRemoverSucesso();
     }
 }
@@ -66,7 +66,7 @@ void menuClienteAtualizar(ListaCliente **listaCliente){
 
     // Recebe o ID do item que vai ser atualizado
     int ID = recebeID();
-    velhoCliente = buscarCliente(*listaCliente, ID);
+    velhoCliente = clienteBuscar(*listaCliente, ID);
 
     // Se esse ID n existe, mostra erro
     if (velhoCliente == NULL){
@@ -95,14 +95,14 @@ void menuClienteAtualizar(ListaCliente **listaCliente){
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
-        atualizarCliente(*listaCliente, novoCliente, ID);
+        clienteAtualizar(*listaCliente, novoCliente, ID);
         printAtualizarSucesso();
     }
 }
 
 void menuClienteBuscar(ListaCliente **listaCliente){
     TipoCliente *cliente; // Para guardar resultado de busca
-    cliente = buscarCliente(*listaCliente, recebeID());
+    cliente = clienteBuscar(*listaCliente, recebeID());
     if (cliente != NULL){
         
         printItemCliente(*cliente);

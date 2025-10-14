@@ -3,7 +3,7 @@
 TipoOperador menuOperadorRecebe() {
     // Recebe um novo Operador do Sistema do usuario e retorna o operador preenchido
     TipoOperador operador;
-    inicializarOperador(&operador);
+    operadorInit(&operador);
 
     // Recebe os dados do operador do sistema
     operador.id = 0; // ID sera atribuido automaticamente
@@ -29,7 +29,7 @@ void menuOperadorAdicionar(ListaOperador **listaOperador){
     }
     
     // Realmente adiciona na lista
-    if ( adicionarOperador(listaOperador, novo) ) printAdicionarSucesso();
+    if ( operadorAdicionar(listaOperador, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
 }
 
@@ -38,7 +38,7 @@ void menuOperadorRemover(ListaOperador **listaOperador){
     
     // Busca o Item q vai ser removido
     TipoOperador *Operador; // Para guardar resultado de busca
-    Operador = buscarOperador(*listaOperador, ID);
+    Operador = operadorBuscar(*listaOperador, ID);
     if (Operador == NULL){
         printNaoEncontrado();
         return;
@@ -51,7 +51,7 @@ void menuOperadorRemover(ListaOperador **listaOperador){
     
     // Pede confirmacao, se tiver ok, remove o Operador
     if (printConfirma()){
-        removerOperador(listaOperador, ID);
+        operadorRemover(listaOperador, ID);
         printRemoverSucesso();
     }
 }
@@ -63,7 +63,7 @@ void menuOperadorAtualizar(ListaOperador **listaOperador){
 
     // Recebe o ID do item que vai ser atualizado
     int ID = recebeID();
-    velhoOperador = buscarOperador(*listaOperador, ID);
+    velhoOperador = operadorBuscar(*listaOperador, ID);
 
     // Se esse ID n existe, mostra erro
     if (velhoOperador == NULL){
@@ -92,14 +92,14 @@ void menuOperadorAtualizar(ListaOperador **listaOperador){
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
-        atualizarOperador(*listaOperador, novoOperador, ID);
+        operadorAtualizar(*listaOperador, novoOperador, ID);
         printAtualizarSucesso();
     }
 }
 
 void menuOperadorBuscar(ListaOperador **listaOperador){
     TipoOperador *Operador; // Para guardar resultado de busca
-    Operador = buscarOperador(*listaOperador, recebeID());
+    Operador = operadorBuscar(*listaOperador, recebeID());
     if (Operador != NULL){
         
         printItemOperador(*Operador);

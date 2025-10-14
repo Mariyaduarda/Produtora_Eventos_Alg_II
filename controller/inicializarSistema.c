@@ -2,12 +2,12 @@
 
 void inicializarListas(ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaProdutora **listaProdutora, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador) {
     // Inicializa cada lista chamando a funcao correspondente
-    inicializarListaCliente(*listaCliente);
-    inicializarListaFornecedor(*listaFornecedor);
-    inicializarListaProdutora(*listaProdutora);
-    inicializarListaEquipe(*listaEquipe);
-    inicializarListaRecurso(*listaRecurso);
-    inicializarListaOperador(*listaOperador);
+    clienteListaInit(*listaCliente);
+    fornecedorListaInit(*listaFornecedor);
+    produtoraListaInit(*listaProdutora);
+    equipeListaInit(*listaEquipe);
+    recursoListaInit(*listaRecurso);
+    operadorListaInit(*listaOperador);
 }
 
 
@@ -25,10 +25,10 @@ void inicializarSistema() {
     menuPrincipal(&listaCliente, &listaFornecedor, &listaProdutora, &listaEquipe, &listaRecurso, &listaOperador);
 
     // Liberar memoria de tds as listas
-    liberarListaCliente(listaCliente);
-    liberarListaEquipe(listaEquipe);
-    liberarListaFornecedor(listaFornecedor);
-    liberarListaOperador(listaOperador);
-    liberarListaProdutora(listaProdutora);
-    liberarListaRecurso(listaRecurso);
+    clienteListaLiberar(listaCliente);
+    equipeListaLiberar(listaEquipe);
+    fornecedorListaLiberar(listaFornecedor);
+    operadorListaLiberar(listaOperador);
+    produtoraListaLiberar(listaProdutora);
+    recursoListaLiberar(listaRecurso);
 }

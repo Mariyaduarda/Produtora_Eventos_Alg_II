@@ -3,7 +3,7 @@
 TipoFornecedor menuFornecedorRecebe() {
     // Recebe um novo Fornecedor/Parceiro do usuario e retorna o fornecedor/parceiro preenchido
     TipoFornecedor fornecedor;
-    inicializarFornecedor(&fornecedor);
+    fornecedorInit(&fornecedor);
 
     // Recebe os dados do fornecedor/parceiro
     fornecedor.id = 0; // ID sera atribuido automaticamente
@@ -32,7 +32,7 @@ void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor){
     }
     
     // Realmente adiciona na lista
-    if ( adicionarFornecedor(listaFornecedor, novo) ) printAdicionarSucesso();
+    if ( fornecedorAdicionar(listaFornecedor, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
 }
 
@@ -41,7 +41,7 @@ void menuFornecedorRemover(ListaFornecedor **listaFornecedor){
     
     // Busca o Item q vai ser removido
     TipoFornecedor *Fornecedor; // Para guardar resultado de busca
-    Fornecedor = buscarFornecedor(*listaFornecedor, ID);
+    Fornecedor = fornecedorBuscar(*listaFornecedor, ID);
     if (Fornecedor == NULL){
         printNaoEncontrado();
         return;
@@ -54,7 +54,7 @@ void menuFornecedorRemover(ListaFornecedor **listaFornecedor){
     
     // Pede confirmacao, se tiver ok, remove o Fornecedor
     if (printConfirma()){
-        removerFornecedor(listaFornecedor, ID);
+        fornecedorRemover(listaFornecedor, ID);
         printRemoverSucesso();
     }
 }
@@ -66,7 +66,7 @@ void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
 
     // Recebe o ID do item que vai ser atualizado
     int ID = recebeID();
-    velhoFornecedor = buscarFornecedor(*listaFornecedor, ID);
+    velhoFornecedor = fornecedorBuscar(*listaFornecedor, ID);
 
     // Se esse ID n existe, mostra erro
     if (velhoFornecedor == NULL){
@@ -95,14 +95,14 @@ void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
-        atualizarFornecedor(*listaFornecedor, novoFornecedor, ID);
+        fornecedorAtualizar(*listaFornecedor, novoFornecedor, ID);
         printAtualizarSucesso();
     }
 }
 
 void menuFornecedorBuscar(ListaFornecedor **listaFornecedor){
     TipoFornecedor *Fornecedor; // Para guardar resultado de busca
-    Fornecedor = buscarFornecedor(*listaFornecedor, recebeID());
+    Fornecedor = fornecedorBuscar(*listaFornecedor, recebeID());
     if (Fornecedor != NULL){
         
         printItemFornecedor(*Fornecedor);

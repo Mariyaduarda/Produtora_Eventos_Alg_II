@@ -26,12 +26,12 @@ typedef struct ListaCliente{
     TipoCliente cliente;
 } ListaCliente;
 
-void inicializarCliente(TipoCliente *cliente);
-void inicializarListaCliente(ListaCliente *lista);
-int adicionarCliente(ListaCliente **lista, TipoCliente cliente);
-int removerCliente(ListaCliente **lista, int id);
-int atualizarCliente(ListaCliente *lista, TipoCliente clienteAtualizado, int id);
-TipoCliente* buscarCliente(ListaCliente *lista, int id);
-void liberarListaCliente(ListaCliente* lista);
+void clienteInit(TipoCliente *cliente);
+void clienteListaInit(ListaCliente *lista);
+int clienteAdicionar(ListaCliente **lista, TipoCliente cliente);
+int clienteRemover(ListaCliente **lista, int id);
+int clienteAtualizar(ListaCliente *lista, TipoCliente clienteAtualizado, int id);
+TipoCliente* clienteBuscar(ListaCliente *lista, int id);
+void clienteListaLiberar(ListaCliente* lista);
 
 #endif // CLIENTE_H

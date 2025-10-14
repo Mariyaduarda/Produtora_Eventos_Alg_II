@@ -3,7 +3,7 @@
 TipoEquipe menuEquipeRecebe() {
     // Recebe uma nova Equipe Interna do usuario e retorna a equipe preenchida
     TipoEquipe equipe;
-    inicializarEquipe(&equipe);
+    equipeInit(&equipe);
 
     // Recebe os dados da equipe interna
     equipe.id = 0; // ID sera atribuido automaticamente
@@ -30,7 +30,7 @@ void menuEquipeAdicionar(ListaEquipe **listaEquipe){
     }
     
     // Realmente adiciona na lista
-    if ( adicionarEquipe(listaEquipe, novo) ) printAdicionarSucesso();
+    if ( equipeAdicionar(listaEquipe, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
 }
 
@@ -39,7 +39,7 @@ void menuEquipeRemover(ListaEquipe **listaEquipe){
     
     // Busca o Item q vai ser removido
     TipoEquipe *Equipe; // Para guardar resultado de busca
-    Equipe = buscarEquipe(*listaEquipe, ID);
+    Equipe = equipeBuscar(*listaEquipe, ID);
     if (Equipe == NULL){
         printNaoEncontrado();
         return;
@@ -52,7 +52,7 @@ void menuEquipeRemover(ListaEquipe **listaEquipe){
     
     // Pede confirmacao, se tiver ok, remove o Equipe
     if (printConfirma()){
-        removerEquipe(listaEquipe, ID);
+        equipeRemover(listaEquipe, ID);
         printRemoverSucesso();
     }
 }
@@ -64,7 +64,7 @@ void menuEquipeAtualizar(ListaEquipe **listaEquipe){
 
     // Recebe o ID do item que vai ser atualizado
     int ID = recebeID();
-    velhoEquipe = buscarEquipe(*listaEquipe, ID);
+    velhoEquipe = equipeBuscar(*listaEquipe, ID);
 
     // Se esse ID n existe, mostra erro
     if (velhoEquipe == NULL){
@@ -93,14 +93,14 @@ void menuEquipeAtualizar(ListaEquipe **listaEquipe){
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
-        atualizarEquipe(*listaEquipe, novoEquipe, ID);
+        equipeAtualizar(*listaEquipe, novoEquipe, ID);
         printAtualizarSucesso();
     }
 }
 
 void menuEquipeBuscar(ListaEquipe **listaEquipe){
     TipoEquipe *Equipe; // Para guardar resultado de busca
-    Equipe = buscarEquipe(*listaEquipe, recebeID());
+    Equipe = equipeBuscar(*listaEquipe, recebeID());
     if (Equipe != NULL){
         
         printItemEquipe(*Equipe);

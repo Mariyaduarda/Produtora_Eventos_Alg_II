@@ -23,12 +23,12 @@ typedef struct ListaEquipe{
     TipoEquipe equipe;
 } ListaEquipe;
 
-void inicializarEquipe(TipoEquipe *equipe);
-void inicializarListaEquipe(ListaEquipe *lista);
-int adicionarEquipe(ListaEquipe **lista, TipoEquipe equipe);
-int removerEquipe(ListaEquipe **lista, int id);
-int atualizarEquipe(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id);
-TipoEquipe* buscarEquipe(ListaEquipe *lista, int id);
-void liberarListaEquipe(ListaEquipe* lista);
+void equipeInit(TipoEquipe *equipe);
+void equipeListaInit(ListaEquipe *lista);
+int equipeAdicionar(ListaEquipe **lista, TipoEquipe equipe);
+int equipeRemover(ListaEquipe **lista, int id);
+int equipeAtualizar(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id);
+TipoEquipe* equipeBuscar(ListaEquipe *lista, int id);
+void equipeListaLiberar(ListaEquipe* lista);
 
 #endif // EQUIPE_H

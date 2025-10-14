@@ -3,7 +3,7 @@
 TipoProdutora menuProdutoraRecebe() {
     // Recebe uma nova Produtora do usuario e retorna a produtora preenchida
     TipoProdutora produtora;
-    inicializarProdutora(&produtora);
+    produtoraInit(&produtora);
 
     // Recebe os dados da produtora
     produtora.id = 0; // ID sera atribuido automaticamente
@@ -36,7 +36,7 @@ void menuProdutoraAdicionar(ListaProdutora **listaProdutora){
     }
     
     // Realmente adiciona na lista
-    if ( adicionarProdutora(listaProdutora, novo) ) printAdicionarSucesso();
+    if ( produtoraAdicionar(listaProdutora, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
 }
 
@@ -45,7 +45,7 @@ void menuProdutoraRemover(ListaProdutora **listaProdutora){
     
     // Busca o Item q vai ser removido
     TipoProdutora *Produtora; // Para guardar resultado de busca
-    Produtora = buscarProdutora(*listaProdutora, ID);
+    Produtora = produtoraBuscar(*listaProdutora, ID);
     if (Produtora == NULL){
         printNaoEncontrado();
         return;
@@ -58,7 +58,7 @@ void menuProdutoraRemover(ListaProdutora **listaProdutora){
     
     // Pede confirmacao, se tiver ok, remove o Produtora
     if (printConfirma()){
-        removerProdutora(listaProdutora, ID);
+        produtoraRemover(listaProdutora, ID);
         printRemoverSucesso();
     }
 }
@@ -70,7 +70,7 @@ void menuProdutoraAtualizar(ListaProdutora **listaProdutora){
 
     // Recebe o ID do item que vai ser atualizado
     int ID = recebeID();
-    velhoProdutora = buscarProdutora(*listaProdutora, ID);
+    velhoProdutora = produtoraBuscar(*listaProdutora, ID);
 
     // Se esse ID n existe, mostra erro
     if (velhoProdutora == NULL){
@@ -99,14 +99,14 @@ void menuProdutoraAtualizar(ListaProdutora **listaProdutora){
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
-        atualizarProdutora(*listaProdutora, novoProdutora, ID);
+        produtoraAtualizar(*listaProdutora, novoProdutora, ID);
         printAtualizarSucesso();
     }
 }
 
 void menuProdutoraBuscar(ListaProdutora **listaProdutora){
     TipoProdutora *Produtora; // Para guardar resultado de busca
-    Produtora = buscarProdutora(*listaProdutora, recebeID());
+    Produtora = produtoraBuscar(*listaProdutora, recebeID());
     if (Produtora != NULL){
         
         printItemProdutora(*Produtora);

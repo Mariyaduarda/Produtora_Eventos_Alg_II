@@ -22,12 +22,12 @@ typedef struct ListaOperador{
     TipoOperador operador;
 } ListaOperador;
 
-void inicializarOperador(TipoOperador *operador);
-void inicializarListaOperador(ListaOperador *lista);
-int adicionarOperador(ListaOperador **lista, TipoOperador operador);
-int removerOperador(ListaOperador **lista, int id);
-int atualizarOperador(ListaOperador *lista, TipoOperador operadorAtualizado, int id);
-TipoOperador* buscarOperador(ListaOperador *lista, int id);
-void liberarListaOperador(ListaOperador* lista);
+void operadorInit(TipoOperador *operador);
+void operadorListaInit(ListaOperador *lista);
+int operadorAdicionar(ListaOperador **lista, TipoOperador operador);
+int operadorRemover(ListaOperador **lista, int id);
+int operadorAtualizar(ListaOperador *lista, TipoOperador operadorAtualizado, int id);
+TipoOperador* operadorBuscar(ListaOperador *lista, int id);
+void operadorListaLiberar(ListaOperador* lista);
 
 #endif // OPERADOR_H

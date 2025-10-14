@@ -3,7 +3,7 @@
 TipoRecurso menuRecursoRecebe() {
     // Recebe um novo Recurso/Equipamento do usuario e retorna o recurso/equipamento preenchido
     TipoRecurso recurso;
-    inicializarRecurso(&recurso);
+    recursoInit(&recurso);
 
     // Recebe os dados do recurso/equipamento
     recurso.id = 0; // ID sera atribuido automaticamente
@@ -32,7 +32,7 @@ void menuRecursoAdicionar(ListaRecurso **listaRecurso){
     }
     
     // Realmente adiciona na lista
-    if ( adicionarRecurso(listaRecurso, novo) ) printAdicionarSucesso();
+    if ( recursoAdicionar(listaRecurso, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
 }
 
@@ -41,7 +41,7 @@ void menuRecursoRemover(ListaRecurso **listaRecurso){
     
     // Busca o Item q vai ser removido
     TipoRecurso *Recurso; // Para guardar resultado de busca
-    Recurso = buscarRecurso(*listaRecurso, ID);
+    Recurso = recursoBuscar(*listaRecurso, ID);
     if (Recurso == NULL){
         printNaoEncontrado();
         return;
@@ -54,7 +54,7 @@ void menuRecursoRemover(ListaRecurso **listaRecurso){
     
     // Pede confirmacao, se tiver ok, remove o Recurso
     if (printConfirma()){
-        removerRecurso(listaRecurso, ID);
+        recursoRemover(listaRecurso, ID);
         printRemoverSucesso();
     }
 }
@@ -66,7 +66,7 @@ void menuRecursoAtualizar(ListaRecurso **listaRecurso){
 
     // Recebe o ID do item que vai ser atualizado
     int ID = recebeID();
-    velhoRecurso = buscarRecurso(*listaRecurso, ID);
+    velhoRecurso = recursoBuscar(*listaRecurso, ID);
 
     // Se esse ID n existe, mostra erro
     if (velhoRecurso == NULL){
@@ -95,14 +95,14 @@ void menuRecursoAtualizar(ListaRecurso **listaRecurso){
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
-        atualizarRecurso(*listaRecurso, novoRecurso, ID);
+        recursoAtualizar(*listaRecurso, novoRecurso, ID);
         printAtualizarSucesso();
     }
 }
 
 void menuRecursoBuscar(ListaRecurso **listaRecurso){
     TipoRecurso *Recurso; // Para guardar resultado de busca
-    Recurso = buscarRecurso(*listaRecurso, recebeID());
+    Recurso = recursoBuscar(*listaRecurso, recebeID());
     if (Recurso != NULL){
         
         printItemRecurso(*Recurso);
