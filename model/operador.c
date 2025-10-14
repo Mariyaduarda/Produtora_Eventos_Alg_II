@@ -2,7 +2,7 @@
 #include <string.h>
 #include "operador.h"
 
-void inicializarOperador(TipoOperador *operador){
+void operadorInit(TipoOperador *operador){
     operador->ativo = true;
     operador->id = 0;
     strcpy(operador->nome, "");
@@ -10,12 +10,12 @@ void inicializarOperador(TipoOperador *operador){
     strcpy(operador->senha, "");
 }
 
-void inicializarListaOperador(ListaOperador *lista){
+void operadorListaInit(ListaOperador *lista){
     lista->prox = NULL;
-    inicializarOperador(&lista->operador);
+    operadorInit(&lista->operador);
 }
 
-int adicionarOperador(ListaOperador **lista, TipoOperador operador){
+int operadorAdicionar(ListaOperador **lista, TipoOperador operador){
     // aloca o espaco para um novo no'
     ListaOperador *novo = (ListaOperador *)malloc(sizeof(ListaOperador));
     if(novo == NULL) return 0;
@@ -46,7 +46,7 @@ int adicionarOperador(ListaOperador **lista, TipoOperador operador){
     return 1;
 }
 
-int removerOperador(ListaOperador **lista, int id){
+int operadorRemover(ListaOperador **lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaOperador *atual = *lista;
 
@@ -68,7 +68,7 @@ int removerOperador(ListaOperador **lista, int id){
     return 0;
 }
 
-int atualizarOperador(ListaOperador *lista, TipoOperador operadorAtualizado, int id){
+int operadorAtualizar(ListaOperador *lista, TipoOperador operadorAtualizado, int id){
     // variavel auxiliar para percorrer a lista
     ListaOperador *atual = lista;
 
@@ -89,7 +89,7 @@ int atualizarOperador(ListaOperador *lista, TipoOperador operadorAtualizado, int
     return 0;
 }
 
-TipoOperador* buscarOperador(ListaOperador *lista, int id){
+TipoOperador* operadorBuscar(ListaOperador *lista, int id){
     // variavel auxiliar para percorrer a lista
     ListaOperador *atual = lista;
 
@@ -107,4 +107,17 @@ TipoOperador* buscarOperador(ListaOperador *lista, int id){
 
     // se chegar aqui, n achei o operador
     return NULL;
+}
+
+void operadorListaLiberar(ListaOperador* lista){
+    //auxiliar pra liberar cada no um por um
+    ListaOperador* aux;
+
+    // enquanto ainda tiver algo na lista, libera a cabeca e avanca
+    while (lista != NULL){
+        aux = lista;
+        lista = lista->prox;
+        free(aux);
+    }
+
 }

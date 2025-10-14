@@ -57,7 +57,7 @@ void printMensagem(char *msg1, char *msg2){
     int n = total - tam1 - tam2 - 11;
     if (n<0) n = 0;
 
-    printf(" [ %s ]",msg1);                 //msg 1
+    printf("\n [ %s ]",msg1);                 //msg 1
     for (int i=0 ; i<=n ; i++) printf("="); // =
     printf("[ %s ] ",msg2);                 //msg 2
 }
@@ -69,6 +69,7 @@ int printConfirma(){
     // Enquanto usuario n digitar 1 ou 0, fica perguntando
     do{
         printMensagem("Voce tem certeza?", "1.Sim | 0.Nao");
+        printf("\n =>");
         scanf("%d",&confirma);
         getchar(); // Limpa o buffer do teclado
 

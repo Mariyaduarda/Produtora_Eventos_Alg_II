@@ -3,7 +3,7 @@
 TipoProdutora menuProdutoraRecebe() {
     // Recebe uma nova Produtora do usuario e retorna a produtora preenchida
     TipoProdutora produtora;
-    inicializarProdutora(&produtora);
+    produtoraInit(&produtora);
 
     // Recebe os dados da produtora
     produtora.id = 0; // ID sera atribuido automaticamente
@@ -21,7 +21,101 @@ TipoProdutora menuProdutoraRecebe() {
     return produtora;
 }
 
-void listarProdutoras(ListaProdutora *lista) {
+void menuProdutoraAdicionar(ListaProdutora **listaProdutora){
+    // Guarda o novo item
+    TipoProdutora novo;
+
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuProdutoraRecebe(); // Recebe os valroes do usuario
+        
+        // Mostra os dados que foram inseridos
+        printItemProdutora(novo);
+        
+        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+    }
+    
+    // Realmente adiciona na lista
+    if ( produtoraAdicionar(listaProdutora, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
+}
+
+void menuProdutoraRemover(ListaProdutora **listaProdutora){
+    int ID = recebeID(); // recebe o ID do item que vai ser removido
+    
+    // Busca o Item q vai ser removido
+    TipoProdutora *Produtora; // Para guardar resultado de busca
+    Produtora = produtoraBuscar(*listaProdutora, ID);
+    if (Produtora == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Mostra o Item que vai ser removido
+    
+    printItemProdutora(*Produtora);
+    
+    
+    // Pede confirmacao, se tiver ok, remove o Produtora
+    if (printConfirma()){
+        produtoraRemover(listaProdutora, ID);
+        printRemoverSucesso();
+    }
+}
+
+void menuProdutoraAtualizar(ListaProdutora **listaProdutora){
+    // Declara um novo item pra receber os dados atualizados
+    TipoProdutora novoProdutora;
+    TipoProdutora* velhoProdutora;
+
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID();
+    velhoProdutora = produtoraBuscar(*listaProdutora, ID);
+
+    // Se esse ID n existe, mostra erro
+    if (velhoProdutora == NULL){
+        printNaoEncontrado();
+        return;
+    }
+    
+    // Caso contrario, recebe os novos dados
+    novoProdutora = menuProdutoraRecebe();
+
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    
+    printItemProdutora(*velhoProdutora);
+    
+    
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    
+    printItemProdutora(novoProdutora);
+    
+    
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (printConfirma()){
+        produtoraAtualizar(*listaProdutora, novoProdutora, ID);
+        printAtualizarSucesso();
+    }
+}
+
+void menuProdutoraBuscar(ListaProdutora **listaProdutora){
+    TipoProdutora *Produtora; // Para guardar resultado de busca
+    Produtora = produtoraBuscar(*listaProdutora, recebeID());
+    if (Produtora != NULL){
+        
+        printItemProdutora(*Produtora);
+        
+    }
+    else printNaoEncontrado();
+}
+
+void menuProdutoraListar(ListaProdutora *lista) {
     limparTela();
 
     // Lista todas as produtoras cadastradas
@@ -30,17 +124,14 @@ void listarProdutoras(ListaProdutora *lista) {
         return;
     }
 
-    printTabelaLinha();
+    
     ListaProdutora *atual = lista->prox; // Pula o no' cabeca
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->produtora.ativo) printItemProdutora(atual->produtora);
         atual = atual->prox;
-
-        // se n for o ultimo, printa a linha horizontal p dividir
-        if (atual != NULL) printTabelaLinhaInterior();
     }
-    printTabelaLinha();
+    
     printf("\n");
 }
 
@@ -54,46 +145,36 @@ void menuProdutora(ListaProdutora **listaProdutora) {
         // Recebe a escolha do usuario
         scanf("%d", &escolha);
         getchar(); // Limpa o buffer do teclado
-        TipoProdutora *produtora; // Para guardar resultado de busca
 
         switch (escolha){
             case 1:
                 // Adicionar Produtora
-                if ( adicionarProdutora(listaProdutora, menuProdutoraRecebe()) ) printAdicionarSucesso();
-                else printAdicionarFalha();
+                menuProdutoraAdicionar(listaProdutora);
                 esperaEnter();
                 break;
             case 2:
                 // Remover Produtora
-                if ( removerProdutora(listaProdutora, recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printRemoverSucesso();
-                else printNaoEncontrado();
+                menuProdutoraRemover(listaProdutora);
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Produtora
-                if ( atualizarProdutora(*listaProdutora, menuProdutoraRecebe(), recebeInt(1, 1000000, "Digite o ID", "Min. 1")) ) printAtualizarSucesso();
-                else printNaoEncontrado();
+                menuProdutoraAtualizar(listaProdutora);
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Produtora
-                produtora = buscarProdutora(*listaProdutora, recebeInt(1, 1000000, "Digite o ID", "Min. 1"));
-                if (produtora != NULL) {
-                    printTabelaLinha();
-                    printItemProdutora(*produtora);
-                    printTabelaLinha();
-                }
-                else printNaoEncontrado();
+                menuProdutoraBuscar(listaProdutora);
                 esperaEnter();
                 break;
             case 5:
                 // Listar Produtoras
-                listarProdutoras(*listaProdutora);
+                menuProdutoraListar(*listaProdutora);
                 esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal...\n");
+                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida
@@ -101,4 +182,5 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 esperaEnter();
         }
     }while (escolha != 0);
+    
 }

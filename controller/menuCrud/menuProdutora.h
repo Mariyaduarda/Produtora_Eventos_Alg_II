@@ -10,6 +10,12 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
+TipoProdutora menuProdutoraRecebe();
 void menuProdutora(ListaProdutora **listaProdutora);
+void menuProdutoraAdicionar(ListaProdutora **listaProdutora);
+void menuProdutoraRemover(ListaProdutora **listaProdutora);
+void menuProdutoraAtualizar(ListaProdutora **listaProdutora);
+void menuProdutoraBuscar(ListaProdutora **listaProdutora);
+void menuProdutoraListar(ListaProdutora *lista);
 
 #endif // MENU_PRODUTORA_H

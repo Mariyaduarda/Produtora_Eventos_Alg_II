@@ -29,11 +29,12 @@ typedef struct ListaProdutora{
     TipoProdutora produtora;
 } ListaProdutora;
 
-void inicializarProdutora(TipoProdutora *produtora);
-void inicializarListaProdutora(ListaProdutora *lista);
-int adicionarProdutora(ListaProdutora **lista, TipoProdutora produtora);
-int removerProdutora(ListaProdutora **lista, int id);
-int atualizarProdutora(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id);
-TipoProdutora* buscarProdutora(ListaProdutora *lista, int id);
+void produtoraInit(TipoProdutora *produtora);
+void produtoraListaInit(ListaProdutora *lista);
+int produtoraAdicionar(ListaProdutora **lista, TipoProdutora produtora);
+int produtoraRemover(ListaProdutora **lista, int id);
+int produtoraAtualizar(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id);
+TipoProdutora* produtoraBuscar(ListaProdutora *lista, int id);
+void produtoraListaLiberar(ListaProdutora* lista);
 
 #endif // PRODUTORA_H

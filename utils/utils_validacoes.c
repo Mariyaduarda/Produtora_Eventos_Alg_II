@@ -118,26 +118,83 @@ bool validarTelefone(const char *telefone) {
     int i, digitos = 0;
 
     // conta apenas digitos
-    for (i = 0, telefone[i] != '\0'; i++) {
+    for (i = 0; telefone[i] != '\0'; i++) {
         if (isdigit(telefone[i])) {
             digitos++;
         } else if (telefone[i] != ' ' && telefone[i] != '(' &&
                     telefone[i] !=  ')' && telefone[i] != '-') {
-            return false;
+            return false; // caracter invalido
         }
     }
+    // aceitando tel fixo ou de celular
     return (digitos == 10 || digitos == 11);
 }
 
+// //===== FUNCAO AUXILIARES PARA UTF-8 =====
+// // retorna qnts bytes um caractere UTF-8 ocupa
+// int bytes_utf8(unsigned char caracter) {
+//     if (caracter < 0x80) returb 1;
+//     if (caracter >= 0xC2)
+// }
+
 // // ===== VALIDACAO DO NOME ======
 bool validarNome(const char *nome) {
-    int i, len = strlen(nome);
+    int i = 0, len = strlen(nome);
     bool tem_espaco = false;
 
+    // tamanho minimo para ser aceito
     if (len < 3) return false;
 
+    // assegura nao comecar nem terminar com espaco
+    if (nome[0] == ' ' || nome[len-1] == " ") return false;
+
+    // verifica caracteres validos e presenca de espaço
     for (i = 0; i < len; i++) {
         if (isalpha(nome[i]) || nome[i] == ' ' || nome[i] == '\''
-            || nome[i] == '-' || nome[i] == '.' || (unsigned char)nome[i] >= 0xC0) {}
+            || nome[i] == '-' || nome[i] == '.' || nome[i] >= 0xC0) { // 0xC0 p/ carcateres acentuados
+            if (nome[i] == ' ') tem_espaco = true;
+        } else {
+            return false;
+        }
     }
 }
+
+bool validarSenha(const char *senha) {
+    int i, len = strlen(senha);
+    bool tem_maiuscula = false, tem_minuscula = false;
+    bool tem_numero = false, tem_especial = true;
+
+    // minimo do tamanho da senha
+    if (len < 6) return false;
+
+    // verifica se requisitos foram feitos
+    for (i = 0; i < len; i++) {
+        if (isupper(senha[i])) tem_maiuscula = true;
+        else if (islower(senha[i])) tem_minuscula = true;
+        else if (isdigit(senha[i])) tem_numero = true;
+        else if (strchr("!@#$%^&*()_+-=[]{}|;:,.<>?", senha[i]))
+            tem_especial = true;
+    }
+    //contando quantos dos 4 tipos de caracter a sneha possui
+    int requisitos = tem_maiuscula + tem_minuscula + tem_numero + tem_especial;
+    return requisitos >= 2;
+}
+
+// ====== VALIDACAO DE USUARIO=====
+bool validarUsuario(const char *usuario) {
+    int i, len = strlen(usuario);
+
+    // minimo e maximo para tamanho de usuario
+    if (len < 3 || len > 20) return false;
+
+    // deve comecar com letra
+    if (!isalpha(usuario[0])) return false;
+
+    // verifica carcaters validos como alfanumericos, underline
+    for (i = 1; i < len; i++) {
+            if (!isalnum(usuario[i]) && usuario[i] != '_') {
+                return false;
+            }
+        }
+    return true;
+    }
