@@ -123,3 +123,46 @@ void clienteListaLiberar(ListaCliente* lista){
     }
 
 }
+
+//==================================================
+// Arquivos
+
+int clienteSalvarTXT(ListaCliente *lista){
+    // Abre o arquivo em um ponteiro de arquivo
+    FILE* fp = fopen("dados/cliente.txt", "w");
+
+    // Confere se deu erro
+    if (fp == NULL) {
+        // N conseguiu abrir o arquivo
+        return 0;
+    }
+
+    // Aux pra percorrer a lista, tem q pular o no' cabeca
+    ListaCliente* aux = lista->prox->prox;
+
+    // Percorre a lista printando tudo no txt
+    while (aux != NULL) {
+        // Printa um item
+        fprintf(fp, "%d,%d,%d,%s,%s,%s,%s,%s,%s\n",
+        aux->cliente.ativo,
+        aux->cliente.id,
+        aux->cliente.usa_CNPJ,
+        aux->cliente.nome,
+        aux->cliente.endereco,
+        aux->cliente.cpf_cnpj,
+        aux->cliente.telefone,
+        aux->cliente.email,
+        aux->cliente.nomeDoContato);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+ListaCliente* clienteLerTXT(){
+    
+}

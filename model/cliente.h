@@ -34,4 +34,7 @@ int clienteAtualizar(ListaCliente *lista, TipoCliente clienteAtualizado, int id)
 TipoCliente* clienteBuscar(ListaCliente *lista, int id);
 void clienteListaLiberar(ListaCliente* lista);
 
+int clienteSalvarTXT(ListaCliente *lista);
+ListaCliente* clienteLerTXT();
+
 #endif // CLIENTE_H

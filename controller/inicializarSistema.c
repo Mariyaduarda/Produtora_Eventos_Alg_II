@@ -24,6 +24,12 @@ void inicializarSistema() {
     // Roda o menu principal
     menuPrincipal(&listaCliente, &listaFornecedor, &listaProdutora, &listaEquipe, &listaRecurso, &listaOperador);
 
+    // Salva na memoria
+    printf("\n\n\n aaaa \n\n\n");
+    clienteSalvarTXT(&listaCliente);
+    printf("\n\n\n foi \n\n\n");
+
+
     // Liberar memoria de tds as listas
     clienteListaLiberar(listaCliente);
     equipeListaLiberar(listaEquipe);
