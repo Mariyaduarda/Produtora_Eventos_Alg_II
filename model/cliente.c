@@ -163,6 +163,30 @@ int clienteSalvarTXT(ListaCliente *lista){
     return 1;
 }
 
-ListaCliente* clienteLerTXT(){
-    
+int clienteLerTXT(ListaCliente *lista) {
+    // Abre o arquivo ou retorna erro se n deu
+    FILE *file = fopen("dados/cliente.txt", "r");
+    if (file == NULL) return 0;
+
+    // Cliente temporario pra guardar os dados lidos
+    TipoCliente temp;
+
+    // le cada linha do arquivo, enquanto n chegar no final, n para de ler
+    while (fscanf(file, "%d,%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]",
+                  &temp.ativo,
+                  &temp.id,
+                  &temp.usa_CNPJ,
+                  temp.nome,
+                  temp.endereco,
+                  temp.cpf_cnpj,
+                  temp.telefone,
+                  temp.email,
+                  temp.nomeDoContato) != EOF) {
+        // Adiciona o cliente na lista
+        clienteAdicionar(&lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(file);
+    return 1;
 }

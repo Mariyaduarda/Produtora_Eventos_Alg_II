@@ -35,6 +35,6 @@ TipoCliente* clienteBuscar(ListaCliente *lista, int id);
 void clienteListaLiberar(ListaCliente* lista);
 
 int clienteSalvarTXT(ListaCliente *lista);
-ListaCliente* clienteLerTXT();
+int clienteLerTXT(ListaCliente *lista);
 
 #endif // CLIENTE_H
