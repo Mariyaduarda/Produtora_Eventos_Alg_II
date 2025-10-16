@@ -183,7 +183,7 @@ int clienteLerTXT(ListaCliente *lista) {
                   temp.email,
                   temp.nomeDoContato) != EOF) {
         // Adiciona o cliente na lista
-        clienteAdicionar(&lista, temp);
+        clienteAdicionar(lista, temp);
     }
 
     // Deu bom, fecha o arquivo e retorna sucesso
