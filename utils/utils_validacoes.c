@@ -29,6 +29,7 @@ bool validarCPF(const char *cpf_cnpj) {
     // mas se todos igual retorno falso pois vale a validade e nao se todos sao iguais
     if (todos_iguais) return false;
 
+    // calcula o primeiro dig verificador do cpf
     for (i = 0, j = 10; i < 9; i++, j--) {
         // converte char/caracterr para int
         digito1 += (numeros[i] - '0') * j;
@@ -43,7 +44,7 @@ bool validarCPF(const char *cpf_cnpj) {
     digito2 = ((digito2%11)<2)? 0: 11 - (digito2%11);
 
     // verifica se os digitos conferem com suas respectivas posicoes
-    return (digito1 == (numeros[9] && digito2 == (numeros[10])));
+    return (digito1 == (numeros[9] - '0')) && (digito2 == (numeros[10] - '0'));
 }
 
 // ===== VALIDACAO DO CNPJ ======
@@ -83,7 +84,18 @@ bool validarCNPJ(const char *cpf_cnpj) {
     }
     digito2 = (digito2 % 11) < 2? 0: 11 - (digito2 % 11);
 
-    return (digito1 == numeros[12] && digito2 == numeros[13]);
+    return (digito1 == (numeros[12] - '0')) && (digito2 == (numeros[13] - '0'));
+}
+
+// funcao unica p/ cpf e cnpj
+bool validarCPF_CNPJ(const char *documento, bool usa_CPF) {
+    if ( usa_CPF) { // usa cpf é uma flag, podia ser usaCNPJ tb
+        return validarCPF(documento); // doc é minha string const
+                                      // q vai escolher entre cpf e cnpj
+    }
+    else {
+        return validarCNPJ(documento);
+    }
 }
 
 // ===== VALIDACAO DO EMAIL ======
@@ -139,14 +151,14 @@ bool validarTelefone(const char *telefone) {
 
 // // ===== VALIDACAO DO NOME ======
 bool validarNome(const char *nome) {
-    int i = 0, len = strlen(nome);
+    int i = 0, len = strlen(nome), total_letras = 0;
     bool tem_espaco = false;
 
     // tamanho minimo para ser aceito
     if (len < 3) return false;
 
     // assegura nao comecar nem terminar com espaco
-    if (nome[0] == ' ' || nome[len-1] == " ") return false;
+    if (nome[0] == ' ' || nome[len-1] == ' ') return false;
 
     // verifica caracteres validos e presenca de espaço
     for (i = 0; i < len; i++) {
@@ -157,12 +169,16 @@ bool validarNome(const char *nome) {
             return false;
         }
     }
+    // retornar false se não tem espaço
+    if (!tem_espaco) return false;
+    return true;
 }
+
 
 bool validarSenha(const char *senha) {
     int i, len = strlen(senha);
     bool tem_maiuscula = false, tem_minuscula = false;
-    bool tem_numero = false, tem_especial = true;
+    bool tem_numero = false, tem_especial = false;
 
     // minimo do tamanho da senha
     if (len < 6) return false;

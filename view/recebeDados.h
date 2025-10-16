@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "../utils/utils_bibliotecas.h"
 #include "mensagens.h"
 
 

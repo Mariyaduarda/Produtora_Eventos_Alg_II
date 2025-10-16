@@ -1,4 +1,5 @@
-#include "utils_tela.h"
+#include "utils_bibliotecas.h"
+
 // Funcoes de utilidade para mudar a tela
 
 void limparTela() {

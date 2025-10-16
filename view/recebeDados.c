@@ -69,7 +69,7 @@ void recebeCPF(char *str){
         recebeString(str, 20, "Digite o CPF","11 Digitos");
 
         // aqui vai a validacao
-        if (1) break;
+        if (validarCPF(str)) break;
         printMensagem("CPF invalido!","ERRO");
     }
 }
@@ -81,7 +81,7 @@ void recebeCNPJ(char *str){
         recebeString(str, 20, "Digite o CNPJ","14 Digitos");
 
         // aqui vai a validacao
-        if (1) break;
+        if (validarCNPJ(str)) break;
         printMensagem("CNPJ invalido!","ERRO");
     }
 }
@@ -93,7 +93,7 @@ void recebeEmail(char *str){
         recebeString(str, 100, "Digite o Email","Max. 100");
 
         // aqui vai a validacao
-        if (1) break;
+        if (validarEmail(str)) break;
         printMensagem("Email invalido!","ERRO");
     }
 }
@@ -105,10 +105,44 @@ void recebeTelefone(char *str){
         recebeString(str, 20, "Digite o Telefone","10 ou 11 Digitos");
 
         // aqui vai a validacao
-        if (1) break;
+        if (validarTelefone(str)) break;
         printMensagem("Telefone invalido!","ERRO");
     }
 
+}
+
+void recebeSenha(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 20, "Digite a senha","No minimo que tenha: "
+                                               "ou letra maiscul, ou minuscula ou caracteres "
+                                               "especiais ou numeros");
+        // aqui vai a validacao
+        if (validarSenha(str)) break;
+        printMensagem("Senha invalida!","ERRO");
+    }
+}
+
+void recebeNome(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 20, "Digite o Nome","no minimo 3 caracteres");
+
+        // aqui vai a validacao
+        if (validarNome(str)) break;
+        printMensagem("Nome invalido!","ERRO");
+    }
+}
+
+void recebeUsuario(char *str){
+    while (1){
+        // recebe o dado em si
+        recebeString(str, 20, "Digite o Usuario"," de 3 até 20 digitos");
+
+        // aqui vai a validacao
+        if (validarUsuario(str)) break;
+        printMensagem("Usuario invalido!","ERRO");
+    }
 }
 
 int recebeID(){
