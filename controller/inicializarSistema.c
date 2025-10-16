@@ -23,13 +23,22 @@ void inicializarSistema() {
 
     // Le da memoria
     clienteLerTXT(&listaCliente);
+    equipeLerTXT(&listaEquipe);
+    //fornecedorLerTXT(&listaFornecedor);
+    //operadorLerTXT(&listaOperador);
+    //produtoraLerTXT(&listaProdutora);
+    //recursoLerTXT(&listaRecurso);
 
     // Roda o menu principal
     menuPrincipal(&listaCliente, &listaFornecedor, &listaProdutora, &listaEquipe, &listaRecurso, &listaOperador);
 
     // Salva na memoria
     clienteSalvarTXT(&listaCliente);
-
+    equipeSalvarTXT(&listaEquipe);
+    //fornecedorSalvarTXT(&listaFornecedor);
+    //operadorSalvarTXT(&listaOperador);
+    //produtoraSalvarTXT(&listaProdutora);
+    //recursoSalvarTXT(&listaRecurso);
 
     // Liberar memoria de tds as listas
     clienteListaLiberar(listaCliente);

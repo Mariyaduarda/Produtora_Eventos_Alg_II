@@ -54,9 +54,9 @@ int equipeRemover(ListaEquipe **lista, int id){
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
 
-        // se o id do cliente atual for o id q eu quero, marca como inativo
+        // se o id do equipe atual for o id q eu quero, marca como inativo
         if(atual->equipe.id == id){
-            // marca o cliente como inativo
+            // marca o equipe como inativo
             atual->equipe.ativo = false;
             return 1; // sucesso
         }
@@ -65,7 +65,7 @@ int equipeRemover(ListaEquipe **lista, int id){
         atual = atual->prox;
     }
 
-    // se chegar aqui, n achei o cliente
+    // se chegar aqui, n achei o equipe
     return 0;
 }
 
@@ -75,7 +75,7 @@ int equipeAtualizar(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id){
 
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
-        // se o id do cliente atual for o id q eu quero, atualiza os dados
+        // se o id do equipe atual for o id q eu quero, atualiza os dados
         if(atual->equipe.id == id){
             atual->equipe = equipeAtualizado;
             atual->equipe.id = id; // garante q o id n vai ser alterado
@@ -86,7 +86,7 @@ int equipeAtualizar(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id){
         atual = atual->prox;
     }
 
-    // se chegar aqui, n achei o cliente
+    // se chegar aqui, n achei o equipe
     return 0;
 }
 
@@ -97,7 +97,7 @@ TipoEquipe* equipeBuscar(ListaEquipe *lista, int id){
     // enquanto oq eu to olhando n for nulo, avanca
     while(atual != NULL){
 
-        // se o id do cliente atual for o id q eu quero, retorna os dados
+        // se o id do equipe atual for o id q eu quero, retorna os dados
         if(atual->equipe.id == id){
             return &atual->equipe;
         }
@@ -106,7 +106,7 @@ TipoEquipe* equipeBuscar(ListaEquipe *lista, int id){
         atual = atual->prox;
     }
 
-    // se chegar aqui, n achei o cliente
+    // se chegar aqui, n achei o equipe
     return NULL;
 }
 
@@ -121,4 +121,66 @@ void equipeListaLiberar(ListaEquipe* lista){
         free(aux);
     }
 
+}
+
+
+//==================================================
+// Arquivos
+
+int equipeSalvarTXT(ListaEquipe *lista){
+    // Abre o arquivo em um ponteiro de arquivo
+    FILE* fp = fopen("dados/equipe.txt", "w");
+
+    // Confere se deu erro
+    if (fp == NULL) {
+        // N conseguiu abrir o arquivo
+        return 0;
+    }
+
+    // Aux pra percorrer a lista, tem q pular o no' cabeca
+    ListaEquipe* aux = lista->prox->prox;
+
+    // Percorre a lista printando tudo no txt
+    while (aux != NULL) {
+        // Printa um item
+        fprintf(fp, "%d,%d,%s,%s,%s,%f\n",
+        aux->equipe.ativo,
+        aux->equipe.id,
+        aux->equipe.nome,
+        aux->equipe.cpf,
+        aux->equipe.funcao,
+        aux->equipe.valorDiariaHora);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int equipeLerTXT(ListaEquipe *lista) {
+    // Abre o arquivo ou retorna erro se n deu
+    FILE *file = fopen("dados/equipe.txt", "r");
+    if (file == NULL) return 0;
+
+    // equipe temporario pra guardar os dados lidos
+    TipoEquipe temp;
+
+    // le cada linha do arquivo, enquanto n chegar no final, n para de ler
+    while (fscanf(file, "%d,%d,%[^,],%[^,],%[^,],%f\n",
+        &temp.ativo,
+        &temp.id,
+        temp.nome,
+        temp.cpf,
+        temp.funcao,
+        &temp.valorDiariaHora) == 6) {
+        // Adiciona o equipe na lista
+        equipeAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(file);
+    return 1;
 }

@@ -31,4 +31,7 @@ int equipeAtualizar(ListaEquipe *lista, TipoEquipe equipeAtualizado, int id);
 TipoEquipe* equipeBuscar(ListaEquipe *lista, int id);
 void equipeListaLiberar(ListaEquipe* lista);
 
+int equipeSalvarTXT(ListaEquipe *lista);
+int equipeLerTXT(ListaEquipe *lista);
+
 #endif // EQUIPE_H
