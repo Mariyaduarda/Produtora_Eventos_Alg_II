@@ -139,8 +139,7 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
         printMenuFornecedor();
 
         // Recebe a escolha do usuario
-        scanf("%d", &escolha);
-        getchar(); // Limpa o buffer do teclado
+        escolha = recebeInt(0, 6, "Digite uma opcao", "0 a 6");
 
         switch (escolha){
             case 1:
