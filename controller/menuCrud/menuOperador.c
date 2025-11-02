@@ -113,12 +113,12 @@ void menuOperadorListar(ListaOperador *lista) {
 
     // Lista todos os operadores do sistema cadastrados
     if (lista == NULL) {
-        printf("\n => Nenhum operador do sistema cadastrado.\n");
+        printMensagem("Nenhum item cadastrado","#");
         return;
     }
 
     
-    ListaOperador *atual = lista->prox; // Pula o no' cabeca
+    ListaOperador *atual = lista;
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->operador.ativo) printItemOperador(atual->operador);
@@ -167,7 +167,6 @@ void menuOperador(ListaOperador **listaOperador) {
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida

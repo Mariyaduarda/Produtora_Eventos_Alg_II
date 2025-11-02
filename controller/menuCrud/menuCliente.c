@@ -116,12 +116,12 @@ void menuClienteListar(ListaCliente *lista) {
 
     // Lista todos os clientes cadastrados
     if (lista == NULL) {
-        printf("\n => Nenhum cliente cadastrado.\n");
+        printMensagem("Nenhum item cadastrado","#");
         return;
     }
 
     
-    ListaCliente *atual = lista->prox; // Pula o no' cabeca
+    ListaCliente *atual = lista; // comeca auxiliar no comeco da lista
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->cliente.ativo) printItemCliente(atual->cliente);
@@ -171,7 +171,6 @@ void menuCliente(ListaCliente **listaCliente) {
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida

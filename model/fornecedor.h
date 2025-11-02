@@ -34,4 +34,10 @@ int fornecedorAtualizar(ListaFornecedor *lista, TipoFornecedor fornecedorAtualiz
 TipoFornecedor* fornecedorBuscar(ListaFornecedor *lista, int id);
 void fornecedorListaLiberar(ListaFornecedor* lista);
 
+int fornecedorSalvarTXT(ListaFornecedor *lista);
+int fornecedorLerTXT(ListaFornecedor **lista);
+
+int fornecedorSalvarBIN(ListaFornecedor *lista);
+int fornecedorLerBIN(ListaFornecedor **lista);
+
 #endif // FORNECEDOR_H

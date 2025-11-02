@@ -8,11 +8,11 @@ void fornecedorInit(TipoFornecedor *fornecedor){
     fornecedor->id = 0;           // id vai ser calculado automaticamente
     
     strcpy(fornecedor->nomeFantasia, "");
-    strcpy(fornecedor->razaoSocial, "");
-    strcpy(fornecedor->cpf_cnpj, "");
-    strcpy(fornecedor->endereco, "");
-    strcpy(fornecedor->telefone, "");
-    strcpy(fornecedor->tipoServico, "");
+    strcpy(fornecedor->razaoSocial,  "");
+    strcpy(fornecedor->cpf_cnpj,     "");
+    strcpy(fornecedor->endereco,     "");
+    strcpy(fornecedor->telefone,     "");
+    strcpy(fornecedor->tipoServico,  "");
 }
 
 void fornecedorListaInit(ListaFornecedor *lista){
@@ -31,7 +31,7 @@ int fornecedorAdicionar(ListaFornecedor **lista, TipoFornecedor fornecedor){
     novo->prox = NULL;
 
     
-    if(*lista == NULL){ // se a lista estiver vazia, o novo no' sera o primeiro
+    if(*lista == NULL){ // se a lista estiver vazia, e' so' substituir
         novo->fornecedor.id = 1;
         *lista = novo;
     } else { // se n estiver vazia, percorre ate' o final da lista
@@ -126,4 +126,89 @@ void fornecedorListaLiberar(ListaFornecedor* lista){
         free(aux);
     }
 
+}
+
+int fornecedorSalvarTXT(ListaFornecedor *lista){
+    FILE *fp = fopen("dados/fornecedor.txt", "w");
+    if(fp == NULL) return 0;
+
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaFornecedor *atual = lista->prox; // pular nó cabeça
+    while(atual != NULL){
+        fprintf(fp, "%d;%d;%d;%s;%s;%s;%s;%s;%s\n",
+                atual->fornecedor.id,
+                atual->fornecedor.ativo,
+                atual->fornecedor.usa_CNPJ,
+                atual->fornecedor.nomeFantasia,
+                atual->fornecedor.razaoSocial,
+                atual->fornecedor.cpf_cnpj,
+                atual->fornecedor.endereco,
+                atual->fornecedor.telefone,
+                atual->fornecedor.tipoServico);
+        atual = atual->prox;
+    }
+
+    fclose(fp);
+    return 1;
+}
+
+int fornecedorLerTXT(ListaFornecedor **lista) {
+    FILE *fp = fopen("dados/fornecedor.txt", "r");
+    if(fp == NULL) return 0;
+
+    TipoFornecedor temp;
+    
+    while(fscanf(fp, "%d;%d;%d;%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]",
+                 &temp.id,
+                 &temp.ativo,
+                 &temp.usa_CNPJ,
+                 temp.nomeFantasia,
+                 temp.razaoSocial,
+                 temp.cpf_cnpj,
+                 temp.endereco,
+                 temp.telefone,
+                 temp.tipoServico) == 9) { // Verifica se leu todos os 9 campos
+        fornecedorAdicionar(lista, temp);
+    }
+
+    fclose(fp);
+    return 1;
+}
+
+int fornecedorSalvarBIN(ListaFornecedor* lista) {
+    FILE* fp = fopen("dados/fornecedor.bin", "wb");
+    if (fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaFornecedor* aux = lista;
+
+    // Percorre a lista escrevendo tudo no binario
+    while (aux != NULL) {
+        // Escreve um item
+        fwrite(&aux->fornecedor, sizeof(TipoFornecedor), 1, fp);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int fornecedorLerBIN(ListaFornecedor** lista) {
+    FILE* fp = fopen("dados/fornecedor.bin", "rb");
+    if (fp == NULL) return 0;
+
+    TipoFornecedor temp;
+
+    // Le o arquivo binario ate o final
+    while (fread(&temp, sizeof(TipoFornecedor), 1, fp) == 1) {
+        fornecedorAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
 }

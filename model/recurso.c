@@ -28,7 +28,7 @@ int recursoAdicionar(ListaRecurso **lista, TipoRecurso recurso){
     novo->prox = NULL;
 
     
-    if(*lista == NULL){ // se a lista estiver vazia, o novo no' sera o primeiro
+    if(*lista == NULL){ // se a lista estiver vazia, e' so' substituir
         novo->recurso.id = 1;
         *lista = novo;
     } else { // se n estiver vazia, percorre ate' o final da lista
@@ -123,4 +123,101 @@ void recursoListaLiberar(ListaRecurso* lista){
         free(aux);
     }
 
+}
+
+//==================================================
+// Arquivos
+
+int recursoSalvarTXT(ListaRecurso *lista){
+    // Abre o arquivo em um ponteiro de arquivo
+    FILE* fp = fopen("dados/recurso.txt", "w");
+
+    // Confere se deu erro
+    if(fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaRecurso* aux = lista->prox; // primeiro elemento real
+
+    // Percorre a lista printando tudo no txt
+    while (aux != NULL) {
+        // Printa um item
+        fprintf(fp, "%d,%d,%s,%s,%d,%.2f,%.2f\n",
+        aux->recurso.ativo,
+        aux->recurso.id,
+        aux->recurso.descricao,
+        aux->recurso.categoria,
+        aux->recurso.qtdEstoque,
+        aux->recurso.precoCusto,
+        aux->recurso.valorLocacao);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int recursoLerTXT(ListaRecurso **lista) {
+    FILE *fp = fopen("dados/recurso.txt", "r");
+    if(fp == NULL) return 0;
+
+    TipoRecurso recursoLido;
+    
+    while (fscanf(fp, "%d,%d,%149[^,],%49[^,],%d,%f,%f",
+            (int*)&recursoLido.ativo,
+            &recursoLido.id,
+            recursoLido.descricao,
+            recursoLido.categoria,
+            &recursoLido.qtdEstoque,
+            &recursoLido.precoCusto,
+            &recursoLido.valorLocacao) == 7) {
+        // Adiciona o recurso lido na lista
+        recursoAdicionar(lista, recursoLido);
+    }
+
+    // Fecha o arquivo
+    fclose(fp);
+    return 1;
+}
+
+
+int recursoSalvarBIN(ListaRecurso* lista) {
+    FILE* fp = fopen("dados/recurso.bin", "wb");
+    if (fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaRecurso* aux = lista;
+
+    // Percorre a lista escrevendo tudo no binario
+    while (aux != NULL) {
+        // Escreve um item
+        fwrite(&aux->recurso, sizeof(TipoRecurso), 1, fp);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int recursoLerBIN(ListaRecurso** lista) {
+    FILE* fp = fopen("dados/recurso.bin", "rb");
+    if (fp == NULL) return 0;
+
+    TipoRecurso temp;
+
+    // Le o arquivo binario ate o final
+    while (fread(&temp, sizeof(TipoRecurso), 1, fp) == 1) {
+        recursoAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
 }

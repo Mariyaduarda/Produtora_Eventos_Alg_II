@@ -32,4 +32,10 @@ int recursoAtualizar(ListaRecurso *lista, TipoRecurso recursoAtualizado, int id)
 TipoRecurso* recursoBuscar(ListaRecurso *lista, int id);
 void recursoListaLiberar(ListaRecurso* lista);
 
+int recursoSalvarTXT(ListaRecurso *lista);
+int recursoLerTXT(ListaRecurso **lista);
+
+int recursoSalvarBIN(ListaRecurso *lista);
+int recursoLerBIN(ListaRecurso **lista);
+
 #endif // RECURSO_H

@@ -78,3 +78,20 @@ int printConfirma(){
     //retorna a escolha
     return confirma;
 }
+
+int recebeMetodoDeSalvamento(){
+    // guarda a escolha
+    int metodo; 
+
+    // Enquanto usuario n digitar 1 ou 2, fica perguntando
+    do{
+        printMensagem("Como deseja salvar?", "1.TXT | 2.BIN");
+        printf("\n =>");
+        scanf("%d",&metodo);
+        getchar(); // Limpa o buffer do teclado
+
+    }while ( metodo != 1 && metodo != 2);
+    
+    //retorna a escolha
+    return metodo;
+}

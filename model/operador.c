@@ -25,7 +25,7 @@ int operadorAdicionar(ListaOperador **lista, TipoOperador operador){
     novo->operador.ativo = true;
     novo->prox = NULL;
     
-    if(*lista == NULL){ // se a lista estiver vazia, o novo no' sera o primeiro
+    if(*lista == NULL){ // se a lista estiver vazia, e' so' substituir
         novo->operador.id = 1;
         *lista = novo;
     } else { // se n estiver vazia, percorre ate' o final da lista
@@ -120,4 +120,97 @@ void operadorListaLiberar(ListaOperador* lista){
         free(aux);
     }
 
+}
+
+//==================================================
+// Arquivos
+
+int operadorSalvarTXT(ListaOperador *lista){
+    // Abre o arquivo em um ponteiro de arquivo
+    FILE* fp = fopen("dados/operador.txt", "w");
+
+    // Confere se deu erro
+    if(fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaOperador* aux = lista; // primeiro elemento
+
+    // Percorre a lista printando tudo no txt
+    while (aux != NULL) {
+        // Printa um item
+        fprintf(fp, "%d,%d,%s,%s,%s\n",
+        aux->operador.ativo,
+        aux->operador.id,
+        aux->operador.nome,
+        aux->operador.usuario,
+        aux->operador.senha);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int operadorLerTXT(ListaOperador **lista) {
+    FILE *fp = fopen("dados/operador.txt", "r");
+    if(fp == NULL) return 0;
+
+    TipoOperador operadorTemp;
+    
+    while (fscanf(fp, "%d,%d,%99[^,],%49[^,],%49[^\n]\n",
+                  (int*)&operadorTemp.ativo,
+                  &operadorTemp.id,
+                  operadorTemp.nome,
+                  operadorTemp.usuario,
+                  operadorTemp.senha) == 5) {
+        // Adiciona o operador lido na lista
+        operadorAdicionar(lista, operadorTemp);
+    }
+
+    // Fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+
+int operadorSalvarBIN(ListaOperador* lista) {
+    FILE* fp = fopen("dados/operador.bin", "wb");
+    if (fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaOperador* aux = lista;
+
+    // Percorre a lista escrevendo tudo no binario
+    while (aux != NULL) {
+        // Escreve um item
+        fwrite(&aux->operador, sizeof(TipoOperador), 1, fp);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int operadorLerBIN(ListaOperador** lista) {
+    FILE* fp = fopen("dados/operador.bin", "rb");
+    if (fp == NULL) return 0;
+
+    TipoOperador temp;
+
+    // Le o arquivo binario ate o final
+    while (fread(&temp, sizeof(TipoOperador), 1, fp) == 1) {
+        operadorAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
 }

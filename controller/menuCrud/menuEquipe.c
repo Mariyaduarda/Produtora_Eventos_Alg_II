@@ -114,12 +114,12 @@ void menuEquipeListar(ListaEquipe *lista) {
 
     // Lista todas as equipes internas cadastradas
     if (lista == NULL) {
-        printf("\n => Nenhuma equipe interna cadastrada.\n");
+        printMensagem("Nenhum item cadastrado","#");
         return;
     }
 
     
-    ListaEquipe *atual = lista->prox; // Pula o no' cabeca
+    ListaEquipe *atual = lista; // comeca auxiliar no comeco da lista
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->equipe.ativo) printItemEquipe(atual->equipe);
@@ -168,7 +168,6 @@ void menuEquipe(ListaEquipe **listaEquipe) {
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida

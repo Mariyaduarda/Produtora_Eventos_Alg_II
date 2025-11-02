@@ -32,6 +32,9 @@ TipoEquipe* equipeBuscar(ListaEquipe *lista, int id);
 void equipeListaLiberar(ListaEquipe* lista);
 
 int equipeSalvarTXT(ListaEquipe *lista);
-int equipeLerTXT(ListaEquipe *lista);
+int equipeLerTXT(ListaEquipe **lista);
+
+int equipeSalvarBIN(ListaEquipe *lista);
+int equipeLerBIN(ListaEquipe **lista);
 
 #endif // EQUIPE_H
