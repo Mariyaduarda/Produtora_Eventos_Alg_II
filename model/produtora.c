@@ -33,7 +33,7 @@ int produtoraAdicionar(ListaProdutora **lista, TipoProdutora produtora){
     novo->prox = NULL;
 
     
-    if(*lista == NULL){ // se a lista estiver vazia, o novo no' sera o primeiro
+    if(*lista == NULL){ // se a lista estiver vazia, e' so' substituir
         novo->produtora.id = 1;
         *lista = novo;
     } else { // se n estiver vazia, percorre ate' o final da lista
@@ -128,4 +128,109 @@ void produtoraListaLiberar(ListaProdutora* lista){
         free(aux);
     }
 
+}
+
+//==================================================
+// Arquivos
+
+int produtoraSalvarTXT(ListaProdutora *lista){
+    // Abre o arquivo em um ponteiro de arquivo
+    FILE* fp = fopen("dados/produtora.txt", "w");
+
+    // Confere se deu erro
+    if(fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaProdutora* aux = lista->prox; // primeiro elemento real
+
+    // Percorre a lista printando tudo no txt
+    while (aux != NULL) {
+        // Printa um item
+        fprintf(fp, "%d,%d,%s,%s,%s,%s,%s,%s,%s,%s,%s,%.2f\n",
+        aux->produtora.ativo,
+        aux->produtora.id,
+        aux->produtora.nomeFantasia,
+        aux->produtora.razaoSocial,
+        aux->produtora.inscricaoEstadual,
+        aux->produtora.cnpj,
+        aux->produtora.endereco,
+        aux->produtora.telefone,
+        aux->produtora.email,
+        aux->produtora.nomeDoResponsavel,
+        aux->produtora.telefoneDoResponsavel,
+        aux->produtora.margemDeLucro);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int produtoraLerTXT(ListaProdutora **lista) {
+    FILE *fp = fopen("dados/produtora.txt", "r");
+    if(fp == NULL) return 0;
+
+    TipoProdutora temp;
+    
+    while(fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%f",
+                 &temp.ativo,
+                 &temp.id,
+                 temp.nomeFantasia,
+                 temp.razaoSocial,
+                 temp.inscricaoEstadual,
+                 temp.cnpj,
+                 temp.endereco,
+                 temp.telefone,
+                 temp.email,
+                 temp.nomeDoResponsavel,
+                 temp.telefoneDoResponsavel,
+                 &temp.margemDeLucro) == 12) {
+        produtoraAdicionar(lista, temp);
+    }
+    
+    fclose(fp);
+    return 1;
+}
+
+
+int produtoraSalvarBIN(ListaProdutora* lista) {
+    FILE* fp = fopen("dados/produtora.bin", "wb");
+    if (fp == NULL) return 0;
+
+    // Aux pra percorrer a lista 
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaProdutora* aux = lista;
+
+    // Percorre a lista escrevendo tudo no binario
+    while (aux != NULL) {
+        // Escreve um item
+        fwrite(&aux->produtora, sizeof(TipoProdutora), 1, fp);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int produtoraLerBIN(ListaProdutora** lista) {
+    FILE* fp = fopen("dados/produtora.bin", "rb");
+    if (fp == NULL) return 0;
+
+    TipoProdutora temp;
+
+    // Le o arquivo binario ate o final
+    while (fread(&temp, sizeof(TipoProdutora), 1, fp) == 1) {
+        produtoraAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
 }

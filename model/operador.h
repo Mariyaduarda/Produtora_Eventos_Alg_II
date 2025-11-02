@@ -30,4 +30,10 @@ int operadorAtualizar(ListaOperador *lista, TipoOperador operadorAtualizado, int
 TipoOperador* operadorBuscar(ListaOperador *lista, int id);
 void operadorListaLiberar(ListaOperador* lista);
 
+int operadorSalvarTXT(ListaOperador *lista);
+int operadorLerTXT(ListaOperador **lista);
+
+int operadorSalvarBIN(ListaOperador *lista);
+int operadorLerBIN(ListaOperador **lista);
+
 #endif // OPERADOR_H

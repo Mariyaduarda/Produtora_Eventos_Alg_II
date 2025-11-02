@@ -30,7 +30,7 @@ int clienteAdicionar(ListaCliente **lista, TipoCliente cliente){
     novo->prox = NULL;
 
     
-    if(*lista == NULL){ // se a lista estiver vazia, o novo no' sera o primeiro
+    if(*lista == NULL){ // se a lista estiver vazia, e' so' substituir
         novo->cliente.id = 1;
         *lista = novo;
     } else { // se n estiver vazia, percorre ate' o final da lista
@@ -122,4 +122,103 @@ void clienteListaLiberar(ListaCliente* lista){
         free(aux);
     }
 
+}
+
+//==================================================
+// Arquivos
+
+int clienteSalvarTXT(ListaCliente *lista){
+    // Abre o arquivo em um ponteiro de arquivo
+    FILE* fp = fopen("dados/cliente.txt", "w");
+
+    // Confere se deu erro
+    if(fp == NULL) return 0;
+
+    // Aux pra percorrer a lista
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaCliente* aux = lista;
+
+    // Percorre a lista printando tudo no txt
+    while (aux != NULL) {
+        // Printa um item
+        fprintf(fp, "%d,%d,%d,%s,%s,%s,%s,%s,%s\n",
+        aux->cliente.ativo,
+        aux->cliente.id,
+        aux->cliente.usa_CNPJ,
+        aux->cliente.nome,
+        aux->cliente.endereco,
+        aux->cliente.cpf_cnpj,
+        aux->cliente.telefone,
+        aux->cliente.email,
+        aux->cliente.nomeDoContato);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int clienteLerTXT(ListaCliente **lista) {
+    FILE *fp = fopen("dados/cliente.txt", "r");
+    if(fp == NULL) return 0;
+
+    TipoCliente temp;
+    
+    while(fscanf(fp, "%d,%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]",
+                  &temp.ativo,
+                  &temp.id,
+                  &temp.usa_CNPJ,
+                  temp.nome,
+                  temp.endereco,
+                  temp.cpf_cnpj,
+                  temp.telefone,
+                  temp.email,
+                  temp.nomeDoContato) == 9) {
+        clienteAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int clienteSalvarBIN(ListaCliente* lista) {
+    FILE* fp = fopen("dados/cliente.bin", "wb");
+    if (fp == NULL) return 0;
+
+    // Aux pra percorrer a lista
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaCliente* aux = lista;
+
+    // Percorre a lista escrevendo tudo no binario
+    while (aux != NULL) {
+        // Escreve um item
+        fwrite(&aux->cliente, sizeof(TipoCliente), 1, fp);
+
+        // Avanca
+        aux = aux->prox;
+    }
+
+    // Deu certo, fecha o ponteiro e retorna sucesso
+    fclose(fp);
+    return 1;
+}
+
+int clienteLerBIN(ListaCliente** lista) {
+    FILE* fp = fopen("dados/cliente.bin", "rb");
+    if (fp == NULL) return 0;
+
+    TipoCliente temp;
+
+    // Le o arquivo binario ate o final
+    while (fread(&temp, sizeof(TipoCliente), 1, fp) == 1) {
+        clienteAdicionar(lista, temp);
+    }
+
+    // Deu bom, fecha o arquivo e retorna sucesso
+    fclose(fp);
+    return 1;
 }

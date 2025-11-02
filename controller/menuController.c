@@ -37,8 +37,7 @@ void menuPrincipal(ListaCliente **listaCliente, ListaFornecedor **listaFornecedo
                 break;
             case 0:
                 // Sair
-                printf("\n => Saindo do sistema");
-                exit(0);
+                return;
             default:
                 // Opcao invalida
                 printOpcaoInvalida();

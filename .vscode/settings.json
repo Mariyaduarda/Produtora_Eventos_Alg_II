@@ -20,6 +20,7 @@
         "mostraritem.h": "c",
         "mensagens.h": "c",
         "stdbool.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "menuprodutora.h": "c"
     }
 }

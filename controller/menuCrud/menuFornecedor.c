@@ -116,12 +116,12 @@ void menuFornecedorListar(ListaFornecedor *lista) {
 
     // Lista todos os fornecedores/parceiros cadastrados
     if (lista == NULL) {
-        printf("\n => Nenhum fornecedor/parceiro cadastrado.\n");
+        printMensagem("Nenhum item cadastrado","#");
         return;
     }
 
     
-    ListaFornecedor *atual = lista->prox; // Pula o no' cabeca
+    ListaFornecedor *atual = lista; // comeca auxiliar no comeco da lista
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->fornecedor.ativo) printItemFornecedor(atual->fornecedor);
@@ -170,7 +170,6 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida

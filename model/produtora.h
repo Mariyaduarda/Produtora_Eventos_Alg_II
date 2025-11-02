@@ -37,4 +37,10 @@ int produtoraAtualizar(ListaProdutora *lista, TipoProdutora produtoraAtualizada,
 TipoProdutora* produtoraBuscar(ListaProdutora *lista, int id);
 void produtoraListaLiberar(ListaProdutora* lista);
 
+int produtoraSalvarTXT(ListaProdutora *lista);
+int produtoraLerTXT(ListaProdutora **lista);
+
+int produtoraSalvarBIN(ListaProdutora *lista);
+int produtoraLerBIN(ListaProdutora **lista);
+
 #endif // PRODUTORA_H

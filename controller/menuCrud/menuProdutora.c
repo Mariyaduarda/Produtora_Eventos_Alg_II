@@ -120,12 +120,12 @@ void menuProdutoraListar(ListaProdutora *lista) {
 
     // Lista todas as produtoras cadastradas
     if (lista == NULL) {
-        printf("\n => Nenhuma produtora cadastrada.\n");
+        printMensagem("Nenhum item cadastrado","#");
         return;
     }
 
     
-    ListaProdutora *atual = lista->prox; // Pula o no' cabeca
+    ListaProdutora *atual = lista; // comeca auxiliar no comeco da lista
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->produtora.ativo) printItemProdutora(atual->produtora);
@@ -174,7 +174,6 @@ void menuProdutora(ListaProdutora **listaProdutora) {
                 break;
             case 0:
                 // Voltar ao menu principal
-                printf("\n => Voltando ao menu principal");
                 break;
             default:
                 // Opcao invalida
