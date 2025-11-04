@@ -35,7 +35,8 @@ void inicializarSistema() {
 
     } else{
         // se n deu pra ler nenhum, recebe os dados iniciais da produtora
-        
+        printMensagem("Nenhum dado cadastrado","#");
+        menuProdutoraAdicionar(&listaProdutora);
     }
 
     //===========================================

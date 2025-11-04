@@ -10,6 +10,8 @@
 #include "../model/operador.h"
 #include "menuController.h"
 
+#include "menuCrud/menuProdutora.h" // para receber os dados da produtora, caso n tenha nenhum
+
 void inicializarListas(ListaCliente *listaCliente, ListaFornecedor *listaFornecedor, ListaProdutora *listaProdutora, ListaEquipe *listaEquipe, ListaRecurso *listaRecurso, ListaOperador *listaOperador);
 void inicializarSistema();
 
