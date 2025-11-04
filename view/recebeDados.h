@@ -16,6 +16,7 @@ float recebeFloat(float min, float max, char *msg1, char *msg2);
 // Funcoes com validacao
 void recebeCPF(char *str);
 void recebeCNPJ(char *str);
+void recebeCPFCNPJ(char *str);
 void recebeEmail(char *str);
 void recebeTelefone(char *str);
 int recebeID();

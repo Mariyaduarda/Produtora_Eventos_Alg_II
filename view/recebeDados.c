@@ -86,6 +86,32 @@ void recebeCNPJ(char *str){
     }
 }
 
+// pede ao usuario para escolher
+void recebeCPFCNPJ(char *str) {
+    int escolha;
+
+    while (1) {
+
+        printf("Commo quer cadastrar?\n");
+        printf("    1. CPF\n");
+        printf("    2. CNPJ\n");
+        printf("    => ");
+        scanf("%d ", &escolha);
+        getchar(); // limpa o buffer
+
+        if (escolha == 1) {
+            recebeCPF(str);
+            break;
+        }
+        else if (escolha == 2) {
+            recebeCNPJ(str);
+            break;
+        } else {
+            printf("Opcao nao valida.");
+        }
+    }
+}
+
 // Recebe um Email em string - ja faz a validacao
 void recebeEmail(char *str){
     while (1){

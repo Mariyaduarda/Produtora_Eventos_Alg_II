@@ -14,6 +14,9 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <stdio.h>
+#include "../model/cliente.h"
+
+// Funcoes de validar dados
 
 bool validarCPF(const char *cpf_cpnj);
 bool validarCNPJ(const char *cpf_cpnj);
@@ -22,10 +25,7 @@ bool validarTelefone(const char *telefone);
 bool validarNome(const char *nome);
 bool validarSenha(const char *senha);
 bool validarUsuario(const char *usuario);
-
-#include "../model/cliente.h"
 int validarDadosCliente(TipoCliente *cliente, char *mensagemErro);
-
 
 // Funcoes de utilidade para mudar a tela
 void limparTela();

@@ -12,7 +12,7 @@ TipoProdutora menuProdutoraRecebe() {
     recebeString(produtora.inscricaoEstadual, 20, "Digite a Razao Social","9 Digitos");
     recebeCNPJ(produtora.cnpj);
     recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100");
-    recebeTelefone(produtora.cnpj);
+    recebeTelefone(produtora.telefone);
     recebeEmail(produtora.email);
     recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100");
     recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos");

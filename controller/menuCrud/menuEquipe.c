@@ -49,7 +49,6 @@ void menuEquipeRemover(ListaEquipe **listaEquipe){
     
     printItemEquipe(*Equipe);
     
-    
     // Pede confirmacao, se tiver ok, remove o Equipe
     if (printConfirma()){
         equipeRemover(listaEquipe, ID);

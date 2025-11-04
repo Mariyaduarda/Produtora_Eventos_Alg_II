@@ -9,7 +9,7 @@ TipoCliente menuClienteRecebe() {
     cliente.id = 0; // ID sera atribuido automaticamente
     recebeString(cliente.nome, 100, "Digite o Nome","Max. 100");
     recebeString(cliente.endereco, 100, "Digite o Endereco","Max. 100");
-    recebeCPF(cliente.cpf_cnpj);
+    recebeCPFCNPJ(cliente.cpf_cnpj);
     recebeTelefone(cliente.telefone);
     recebeEmail(cliente.email);
     recebeString(cliente.nomeDoContato, 100, "Digite o Nome do Contato","Max. 100");
