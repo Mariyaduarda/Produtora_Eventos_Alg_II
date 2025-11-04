@@ -38,7 +38,7 @@ bool validarCPF(const char *cpf_cnpj) {
     digito1 = ((digito1 % 11)<2)? 0: 11 - (digito1%11);
 
     // calcula o segundo digito
-    for (i = 0, j = 11; i < 9;i++, j--) {
+    for (i = 0, j = 11; i < 10;i++, j--) { //loop ir ate 10, nao 9
         digito2 += (numeros[i] - '0') *j;
     }
     digito2 = ((digito2%11)<2)? 0: 11 - (digito2%11);

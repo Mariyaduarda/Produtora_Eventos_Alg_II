@@ -17,8 +17,22 @@ $(TARGET): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-
 clean:
 	del /Q $(OBJS) $(TARGET) 2>nul || rm -f $(OBJS) $(TARGET)
 
-.PHONY: all clean
+help:
+	@echo "==============================================="
+	@echo " HELP - COMANDOS DISPONÍVEIS NO MAKEFILE  "
+	@echo "==============================================="
+	@echo ""
+	@echo "   make          || Compila, executa e limpa o projeto"
+	@echo "   make clean    || Remove arquivos objetos e o executável"
+	@echo "   make help     || Mostra esta mensagem de ajuda"
+	@echo ""
+	@echo "-----------------------------------------------"
+	@echo "⚙️  Compilador: $(CC)"
+	@echo "📂 Diretórios de código-fonte: $(SRC_DIRS)"
+	@echo "==============================================="
+	@echo ""
+
+.PHONY: all clean help

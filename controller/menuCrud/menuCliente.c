@@ -24,13 +24,13 @@ void menuClienteAdicionar(ListaCliente **listaCliente){
     // Enquanto o usuario nao confirmar, roda dnv
     while (1){
         novo = menuClienteRecebe(); // Recebe os valroes do usuario
-        
+
         // Mostra os dados que foram inseridos
         printItemCliente(novo);
-        
+
         if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
     }
-    
+
     // Realmente adiciona na lista
     if ( clienteAdicionar(listaCliente, novo) ) printAdicionarSucesso();
     else printAdicionarFalha();
@@ -38,7 +38,7 @@ void menuClienteAdicionar(ListaCliente **listaCliente){
 
 void menuClienteRemover(ListaCliente **listaCliente){
     int ID = recebeID(); // recebe o ID do item que vai ser removido
-    
+
     // Busca o Item q vai ser removido
     TipoCliente *cliente; // Para guardar resultado de busca
     cliente = clienteBuscar(*listaCliente, ID);
@@ -46,12 +46,12 @@ void menuClienteRemover(ListaCliente **listaCliente){
         printNaoEncontrado();
         return;
     }
-    
+
     // Mostra o Item que vai ser removido
-    
+
     printItemCliente(*cliente);
-    
-    
+
+
     // Pede confirmacao, se tiver ok, remove o cliente
     if (printConfirma()){
         clienteRemover(listaCliente, ID);
@@ -73,7 +73,7 @@ void menuClienteAtualizar(ListaCliente **listaCliente){
         printNaoEncontrado();
         return;
     }
-    
+
     // Caso contrario, recebe os novos dados
     novoCliente = menuClienteRecebe();
 
@@ -82,16 +82,16 @@ void menuClienteAtualizar(ListaCliente **listaCliente){
 
     // Printa os antigos dados
     printMensagem("Dados Antigos","=");
-    
+
     printItemCliente(*velhoCliente);
-    
-    
+
+
     // Printa os novos dados
     printMensagem("Dados Novos","=");
-    
+
     printItemCliente(novoCliente);
-    
-    
+
+
     // ===============================
     // Confirma se o usuario realmente quer atualizar
     if (printConfirma()){
@@ -104,9 +104,9 @@ void menuClienteBuscar(ListaCliente **listaCliente){
     TipoCliente *cliente; // Para guardar resultado de busca
     cliente = clienteBuscar(*listaCliente, recebeID());
     if (cliente != NULL){
-        
+
         printItemCliente(*cliente);
-        
+
     }
     else printNaoEncontrado();
 }
@@ -120,14 +120,14 @@ void menuClienteListar(ListaCliente *lista) {
         return;
     }
 
-    
+
     ListaCliente *atual = lista; // comeca auxiliar no comeco da lista
     while (atual != NULL) {
         // Se Item estiver ativo, printa
         if (atual->cliente.ativo) printItemCliente(atual->cliente);
         atual = atual->prox;
     }
-    
+
 
     printf("\n");
 }
@@ -177,5 +177,5 @@ void menuCliente(ListaCliente **listaCliente) {
                 esperaEnter();
         }
     }while (escolha != 0);
-    
+
 }
