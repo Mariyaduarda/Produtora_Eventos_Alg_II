@@ -16,6 +16,8 @@ Limpar todos os arquivos compilados: make clean
 
 Help:
 	   make          || Compila, executa e limpa o projeto
+	   
 	   make clean    || Remove arquivos objetos e o executável
+	   
 	   make help     || Mostra esta mensagem de ajuda
 	
