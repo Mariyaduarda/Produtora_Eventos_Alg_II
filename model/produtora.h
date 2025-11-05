@@ -7,11 +7,6 @@
 #include <stdbool.h>
 
 typedef struct {
-    // Atributos de estado
-    int id;
-    bool ativo;
-    
-    // Atributos
     char nomeFantasia[100];
     char razaoSocial[100];
     char inscricaoEstadual[20];
@@ -24,23 +19,10 @@ typedef struct {
     float margemDeLucro;
 } TipoProdutora;
 
-typedef struct ListaProdutora{
-    struct ListaProdutora *prox;
-    TipoProdutora produtora;
-} ListaProdutora;
-
 void produtoraInit(TipoProdutora *produtora);
-void produtoraListaInit(ListaProdutora *lista);
-int produtoraAdicionar(ListaProdutora **lista, TipoProdutora produtora);
-int produtoraRemover(ListaProdutora **lista, int id);
-int produtoraAtualizar(ListaProdutora *lista, TipoProdutora produtoraAtualizada, int id);
-TipoProdutora* produtoraBuscar(ListaProdutora *lista, int id);
-void produtoraListaLiberar(ListaProdutora* lista);
-
-int produtoraSalvarTXT(ListaProdutora *lista);
-int produtoraLerTXT(ListaProdutora **lista);
-
-int produtoraSalvarBIN(ListaProdutora *lista);
-int produtoraLerBIN(ListaProdutora **lista);
+int produtoraSalvarTXT(TipoProdutora *produtora);
+int produtoraLerTXT(TipoProdutora *produtora);
+int produtoraSalvarBIN(TipoProdutora *produtora);
+int produtoraLerBIN(TipoProdutora *produtora);
 
 #endif // PRODUTORA_H

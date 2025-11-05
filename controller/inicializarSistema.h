@@ -12,7 +12,14 @@
 
 #include "menuCrud/menuProdutora.h" // para receber os dados da produtora, caso n tenha nenhum
 
-void inicializarListas(ListaCliente *listaCliente, ListaFornecedor *listaFornecedor, ListaProdutora *listaProdutora, ListaEquipe *listaEquipe, ListaRecurso *listaRecurso, ListaOperador *listaOperador);
 void inicializarSistema();
+
+int lerMemoria(TipoProdutora *produtora, ListaCliente **listaCliente, 
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
+    ListaRecurso **listaRecurso, ListaOperador **listaOperador);
+
+int salvarMemoria(TipoProdutora *produtora, ListaCliente *listaCliente, 
+    ListaFornecedor *listaFornecedor, ListaEquipe *listaEquipe,
+    ListaRecurso *listaRecurso, ListaOperador *listaOperador, int metodoDeSalvamento);
 
 #endif // INICIALIZAR_SISTEMA_H

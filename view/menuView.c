@@ -20,6 +20,29 @@ void printMenuPrincipal(){
     );
 }
 
+void printMenuProdutora(TipoProdutora produtora){
+    limparTela();
+    // header
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento da Produtora                                     | "
+        "\n |==================================================================| "
+    );
+
+    // dados atuais
+    printItemProdutora(produtora);
+
+    // opcoes do menu
+    printf(
+        "\n |==================================================================| "
+        "\n |   1. Atualizar Dados                                             | "
+        "\n |   2. Apagar Dados                                                | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+
 void printMenuCliente(){
     limparTela();
     printf(
@@ -52,24 +75,6 @@ void printMenuFornecedor(){
         "\n |   0. Voltar                                                      | "
         "\n======================================================================"
     );
-}
-
-void printMenuProdutora(){
-    limparTela();
-    printf(
-        "\n======================================================================"
-        "\n | # Gerenciamento de Produtoras                                    | "
-        "\n |==================================================================| "
-        "\n |   1. Adicionar                                                   | "
-        "\n |   2. Remover                                                     | "
-        "\n |   3. Atualizar                                                   | "
-        "\n |   4. Buscar                                                      | "
-        "\n |   5. Listar                                                      | "
-        "\n |==================================================================| "
-        "\n |   0. Voltar                                                      | "
-        "\n======================================================================"
-    );
-
 }
 
 void printMenuEquipe(){

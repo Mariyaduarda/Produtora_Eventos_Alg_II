@@ -1,6 +1,9 @@
 #include "menuController.h"
 
-void menuPrincipal(ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaProdutora **listaProdutora, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador) {
+void menuPrincipal(TipoProdutora *produtora, ListaCliente **listaCliente, 
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
+    ListaRecurso **listaRecurso, ListaOperador **listaOperador) 
+{
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=1;
     while (escolha != 0){
@@ -21,7 +24,7 @@ void menuPrincipal(ListaCliente **listaCliente, ListaFornecedor **listaFornecedo
                 break;
             case 3:
                 // Gerenciar Produtora
-                menuProdutora(listaProdutora);
+                menuProdutora(produtora);
                 break;
             case 4:
                 // Gerenciar Equipe Interna

@@ -11,11 +11,7 @@
 #include "../../view/mensagens.h"
 
 TipoProdutora menuProdutoraRecebe();
-void menuProdutora(ListaProdutora **listaProdutora);
-void menuProdutoraAdicionar(ListaProdutora **listaProdutora);
-void menuProdutoraRemover(ListaProdutora **listaProdutora);
-void menuProdutoraAtualizar(ListaProdutora **listaProdutora);
-void menuProdutoraBuscar(ListaProdutora **listaProdutora);
-void menuProdutoraListar(ListaProdutora *lista);
+void menuProdutoraAtualizar(TipoProdutora* produtora);
+void menuProdutora(TipoProdutora* produtora);
 
 #endif // MENU_PRODUTORA_H

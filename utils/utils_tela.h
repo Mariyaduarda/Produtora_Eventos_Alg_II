@@ -6,7 +6,8 @@
 void limparTela();
 void esperaEnter();
 
-void formataCPF(const char *cpf, char *dest);
-void formataCNPJ(const char *cnpj, char *dest);
+void formataCPF(char *cpf, char *dest);
+void formataCNPJ(char *cnpj, char *dest);
+void formataTelefone(char *numero, char *dest);
 
 #endif //UTILS_TELA_H

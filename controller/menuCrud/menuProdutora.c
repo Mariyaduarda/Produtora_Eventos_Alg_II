@@ -6,10 +6,9 @@ TipoProdutora menuProdutoraRecebe() {
     produtoraInit(&produtora);
 
     // Recebe os dados da produtora
-    produtora.id = 0; // ID sera atribuido automaticamente
     recebeString(produtora.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
     recebeString(produtora.razaoSocial, 100, "Digite a Razao Social","Max. 100");
-    recebeString(produtora.inscricaoEstadual, 20, "Digite a Razao Social","9 Digitos");
+    recebeString(produtora.inscricaoEstadual, 20, "Digite a Inscricao Estadual","9 Digitos");
     recebeCNPJ(produtora.cnpj);
     recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100");
     recebeTelefone(produtora.telefone);
@@ -21,155 +20,36 @@ TipoProdutora menuProdutoraRecebe() {
     return produtora;
 }
 
-void menuProdutoraAdicionar(ListaProdutora **listaProdutora){
-    // Guarda o novo item
-    TipoProdutora novo;
-
-    // Enquanto o usuario nao confirmar, roda dnv
-    while (1){
-        novo = menuProdutoraRecebe(); // Recebe os valroes do usuario
-        
-        // Mostra os dados que foram inseridos
-        printItemProdutora(novo);
-        
-        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
-    }
-    
-    // Realmente adiciona na lista
-    if ( produtoraAdicionar(listaProdutora, novo) ) printAdicionarSucesso();
-    else printAdicionarFalha();
-}
-
-void menuProdutoraRemover(ListaProdutora **listaProdutora){
-    int ID = recebeID(); // recebe o ID do item que vai ser removido
-    
-    // Busca o Item q vai ser removido
-    TipoProdutora *Produtora; // Para guardar resultado de busca
-    Produtora = produtoraBuscar(*listaProdutora, ID);
-    if (Produtora == NULL){
-        printNaoEncontrado();
-        return;
-    }
-    
-    // Mostra o Item que vai ser removido
-    
-    printItemProdutora(*Produtora);
-    
-    
-    // Pede confirmacao, se tiver ok, remove o Produtora
-    if (printConfirma()){
-        produtoraRemover(listaProdutora, ID);
-        printRemoverSucesso();
-    }
-}
-
-void menuProdutoraAtualizar(ListaProdutora **listaProdutora){
-    // Declara um novo item pra receber os dados atualizados
+void menuProdutoraAtualizar(TipoProdutora* produtora) {
+    // Atualiza os dados da produtora
     TipoProdutora novoProdutora;
-    TipoProdutora* velhoProdutora;
-
-    // Recebe o ID do item que vai ser atualizado
-    int ID = recebeID();
-    velhoProdutora = produtoraBuscar(*listaProdutora, ID);
-
-    // Se esse ID n existe, mostra erro
-    if (velhoProdutora == NULL){
-        printNaoEncontrado();
-        return;
-    }
-    
-    // Caso contrario, recebe os novos dados
     novoProdutora = menuProdutoraRecebe();
-
-    // ===============================
-    // Mostra as mudancas
-
-    // Printa os antigos dados
-    printMensagem("Dados Antigos","=");
-    
-    printItemProdutora(*velhoProdutora);
-    
-    
-    // Printa os novos dados
-    printMensagem("Dados Novos","=");
-    
-    printItemProdutora(novoProdutora);
-    
-    
-    // ===============================
-    // Confirma se o usuario realmente quer atualizar
-    if (printConfirma()){
-        produtoraAtualizar(*listaProdutora, novoProdutora, ID);
-        printAtualizarSucesso();
-    }
+    *produtora = novoProdutora;
 }
 
-void menuProdutoraBuscar(ListaProdutora **listaProdutora){
-    TipoProdutora *Produtora; // Para guardar resultado de busca
-    Produtora = produtoraBuscar(*listaProdutora, recebeID());
-    if (Produtora != NULL){
-        
-        printItemProdutora(*Produtora);
-        
-    }
-    else printNaoEncontrado();
+void menuProdutoraApagar(TipoProdutora* produtora) {
+    // Apaga os dados da produtora
+    produtoraInit(produtora);
 }
 
-void menuProdutoraListar(ListaProdutora *lista) {
-    limparTela();
-
-    // Lista todas as produtoras cadastradas
-    if (lista == NULL) {
-        printMensagem("Nenhum item cadastrado","#");
-        return;
-    }
-
-    
-    ListaProdutora *atual = lista; // comeca auxiliar no comeco da lista
-    while (atual != NULL) {
-        // Se Item estiver ativo, printa
-        if (atual->produtora.ativo) printItemProdutora(atual->produtora);
-        atual = atual->prox;
-    }
-    
-    printf("\n");
-}
-
-void menuProdutora(ListaProdutora **listaProdutora) {
+void menuProdutora(TipoProdutora* produtora) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
         // Exibe o menu de Produtora
-        printMenuProdutora();
+        printMenuProdutora(*produtora);
 
         // Recebe a escolha do usuario
         escolha = recebeInt(0, 5, "Digite uma opcao", "0 a 5");
 
         switch (escolha){
             case 1:
-                // Adicionar Produtora
-                menuProdutoraAdicionar(listaProdutora);
-                esperaEnter();
+                // Atualizar dados da produtora
+                menuProdutoraAtualizar(produtora);
                 break;
             case 2:
-                // Remover Produtora
-                menuProdutoraRemover(listaProdutora);
-                esperaEnter();
-                break;
-            case 3:
-                // Atualizar Produtora
-                menuProdutoraAtualizar(listaProdutora);
-                esperaEnter();
-                break;
-            case 4:
-                // Buscar Produtora
-                menuProdutoraBuscar(listaProdutora);
-                esperaEnter();
-                break;
-            case 5:
-                // Listar Produtoras
-                menuProdutoraListar(*listaProdutora);
-                esperaEnter();
+                // Apagar dados da produtora
+                menuProdutoraApagar(produtora);
                 break;
             case 0:
                 // Voltar ao menu principal
