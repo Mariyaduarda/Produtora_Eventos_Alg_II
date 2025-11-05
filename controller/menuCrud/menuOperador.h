@@ -6,7 +6,7 @@
 #include "../../utils/utils_tela.h"
 
 #include "../../view/recebeDados.h"
-#include "../../view/menuView.h"
+#include "../../view/printMenu.h"
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 

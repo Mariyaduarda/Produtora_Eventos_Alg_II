@@ -15,28 +15,28 @@ void menuPrincipal(TipoProdutora *produtora, ListaCliente **listaCliente,
         
         switch (escolha){
             case 1:
-                // Gerenciar TipoCliente
-                menuCliente(listaCliente);
-                break;
-            case 2:
-                // Gerenciar Fornecedores e Parceiros
-                menuFornecedor(listaFornecedor);
-                break;
-            case 3:
                 // Gerenciar Produtora
                 menuProdutora(produtora);
                 break;
-            case 4:
+            case 2:
+                // Gerenciar TipoCliente
+                menuCliente(listaCliente);
+                break;
+            case 3:
                 // Gerenciar Equipe Interna
                 menuEquipe(listaEquipe);
                 break;
-            case 5:
-                // Gerenciar Recursos e Equipamentos
-                menuRecurso(listaRecurso);
+            case 4:
+                // Gerenciar Fornecedores e Parceiros
+                menuFornecedor(listaFornecedor);
                 break;
-            case 6:
+            case 5:
                 // Gerenciar Operadores do Sistema
                 menuOperador(listaOperador);
+                break;
+            case 6:
+                // Gerenciar Recursos e Equipamentos
+                menuRecurso(listaRecurso);
                 break;
             case 0:
                 // Sair

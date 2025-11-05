@@ -1,4 +1,4 @@
-#include "menuView.h"
+#include "printMenu.h"
 
 // Aqui tem tds as funcoes de exibicao de menus
 
@@ -8,12 +8,13 @@ void printMenuPrincipal(){
         "\n======================================================================"
         "\n | # Menu Principal                                                 | "
         "\n |==================================================================| "
-        "\n |   1. Gerenciar Clientes                                          | "
-        "\n |   2. Gerenciar Fornecedores e Parceiros                          | "
-        "\n |   3. Gerenciar Produtora                                         | "
-        "\n |   4. Gerenciar Equipe Interna                                    | "
-        "\n |   5. Gerenciar Recursos e Equipamentos                           | "
-        "\n |   6. Gerenciar Operadores do Sistema                             | "
+        "\n |   1. Gerenciar Produtora                                         | "
+        "\n |   2. Gerenciar Clientes                                          | "
+        "\n |   3. Gerenciar Equipe Interna                                    | "
+        "\n |   4. Gerenciar Fornecedores e Parceiros                          | "
+        "\n |   5. Gerenciar Operadores do Sistema                             | "
+        "\n |   6. Gerenciar Recursos e Equipamentos                           | "
+        "\n |   7. Configuracoes                                               | "
         "\n |==================================================================| "
         "\n |   0. Sair                                                        | "
         "\n======================================================================"

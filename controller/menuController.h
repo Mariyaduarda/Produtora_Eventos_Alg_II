@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../view/menuView.h"
+#include "../view/printMenu.h"
 #include "../view/mensagens.h"
 
 #include "../utils/utils_tela.h"

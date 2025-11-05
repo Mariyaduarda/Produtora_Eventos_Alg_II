@@ -1,5 +1,5 @@
-#ifndef MENU_VIEW_H
-#define MENU_VIEW_H
+#ifndef PRINT_MENU_H
+#define PRINT_MENU_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,4 +18,4 @@ void printMenuEquipe();
 void printMenuRecurso();
 void printMenuOperador();
 
-#endif // MENU_VIEW_H
+#endif // PRINT_MENU_H
