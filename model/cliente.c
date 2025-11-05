@@ -6,12 +6,12 @@ void clienteInit(TipoCliente *cliente){
     cliente->id = 0;           // id vai ser calculado automaticamente
 
     // Atributos comecam vazios pra tirar lixo de memoria
-    strcpy(cliente->nome,          "");
-    strcpy(cliente->endereco,      "");
-    strcpy(cliente->cpf_cnpj,      "");
-    strcpy(cliente->telefone,      "");
-    strcpy(cliente->email,         "");
-    strcpy(cliente->nomeDoContato, "");
+    strcpy(cliente->nome,          "-");
+    strcpy(cliente->endereco,      "-");
+    strcpy(cliente->cpf_cnpj,      "-");
+    strcpy(cliente->telefone,      "-");
+    strcpy(cliente->email,         "-");
+    strcpy(cliente->nomeDoContato, "-");
 }
 
 void clienteListaInit(ListaCliente *lista){

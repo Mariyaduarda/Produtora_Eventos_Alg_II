@@ -29,7 +29,15 @@ void menuProdutoraAtualizar(TipoProdutora* produtora) {
 
 void menuProdutoraApagar(TipoProdutora* produtora) {
     // Apaga os dados da produtora
-    produtoraInit(produtora);
+
+    // Pede confirmacao
+    if (printConfirma()) {
+        produtoraInit(produtora);
+        printMensagem("Dados apagados com sucesso","#");
+    } else{
+        printMensagem("Operacao cancelada","#");
+    }
+
 }
 
 void menuProdutora(TipoProdutora* produtora) {
@@ -46,10 +54,12 @@ void menuProdutora(TipoProdutora* produtora) {
             case 1:
                 // Atualizar dados da produtora
                 menuProdutoraAtualizar(produtora);
+                esperaEnter();
                 break;
             case 2:
                 // Apagar dados da produtora
                 menuProdutoraApagar(produtora);
+                esperaEnter();
                 break;
             case 0:
                 // Voltar ao menu principal

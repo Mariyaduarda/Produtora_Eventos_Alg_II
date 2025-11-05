@@ -7,12 +7,12 @@ void fornecedorInit(TipoFornecedor *fornecedor){
     fornecedor->usa_CNPJ = false; // por padrao usa cpf ao inves de cnpj
     fornecedor->id = 0;           // id vai ser calculado automaticamente
     
-    strcpy(fornecedor->nomeFantasia, "");
-    strcpy(fornecedor->razaoSocial,  "");
-    strcpy(fornecedor->cpf_cnpj,     "");
-    strcpy(fornecedor->endereco,     "");
-    strcpy(fornecedor->telefone,     "");
-    strcpy(fornecedor->tipoServico,  "");
+    strcpy(fornecedor->nomeFantasia, "-");
+    strcpy(fornecedor->razaoSocial,  "-");
+    strcpy(fornecedor->cpf_cnpj,     "-");
+    strcpy(fornecedor->endereco,     "-");
+    strcpy(fornecedor->telefone,     "-");
+    strcpy(fornecedor->tipoServico,  "-");
 }
 
 void fornecedorListaInit(ListaFornecedor *lista){

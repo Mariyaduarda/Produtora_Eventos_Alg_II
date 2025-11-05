@@ -5,9 +5,9 @@
 void operadorInit(TipoOperador *operador){
     operador->ativo = true;
     operador->id = 0;
-    strcpy(operador->nome, "");
-    strcpy(operador->usuario, "");
-    strcpy(operador->senha, "");
+    strcpy(operador->nome,    "-");
+    strcpy(operador->usuario, "-");
+    strcpy(operador->senha,   "-");
 }
 
 void operadorListaInit(ListaOperador *lista){

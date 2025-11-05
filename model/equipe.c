@@ -3,9 +3,9 @@
 void equipeInit(TipoEquipe *equipe){
     equipe->ativo = true;
     equipe->id = 0;
-    strcpy(equipe->nome, "");
-    strcpy(equipe->cpf, "");
-    strcpy(equipe->funcao, "");
+    strcpy(equipe->nome,   "-");
+    strcpy(equipe->cpf,    "-");
+    strcpy(equipe->funcao, "-");
     equipe->valorDiariaHora = 0.0;
 }
 

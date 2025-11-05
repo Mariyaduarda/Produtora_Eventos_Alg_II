@@ -9,7 +9,7 @@ TipoFornecedor menuFornecedorRecebe() {
     fornecedor.id = 0; // ID sera atribuido automaticamente
     recebeString(fornecedor.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
     recebeString(fornecedor.razaoSocial, 100, "Digite a Razao Social","Max. 100");
-    recebeCPF(fornecedor.cpf_cnpj);
+    recebeCPFCNPJ(fornecedor.cpf_cnpj, &fornecedor.usa_CNPJ);
     recebeString(fornecedor.endereco, 100, "Digite o Endereco","Max. 100");
     recebeTelefone(fornecedor.telefone);
     recebeString(fornecedor.tipoServico, 100, "Digite o Telefone","Max. 100");

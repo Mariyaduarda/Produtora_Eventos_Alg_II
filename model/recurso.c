@@ -5,8 +5,8 @@
 void recursoInit(TipoRecurso *recurso){
     recurso->ativo = true;
     recurso->id = 0;
-    strcpy(recurso->descricao, "");
-    strcpy(recurso->categoria, "");
+    strcpy(recurso->descricao, "-");
+    strcpy(recurso->categoria, "-");
     recurso->qtdEstoque = 0;
     recurso->precoCusto = 0.0;
     recurso->valorLocacao = 0.0;

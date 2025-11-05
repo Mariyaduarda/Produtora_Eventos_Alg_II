@@ -3,15 +3,15 @@
 #include "produtora.h"
 
 void produtoraInit(TipoProdutora *produtora){
-    strcpy(produtora->nomeFantasia, "");
-    strcpy(produtora->razaoSocial, "");
-    strcpy(produtora->inscricaoEstadual, "");
-    strcpy(produtora->cnpj, "");
-    strcpy(produtora->endereco, "");
-    strcpy(produtora->telefone, "");
-    strcpy(produtora->email, "");
-    strcpy(produtora->nomeDoResponsavel, "");
-    strcpy(produtora->telefoneDoResponsavel, "");
+    strcpy(produtora->nomeFantasia,          "-");
+    strcpy(produtora->razaoSocial,           "-");
+    strcpy(produtora->inscricaoEstadual,     "-");
+    strcpy(produtora->cnpj,                  "-");
+    strcpy(produtora->endereco,              "-");
+    strcpy(produtora->telefone,              "-");
+    strcpy(produtora->email,                 "-");
+    strcpy(produtora->nomeDoResponsavel,     "-");
+    strcpy(produtora->telefoneDoResponsavel, "-");
     produtora->margemDeLucro = 0.0f;
 }
 
