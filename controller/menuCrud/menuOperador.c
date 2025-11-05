@@ -136,7 +136,7 @@ void menuOperador(ListaOperador **listaOperador) {
         printMenuOperador();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 6, "Digite uma opcao", "0 a 6");
+        escolha = recebeInt(0, 5, "Digite uma opcao", "0 a 5");
 
         switch (escolha){
             case 1:
