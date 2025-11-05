@@ -166,14 +166,21 @@ int equipeLerTXT(ListaEquipe **lista) {
     if(fp == NULL) return 0;
 
     TipoEquipe temp;
+    // como nao tem assinatura de bool, le como int e atribui depois
+    int ativoTemp;
     
     while (fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%f\n",
-        &temp.ativo,
+        &ativoTemp,
         &temp.id,
         temp.nome,
         temp.cpf,
         temp.funcao,
-        &temp.valorDiariaHora) == 6) {
+        &temp.valorDiariaHora) == 6)
+    {
+        // atribui os booleanos
+        temp.ativo = ativoTemp;
+        
+        //adiciona na lista
         equipeAdicionar(lista, temp);
     }
 

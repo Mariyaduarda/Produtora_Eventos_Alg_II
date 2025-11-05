@@ -160,14 +160,20 @@ int operadorLerTXT(ListaOperador **lista) {
     if(fp == NULL) return 0;
 
     TipoOperador operadorTemp;
+    // como nao tem assinatura de bool, le como int e atribui depois
+    int ativoTemp;
     
     while (fscanf(fp, "%d,%d,%99[^,],%49[^,],%49[^\n]\n",
-                  (int*)&operadorTemp.ativo,
-                  &operadorTemp.id,
-                  operadorTemp.nome,
-                  operadorTemp.usuario,
-                  operadorTemp.senha) == 5) {
-        // Adiciona o operador lido na lista
+        &ativoTemp,
+        &operadorTemp.id,
+        operadorTemp.nome,
+        operadorTemp.usuario,
+        operadorTemp.senha) == 5) 
+    {
+        // atribui os booleanos
+        operadorTemp.ativo = ativoTemp;
+
+        //adiciona na lista
         operadorAdicionar(lista, operadorTemp);
     }
 

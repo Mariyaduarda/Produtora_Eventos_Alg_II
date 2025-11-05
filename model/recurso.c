@@ -165,16 +165,22 @@ int recursoLerTXT(ListaRecurso **lista) {
     if(fp == NULL) return 0;
 
     TipoRecurso recursoLido;
+    // como nao tem assinatura de bool, le como int e atribui depois
+    int ativoTemp;
     
     while (fscanf(fp, "%d,%d,%149[^,],%49[^,],%d,%f,%f\n",
-            (int*)&recursoLido.ativo,
-            &recursoLido.id,
-            recursoLido.descricao,
-            recursoLido.categoria,
-            &recursoLido.qtdEstoque,
-            &recursoLido.precoCusto,
-            &recursoLido.valorLocacao) == 7) {
-        // Adiciona o recurso lido na lista
+        &ativoTemp,
+        &recursoLido.id,
+        recursoLido.descricao,
+        recursoLido.categoria,
+        &recursoLido.qtdEstoque,
+        &recursoLido.precoCusto,
+        &recursoLido.valorLocacao) == 7) 
+    {
+        // atribui os booleanos
+        recursoLido.ativo = ativoTemp;
+
+        //adiciona na lista
         recursoAdicionar(lista, recursoLido);
     }
 

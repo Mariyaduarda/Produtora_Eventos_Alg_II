@@ -11,6 +11,8 @@
 #include "../model/produtora.h"
 #include "../model/recurso.h"
 
+#include "../utils/utils_tela.h"
+
 void printItemCliente(TipoCliente cliente);
 void printItemEquipe(TipoEquipe equipe);
 void printItemFornecedor(TipoFornecedor fornecedor);

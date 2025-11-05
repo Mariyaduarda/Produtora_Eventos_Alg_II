@@ -6,4 +6,7 @@
 void limparTela();
 void esperaEnter();
 
+void formataCPF(const char *cpf, char *dest);
+void formataCNPJ(const char *cnpj, char *dest);
+
 #endif //UTILS_TELA_H

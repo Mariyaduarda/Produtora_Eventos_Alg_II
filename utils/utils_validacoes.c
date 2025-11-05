@@ -11,7 +11,7 @@ bool validarCPF(const char *cpf_cnpj) {
     // remover caracteres nao numericos
     char numeros[11+1] = {0};
     for (i = 0; cpf_cnpj[i] != '\0'; i++) {
-        if (isdigit(cpf_cnpj[i])) {
+        if (isdigit( (unsigned char)cpf_cnpj[i])) {
             numeros[j++] = cpf_cnpj[i];
         }
     }
@@ -57,7 +57,7 @@ bool validarCNPJ(const char *cpf_cnpj) {
     char numeros[14+1] = {0};
 
     for (i = 0; cpf_cnpj[i] != '\0'; i ++) {
-        if (isdigit(cpf_cnpj[i])) {
+        if (isdigit( (unsigned char)cpf_cnpj[i])) {
             numeros[j++] = cpf_cnpj[i];
         }
     }
@@ -112,7 +112,7 @@ bool validarEmail(const char *email) {
             arroba = i;
         } else if (email[i] == '.' && arroba != -1) {
             ponto = i;
-        } else if (!isalnum(email[i]) && email[i] != '.'
+        } else if (!isalnum( (unsigned char)email[i]) && email[i] != '.'
                     && email[i] != '_' && email[i] != '-') {
             return false;
         }
@@ -131,7 +131,7 @@ bool validarTelefone(const char *telefone) {
 
     // conta apenas digitos
     for (i = 0; telefone[i] != '\0'; i++) {
-        if (isdigit(telefone[i])) {
+        if (isdigit( (unsigned char)telefone[i])) {
             digitos++;
         } else if (telefone[i] != ' ' && telefone[i] != '(' &&
                     telefone[i] !=  ')' && telefone[i] != '-') {
@@ -151,7 +151,7 @@ bool validarTelefone(const char *telefone) {
 
 // // ===== VALIDACAO DO NOME ======
 bool validarNome(const char *nome) {
-    int i = 0, len = strlen(nome), total_letras = 0;
+    int i = 0, len = strlen(nome);
     bool tem_espaco = false;
 
     // tamanho minimo para ser aceito
@@ -162,7 +162,7 @@ bool validarNome(const char *nome) {
 
     // verifica caracteres validos e presenca de espaço
     for (i = 0; i < len; i++) {
-        if (isalpha(nome[i]) || nome[i] == ' ' || nome[i] == '\''
+        if (isalpha( (unsigned char)nome[i]) || nome[i] == ' ' || nome[i] == '\''
             || nome[i] == '-' || nome[i] == '.' || nome[i] >= 0xC0) { // 0xC0 p/ carcateres acentuados
             if (nome[i] == ' ') tem_espaco = true;
         } else {
@@ -185,9 +185,9 @@ bool validarSenha(const char *senha) {
 
     // verifica se requisitos foram feitos
     for (i = 0; i < len; i++) {
-        if (isupper(senha[i])) tem_maiuscula = true;
-        else if (islower(senha[i])) tem_minuscula = true;
-        else if (isdigit(senha[i])) tem_numero = true;
+        if (isupper( (unsigned char)senha[i])) tem_maiuscula = true;
+        else if (islower( (unsigned char)senha[i])) tem_minuscula = true;
+        else if (isdigit( (unsigned char)senha[i])) tem_numero = true;
         else if (strchr("!@#$%^&*()_+-=[]{}|;:,.<>?", senha[i]))
             tem_especial = true;
     }
@@ -204,11 +204,11 @@ bool validarUsuario(const char *usuario) {
     if (len < 3 || len > 20) return false;
 
     // deve comecar com letra
-    if (!isalpha(usuario[0])) return false;
+    if (!isalpha( (unsigned char)usuario[0])) return false;
 
     // verifica carcaters validos como alfanumericos, underline
     for (i = 1; i < len; i++) {
-            if (!isalnum(usuario[i]) && usuario[i] != '_') {
+            if (!isalnum( (unsigned char)usuario[i]) && usuario[i] != '_') {
                 return false;
             }
         }

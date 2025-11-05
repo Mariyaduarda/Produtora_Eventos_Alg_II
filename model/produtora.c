@@ -175,20 +175,27 @@ int produtoraLerTXT(ListaProdutora **lista) {
     if(fp == NULL) return 0;
 
     TipoProdutora temp;
+    // como nao tem assinatura de bool, le como int e atribui depois
+    int ativoTemp;
     
     while(fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%f\n",
-                 &temp.ativo,
-                 &temp.id,
-                 temp.nomeFantasia,
-                 temp.razaoSocial,
-                 temp.inscricaoEstadual,
-                 temp.cnpj,
-                 temp.endereco,
-                 temp.telefone,
-                 temp.email,
-                 temp.nomeDoResponsavel,
-                 temp.telefoneDoResponsavel,
-                 &temp.margemDeLucro) == 12) {
+        &ativoTemp,
+        &temp.id,
+        temp.nomeFantasia,
+        temp.razaoSocial,
+        temp.inscricaoEstadual,
+        temp.cnpj,
+        temp.endereco,
+        temp.telefone,
+        temp.email,
+        temp.nomeDoResponsavel,
+        temp.telefoneDoResponsavel,
+        &temp.margemDeLucro) == 12) 
+    {
+        // atribui os booleanos
+        temp.ativo = ativoTemp;
+        
+        //adiciona na lista
         produtoraAdicionar(lista, temp);
     }
     

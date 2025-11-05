@@ -166,17 +166,26 @@ int clienteLerTXT(ListaCliente **lista) {
     if(fp == NULL) return 0;
 
     TipoCliente temp;
-    
+    // como nao tem assinatura de bool, le como int e atribui depois
+    int ativoTemp, usaCNPJTemp;
+
     while(fscanf(fp, "%d,%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]",
-                  &temp.ativo,
-                  &temp.id,
-                  &temp.usa_CNPJ,
-                  temp.nome,
-                  temp.endereco,
-                  temp.cpf_cnpj,
-                  temp.telefone,
-                  temp.email,
-                  temp.nomeDoContato) == 9) {
+        &ativoTemp,
+        &temp.id,
+        &usaCNPJTemp,
+        temp.nome,
+        temp.endereco,
+        temp.cpf_cnpj,
+        temp.telefone,
+        temp.email,
+        temp.nomeDoContato) == 9)
+    {
+
+        // atribui os booleanos
+        temp.ativo = ativoTemp;
+        temp.usa_CNPJ = usaCNPJTemp;
+
+        //adiciona na lista
         clienteAdicionar(lista, temp);
     }
 

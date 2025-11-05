@@ -27,7 +27,6 @@ int fornecedorAdicionar(ListaFornecedor **lista, TipoFornecedor fornecedor){
 
     // atribui os dados ao novo no'
     novo->fornecedor = fornecedor;
-    novo->fornecedor.ativo = true;
     novo->prox = NULL;
 
     
@@ -157,17 +156,25 @@ int fornecedorLerTXT(ListaFornecedor **lista) {
     if(fp == NULL) return 0;
 
     TipoFornecedor temp;
+    // como nao tem assinatura de bool, le como int e atribui depois
+    int ativoTemp, usaCNPJTemp;
     
     while(fscanf(fp, "%d,%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",
-                 &temp.ativo,
-                 &temp.id,
-                 &temp.usa_CNPJ,
-                 temp.nomeFantasia,
-                 temp.razaoSocial,
-                 temp.cpf_cnpj,
-                 temp.endereco,
-                 temp.telefone,
-                 temp.tipoServico) == 9) { // Verifica se leu todos os 9 campos
+        &ativoTemp,
+        &temp.id,
+        &usaCNPJTemp,
+        temp.nomeFantasia,
+        temp.razaoSocial,
+        temp.cpf_cnpj,
+        temp.endereco,
+        temp.telefone,
+        temp.tipoServico) == 9) 
+    {
+        // atribui os booleanos
+        temp.ativo = ativoTemp;
+        temp.usa_CNPJ = usaCNPJTemp;
+
+        //adiciona na lista
         fornecedorAdicionar(lista, temp);
     }
 
