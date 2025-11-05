@@ -18,12 +18,12 @@ void inicializarSistema() {
     if (produtoraLerTXT(&listaProdutora)) {
         // se conseguiu ler txt, le tds os txt
         printMensagem("Lendo arquivos .txt","#");
-        clienteLerTXT(&listaCliente);
-        equipeLerTXT(&listaEquipe);
-        fornecedorLerTXT(&listaFornecedor);
-        operadorLerTXT(&listaOperador);
-        recursoLerTXT(&listaRecurso);
-
+        if(!clienteLerTXT(&listaCliente)) printMensagem("Erro na leitura do cliente","ERRO");
+        if(!equipeLerTXT(&listaEquipe)) printMensagem("Erro na leitura do equipe","ERRO");
+        if(!fornecedorLerTXT(&listaFornecedor)) printMensagem("Erro na leitura do fornecedor","ERRO");
+        if(!operadorLerTXT(&listaOperador)) printMensagem("Erro na leitura do operador","ERRO");
+        if(!recursoLerTXT(&listaRecurso)) printMensagem("Erro na leitura do recurso","ERRO");
+        
     } else if (produtoraLerBIN(&listaProdutora)){
         // se conseguiu ler binario, le tds os binarios
         printMensagem("Lendo arquivos .bin","#");

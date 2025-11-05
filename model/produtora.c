@@ -142,7 +142,7 @@ int produtoraSalvarTXT(ListaProdutora *lista){
 
     // Aux pra percorrer a lista 
     if (lista == NULL) { fclose(fp); return 0; }
-    ListaProdutora* aux = lista->prox; // primeiro elemento real
+    ListaProdutora* aux = lista;
 
     // Percorre a lista printando tudo no txt
     while (aux != NULL) {
@@ -176,7 +176,7 @@ int produtoraLerTXT(ListaProdutora **lista) {
 
     TipoProdutora temp;
     
-    while(fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%f",
+    while(fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%f\n",
                  &temp.ativo,
                  &temp.id,
                  temp.nomeFantasia,

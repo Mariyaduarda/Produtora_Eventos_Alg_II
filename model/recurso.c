@@ -137,7 +137,7 @@ int recursoSalvarTXT(ListaRecurso *lista){
 
     // Aux pra percorrer a lista 
     if (lista == NULL) { fclose(fp); return 0; }
-    ListaRecurso* aux = lista->prox; // primeiro elemento real
+    ListaRecurso* aux = lista;
 
     // Percorre a lista printando tudo no txt
     while (aux != NULL) {
@@ -166,7 +166,7 @@ int recursoLerTXT(ListaRecurso **lista) {
 
     TipoRecurso recursoLido;
     
-    while (fscanf(fp, "%d,%d,%149[^,],%49[^,],%d,%f,%f",
+    while (fscanf(fp, "%d,%d,%149[^,],%49[^,],%d,%f,%f\n",
             (int*)&recursoLido.ativo,
             &recursoLido.id,
             recursoLido.descricao,

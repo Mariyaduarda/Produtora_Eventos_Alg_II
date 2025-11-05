@@ -133,7 +133,7 @@ int fornecedorSalvarTXT(ListaFornecedor *lista){
     if(fp == NULL) return 0;
 
     if (lista == NULL) { fclose(fp); return 0; }
-    ListaFornecedor *atual = lista->prox; // pular nó cabeça
+    ListaFornecedor *atual = lista;
     while(atual != NULL){
         fprintf(fp, "%d;%d;%d;%s;%s;%s;%s;%s;%s\n",
                 atual->fornecedor.id,
@@ -158,9 +158,9 @@ int fornecedorLerTXT(ListaFornecedor **lista) {
 
     TipoFornecedor temp;
     
-    while(fscanf(fp, "%d;%d;%d;%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]",
-                 &temp.id,
+    while(fscanf(fp, "%d,%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",
                  &temp.ativo,
+                 &temp.id,
                  &temp.usa_CNPJ,
                  temp.nomeFantasia,
                  temp.razaoSocial,

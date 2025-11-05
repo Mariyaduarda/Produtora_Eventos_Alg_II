@@ -6,6 +6,9 @@
 #include <ctype.h>
 // ===== VALIDACAO DO CPF ======
 bool validarCPF(const char *cpf_cnpj) {
+    //TESTE
+    return 1;
+    
     int i, j = 0, digito1 = 0, digito2 = 0;
 
     // remover caracteres nao numericos
@@ -49,6 +52,9 @@ bool validarCPF(const char *cpf_cnpj) {
 
 // ===== VALIDACAO DO CNPJ ======
 bool validarCNPJ(const char *cpf_cnpj) {
+    //TESTE
+    return 1;
+
     int i, j = 0, digito1 = 0, digito2 = 0;
     // formato = 12.345.678/0001-95
     int peso1[12] = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
@@ -89,6 +95,9 @@ bool validarCNPJ(const char *cpf_cnpj) {
 
 // funcao unica p/ cpf e cnpj
 bool validarCPF_CNPJ(const char *documento, bool usa_CPF) {
+    //TESTE
+    return 1;
+    
     if ( usa_CPF) { // usa cpf é uma flag, podia ser usaCNPJ tb
         return validarCPF(documento); // doc é minha string const
                                       // q vai escolher entre cpf e cnpj
@@ -100,6 +109,9 @@ bool validarCPF_CNPJ(const char *documento, bool usa_CPF) {
 
 // ===== VALIDACAO DO EMAIL ======
 bool validarEmail(const char *email) {
+    //TESTE
+    return 1;
+
     int i, arroba = -1, ponto = -1; // arroba e ponto nao encontrado (-1)
     int len_email = strlen(email);
     // valida quantidade de caracteres no email: m@m.v
@@ -127,6 +139,9 @@ bool validarEmail(const char *email) {
 
 // ===== VALIDACAO DO TELEFONE ======
 bool validarTelefone(const char *telefone) {
+    //TESTE
+    return 1;
+    
     int i, digitos = 0;
 
     // conta apenas digitos
