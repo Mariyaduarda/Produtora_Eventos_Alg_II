@@ -1,20 +1,22 @@
 #include "inicializarSistema.h"
 
-int lerMemoria(TipoProdutora *produtora, ListaCliente** listaCliente, 
+int lerMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente** listaCliente, 
     ListaFornecedor** listaFornecedor, ListaEquipe** listaEquipe, 
     ListaRecurso** listaRecurso, ListaOperador** listaOperador) {
     // Tenta ler em TXT primeiro
-    if (produtoraLerTXT(produtora)) {
+    if (configLerTXT(config)) {
         // se conseguiu ler txt, le tds os txt
         printMensagem("Lendo arquivos .txt","#");
+        if(!produtoraLerTXT(produtora)) printMensagem("Erro na leitura da produtora","ERRO");
         if(!clienteLerTXT(listaCliente)) printMensagem("Erro na leitura do cliente","ERRO");
         if(!equipeLerTXT(listaEquipe)) printMensagem("Erro na leitura do equipe","ERRO");
         if(!fornecedorLerTXT(listaFornecedor)) printMensagem("Erro na leitura do fornecedor","ERRO");
         if(!operadorLerTXT(listaOperador)) printMensagem("Erro na leitura do operador","ERRO");
         if(!recursoLerTXT(listaRecurso)) printMensagem("Erro na leitura do recurso","ERRO");
         return 1;
-    } else if (produtoraLerBIN(produtora)){
+    } else if (configLerBIN(config)) {
         // se conseguiu ler binario, le tds os binarios
+
         printMensagem("Lendo arquivos .bin","#");
         clienteLerBIN(listaCliente);
         equipeLerBIN(listaEquipe);
@@ -28,29 +30,10 @@ int lerMemoria(TipoProdutora *produtora, ListaCliente** listaCliente,
     }
 }
 
-int salvarMemoria(TipoProdutora *produtora, ListaCliente* listaCliente, 
+int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente* listaCliente, 
     ListaFornecedor* listaFornecedor, ListaEquipe* listaEquipe, 
-    ListaRecurso* listaRecurso, ListaOperador* listaOperador, int metodoDeSalvamento) {
-    if (metodoDeSalvamento == 1) {
-        // Salvar em txt
-        printMensagem("Salvando arquivos .txt","#");
-        produtoraSalvarTXT(produtora);
-        clienteSalvarTXT(listaCliente);
-        equipeSalvarTXT(listaEquipe);
-        fornecedorSalvarTXT(listaFornecedor);
-        operadorSalvarTXT(listaOperador);
-        recursoSalvarTXT(listaRecurso);
-
-        // Apaga arquivos binarios antigos
-        remove("dados/produtora.bin");
-        remove("dados/cliente.bin");
-        remove("dados/equipe.bin");
-        remove("dados/fornecedor.bin");
-        remove("dados/operador.bin");
-        remove("dados/recurso.bin");
-
-        return 1;
-    } else {
+    ListaRecurso* listaRecurso, ListaOperador* listaOperador) {
+    if (config->salvar_como_binario) {
         // salvar em bin
         printMensagem("Salvando arquivos .bin","#");
         produtoraSalvarBIN(produtora);
@@ -61,12 +44,33 @@ int salvarMemoria(TipoProdutora *produtora, ListaCliente* listaCliente,
         recursoSalvarBIN(listaRecurso);
 
         // Apaga arquivos txt antigos
+        remove("dados/config.txt");
         remove("dados/produtora.txt");
         remove("dados/cliente.txt");
         remove("dados/equipe.txt");
         remove("dados/fornecedor.txt");
         remove("dados/operador.txt");
         remove("dados/recurso.txt");
+
+        return 1;
+    } else {
+        // Salvar em txt
+        printMensagem("Salvando arquivos .txt","#");
+        produtoraSalvarTXT(produtora);
+        clienteSalvarTXT(listaCliente);
+        equipeSalvarTXT(listaEquipe);
+        fornecedorSalvarTXT(listaFornecedor);
+        operadorSalvarTXT(listaOperador);
+        recursoSalvarTXT(listaRecurso);
+
+        // Apaga arquivos binarios antigos
+        remove("dados/config.bin");
+        remove("dados/produtora.bin");
+        remove("dados/cliente.bin");
+        remove("dados/equipe.bin");
+        remove("dados/fornecedor.bin");
+        remove("dados/operador.bin");
+        remove("dados/recurso.bin");
 
         return 1;
     }
@@ -79,6 +83,12 @@ void inicializarSistema() {
     limparTela();
 
     //===========================================
+    // Inicia as estruturas principais
+
+    // Declara a Configuracao
+    TipoConfig config;
+    configInit(&config);
+
     // Declara a Produtora
     TipoProdutora produtora;
     produtoraInit(&produtora);
@@ -93,8 +103,13 @@ void inicializarSistema() {
     //===========================================
     // Le da memoria
     
-    // Tenta ler em TXT primeiro
-    if (lerMemoria(&produtora, &listaCliente, &listaFornecedor, &listaEquipe, &listaRecurso, &listaOperador)) {
+    // Le as configuracoes
+    if (configLerBIN(&config))      printMensagem("Config carregadas do binario","#");
+    else if (configLerTXT(&config)) printMensagem("Config carregadas do texto","#");
+    else                            printMensagem("Nenhuma configuracao encontrada, usando padrao","#");
+
+    // Le os dados
+    if (lerMemoria(&config, &produtora, &listaCliente, &listaFornecedor, &listaEquipe, &listaRecurso, &listaOperador)) {
         // se conseguiu ler, avisa
         printMensagem("Dados carregados com sucesso","#");
     } else{
@@ -106,11 +121,13 @@ void inicializarSistema() {
 
     //===========================================
     // Roda o menu principal
-    menuPrincipal(&produtora, &listaCliente, &listaFornecedor, &listaEquipe, &listaRecurso, &listaOperador);
+    menuPrincipal(&config, &produtora, &listaCliente, &listaFornecedor, &listaEquipe, &listaRecurso, &listaOperador);
 
     //===========================================
     // Salva os dados na memoria
-    salvarMemoria(&produtora, listaCliente, listaFornecedor, listaEquipe, listaRecurso, listaOperador, recebeMetodoDeSalvamento());
+    salvarMemoria(&config, &produtora, 
+        listaCliente, listaFornecedor, 
+        listaEquipe, listaRecurso, listaOperador);
 
     //===========================================
     // Liberar memoria de tds as listas

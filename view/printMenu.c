@@ -130,3 +130,19 @@ void printMenuOperador(){
         "\n======================================================================"
     );
 }
+
+void printMenuConfig(TipoConfig config){
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Configuracoes do Sistema                                       | "
+        "\n |==================================================================| "
+        "\n |   1. Metodo de Salvamento                                %s | "
+        "\n |   2. Validar dados                                    %s | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================",
+        config.salvar_como_binario ? "Binario" : "  Texto",
+        config.validar_dados ? "     Ativa" : "Desativada"
+    );
+}

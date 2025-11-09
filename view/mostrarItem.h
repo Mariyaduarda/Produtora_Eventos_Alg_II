@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../model/config.h"
 #include "../model/cliente.h"
 #include "../model/equipe.h"
 #include "../model/fornecedor.h"

@@ -22,6 +22,8 @@
         "stdbool.h": "c",
         "cmath": "c",
         "menuprodutora.h": "c",
-        "utils_bibliotecas.h": "c"
+        "utils_bibliotecas.h": "c",
+        "inicializarsistema.h": "c",
+        "menuconfig.h": "c"
     }
 }

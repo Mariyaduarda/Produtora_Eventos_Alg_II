@@ -11,6 +11,7 @@
 
 void printMenuPrincipal();
 void printMenuProdutora(TipoProdutora produtora);
+void printMenuConfig(TipoConfig config);
 
 void printMenuCliente();
 void printMenuFornecedor();

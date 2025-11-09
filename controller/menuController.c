@@ -1,6 +1,6 @@
 #include "menuController.h"
 
-void menuPrincipal(TipoProdutora *produtora, ListaCliente **listaCliente, 
+void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
     ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
     ListaRecurso **listaRecurso, ListaOperador **listaOperador) 
 {
@@ -11,7 +11,7 @@ void menuPrincipal(TipoProdutora *produtora, ListaCliente **listaCliente,
         printMenuPrincipal();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 6, "Digite uma opcao", "#");
+        escolha = recebeInt(0, 7, "Digite uma opcao", "#");
         
         switch (escolha){
             case 1:
@@ -37,6 +37,10 @@ void menuPrincipal(TipoProdutora *produtora, ListaCliente **listaCliente,
             case 6:
                 // Gerenciar Recursos e Equipamentos
                 menuRecurso(listaRecurso);
+                break;
+            case 7:
+                // Gerenciar Configuracoes
+                menuConfig(config);
                 break;
             case 0:
                 // Sair

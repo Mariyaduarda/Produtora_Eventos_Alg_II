@@ -2,6 +2,8 @@
 #define INICIALIZAR_SISTEMA_H
 
 #include <stdio.h>
+#include "../model/config.h"
+
 #include "../model/cliente.h"
 #include "../model/fornecedor.h"
 #include "../model/produtora.h"
@@ -14,12 +16,12 @@
 
 void inicializarSistema();
 
-int lerMemoria(TipoProdutora *produtora, ListaCliente **listaCliente, 
+int lerMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
     ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
     ListaRecurso **listaRecurso, ListaOperador **listaOperador);
 
-int salvarMemoria(TipoProdutora *produtora, ListaCliente *listaCliente, 
+int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente *listaCliente, 
     ListaFornecedor *listaFornecedor, ListaEquipe *listaEquipe,
-    ListaRecurso *listaRecurso, ListaOperador *listaOperador, int metodoDeSalvamento);
+    ListaRecurso *listaRecurso, ListaOperador *listaOperador);
 
 #endif // INICIALIZAR_SISTEMA_H
