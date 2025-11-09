@@ -10,12 +10,12 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-TipoFornecedor menuFornecedorRecebe();
-void menuFornecedor(ListaFornecedor **listaFornecedor);
-void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor);
-void menuFornecedorRemover(ListaFornecedor **listaFornecedor);
-void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor);
-void menuFornecedorBuscar(ListaFornecedor **listaFornecedor);
-void menuFornecedorListar(ListaFornecedor *lista);
+TipoFornecedor menuFornecedorRecebe(TipoConfig *config);
+void menuFornecedor(ListaFornecedor **listaFornecedor, TipoConfig *config);
+void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor, TipoConfig *config);
+void menuFornecedorRemover(ListaFornecedor **listaFornecedor, TipoConfig *config);
+void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor, TipoConfig *config);
+void menuFornecedorBuscar(ListaFornecedor **listaFornecedor, TipoConfig *config);
+void menuFornecedorListar(ListaFornecedor *lista, TipoConfig *config);
 
 #endif // MENU_FORNECEDOR_PARCEIRO_H

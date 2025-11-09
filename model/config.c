@@ -2,8 +2,8 @@
 
 // inicializa a config com valores padrao
 void configInit(TipoConfig *config){
-    config->salvar_como_binario = true; // por padrao salva em binario
-    config->validar_dados = true;       // por padrao valida dados ao receber
+    config->salvar_como_binario = false; // por padrao salva em texto
+    config->validar_dados = true;        // por padrao valida dados ao receber
 }
 
 //==================================================

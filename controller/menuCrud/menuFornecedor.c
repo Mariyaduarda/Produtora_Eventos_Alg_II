@@ -1,29 +1,29 @@
 #include "menuFornecedor.h"
 
-TipoFornecedor menuFornecedorRecebe() {
+TipoFornecedor menuFornecedorRecebe(TipoConfig *config) {
     // Recebe um novo Fornecedor/Parceiro do usuario e retorna o fornecedor/parceiro preenchido
     TipoFornecedor fornecedor;
     fornecedorInit(&fornecedor);
 
     // Recebe os dados do fornecedor/parceiro
     fornecedor.id = 0; // ID sera atribuido automaticamente
-    recebeString(fornecedor.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
-    recebeString(fornecedor.razaoSocial, 100, "Digite a Razao Social","Max. 100");
-    recebeCPFCNPJ(fornecedor.cpf_cnpj, &fornecedor.usa_CNPJ);
-    recebeString(fornecedor.endereco, 100, "Digite o Endereco","Max. 100");
-    recebeTelefone(fornecedor.telefone);
-    recebeString(fornecedor.tipoServico, 100, "Digite o Tipo de Servico","Max. 100");
+    recebeString(fornecedor.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100", config->validar_dados);
+    recebeString(fornecedor.razaoSocial, 100, "Digite a Razao Social","Max. 100", config->validar_dados);
+    recebeCPFCNPJ(fornecedor.cpf_cnpj, &fornecedor.usa_CNPJ, config->validar_dados);
+    recebeString(fornecedor.endereco, 100, "Digite o Endereco","Max. 100", config->validar_dados);
+    recebeTelefone(fornecedor.telefone, config->validar_dados);
+    recebeString(fornecedor.tipoServico, 100, "Digite o Tipo de Servico","Max. 100", config->validar_dados);
 
     return fornecedor;
 }
 
-void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor){
+void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor, TipoConfig *config){
     // Guarda o novo item
     TipoFornecedor novo;
 
     // Enquanto o usuario nao confirmar, roda dnv
     while (1){
-        novo = menuFornecedorRecebe(); // Recebe os valroes do usuario
+        novo = menuFornecedorRecebe(config); // Recebe os valroes do usuario
         
         // Mostra os dados que foram inseridos
         printItemFornecedor(novo);
@@ -36,8 +36,8 @@ void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor){
     else printAdicionarFalha();
 }
 
-void menuFornecedorRemover(ListaFornecedor **listaFornecedor){
-    int ID = recebeID(); // recebe o ID do item que vai ser removido
+void menuFornecedorRemover(ListaFornecedor **listaFornecedor, TipoConfig *config){
+    int ID = recebeID(config->validar_dados); // recebe o ID do item que vai ser removido
     
     // Busca o Item q vai ser removido
     TipoFornecedor *Fornecedor; // Para guardar resultado de busca
@@ -59,13 +59,13 @@ void menuFornecedorRemover(ListaFornecedor **listaFornecedor){
     }
 }
 
-void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
+void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor, TipoConfig *config){
     // Declara um novo item pra receber os dados atualizados
     TipoFornecedor novoFornecedor;
     TipoFornecedor* velhoFornecedor;
 
     // Recebe o ID do item que vai ser atualizado
-    int ID = recebeID();
+    int ID = recebeID(config->validar_dados);
     velhoFornecedor = fornecedorBuscar(*listaFornecedor, ID);
 
     // Se esse ID n existe, mostra erro
@@ -75,7 +75,7 @@ void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
     }
     
     // Caso contrario, recebe os novos dados
-    novoFornecedor = menuFornecedorRecebe();
+    novoFornecedor = menuFornecedorRecebe(config);
 
     // ===============================
     // Mostra as mudancas
@@ -100,9 +100,9 @@ void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
     }
 }
 
-void menuFornecedorBuscar(ListaFornecedor **listaFornecedor){
+void menuFornecedorBuscar(ListaFornecedor **listaFornecedor, TipoConfig *config){
     TipoFornecedor *Fornecedor; // Para guardar resultado de busca
-    Fornecedor = fornecedorBuscar(*listaFornecedor, recebeID());
+    Fornecedor = fornecedorBuscar(*listaFornecedor, recebeID(config->validar_dados));
     if (Fornecedor != NULL){
         
         printItemFornecedor(*Fornecedor);
@@ -111,7 +111,7 @@ void menuFornecedorBuscar(ListaFornecedor **listaFornecedor){
     else printNaoEncontrado();
 }
 
-void menuFornecedorListar(ListaFornecedor *lista) {
+void menuFornecedorListar(ListaFornecedor *lista, TipoConfig *config) {
     limparTela();
 
     // Lista todos os fornecedores/parceiros cadastrados
@@ -131,7 +131,7 @@ void menuFornecedorListar(ListaFornecedor *lista) {
     printf("\n");
 }
 
-void menuFornecedor(ListaFornecedor **listaFornecedor) {
+void menuFornecedor(ListaFornecedor **listaFornecedor, TipoConfig *config) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
@@ -139,32 +139,32 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
         printMenuFornecedor();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 5, "Digite uma opcao", "#");
+        escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
 
         switch (escolha){
             case 1:
                 // Adicionar Fornecedor
-                menuFornecedorAdicionar(listaFornecedor);
+                menuFornecedorAdicionar(listaFornecedor, config);
                 esperaEnter();
                 break;
             case 2:
                 // Remover Fornecedor
-                menuFornecedorRemover(listaFornecedor);
+                menuFornecedorRemover(listaFornecedor, config);
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Fornecedor
-                menuFornecedorAtualizar(listaFornecedor);
+                menuFornecedorAtualizar(listaFornecedor, config);
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Fornecedor
-                menuFornecedorBuscar(listaFornecedor);
+                menuFornecedorBuscar(listaFornecedor, config);
                 esperaEnter();
                 break;
             case 5:
                 // Listar Fornecedors
-                menuFornecedorListar(*listaFornecedor);
+                menuFornecedorListar(*listaFornecedor, config);
                 esperaEnter();
                 break;
             case 0:

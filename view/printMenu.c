@@ -137,8 +137,9 @@ void printMenuConfig(TipoConfig config){
         "\n======================================================================"
         "\n | # Configuracoes do Sistema                                       | "
         "\n |==================================================================| "
-        "\n |   1. Metodo de Salvamento                                %s | "
-        "\n |   2. Validar dados                                    %s | "
+        "\n |   1. Resetar configuracoes                                       | "
+        "\n |   2. Metodo de Salvamento                                %s | "
+        "\n |   3. Validar dados                                    %s | "
         "\n |==================================================================| "
         "\n |   0. Voltar                                                      | "
         "\n======================================================================",

@@ -115,8 +115,8 @@ void inicializarSistema() {
     } else{
         // se n deu pra ler nenhum, recebe os dados iniciais da produtora
         printMensagem("Nenhuma produtora cadastrada","#");
-        if(recebeInt(0, 1, "Cadastrar a produtora agora?", "1. Sim | 0. Nao") == 1)
-            produtora = menuProdutoraRecebe();
+        if(recebeInt(0, 1, "Cadastrar a produtora agora?", "1. Sim | 0. Nao", config.validar_dados) == 1)
+            produtora = menuProdutoraRecebe(&config);
     }
 
     //===========================================

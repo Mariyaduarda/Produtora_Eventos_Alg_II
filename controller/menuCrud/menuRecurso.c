@@ -1,6 +1,6 @@
 #include "menuRecurso.h"
 
-TipoRecurso menuRecursoRecebe() {
+TipoRecurso menuRecursoRecebe(TipoConfig *config) {
     // Recebe um novo Recurso/Equipamento do usuario e retorna o recurso/equipamento preenchido
     TipoRecurso recurso;
     recursoInit(&recurso);
@@ -8,22 +8,22 @@ TipoRecurso menuRecursoRecebe() {
     // Recebe os dados do recurso/equipamento
     recurso.id = 0; // ID sera atribuido automaticamente
     
-    recebeString(recurso.descricao, 150, "Digite a Descricao","Max. 150");
-    recebeString(recurso.categoria, 50, "Digite a Categoria","Max. 50");
-    recurso.qtdEstoque = recebeInt(0, 1000000, "Digite a Qtd no Estoque", "Entre 0 e 1m");
-    recurso.precoCusto = recebeFloat(0, 1000000, "Digite o Preco Custo", "Entre 0 e 1m");
-    recurso.valorLocacao = recebeFloat(0, 1000000, "Digite o Valor de Locacao", "Entre 0 e 1m");
+    recebeString(recurso.descricao, 150, "Digite a Descricao","Max. 150", config->validar_dados);
+    recebeString(recurso.categoria, 50, "Digite a Categoria","Max. 50", config->validar_dados);
+    recurso.qtdEstoque = recebeInt(0, 1000000, "Digite a Qtd no Estoque", "Entre 0 e 1m", config->validar_dados);
+    recurso.precoCusto = recebeFloat(0, 1000000, "Digite o Preco Custo", "Entre 0 e 1m", config->validar_dados);
+    recurso.valorLocacao = recebeFloat(0, 1000000, "Digite o Valor de Locacao", "Entre 0 e 1m", config->validar_dados);
 
     return recurso;
 }
 
-void menuRecursoAdicionar(ListaRecurso **listaRecurso){
+void menuRecursoAdicionar(ListaRecurso **listaRecurso, TipoConfig *config){
     // Guarda o novo item
     TipoRecurso novo;
 
     // Enquanto o usuario nao confirmar, roda dnv
     while (1){
-        novo = menuRecursoRecebe(); // Recebe os valroes do usuario
+        novo = menuRecursoRecebe(config); // Recebe os valroes do usuario
         
         // Mostra os dados que foram inseridos
         printItemRecurso(novo);
@@ -36,8 +36,8 @@ void menuRecursoAdicionar(ListaRecurso **listaRecurso){
     else printAdicionarFalha();
 }
 
-void menuRecursoRemover(ListaRecurso **listaRecurso){
-    int ID = recebeID(); // recebe o ID do item que vai ser removido
+void menuRecursoRemover(ListaRecurso **listaRecurso, TipoConfig *config){
+    int ID = recebeID(config->validar_dados); // recebe o ID do item que vai ser removido
     
     // Busca o Item q vai ser removido
     TipoRecurso *Recurso; // Para guardar resultado de busca
@@ -59,13 +59,13 @@ void menuRecursoRemover(ListaRecurso **listaRecurso){
     }
 }
 
-void menuRecursoAtualizar(ListaRecurso **listaRecurso){
+void menuRecursoAtualizar(ListaRecurso **listaRecurso, TipoConfig *config){
     // Declara um novo item pra receber os dados atualizados
     TipoRecurso novoRecurso;
     TipoRecurso* velhoRecurso;
 
     // Recebe o ID do item que vai ser atualizado
-    int ID = recebeID();
+    int ID = recebeID(config->validar_dados);
     velhoRecurso = recursoBuscar(*listaRecurso, ID);
 
     // Se esse ID n existe, mostra erro
@@ -75,7 +75,7 @@ void menuRecursoAtualizar(ListaRecurso **listaRecurso){
     }
     
     // Caso contrario, recebe os novos dados
-    novoRecurso = menuRecursoRecebe();
+    novoRecurso = menuRecursoRecebe(config);
 
     // ===============================
     // Mostra as mudancas
@@ -100,9 +100,9 @@ void menuRecursoAtualizar(ListaRecurso **listaRecurso){
     }
 }
 
-void menuRecursoBuscar(ListaRecurso **listaRecurso){
+void menuRecursoBuscar(ListaRecurso **listaRecurso, TipoConfig *config){
     TipoRecurso *Recurso; // Para guardar resultado de busca
-    Recurso = recursoBuscar(*listaRecurso, recebeID());
+    Recurso = recursoBuscar(*listaRecurso, recebeID(config->validar_dados));
     if (Recurso != NULL){
         
         printItemRecurso(*Recurso);
@@ -111,7 +111,7 @@ void menuRecursoBuscar(ListaRecurso **listaRecurso){
     else printNaoEncontrado();
 }
 
-void menuRecursoListar(ListaRecurso *lista) {
+void menuRecursoListar(ListaRecurso *lista, TipoConfig *config) {
     limparTela();
 
     // Lista todos os recursos/equipamentos cadastrados
@@ -131,7 +131,7 @@ void menuRecursoListar(ListaRecurso *lista) {
     printf("\n");
 }
 
-void menuRecurso(ListaRecurso **listaRecurso) {
+void menuRecurso(ListaRecurso **listaRecurso, TipoConfig *config) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
@@ -139,32 +139,32 @@ void menuRecurso(ListaRecurso **listaRecurso) {
         printMenuRecurso();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 5, "Digite uma opcao", "#");
+        escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
 
         switch (escolha){
             case 1:
                 // Adicionar Recurso
-                menuRecursoAdicionar(listaRecurso);
+                menuRecursoAdicionar(listaRecurso, config);
                 esperaEnter();
                 break;
             case 2:
                 // Remover Recurso
-                menuRecursoRemover(listaRecurso);
+                menuRecursoRemover(listaRecurso, config);
                 esperaEnter();
                 break;
             case 3:
                 // Atualizar Recurso
-                menuRecursoAtualizar(listaRecurso);
+                menuRecursoAtualizar(listaRecurso, config);
                 esperaEnter();
                 break;
             case 4:
                 // Buscar Recurso
-                menuRecursoBuscar(listaRecurso);
+                menuRecursoBuscar(listaRecurso, config);
                 esperaEnter();
                 break;
             case 5:
                 // Listar Recursos
-                menuRecursoListar(*listaRecurso);
+                menuRecursoListar(*listaRecurso, config);
                 esperaEnter();
                 break;
             case 0:

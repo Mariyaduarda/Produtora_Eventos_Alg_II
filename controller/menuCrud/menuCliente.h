@@ -10,12 +10,12 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-TipoCliente menuClienteRecebe();
-void menuCliente(ListaCliente **listaCliente);
-void menuClienteAdicionar(ListaCliente **listaCliente);
-void menuClienteRemover(ListaCliente **listaCliente);
-void menuClienteAtualizar(ListaCliente **listaCliente);
-void menuClienteBuscar(ListaCliente **listaCliente);
-void menuClienteListar(ListaCliente *lista);
+TipoCliente menuClienteRecebe(TipoConfig *config);
+void menuCliente(ListaCliente **listaCliente, TipoConfig *config);
+void menuClienteAdicionar(ListaCliente **listaCliente, TipoConfig *config);
+void menuClienteRemover(ListaCliente **listaCliente, TipoConfig *config);
+void menuClienteAtualizar(ListaCliente **listaCliente, TipoConfig *config);
+void menuClienteBuscar(ListaCliente **listaCliente, TipoConfig *config);
+void menuClienteListar(ListaCliente *lista, TipoConfig *config);
 
 #endif // MENU_CLIENTE_H

@@ -10,12 +10,12 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-TipoOperador menuOperadorRecebe();
-void menuOperador(ListaOperador **listaOperador);
-void menuOperadorAdicionar(ListaOperador **listaOperador);
-void menuOperadorRemover(ListaOperador **listaOperador);
-void menuOperadorAtualizar(ListaOperador **listaOperador);
-void menuOperadorBuscar(ListaOperador **listaOperador);
-void menuOperadorListar(ListaOperador *lista);
+TipoOperador menuOperadorRecebe(TipoConfig *config);
+void menuOperador(ListaOperador **listaOperador, TipoConfig *config);
+void menuOperadorAdicionar(ListaOperador **listaOperador, TipoConfig *config);
+void menuOperadorRemover(ListaOperador **listaOperador, TipoConfig *config);
+void menuOperadorAtualizar(ListaOperador **listaOperador, TipoConfig *config);
+void menuOperadorBuscar(ListaOperador **listaOperador, TipoConfig *config);
+void menuOperadorListar(ListaOperador *lista, TipoConfig *config);
 
 #endif // MENU_OPERADOR_H

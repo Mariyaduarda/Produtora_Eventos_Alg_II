@@ -10,8 +10,8 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-TipoProdutora menuProdutoraRecebe();
-void menuProdutoraAtualizar(TipoProdutora* produtora);
-void menuProdutora(TipoProdutora* produtora);
+TipoProdutora menuProdutoraRecebe(TipoConfig *config);
+void menuProdutoraAtualizar(TipoProdutora* produtora, TipoConfig *config);
+void menuProdutora(TipoProdutora* produtora, TipoConfig *config);
 
 #endif // MENU_PRODUTORA_H

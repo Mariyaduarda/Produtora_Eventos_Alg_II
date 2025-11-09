@@ -9,16 +9,16 @@
 
 
 // Funcoes para receber dados do usuario
-void recebeString(char *str, int maxTam, char *msg1, char *msg2);
-int recebeInt(int min, int max, char *msg1, char *msg2);
-float recebeFloat(float min, float max, char *msg1, char *msg2);
+void recebeString(char *str, int maxTam, char *msg1, char *msg2, bool validacao);
+int recebeInt(int min, int max, char *msg1, char *msg2, bool validacao);
+float recebeFloat(float min, float max, char *msg1, char *msg2, bool validacao);
 
 // Funcoes com validacao
-void recebeCPF(char *str);
-void recebeCNPJ(char *str);
-void recebeCPFCNPJ(char *str, bool* usa_CNPJ);
-void recebeEmail(char *str);
-void recebeTelefone(char *str);
-int recebeID();
+void recebeCPF(char *str, bool validacao);
+void recebeCNPJ(char *str, bool validacao);
+void recebeCPFCNPJ(char *str, bool* usa_CNPJ, bool validacao);
+void recebeEmail(char *str, bool validacao);
+void recebeTelefone(char *str, bool validacao);
+int recebeID(bool validacao);
 
 #endif // RECEBE_DADOS_H

@@ -11,32 +11,32 @@ void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **
         printMenuPrincipal();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 7, "Digite uma opcao", "#");
+        escolha = recebeInt(0, 7, "Digite uma opcao", "#", config->validar_dados);
         
         switch (escolha){
             case 1:
                 // Gerenciar Produtora
-                menuProdutora(produtora);
+                menuProdutora(produtora, config);
                 break;
             case 2:
                 // Gerenciar TipoCliente
-                menuCliente(listaCliente);
+                menuCliente(listaCliente, config);
                 break;
             case 3:
                 // Gerenciar Equipe Interna
-                menuEquipe(listaEquipe);
+                menuEquipe(listaEquipe, config);
                 break;
             case 4:
                 // Gerenciar Fornecedores e Parceiros
-                menuFornecedor(listaFornecedor);
+                menuFornecedor(listaFornecedor, config);
                 break;
             case 5:
                 // Gerenciar Operadores do Sistema
-                menuOperador(listaOperador);
+                menuOperador(listaOperador, config);
                 break;
             case 6:
                 // Gerenciar Recursos e Equipamentos
-                menuRecurso(listaRecurso);
+                menuRecurso(listaRecurso, config);
                 break;
             case 7:
                 // Gerenciar Configuracoes

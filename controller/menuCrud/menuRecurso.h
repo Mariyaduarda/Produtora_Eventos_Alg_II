@@ -10,12 +10,12 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-TipoRecurso menuRecursoRecebe();
-void menuRecurso(ListaRecurso **listaRecurso);
-void menuRecursoAdicionar(ListaRecurso **listaRecurso);
-void menuRecursoRemover(ListaRecurso **listaRecurso);
-void menuRecursoAtualizar(ListaRecurso **listaRecurso);
-void menuRecursoBuscar(ListaRecurso **listaRecurso);
-void menuRecursoListar(ListaRecurso *lista);
+TipoRecurso menuRecursoRecebe(TipoConfig *config);
+void menuRecurso(ListaRecurso **listaRecurso, TipoConfig *config);
+void menuRecursoAdicionar(ListaRecurso **listaRecurso, TipoConfig *config);
+void menuRecursoRemover(ListaRecurso **listaRecurso, TipoConfig *config);
+void menuRecursoAtualizar(ListaRecurso **listaRecurso, TipoConfig *config);
+void menuRecursoBuscar(ListaRecurso **listaRecurso, TipoConfig *config);
+void menuRecursoListar(ListaRecurso *lista, TipoConfig *config);
 
 #endif // MENU_RECURSO_H

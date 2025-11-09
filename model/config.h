@@ -6,12 +6,8 @@
 
 // structs para configuracoes gerais do sistema
 typedef struct {
-    bool salvar_como_binario; // Se true, salva em binario
-    bool validar_dados;       // Se true, valida dados ao receber
-
-    // Caminhos (reservado, nao usado ativamente)
-    char dirDados[100];  // Diretorio dos dados
-    char dirConfig[100]; // Diretorio do arquivo de config
+    bool salvar_como_binario;   // Se true, salva em binario
+    bool validar_dados; // Se true, desabilita a validacao de dados ao receber
 
 } TipoConfig;
 

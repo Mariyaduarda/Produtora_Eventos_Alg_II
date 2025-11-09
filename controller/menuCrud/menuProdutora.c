@@ -1,33 +1,33 @@
 #include "menuProdutora.h"
 
-TipoProdutora menuProdutoraRecebe() {
+TipoProdutora menuProdutoraRecebe(TipoConfig *config) {
     // Recebe uma nova Produtora do usuario e retorna a produtora preenchida
     TipoProdutora produtora;
     produtoraInit(&produtora);
 
     // Recebe os dados da produtora
-    recebeString(produtora.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100");
-    recebeString(produtora.razaoSocial, 100, "Digite a Razao Social","Max. 100");
-    recebeString(produtora.inscricaoEstadual, 20, "Digite a Inscricao Estadual","9 Digitos");
-    recebeCNPJ(produtora.cnpj);
-    recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100");
-    recebeTelefone(produtora.telefone);
-    recebeEmail(produtora.email);
-    recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100");
-    recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos");
-    produtora.margemDeLucro = recebeFloat(0, 1000000, "Digite a Margem de Lucro", "Entre 0 e 1m");
+    recebeString(produtora.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100", config->validar_dados);
+    recebeString(produtora.razaoSocial, 100, "Digite a Razao Social","Max. 100", config->validar_dados);
+    recebeString(produtora.inscricaoEstadual, 20, "Digite a Inscricao Estadual","9 Digitos", config->validar_dados);
+    recebeCNPJ(produtora.cnpj, config->validar_dados);
+    recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100", config->validar_dados);
+    recebeTelefone(produtora.telefone, config->validar_dados);
+    recebeEmail(produtora.email, config->validar_dados);
+    recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100", config->validar_dados);
+    recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos", config->validar_dados);
+    produtora.margemDeLucro = recebeFloat(0, 1000000, "Digite a Margem de Lucro", "Entre 0 e 1m", config->validar_dados);
 
     return produtora;
 }
 
-void menuProdutoraAtualizar(TipoProdutora* produtora) {
+void menuProdutoraAtualizar(TipoProdutora* produtora, TipoConfig *config) {
     // Atualiza os dados da produtora
     TipoProdutora novoProdutora;
-    novoProdutora = menuProdutoraRecebe();
+    novoProdutora = menuProdutoraRecebe(config);
     *produtora = novoProdutora;
 }
 
-void menuProdutoraApagar(TipoProdutora* produtora) {
+void menuProdutoraApagar(TipoProdutora* produtora, TipoConfig *config) {
     // Apaga os dados da produtora
 
     // Pede confirmacao
@@ -40,7 +40,7 @@ void menuProdutoraApagar(TipoProdutora* produtora) {
 
 }
 
-void menuProdutora(TipoProdutora* produtora) {
+void menuProdutora(TipoProdutora* produtora, TipoConfig *config) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
@@ -48,17 +48,17 @@ void menuProdutora(TipoProdutora* produtora) {
         printMenuProdutora(*produtora);
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 2, "Digite uma opcao", "#");
+        escolha = recebeInt(0, 2, "Digite uma opcao", "#", config->validar_dados);
 
         switch (escolha){
             case 1:
                 // Atualizar dados da produtora
-                menuProdutoraAtualizar(produtora);
+                menuProdutoraAtualizar(produtora, config);
                 esperaEnter();
                 break;
             case 2:
                 // Apagar dados da produtora
-                menuProdutoraApagar(produtora);
+                menuProdutoraApagar(produtora, config);
                 esperaEnter();
                 break;
             case 0:

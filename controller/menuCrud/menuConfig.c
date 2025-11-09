@@ -9,14 +9,18 @@ void menuConfig(TipoConfig *config) {
         printMenuConfig(*config);
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 2, "Digite uma opcao", "#");
+        escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
 
         switch (escolha){
             case 1:
+                // Retorna as configs padrao
+                if (recebeConfirma()) configInit(config);
+                break;
+            case 2:
                 // Alterna se salva como txt ou binario
                 config->salvar_como_binario = !config->salvar_como_binario;
                 break;
-            case 2:
+            case 3:
                 // Liga ou desliga a validacao de dados
                 config->validar_dados = !config->validar_dados;
                 break;

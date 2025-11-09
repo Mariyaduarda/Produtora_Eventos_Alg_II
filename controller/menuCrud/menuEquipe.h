@@ -10,12 +10,12 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-TipoEquipe menuEquipeRecebe();
-void menuEquipe(ListaEquipe **listaEquipe);
-void menuEquipeAdicionar(ListaEquipe **listaEquipe);
-void menuEquipeRemover(ListaEquipe **listaEquipe);
-void menuEquipeAtualizar(ListaEquipe **listaEquipe);
-void menuEquipeBuscar(ListaEquipe **listaEquipe);
-void menuEquipeListar(ListaEquipe *lista);
+TipoEquipe menuEquipeRecebe(TipoConfig *config);
+void menuEquipe(ListaEquipe **listaEquipe, TipoConfig *config);
+void menuEquipeAdicionar(ListaEquipe **listaEquipe, TipoConfig *config);
+void menuEquipeRemover(ListaEquipe **listaEquipe, TipoConfig *config);
+void menuEquipeAtualizar(ListaEquipe **listaEquipe, TipoConfig *config);
+void menuEquipeBuscar(ListaEquipe **listaEquipe, TipoConfig *config);
+void menuEquipeListar(ListaEquipe *lista, TipoConfig *config);
 
 #endif // MENU_EQUIPE_INTERNA_H
