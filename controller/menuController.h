@@ -19,14 +19,15 @@
 #include "../model/recurso.h"
 
 // Inclui todos os menus CRUD
-#include "menuCrud/menuConfig.h"
-#include "menuCrud/menuProdutora.h"
-#include "menuCrud/menuCliente.h"
-#include "menuCrud/menuEquipe.h"
-#include "menuCrud/menuFornecedor.h"
-#include "menuCrud/menuOperador.h"
-#include "menuCrud/menuRecurso.h"
+#include "menuCRUD/menuConfig.h"
+#include "menuCRUD/menuProdutora.h"
+#include "menuCRUD/menuCliente.h"
+#include "menuCRUD/menuEquipe.h"
+#include "menuCRUD/menuFornecedor.h"
+#include "menuCRUD/menuOperador.h"
+#include "menuCRUD/menuRecurso.h"
 
 void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
+void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
 
 #endif // MENU_CONTROLLER_H

@@ -10,6 +10,8 @@
 // Tem tds as funcoes de exibicao de menus
 
 void printMenuPrincipal();
+void printMenuCRUD();
+
 void printMenuProdutora(TipoProdutora produtora);
 void printMenuConfig(TipoConfig config);
 

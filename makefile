@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -g
-SRC_DIRS = model controller controller/menuCrud utils view
+SRC_DIRS = model controller controller/menuCRUD utils view
 SRCS = main.c $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 OBJS = $(SRCS:.c=.o)
 TARGET = main.exe

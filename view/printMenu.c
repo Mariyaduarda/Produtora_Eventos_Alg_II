@@ -8,19 +8,36 @@ void printMenuPrincipal(TipoProdutora produtora){
         "\n======================================================================"
         "\n | # Sistema de Gestao - %-43s | "
         "\n |==================================================================| "
-        "\n |   1. Gerenciar Produtora                                         | "
-        "\n |   2. Gerenciar Clientes                                          | "
-        "\n |   3. Gerenciar Equipe Interna                                    | "
-        "\n |   4. Gerenciar Fornecedores e Parceiros                          | "
-        "\n |   5. Gerenciar Operadores do Sistema                             | "
-        "\n |   6. Gerenciar Recursos e Equipamentos                           | "
-        "\n |   7. Configuracoes                                               | "
+        "\n |   1. Menu de Gerenciamento de dados                              | "
+        "\n |   2. Salvar dados                                                | "
+        "\n |   3. Configuracoes                                               | "
         "\n |==================================================================| "
         "\n |   0. Sair                                                        | "
         "\n======================================================================"
         , produtora.nomeFantasia
     );
 }
+
+void printMenuCRUD(){
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Dados                                         | "
+        "\n |==================================================================| "
+        "\n |   1. Gerenciar Produtora                                         | "
+        "\n |   2. Gerenciar Clientes                                          | "
+        "\n |   3. Gerenciar Equipe Interna                                    | "
+        "\n |   4. Gerenciar Fornecedores e Parceiros                          | "
+        "\n |   5. Gerenciar Operadores do Sistema                             | "
+        "\n |   6. Gerenciar Recursos e Equipamentos                           | "
+        "\n |==================================================================| "
+        "\n |   0. Sair                                                        | "
+        "\n======================================================================"
+    );
+}
+
+//===============================================
+// Menus CRUD
 
 void printMenuProdutora(TipoProdutora produtora){
     limparTela();

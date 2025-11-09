@@ -8,7 +8,7 @@
         "cliente.h": "c",
         "produtora.h": "c",
         "string.h": "c",
-        "menucrud.h": "c",
+        "menuCRUD.h": "c",
         "menucliente.h": "c",
         "menuequipe.h": "c",
         "recurso.h": "c",
@@ -24,6 +24,8 @@
         "menuprodutora.h": "c",
         "utils_bibliotecas.h": "c",
         "inicializarsistema.h": "c",
-        "menuconfig.h": "c"
+        "menuconfig.h": "c",
+        "config.h": "c",
+        "model_arquivo.h": "c"
     }
 }
