@@ -2,11 +2,11 @@
 
 // Aqui tem tds as funcoes de exibicao de menus
 
-void printMenuPrincipal(){
+void printMenuPrincipal(TipoProdutora produtora){
     limparTela();
     printf(
         "\n======================================================================"
-        "\n | # Menu Principal                                                 | "
+        "\n | # Sistema de Gestao - %-43s | "
         "\n |==================================================================| "
         "\n |   1. Gerenciar Produtora                                         | "
         "\n |   2. Gerenciar Clientes                                          | "
@@ -18,6 +18,7 @@ void printMenuPrincipal(){
         "\n |==================================================================| "
         "\n |   0. Sair                                                        | "
         "\n======================================================================"
+        , produtora.nomeFantasia
     );
 }
 

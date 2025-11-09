@@ -137,4 +137,6 @@ void inicializarSistema() {
     fornecedorListaLiberar(listaFornecedor);
     operadorListaLiberar(listaOperador);
     recursoListaLiberar(listaRecurso);
+
+    printf("\n\n");
 }

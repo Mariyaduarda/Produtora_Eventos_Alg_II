@@ -14,25 +14,19 @@ void esperaEnter() {
 
 // Funcoes de formatacao
 
-void formataCPF(char *cpf, char *dest) {
+void formataCPFouCNPJ(char *str, char *dest) {
     // formata a string como se fosse um cpf
-    //  presupoe que ja e' so' numeros
+    //  presupoe que ja e' so' numeros e e' um cpf ou cnpj
 
-    if (strlen(cpf) == 11){ // se tem o num certo de caracteres
-        sprintf(dest, "%.3s.%.3s.%.3s-%.2s", cpf, cpf + 3, cpf + 6, cpf + 9);
-    } else{ // caso contrario, so' retorna ele normal
-        strcpy(dest, cpf);
-    }
-}
-
-void formataCNPJ(char *cnpj, char *dest) {
-    // formata a string como se fosse um cnpj
-    //  presupoe que ja e' so' numeros
-
-    if (strlen(cnpj) == 11){ // se tem o num certo de caracteres
-        sprintf(dest, "%.2s.%.3s.%.3s/%.4s-%.2s", cnpj, cnpj + 2, cnpj + 5, cnpj + 8, cnpj + 12);
-    } else{ // caso contrario, so' retorna ele normal
-        strcpy(dest, cnpj);
+    if (strlen(str) == 11){ 
+        // se tem caracteres pra ser cpf
+        sprintf(dest, "%.3s.%.3s.%.3s-%.2s", str, str + 3, str + 6, str + 9);
+    } else if (strlen(str) == 14){ 
+        // se tem caracteres pra ser cnpj
+        sprintf(dest, "%.2s.%.3s.%.3s/%.4s-%.2s", str, str + 2, str + 5, str + 8, str + 12);
+    } else{ 
+        // caso contrario, so' retorna ele normal
+        strcpy(dest, str);
     }
 }
 

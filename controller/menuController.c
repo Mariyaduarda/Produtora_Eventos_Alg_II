@@ -8,7 +8,7 @@ void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **
     int escolha=1;
     while (escolha != 0){
         // Exibe o menu principal
-        printMenuPrincipal();
+        printMenuPrincipal(*produtora);
 
         // Recebe a escolha do usuario
         escolha = recebeInt(0, 7, "Digite uma opcao", "#", config->validar_dados);

@@ -6,7 +6,7 @@
 void printItemProdutora(TipoProdutora produtora) {
     // Faz as formatacoes necessarias
     char cnpjFormatado[20];
-    formataCNPJ(produtora.cnpj, cnpjFormatado);
+    formataCPFouCNPJ(produtora.cnpj, cnpjFormatado);
     char telFormatado[20];
     formataTelefone(produtora.telefone, telFormatado);
     char telRespFormatado[20];
@@ -40,18 +40,18 @@ void printItemCliente(TipoCliente cliente) {
     // Printa o cpf ou cnpj
     if(cliente.usa_CNPJ){
         char formatado[20];
-        formataCNPJ(cliente.cpf_cnpj, formatado);
+        formataCPFouCNPJ(cliente.cpf_cnpj, formatado);
         printf("\n | CNPJ         | %-49s | ", formatado);
     } else {
         char formatado[20];
-        formataCPF(cliente.cpf_cnpj, formatado);
+        formataCPFouCNPJ(cliente.cpf_cnpj, formatado);
         printf("\n | CPF          | %-49s | ", formatado);
     }
 }
 
 void printItemEquipe(TipoEquipe equipe) {
     char cpfFormatado[20];
-    formataCPF(equipe.cpf, cpfFormatado);
+    formataCPFouCNPJ(equipe.cpf, cpfFormatado);
 
     printf("\n=[ ID: %-4d ]=========================================================",equipe.id);
     printf("\n | Nome   | %-55s | ", equipe.nome);
@@ -74,11 +74,11 @@ void printItemFornecedor(TipoFornecedor fornecedor) {
     // Printa o cpf ou cnpj
     if(fornecedor.usa_CNPJ){
         char formatado[20];
-        formataCNPJ(fornecedor.cpf_cnpj, formatado);
+        formataCPFouCNPJ(fornecedor.cpf_cnpj, formatado);
         printf("\n | CNPJ     | %-53s | ", formatado);
     } else {
         char formatado[20];
-        formataCPF(fornecedor.cpf_cnpj, formatado);
+        formataCPFouCNPJ(fornecedor.cpf_cnpj, formatado);
         printf("\n | CPF      | %-53s | ", formatado);
     }
 }

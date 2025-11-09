@@ -14,7 +14,7 @@ TipoProdutora menuProdutoraRecebe(TipoConfig *config) {
     recebeTelefone(produtora.telefone, config->validar_dados);
     recebeEmail(produtora.email, config->validar_dados);
     recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100", config->validar_dados);
-    recebeString(produtora.telefoneDoResponsavel, 11, "Digite o Telefone do Responsavel","10 ou 11 Digitos", config->validar_dados);
+    recebeTelefone(produtora.telefoneDoResponsavel, config->validar_dados);
     produtora.margemDeLucro = recebeFloat(0, 1000000, "Digite a Margem de Lucro", "Entre 0 e 1m", config->validar_dados);
 
     return produtora;
