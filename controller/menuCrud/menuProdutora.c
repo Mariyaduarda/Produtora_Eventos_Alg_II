@@ -31,7 +31,7 @@ void menuProdutoraApagar(TipoProdutora* produtora) {
     // Apaga os dados da produtora
 
     // Pede confirmacao
-    if (printConfirma()) {
+    if (recebeConfirma()) {
         produtoraInit(produtora);
         printMensagem("Dados apagados com sucesso","#");
     } else{
@@ -48,7 +48,7 @@ void menuProdutora(TipoProdutora* produtora) {
         printMenuProdutora(*produtora);
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 5, "Digite uma opcao", "0 a 5");
+        escolha = recebeInt(0, 2, "Digite uma opcao", "#");
 
         switch (escolha){
             case 1:

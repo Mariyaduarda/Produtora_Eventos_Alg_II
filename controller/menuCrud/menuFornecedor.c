@@ -28,7 +28,7 @@ void menuFornecedorAdicionar(ListaFornecedor **listaFornecedor){
         // Mostra os dados que foram inseridos
         printItemFornecedor(novo);
         
-        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+        if( recebeConfirma() ) break;  // Pergunta o usuario se ta td certo
     }
     
     // Realmente adiciona na lista
@@ -53,7 +53,7 @@ void menuFornecedorRemover(ListaFornecedor **listaFornecedor){
     
     
     // Pede confirmacao, se tiver ok, remove o Fornecedor
-    if (printConfirma()){
+    if (recebeConfirma()){
         fornecedorRemover(listaFornecedor, ID);
         printRemoverSucesso();
     }
@@ -94,7 +94,7 @@ void menuFornecedorAtualizar(ListaFornecedor **listaFornecedor){
     
     // ===============================
     // Confirma se o usuario realmente quer atualizar
-    if (printConfirma()){
+    if (recebeConfirma()){
         fornecedorAtualizar(*listaFornecedor, novoFornecedor, ID);
         printAtualizarSucesso();
     }
@@ -139,7 +139,7 @@ void menuFornecedor(ListaFornecedor **listaFornecedor) {
         printMenuFornecedor();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 5, "Digite uma opcao", "0 a 5");
+        escolha = recebeInt(0, 5, "Digite uma opcao", "#");
 
         switch (escolha){
             case 1:

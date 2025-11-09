@@ -1,7 +1,30 @@
 #include "recebeDados.h"
 
 //=======================================================
-// RECEBE OS TIPOS
+// LE OS TIPOS BASICOS (Sem validacao nenhuma)
+
+int lerInt(){
+    int num;
+    scanf("%d",&num);
+    getchar();
+    return num;
+}
+
+float lerFloat(){
+    float num;
+    scanf("%f",&num);
+    getchar();
+    return num;
+}
+
+void lerString(char *str, int maxTam){
+    fgets(str, maxTam, stdin);
+    str[strcspn(str, "\n")] = 0; // remove \n
+}
+
+
+//=======================================================
+// RECEBE DADOS GENERICOS (Com validacao basica)
 
 // Recebe uma String
 void recebeString(char *str, int maxTam, char *msg1, char *msg2){
@@ -12,8 +35,7 @@ void recebeString(char *str, int maxTam, char *msg1, char *msg2){
         printf("\n => ");
 
         // Realmente recebe a string
-        fgets(str, maxTam, stdin);
-        str[strcspn(str, "\n")] = 0; // remove \n
+        lerString(str, maxTam);
         
         // Confere se a string e' valida
         if (strlen(str) > 0 && strlen(str) < maxTam) break;
@@ -30,8 +52,7 @@ int recebeInt(int min, int max, char *msg1, char *msg2){
         printf("\n => ");
 
         // Realmente recebe o inteiro
-        scanf("%d",&n);
-        getchar(); // Limpa o buffer do teclado
+        n = lerInt();
         
         // Confere se o int e' valido
         if (n >= min && n <= max) break;
@@ -49,8 +70,7 @@ float recebeFloat(float min, float max, char *msg1, char *msg2){
         printf("\n => ");
 
         // Realmente recebe o float
-        scanf("%f",&n);
-        getchar(); // Limpa o buffer do teclado
+        n = lerFloat();
         
         // Confere se o float e' valido
         if (n >= min && n <= max) break;
@@ -59,8 +79,39 @@ float recebeFloat(float min, float max, char *msg1, char *msg2){
     return n;
 }
 
+int recebeMetodoDeSalvamento(){
+    // guarda a escolha
+    int metodo; 
+
+    // Enquanto usuario n digitar 1 ou 2, fica perguntando
+    do{
+        printMensagem("Como deseja salvar?", "1.TXT | 2.BIN");
+        printf("\n =>");
+        metodo = lerInt();
+    }while ( metodo != 1 && metodo != 2);
+    
+    //retorna a escolha
+    return metodo;
+}
+
+int recebeConfirma(){
+    // guarda a escolha
+    int confirma; 
+
+    // Enquanto usuario n digitar 1 ou 0, fica perguntando
+    do{
+        printMensagem("Voce tem certeza?", "1.Sim | 0.Nao");
+        printf("\n =>");
+        confirma = lerInt();
+
+    }while ( confirma != 1 && confirma != 0);
+    
+    //retorna a escolha
+    return confirma;
+}
+
 //=======================================================
-// RECEBE COM VALIDACAO
+// RECEBE DADOS ESPECIFICOS (Com validacao complexa)
 
 // Recebe um cpf em string - ja faz a validacao
 void recebeCPF(char *str){
@@ -103,24 +154,6 @@ void recebeCPFCNPJ(char *str, bool* usa_CNPJ) {
         }
     }
 }
-/*
-// pede ao usuario para escolher
-void recebeCPFCNPJ(char *str, int* usa_CNPJ) {
-    while (1) {
-        *usa_CNPJ = recebeInt(0,1,"Como quer cadastrar?","0. CPF | 1. CNPJ");
-
-        if (*usa_CNPJ == 0) {
-            recebeCPF(str);
-            break;
-        } else if (*usa_CNPJ == 1) {
-            recebeCNPJ(str);
-            break;
-        } else {
-            printOpcaoInvalida();
-        }
-    }
-}
-*/
 
 // Recebe um Email em string - ja faz a validacao
 void recebeEmail(char *str){

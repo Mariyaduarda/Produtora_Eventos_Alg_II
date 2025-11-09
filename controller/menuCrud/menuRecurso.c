@@ -28,7 +28,7 @@ void menuRecursoAdicionar(ListaRecurso **listaRecurso){
         // Mostra os dados que foram inseridos
         printItemRecurso(novo);
         
-        if( printConfirma() ) break;  // Pergunta o usuario se ta td certo
+        if( recebeConfirma() ) break;  // Pergunta o usuario se ta td certo
     }
     
     // Realmente adiciona na lista
@@ -53,7 +53,7 @@ void menuRecursoRemover(ListaRecurso **listaRecurso){
     
     
     // Pede confirmacao, se tiver ok, remove o Recurso
-    if (printConfirma()){
+    if (recebeConfirma()){
         recursoRemover(listaRecurso, ID);
         printRemoverSucesso();
     }
@@ -94,7 +94,7 @@ void menuRecursoAtualizar(ListaRecurso **listaRecurso){
     
     // ===============================
     // Confirma se o usuario realmente quer atualizar
-    if (printConfirma()){
+    if (recebeConfirma()){
         recursoAtualizar(*listaRecurso, novoRecurso, ID);
         printAtualizarSucesso();
     }
@@ -139,7 +139,7 @@ void menuRecurso(ListaRecurso **listaRecurso) {
         printMenuRecurso();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 5, "Digite uma opcao", "0 a 5");
+        escolha = recebeInt(0, 5, "Digite uma opcao", "#");
 
         switch (escolha){
             case 1:

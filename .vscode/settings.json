@@ -21,6 +21,7 @@
         "mensagens.h": "c",
         "stdbool.h": "c",
         "cmath": "c",
-        "menuprodutora.h": "c"
+        "menuprodutora.h": "c",
+        "utils_bibliotecas.h": "c"
     }
 }

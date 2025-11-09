@@ -11,7 +11,7 @@ void menuPrincipal(TipoProdutora *produtora, ListaCliente **listaCliente,
         printMenuPrincipal();
 
         // Recebe a escolha do usuario
-        escolha = recebeInt(0, 6, "Digite uma opcao", "0 a 6");
+        escolha = recebeInt(0, 6, "Digite uma opcao", "#");
         
         switch (escolha){
             case 1:

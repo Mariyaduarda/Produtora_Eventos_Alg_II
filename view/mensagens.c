@@ -3,45 +3,45 @@
 // ====================================
 // SUCESSO OU FALHA
 void printAdicionarSucesso() {
-    printf("\n [ Adicionado com sucesso! ]================================[SUCESSO] \n");
+    printMensagem("Adicionado com sucesso","#");
 }
 
 void printAdicionarFalha() {
-    printf("\n [ Falha ao adicionar ]========================================[ERRO] \n");
+    printMensagem("Falha ao adicionar","ERRO");
 }
 
 void printRemoverSucesso() {
-    printf("\n [ Removido com sucesso! ]==================================[SUCESSO] \n");
+    printMensagem("Removido com sucesso","#");
 }
 
 void printRemoverFalha() {
-    printf("\n [ Falha ao remover ]==========================================[ERRO] \n");
+    printMensagem("Falha ao remover","ERRO");
 }
 
 void printAtualizarSucesso() {
-    printf("\n [ Atualizado com sucesso! ]================================[SUCESSO] \n");
+    printMensagem("Atualizado com sucesso","#");
 }
 
 void printAtualizarFalha() {
-    printf("\n [ Falha ao atualizar ]========================================[ERRO] \n");
+    printMensagem("Falha ao atualizar","ERRO");
 }
 
 // ====================================
 // ERROS
 void printListaVazia() {
-    printf("\n [ A lista esta vazia ]========================================[ERRO] \n");
+    printMensagem("A lista esta vazia","ERRO");
 }
 
 void printNaoEncontrado() {
-    printf("\n [ Nao encontrado ]============================================[ERRO] \n");
+    printMensagem("Nao encontrado","ERRO");
 }
 
 void printOpcaoInvalida() {
-    printf("\n [ Opcao Invalida ]============================================[ERRO] \n");
+    printMensagem("Opcao Invalida","ERRO");
 }
 
 void printValorInvalido() {
-    printf("\n [ Valor Invalido ]============================================[ERRO] \n");
+    printMensagem("Valor invalido","ERRO");
 }
 
 // ====================================
@@ -60,38 +60,4 @@ void printMensagem(char *msg1, char *msg2){
     printf("\n [ %s ]",msg1);                 //msg 1
     for (int i=0 ; i<=n ; i++) printf("="); // =
     printf("[ %s ] ",msg2);                 //msg 2
-}
-
-int printConfirma(){
-    // guarda a escolha
-    int confirma; 
-
-    // Enquanto usuario n digitar 1 ou 0, fica perguntando
-    do{
-        printMensagem("Voce tem certeza?", "1.Sim | 0.Nao");
-        printf("\n =>");
-        scanf("%d",&confirma);
-        getchar(); // Limpa o buffer do teclado
-
-    }while ( confirma != 1 && confirma != 0);
-    
-    //retorna a escolha
-    return confirma;
-}
-
-int recebeMetodoDeSalvamento(){
-    // guarda a escolha
-    int metodo; 
-
-    // Enquanto usuario n digitar 1 ou 2, fica perguntando
-    do{
-        printMensagem("Como deseja salvar?", "1.TXT | 2.BIN");
-        printf("\n =>");
-        scanf("%d",&metodo);
-        getchar(); // Limpa o buffer do teclado
-
-    }while ( metodo != 1 && metodo != 2);
-    
-    //retorna a escolha
-    return metodo;
 }

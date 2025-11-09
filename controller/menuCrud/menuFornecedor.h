@@ -4,8 +4,8 @@
 #include "../../model/fornecedor.h"
 
 #include "../../utils/utils_tela.h"
+#include "../../utils/recebeDados.h"
 
-#include "../../view/recebeDados.h"
 #include "../../view/printMenu.h"
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
