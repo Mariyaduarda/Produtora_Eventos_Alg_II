@@ -12,7 +12,7 @@ TipoFornecedor menuFornecedorRecebe() {
     recebeCPFCNPJ(fornecedor.cpf_cnpj, &fornecedor.usa_CNPJ);
     recebeString(fornecedor.endereco, 100, "Digite o Endereco","Max. 100");
     recebeTelefone(fornecedor.telefone);
-    recebeString(fornecedor.tipoServico, 100, "Digite o Telefone","Max. 100");
+    recebeString(fornecedor.tipoServico, 100, "Digite o Tipo de Servico","Max. 100");
 
     return fornecedor;
 }
