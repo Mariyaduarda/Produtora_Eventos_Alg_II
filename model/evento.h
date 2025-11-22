@@ -1,13 +1,8 @@
 #ifndef EVENTO_H
 #define EVENTO_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "recurso.h"
 #include <time.h>
-#include <stdbool.h>
-
 // tipo enumerado para status
 typedef enum {
     STATUS_ORCAMENTO,
@@ -48,15 +43,15 @@ typedef struct ListaRecursoEvento{
     struct ListaRecursoEvento* proximo;
 } ListaRecursoEvento;
 
-typedef struct ListaEquipe {
+typedef struct ListaEquipeEvento {
     ItemEquipeEvento  item;
-    struct ListaEquipe* proximo;
-} ListaEquipe;
+    struct ListaEquipeEvento* proximo;
+} ListaEquipeEvento;
 
-typedef struct ListaFornecedor {
+typedef struct ListaFornecedorEvento {
     ItemFornecedorEvento  item;
-    struct ListaFornecedor* proximo;
-} ListaFornecedor;
+    struct ListaFornecedorEvento* proximo;
+} ListaFornecedorEvento;
 
 // struct principal do evento
 typedef struct {
@@ -81,15 +76,15 @@ typedef struct {
 
     // array dinamico para os itens
     // ponteiros para listas encadeadas
-    ListaRecurso* listaRecursos;
-    ListaEquipe* listaEquipes;
-    ListaFornecedor* listaFornecedores;
+    ListaRecursoEvento* listaRecursos;
+    ListaEquipeEvento* listaEquipes;
+    ListaFornecedorEvento* listaFornecedores;
     // removi qtdRecurso, qtdEquipes, qtdFornecedores
 
     // valores a serem calculados
     double custoTotalRecursos;
     double custoTotalEquipe;
-    double custoTotalServicos;
+    double custoTotalForn;
     double custoTotal;         // soma dos custos
     double margemLucro;       // percentual (ex: 20.0 para 20%)
     double valorFinal;       // valor a cobrar do cliente
@@ -127,7 +122,7 @@ void eventoLiberarEquipes(ListaRecurso *listaRecurso);
 int eventoAdicionarFornecedor(TipoEvento *evento, ItemRecursoEvento item);
 int eventoRemoveFornecedor(TipoEvento *evento, int codigoFornecedor);
 ItemRecursoEvento* eventoBuscarFornecedor(TipoEvento *evento, int codigoFornecedor);
-void eventoLiberarFornecedor(ListaRecurso *listaRecurso);
+void eventoLiberarFornecedores(ListaRecurso *listaRecurso);
 
 //=========== MUDANCA DE STAUS ===========
 int eventoAprovar(TipoEvento *evento);
