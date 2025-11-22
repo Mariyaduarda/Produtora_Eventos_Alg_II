@@ -1,39 +1,39 @@
 #include "evento.h"
 
 #include "cliente.h"
+#include "equipe.h"
 
 void eventoInit(TipoEvento *evento) {
     evento->ativo = true;     // por padrao inciar ativo
     evento->id = 0;           // id incrementa automaticamente
 
     // Atributos comecam vazios pra tirar lixo de memoria
-    strcpy(evento->nome,                "-");
+    strcpy(evento->nome,                "");
     evento->codigoCliente = 0;
 
-    strcpy(evento->dataInicio,          "-");
-    strcpy(evento->dataFim,             "-");
-    strcpy(evento->horaFim,             "-");
-    strcpy(evento->horaInicio,          "-");
-    strcpy(evento->localEvento,         "-");
-    strcpy(evento->cidade,              "-");
-    strcpy(evento->uf,                  "-");
+    strcpy(evento->dataInicio,          "");
+    strcpy(evento->dataFim,             "");
+    strcpy(evento->horaFim,             "");
+    strcpy(evento->horaInicio,          "");
+    strcpy(evento->localEvento,         "");
+    strcpy(evento->cidade,              "");
+    strcpy(evento->uf,                  "");
 
     evento->status = STATUS_ORCAMENTO,
 
-    strcpy(evento->listaRecursos = NULL);
-    strcpy(evento->listaEquipes = NULL);
-    strcpy(evento->listaFornecedores = NULL);
+    evento->listaRecursos = NULL;
+    evento->listaEquipes = NULL;
+    evento->listaFornecedores = NULL;
 
-    strcpy(evento-> custoTotal = 0.0);
-    strcpy(evento-> custoTotalEquipe = 0.0);
-    strcpy(evento->custoTotalEquipe = 0.0);
-    strcpy(evento->custoTotalServicos = 0.0);
-    strcpy(evento->custoTotal = 0.0);
-    strcpy(evento->obs, "-");
+    evento-> custoTotal                 = 0.0;
+    evento-> custoTotalEquipe           = 0.0;
+    evento->custoTotalEquipe            = 0.0;
+    evento->custoTotalServicos          = 0.0;
+
+    strcpy(evento->obs,             "");
 }
-void eventoInit(ListaEvento *listaEvento) {
-    listaEvento->prox = NULL;
-    eventoInit(&listaEvento->evento);
+void eventoInit(ListaEvento **listaEvento) {
+    *listaEvento = NULL;
 }
 //
 // void recursoEventoListaInit(ItemRecursoEvento *listaRecursos){
@@ -50,6 +50,7 @@ void eventoInit(ListaEvento *listaEvento) {
     // listaFornecedores->prox = NULL;
     // fornecedorEventoListaInit(&listaFornecedores->evento);
 //}
+// ===== CRUD EVENTTO =====
 
 int eventoAdicionar(ListaEvento **listaEvento, TipoEvento evento) {
     // aloca o espaco para um novo no'
@@ -60,7 +61,6 @@ int eventoAdicionar(ListaEvento **listaEvento, TipoEvento evento) {
     novo->evento = evento;
     novo->evento.ativo = true;
     novo->prox = NULL;
-
 
     if(*listaEvento == NULL){ // se a lista estiver vazia, e' so' substituir
         novo->evento.id = 1;
@@ -166,8 +166,83 @@ void eventoListaLiberar(TipoEvento* listaEvento){
 }
 
 //=========== GESTAO DOS RECURSOS ===========
+int eventoAdicionarRecurso(TipoEvento *evento, ItemRecursoEvento) {
+    ListaRecurso *novo = (ListaRecurso *)malloc(sizeof(ListaRecurso));
+    if (novo == NULL) return 0;
+
+    novo->item = item;
+    novo->prox = NULL;
+
+    if (evento->listaRecursos == NULL){
+        evento->listaRecursos = novo;
+    }else {
+        ListaRecurso *atual = evento->listaRecursos;
+        while(atual != NULL) {
+            atual = atual->prox;
+        }
+        atual->prox = novo;
+    }
+    eventoRecalcularTotais(evento);
+    return 1;
+}
+
+int eventoRemoveRecurso(TipoEvento *evento, int codigoRecurso) {
+    ListaRecurso *atual = evento->listaRecursos;
+    ListaEvento *anterior = NULL;
+
+    while (atual != NULL) {
+        if (atual->item.codigoRecurso == codigoRecurso) {
+            if (anterior == NULL) {
+                evento->listaRecursos = atual->prox;
+            }
+            free(atual);
+
+            eventoRecalcularTotais(evento);
+            return 1;
+        }
+        anterior = atual;
+        atual = atual->prox;
+    }
+    return 0;
+}
+
+ItemRecursoEvento* eventoBuscarRecurso(TipoEvento *evento, int codigoRecurso) {
+    ListaRecurso *atual = evento->listaRecursos;
+
+    while (atual != NULL) {
+        if (atual ->item.codigoRecurso == codigoRecurso) {
+            return &atual->item;
+        }
+        atual = atual->prox;
+    }
+    return NULL;
+}
+
+void eventoLiberarRecurso(ListaRecursoEvento *listaRecurso) {
+    ListaRecursoEvento *aux;
+
+    while (listaRecurso != NULL) {
+        aux = listaRecurso;
+        listaRecurso = listaRecurso->prox;
+        free(aux);
+    }
+}
 //=========== GESTAO DA EQUIPE ===========
+
+int eventoAdicionarEquipe(TipoEvento *evento, ItemEquipeEvento) {
+    ListaEquipe * novo = (ListaEquipe *)malloc(sizeof(ListaEquipe));
+    if (novo == NULL) return 0;
+
+    novo->item = item;
+}
+
 //=========== GESTAO DOS FORNECEDORES ===========
+
+//=========== METODOS DOS CALCULOS ===========
+double  eventoCalcularTotalRecursos(TipoEvento *evento);
+double  eventoCalcularTotalEquipe(TipoEvento *evento);
+double  eventoCalcularTotalFornecedores(TipoEvento *evento);
+void eventoRecalcularTotais(TipoEvento *evento);
 
 
 //=========== ARQUIVOS DO EVENTO ===========

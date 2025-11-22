@@ -214,3 +214,7 @@ bool validarUsuario(const char *usuario) {
         }
     return true;
     }
+
+bool eventoValidaCodigo(int codigo) {
+    return codigo > 0;
+}
