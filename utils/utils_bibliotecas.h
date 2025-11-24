@@ -4,9 +4,6 @@
 
 #ifndef UTILS_BIBLIOTECAS_H
 #define UTILS_BIBLIOTECAS_H
-//
-// Created by alunos on 07/10/2025.
-//
 
 #include <ctype.h>
 #include <stdlib.h>
@@ -17,7 +14,6 @@
 #include "../model/cliente.h"
 
 // Funcoes de validar dados
-
 bool validarCPF(const char *cpf_cpnj);
 bool validarCNPJ(const char *cpf_cpnj);
 bool validarEmail(const char *email);
@@ -26,7 +22,7 @@ bool validarNome(const char *nome);
 bool validarSenha(const char *senha);
 bool validarUsuario(const char *usuario);
 int validarDadosCliente(TipoCliente *cliente, char *mensagemErro);
-
+int validaCodigo(int codigo);
 // Funcoes de utilidade para mudar a tela
 void limparTela();
 void esperaEnter();

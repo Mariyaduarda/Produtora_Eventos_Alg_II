@@ -20,5 +20,7 @@ void recebeCPFCNPJ(char *str, bool* usa_CNPJ, bool validacao);
 void recebeEmail(char *str, bool validacao);
 void recebeTelefone(char *str, bool validacao);
 int recebeID(bool validacao);
+void recebeData(const char *dataStr, bool validacao);
+
 
 #endif // RECEBE_DADOS_H

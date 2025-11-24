@@ -3,6 +3,7 @@
 
 #include "recurso.h"
 #include <time.h>
+
 // tipo enumerado para status
 typedef enum {
     STATUS_ORCAMENTO,
@@ -22,6 +23,11 @@ typedef struct {
     double subtotal;       // qnt * valor_uni * dias
 } ItemRecursoEvento;
 
+typedef struct ListaRecurso{
+    struct ListaRecurso *prox;
+    TipoRecurso recurso;
+} ListaRecursoEvento;
+
 // Item de Equipe Interna alocada
 typedef struct {
     int codigoFunc;
@@ -30,28 +36,22 @@ typedef struct {
     double subtotal; // numDias * diaria
 } ItemEquipeEvento;
 
+typedef struct ListaEquipe{
+    struct ListaEquipe *prox;
+    TipoEquipeEvento equipe;
+} ListaEquipe;
+
 // Item de Serviço de Fornecedor/Parceiro
 typedef struct {
     int codigoFornecedor;
-    char descricaoServico[150];
+    char descricaoServico[150]; // desc planejada
     double valorServico;
 } ItemFornecedorEvento;
 
-// ===== LISTAS ENCADEADAS DOS ITENS =====
-typedef struct ListaRecursoEvento{
-    ItemRecursoEvento item;
-    struct ListaRecursoEvento* proximo;
-} ListaRecursoEvento;
-
-typedef struct ListaEquipeEvento {
-    ItemEquipeEvento  item;
-    struct ListaEquipeEvento* proximo;
-} ListaEquipeEvento;
-
-typedef struct ListaFornecedorEvento {
-    ItemFornecedorEvento  item;
-    struct ListaFornecedorEvento* proximo;
-} ListaFornecedorEvento;
+typedef struct ListaFornecedor{
+    struct ListaFornecedor *prox;
+    TipoFornecedor fornecedor;
+} ListaFornecedor;
 
 // struct principal do evento
 typedef struct {
@@ -59,7 +59,6 @@ typedef struct {
     bool ativo;
 
     char nome[100];
-    int codigoCliente; //id do cliente
 
     // datas e locais do evento
     struct tm dataInicio; // formatar como dd/mm/aaaa
@@ -76,12 +75,12 @@ typedef struct {
 
     // array dinamico para os itens
     // ponteiros para listas encadeadas
-    ListaRecursoEvento* listaRecursos;
-    ListaEquipeEvento* listaEquipes;
-    ListaFornecedorEvento* listaFornecedores;
+    // ListaRecursoEvento* listaRecursos;
+    // ListaEquipeEvento* listaEquipes;
+    // ListaFornecedorEvento* listaFornecedores;
     // removi qtdRecurso, qtdEquipes, qtdFornecedores
 
-    // valores a serem calculados
+    // valores a serem calculaados
     double custoTotalRecursos;
     double custoTotalEquipe;
     double custoTotalForn;
@@ -97,11 +96,11 @@ typedef struct ListaEvento{
     TipoEvento evento;
 } ListaEvento;
 
-//=========== FUNCOES BASICA ===========
+//=========== FUNCOES BASICAS ===========
 void eventoInit(TipoEvento *evento);
 void eventoListaInit(ListaEvento **listaEvento);
 
-//=========== CRUD ===========
+//=========== CRUD DO EEVENTO ===========
 int eventoAdicionar(ListaEvento **listaEvento, TipoEvento evento);
 int eventoRemover(ListaEvento **listaEvento, int id);
 int eventoAtualizar(ListaEvento *listaEvento, TipoEvento eventoAtualizado, int id);
@@ -109,26 +108,19 @@ TipoEvento* eventoBuscar(ListaEvento *listaEvento, int id);
 void eventoListaLiberar(ListaEvento* listaEvento);
 
 //=========== GESTAO GERAL ===========
-int eventoAdicionarRecurso(TipoEvento *evento, ItemRecursoEvento item);
-int eventoRemoveRecurso(TipoEvento *evento, int codigoRecurso);
-ItemRecursoEvento* eventoBuscarRecurso(TipoEvento *evento, int codigoRecurso);
-void eventoLiberarRecursos(ListaRecurso *listaRecurso);
-
-int eventoAdicionarEquipe(TipoEvento *evento, ItemEquipeEvento item);
-int eventoRemoveEquipe(TipoEvento *evento, int codigoFunc);
-ItemRecursoEvento* eventoBuscarEquipe(TipoEvento *evento, int codigoFunc);
-void eventoLiberarEquipes(ListaRecurso *listaRecurso);
-
-int eventoAdicionarFornecedor(TipoEvento *evento, ItemRecursoEvento item);
-int eventoRemoveFornecedor(TipoEvento *evento, int codigoFornecedor);
-ItemRecursoEvento* eventoBuscarFornecedor(TipoEvento *evento, int codigoFornecedor);
-void eventoLiberarFornecedores(ListaRecurso *listaRecurso);
+int eventoUnirRecurso(TipoEvento *evento, ListaRecurso *listaGlobalRecursos, int codigoRecurso,
+    int qtd, int diasEvento);
+int eventoUnirEquipe(TipoEvento *evento, ListaEquipe *listaGlobalEquipe, int codigoFunc,
+    double valorDiaria, int numDias);
+int eventoUnirFornecedor(TipoEvento *evento, ListaFornecedor *listaGlobalFornecedor, int codigoFornecedor,
+    const char *descricaoServico, double valorServico);
 
 //=========== MUDANCA DE STAUS ===========
 int eventoAprovar(TipoEvento *evento);
 int eventoFinalizar(TipoEvento *evento);
 int eventoCancelar(TipoEvento *evento);
 int eventoOrcamento(TipoEvento *evento);
+
 
 //=========== CALCULOS ===========
 double  eventoCalcularTotalRecursos(TipoEvento *evento);

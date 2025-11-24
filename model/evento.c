@@ -1,103 +1,77 @@
 #include "evento.h"
-
+#include "fornecedor.h"
 #include "cliente.h"
 #include "equipe.h"
+#include "recurso.h"
 
 void eventoInit(TipoEvento *evento) {
-    evento->ativo = true;     // por padrao inciar ativo
-    evento->id = 0;           // id incrementa automaticamente
+    evento->ativo = true;
+    evento->id = 0;
 
-    // Atributos comecam vazios pra tirar lixo de memoria
-    strcpy(evento->nome,                "");
-    evento->codigoCliente = 0;
+    strcpy(evento->nome, "");
+    //evento->cliente.id = 0;
 
     memset(&evento->dataInicio, 0, sizeof(struct tm));
-    memset(&evento->dataFim, 0,     sizeof(struct tm));
-    strcpy(evento->localEvento,         "");
-    strcpy(evento->cidade,              "");
-    strcpy(evento->uf,                  "");
+    memset(&evento->dataFim, 0, sizeof(struct tm));
+    strcpy(evento->localEvento, "");
+    strcpy(evento->cidade,      "");
+    strcpy(evento->uf,          "");
 
     evento->status = STATUS_ORCAMENTO;
-
-    evento->listaRecursos = NULL;
-    evento->listaEquipes = NULL;
-    evento->listaFornecedores = NULL;
+    //
+    // evento->listaRecursos = NULL;
+    // evento->listaEquipes = NULL;
+    // evento->listaFornecedores = NULL;
 
     evento->custoTotalRecursos = 0.0;
     evento->custoTotalEquipe = 0.0;
     evento->custoTotalForn = 0.0;
     evento->custoTotal = 0.0;
+    evento->margemLucro = 0.0;
+    evento->valorFinal = 0.0;
 
-    strcpy(evento->obs,             "");
+    strcpy(evento->obs, "");
 }
+
 void eventoListaInit(ListaEvento **listaEvento) {
     *listaEvento = NULL;
 }
-//
-// void recursoEventoListaInit(ItemRecursoEvento *listaRecursos){
-//     listaRecursos->prox = NULL;
-//     recursoEventoListaInit(&listaRecursos->evento);
-// }
-//
-// void equipeEventoListaInit(ItemEquipeEvento *listaEquipes){
-//     listaEquipes->prox = NULL;
-//     equipeEventoListaInit(&listaEquipes->evento);
-// }
 
-// void fornecedorEventoListaInit(ItemFornecedorEvento *listaFornecedores){
-    // listaFornecedores->prox = NULL;
-    // fornecedorEventoListaInit(&listaFornecedores->evento);
-//}
-// ===== CRUD EVENTTO =====
+// ===== CRUD EVENTO =====
 
-int eventoAdicionar(ListaEvento **listaEvento, TipoEvento evento){
-    // aloca o espaco para um novo no'
+int eventoAdicionar(ListaEvento **listaEvento, TipoEvento evento) {
     ListaEvento *novo = (ListaEvento *)malloc(sizeof(ListaEvento));
-    if(novo == NULL) return 0;
+    if (novo == NULL) return 0;
 
-    // atribui os dados ao novo no'
     novo->evento = evento;
     novo->evento.ativo = true;
     novo->prox = NULL;
 
-    if(*listaEvento == NULL){ // se a lista estiver vazia, e' so' substituir
+    if (*listaEvento == NULL) {
         novo->evento.id = 1;
         *listaEvento = novo;
-    } else { // se n estiver vazia, percorre ate' o final da lista
-
-        // variavel auxiliar para percorrer a lista
+    } else {
         ListaEvento *atual = *listaEvento;
-        // percorre ate' o final da lista
-        while(atual->prox != NULL) atual = atual->prox;
+        while (atual->prox != NULL) atual = atual->prox;
 
-        // atribui o ID do novo no' como o ID do ultimo mais um
         novo->evento.id = atual->evento.id + 1;
-        // adiciona o novo no' no final da lista
         atual->prox = novo;
-
     }
 
-    // retorna sucesso
     return 1;
-
 }
 
-int eventoRemover(ListaEvento **listaEvento, int id){
-    // variavel auxiliar para percorrer a lista
+int eventoRemover(ListaEvento **listaEvento, int id) {
     ListaEvento *atual = *listaEvento;
 
-    // enquanto oq eu to olhando n for nulo, avanca
-    while(atual != NULL){
-        // se o id do cliente atual for o id q eu quero, marca como inativo
-        if(atual->evento.id == id){
-            // marca o cliente como inativo
+    while (atual != NULL) {
+        if (atual->evento.id == id) {
             atual->evento.ativo = false;
             return 1;
         }
         atual = atual->prox;
     }
 
-    // se chegar aqui, n achei o cliente
     return 0;
 }
 
@@ -106,164 +80,248 @@ int eventoAtualizar(ListaEvento *listaEvento, TipoEvento eventoAtualizado, int i
 
     while (atual != NULL) {
         if (atual->evento.id == id) {
-            // Guarda os ponteiros das listas encadeadas
+            // Guarda os ponteiros com os tipos corretos
             ListaRecurso *recursos = atual->evento.listaRecursos;
-            ListaEquipeEvento *equipes = atual->evento.listaEquipes;
-            ListaFornecedorEvento *fornecedores = atual->evento.listaFornecedores;
+            ListaEquipe *equipes = atual->evento.listaEquipes;
+            ListaFornecedor *fornecedores = atual->evento.listaFornecedores;
 
-            // Atualiza os dados do evento
             atual->evento = eventoAtualizado;
-            atual->evento.id = id; // mantém o ID
+            atual->evento.id = id;
 
-            // Restaura os ponteiros das listas
+            // Restaura os ponteiros
             atual->evento.listaRecursos = recursos;
             atual->evento.listaEquipes = equipes;
             atual->evento.listaFornecedores = fornecedores;
 
-            return 1; // sucesso
-        }
-        atual = atual->prox;
-    }
-    return 0; // evento não encontrado
-}
-TipoEvento* eventoBuscar(ListaEvento *listaEvento, int id){
-    // variavel auxiliar para percorrer a lista
-    ListaEvento *atual = listaEvento;
-
-    while(atual != NULL){
-        if(atual->evento.id == id){
-            return &atual->evento;
-        }
-        atual = atual->prox;
-    }
-
-    // n foi encontrado
-    return NULL;
-}
-
-void eventoListaLiberar(ListaEvento *listaEvento) {
-    ListaEvento *aux = listaEvento;
-
-    while (listaEvento != NULL) {
-        aux = listaEvento;
-        listaEvento = listaEvento->prox; // atualiza aux antes de liberrar p/ o prox no
-        // Libera as listas internas
-        eventoLiberarRecursos(aux->evento.listaRecursos);
-        eventoLiberarEquipes(aux->evento.listaEquipes);
-        eventoLiberarFornecedores(aux->evento.listaFornecedores);
-
-        listaEvento = listaEvento->prox;
-        free(aux);
-        aux = NULL; // previnir incertezas
-    }
-}
-
-//=========== GESTAO DOS RECURSOS ===========
-int eventoAdicionarRecurso(TipoEvento *evento, ItemRecursoEvento item) {
-    ListaRecurso *novo = (ListaRecurso *)malloc(sizeof(ListaRecurso));
-    if (novo == NULL) return 0;
-
-    novo->item = item;
-    novo->prox = NULL;
-
-    if (evento->listaRecursos == NULL){
-        evento->listaRecursos = novo;
-    }else {
-        ListaRecurso *atual = evento->listaRecursos;
-        while(atual->prox != NULL) { //acesso valido na memoria qnd atual->prox for null
-            atual = atual->prox;
-        }
-        atual->prox = novo; // apos o ult no insere
-    }
-    eventoRecalcularTotais(evento);
-    return 1;
-}
-
-int eventoRemoveRecurso(TipoEvento *evento, int codigoRecurso) {
-    ListaRecurso *atual = evento->listaRecursos;
-    ListaRecurso *anterior = NULL;
-
-    while (atual != NULL) {
-        if (atual->item.codigoRecurso == codigoRecurso) {
-            if (anterior == NULL) {
-                evento->listaRecursos = atual->prox;
-            }
-            free(atual);
-
-            eventoRecalcularTotais(evento);
             return 1;
         }
-        anterior = atual;
         atual = atual->prox;
     }
     return 0;
 }
 
-ItemRecursoEvento* eventoBuscarRecurso(TipoEvento *evento, int codigoRecurso) {
-    ListaRecurso *atual = evento->listaRecursos;
+TipoEvento* eventoBuscar(ListaEvento *listaEvento, int id) {
+    ListaEvento *atual = listaEvento;
 
     while (atual != NULL) {
-        if (atual ->item.codigoRecurso == codigoRecurso) {
-            return &atual->item;
+        if (atual->evento.id == id && atual->evento.ativo) {
+            return &atual->evento;
         }
         atual = atual->prox;
     }
+
     return NULL;
 }
 
-void eventoLiberarRecurso(ListaRecursoEvento *listaRecurso) {
-    while (listaRecurso != NULL) {
-        ListaRecursoEvento *aux = listaRecurso;
-        listaRecurso = listaRecurso->prox;
+void eventoListaLiberar(ListaEvento *listaEvento) {
+    while (listaEvento != NULL) {
+        ListaEvento *aux = listaEvento;
+        listaEvento = listaEvento->prox;
+
+        eventoLiberarRecursos(aux->evento.listaRecursos);
+        eventoLiberarEquipes(aux->evento.listaEquipes);
+        eventoLiberarFornecedores(aux->evento.listaFornecedores);
+
         free(aux);
     }
 }
-//=========== GESTAO DA EQUIPE ===========
 
-int eventoAdicionarEquipe(TipoEvento *evento, ItemEquipeEvento) {
-    ListaEquipe * novo = (ListaEquipe *)malloc(sizeof(ListaEquipe));
-    if (novo == NULL) return 0;
+//=========== UNIR RECURSOS, EQUIPES E FORNECEDORES ===========
 
-    novo->item = item;
-    novo->prox = NULL;
+int eventoUnirRecurso(TipoEvento *evento, ListaRecurso *listaGlobalRecursos, int codigoRecurso,
+    int qtd, int diasEvento) {
+
+    if (evento == NULL || listaGlobalRecursos == NULL) return 0;
+
+    // Busca o recurso na lista global
+    TipoRecurso *recursoEncontrado = recursoBuscar(listaGlobalRecursos, codigoRecurso);
+    if (recursoEncontrado == NULL) return 0; // Recurso não encontrado
+
+    // Verifica se tem estoque suficiente
+    if (recursoEncontrado->qtdEstoque < qtd) return 0;
+
+    // Verifica se o recurso já está no evento
+    if (eventoBuscarRecurso(evento, codigoRecurso) != NULL) {
+        return 0; // Recurso já adicionado ao evento
+    }
+
+    // Cria o item do recurso para o evento
+    ItemRecursoEvento item;
+    item.codigoRecurso = codigoRecurso;
+    item.qtd = qtd;
+    item.diasEvento = diasEvento;
+    item.valorUnitario = recursoEncontrado->valorLocacao;
+    item.subtotal = qtd * item.valorUnitario * diasEvento;
+
+    // Adiciona o recurso ao evento
+    return eventoAdicionarRecurso(evento, item);
 }
 
-//=========== GESTAO DOS FORNECEDORES ===========
+int eventoUnirEquipe(TipoEvento *evento, ListaEquipe *listaGlobalEquipe, int codigoFunc,
+    double valorDiaria, int numDias) {
+
+    if (evento == NULL || listaGlobalEquipe == NULL) return 0;
+
+    // Busca o funcionário na lista global
+    TipoEquipe *funcEncontrado = equipeBuscar(listaGlobalEquipe, codigoFunc);
+    if (funcEncontrado == NULL) return 0; // Funcionário não encontrado
+
+    // Verifica se o funcionário já está no evento
+    if (eventoBuscarEquipe(evento, codigoFunc) != NULL) {
+        return 0; // Funcionário já adicionado ao evento
+    }
+
+    // Cria o item da equipe para o evento
+    ItemEquipeEvento item;
+    item.codigoFunc = codigoFunc;
+    item.valorDiaria = valorDiaria;
+    item.numDias = numDias;
+    item.subtotal = valorDiaria * numDias;
+
+    // Adiciona a equipe ao evento
+    return eventoAdicionarEquipe(evento, item);
+}
+
+int eventoUnirFornecedor(TipoEvento *evento, ListaFornecedor *listaGlobalFornecedor,
+    int codigoFornecedor, const char *descricaoServico, double valorServico) {
+
+    if (evento == NULL || listaGlobalFornecedor == NULL) return 0;
+
+    // Busca o fornecedor na lista global
+    TipoFornecedor *fornecedorEncontrado = fornecedorBuscar(listaGlobalFornecedor, codigoFornecedor);
+    if (fornecedorEncontrado == NULL) return 0; // Fornecedor não encontrado
+
+    // Verifica se o fornecedor já está no evento
+    if (eventoBuscarFornecedor(evento, codigoFornecedor) != NULL) {
+        return 0; // Fornecedor já adicionado ao evento
+    }
+
+    // Cria o item do fornecedor para o evento
+    ItemFornecedorEvento item;
+    item.codigoFornecedor = codigoFornecedor;
+    strcpy(item.descricaoServico, descricaoServico);
+    item.valorServico = valorServico;
+
+    // Adiciona o fornecedor ao evento
+    return eventoAdicionarFornecedor(evento, item);
+}
+
+//=========== MUDANCA DE STATUS ===========
+
+int eventoAprovar(TipoEvento *evento) {
+    if (evento == NULL) return 0;
+    evento->status = STATUS_APROVADO;
+    return 1;
+}
+
+int eventoFinalizar(TipoEvento *evento) {
+    if (evento == NULL) return 0;
+    evento->status = STATUS_FINALIZADO;
+    return 1;
+}
+
+int eventoCancelar(TipoEvento *evento) {
+    if (evento == NULL) return 0;
+    evento->status = STATUS_CANCELADO;
+    return 1;
+}
+
+int eventoOrcamento(TipoEvento *evento) {
+    if (evento == NULL) return 0;
+    evento->status = STATUS_ORCAMENTO;
+    return 1;
+}
 
 //=========== METODOS DOS CALCULOS ===========
-double eventoCalcularTotalRecursos(TipoEvento *evento);
-double eventoCalcularTotalEquipe(TipoEvento *evento);
-double eventoCalcularTotalFornecedores(TipoEvento *evento);
-void eventoRecalcularTotais(TipoEvento *evento);
+
+double eventoCalcularTotalRecursos(TipoEvento *evento) {
+    double total = 0.0;
+    ListaRecurso *atual = evento->listaRecursos;
+
+    while (atual != NULL) {
+        total += atual->item.subtotal;
+        atual = atual->prox;
+    }
+
+    return total;
+}
+
+double eventoCalcularTotalEquipe(TipoEvento *evento) {
+    double total = 0.0;
+    ListaEquipe *atual = evento->listaEquipes;
+
+    while (atual != NULL) {
+        total += atual->item.subtotal;
+        atual = atual->prox;
+    }
+
+    return total;
+}
+
+double eventoCalcularTotalFornecedores(TipoEvento *evento) {
+    double total = 0.0;
+    ListaFornecedor *atual = evento->listaFornecedores;
+
+    while (atual != NULL) {
+        total += atual->item.valorServico;
+        atual = atual->prox;
+    }
+
+    return total;
+}
+
+void eventoRecalcularTotais(TipoEvento *evento) {
+    evento->custoTotalRecursos = eventoCalcularTotalRecursos(evento);
+    evento->custoTotalEquipe = eventoCalcularTotalEquipe(evento);
+    evento->custoTotalForn = eventoCalcularTotalFornecedores(evento);
+
+    evento->custoTotal = evento->custoTotalRecursos +
+                         evento->custoTotalEquipe +
+                         evento->custoTotalForn;
+
+    // Calcula valor final com margem de lucro
+    evento->valorFinal = evento->custoTotal * (1.0 + evento->margemLucro / 100.0);
+}
 
 //=========== ARQUIVOS DO EVENTO ===========
-int eventoSalvarTXT(TipoEvento *evento) {
+
+int eventoSalvarTXT(ListaEvento *listaEvento) {
     FILE *arquivo = fopen("dados/evento.txt", "w");
     if (arquivo == NULL) return 0;
 
     ListaEvento *atual = listaEvento;
 
-    while(atual != NULL) {
-        if (atual->evento.ativo){
+    while (atual != NULL) {
+        if (atual->evento.ativo) {
+            // Formatar datas como strings
+            char dataIni[11], dataFim[11];
+            sprintf(dataIni, "%02d/%02d/%04d",
+                    atual->evento.dataInicio.tm_mday,
+                    atual->evento.dataInicio.tm_mon + 1,
+                    atual->evento.dataInicio.tm_year + 1900);
+            sprintf(dataFim, "%02d/%02d/%04d",
+                    atual->evento.dataFim.tm_mday,
+                    atual->evento.dataFim.tm_mon + 1,
+                    atual->evento.dataFim.tm_year + 1900);
 
-            fprintf(arquivo, "%d|%s|%d|%s|%s|%s|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%s\n",
-                            atual->evento.id,
-                            atual->evento.nome,
-                            atual->evento.codigoCliente,
-                            atual->evento.dataInicio,
-                            atual->evento.dataFim,
-                            atual->evento.localEvento,
-                            atual->evento.cidade,
-                            atual->evento.uf,
-                            atual->evento.status,
-                            atual->evento.custo_total_recursos,
-                            atual->evento.custo_total_equipe,
-                            atual->evento.custo_total_fornecedores,
-                            atual->evento.custo_total,
-                            atual->evento.margem_lucro_percentual,
-                            atual->evento.valor_total_evento,
-                            atual->evento.obs);
-             }
+            fprintf(arquivo, "%d|%s|%d|%s|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%.2f|%s\n",
+                    atual->evento.id,
+                    atual->evento.nome,
+                    atual->evento.codigoCliente,
+                    dataIni,
+                    dataFim,
+                    atual->evento.localEvento,
+                    atual->evento.cidade,
+                    atual->evento.uf,
+                    atual->evento.status,
+                    atual->evento.custoTotalRecursos,
+                    atual->evento.custoTotalEquipe,
+                    atual->evento.custoTotalForn,
+                    atual->evento.custoTotal,
+                    atual->evento.margemLucro,
+                    atual->evento.valorFinal,
+                    atual->evento.obs);
+        }
         atual = atual->prox;
     }
 
@@ -271,20 +329,21 @@ int eventoSalvarTXT(TipoEvento *evento) {
     return 1;
 }
 
-
 int eventoLerTXT(ListaEvento **listaEvento) {
     FILE *arquivo = fopen("dados/evento.txt", "r");
     if (arquivo == NULL) return 0;
 
     TipoEvento temp = {0};
     int status_int;
+    char dataIni[11], dataFim[11];
+    int dia, mes, ano;
 
-    while (fscanf(arquivo, "%d|%99[^|]|%d|%10[^|]|%10[^|]|%199[^|]|%49[^|]|%2[^|]|%d|%f|%f|%f|%f|%f|%f|%499[^\n]\n",
+    while (fscanf(arquivo, "%d|%99[^|]|%d|%10[^|]|%10[^|]|%149[^|]|%49[^|]|%2[^|]|%d|%lf|%lf|%lf|%lf|%lf|%lf|%499[^\n]\n",
                   &temp.id,
                   temp.nome,
                   &temp.codigoCliente,
-                  temp.dataInicio = (struct tm){0},
-                  temp.dataFim = (struct tm){0},
+                  dataIni,
+                  dataFim,
                   temp.localEvento,
                   temp.cidade,
                   temp.uf,
@@ -295,36 +354,63 @@ int eventoLerTXT(ListaEvento **listaEvento) {
                   &temp.custoTotal,
                   &temp.margemLucro,
                   &temp.valorFinal,
-                  temp.obs) == 18) {
+                  temp.obs) == 16) {
 
-        temp.ativo = 1;
+        // Parse data início
+        sscanf(dataIni, "%d/%d/%d", &dia, &mes, &ano);
+        temp.dataInicio.tm_mday = dia;
+        temp.dataInicio.tm_mon = mes - 1;
+        temp.dataInicio.tm_year = ano - 1900;
+
+        // Parse data fim
+        sscanf(dataFim, "%d/%d/%d", &dia, &mes, &ano);
+        temp.dataFim.tm_mday = dia;
+        temp.dataFim.tm_mon = mes - 1;
+        temp.dataFim.tm_year = ano - 1900;
+
+        temp.ativo = true;
         temp.status = (StatusEvento)status_int;
         temp.listaRecursos = NULL;
         temp.listaEquipes = NULL;
         temp.listaFornecedores = NULL;
 
         eventoAdicionar(listaEvento, temp);
-                  }
+    }
 
     fclose(arquivo);
     return 1;
 }
 
-int eventoLerBIN(TipoEvento **listaEvento) {
+int eventoSalvarBIN(ListaEvento *listaEvento) {
+    FILE *arquivo = fopen("dados/evento.bin", "wb");
+    if (arquivo == NULL) return 0;
+
+    ListaEvento *atual = listaEvento;
+
+    while (atual != NULL) {
+        if (atual->evento.ativo) {
+            fwrite(&atual->evento, sizeof(TipoEvento), 1, arquivo);
+        }
+        atual = atual->prox;
+    }
+
+    fclose(arquivo);
+    return 1;
+}
+
+int eventoLerBIN(ListaEvento **listaEvento) {
     FILE *arquivo = fopen("dados/evento.bin", "rb");
     if (arquivo == NULL) return 0;
 
     TipoEvento temp = {0};
 
-    // conferir se os nomes estao corretos ou se confudi listaRecursos p/ lista_recursos
     while (fread(&temp, sizeof(TipoEvento), 1, arquivo) == 1) {
-        // zerar ponteiros da lista para evitar lixo
         temp.listaRecursos = NULL;
         temp.listaEquipes = NULL;
         temp.listaFornecedores = NULL;
 
-            eventoAdicionar(listaEvento, temp);
-        }
+        eventoAdicionar(listaEvento, temp);
+    }
 
     fclose(arquivo);
     return 1;

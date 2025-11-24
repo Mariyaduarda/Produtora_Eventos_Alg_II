@@ -165,3 +165,41 @@ void printMenuConfig(TipoConfig config){
         config.validar_dados ? "     Ativa" : "Desativada"
     );
 }
+
+// ===== MENU DE EVENTOS =====
+void printMenuEventos() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Eventos                                       | "
+        "\n |==================================================================| "
+        "\n |   1. Novo Evento                                                 | "
+        "\n |   2. Listar Eventos                                              | "
+        "\n |   3. Editar Evento                                               | "
+        "\n |   4. Gerenciar Financeiro de Evento                              | "
+        "\n |   5. Aprovar Evento                                              | "
+        "\n |   6. Finalizar Evento                                            | "
+        "\n |   7. Cancelar Evento                                             | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+
+// ===== MENU DE TRANSACOES =====
+void printMenuFinanceiro() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Transações                                       | "
+        "\n |==================================================================| "
+        "\n |   1. Gerar Conta a Receeer                                                 | "
+        "\n |   2. Ver Conta a Receber                                              | "
+        "\n |   3. Ver Contas do Evento                                               | "| "
+        "\n |   4. Atualizar Margem de Lucro                                               | "| "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+

@@ -2,8 +2,6 @@
 // Created by alunos on 07/10/2025.
 //
 #include "utils_bibliotecas.h"
-
-#include <ctype.h>
 // ===== VALIDACAO DO CPF ======
 bool validarCPF(const char *cpf_cnpj) {
     int i, j = 0, digito1 = 0, digito2 = 0;
@@ -214,7 +212,33 @@ bool validarUsuario(const char *usuario) {
         }
     return true;
     }
-
-bool eventoValidaCodigo(int codigo) {
+// ====== VALIDACAO DE CODIGO=====
+bool validaCodigo(int codigo) { // sem ponteiro é um valor!
     return codigo > 0;
+}
+
+// ====== VALIDACAO DE DATA=====
+// metodo de ano bissexto para incluir ao validar data
+int ehBissexto(int ano) {
+    return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+// vou validar as datas de transacao de recebe e a pagar
+bool validarData(const char *dataStr){
+    int dia, mes, ano;
+
+    // se n coicidir com 3 nao é ok
+    if(sscanf(dataStr, "%d/%d/%d", &dia, &mes,&ano) != 3)
+    return false;
+
+    // confere a veracidade da logica de dia mes e ano
+    if(dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2035)
+    return false;
+
+int diasNoMes[] = {31, ehBissexto(ano) ? 29 : 28, 31, 30, 31, 30,
+                       31, 31, 30, 31, 30, 31};
+    if (dia > diasNoMes[mes - 1])
+        return false;
+
+    return true; // data valida portanto true
 }
