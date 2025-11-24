@@ -45,6 +45,7 @@ int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente* li
         fornecedorSalvarBIN(listaFornecedor);
         operadorSalvarBIN(listaOperador);
         recursoSalvarBIN(listaRecurso);
+        eventoSalvarBIN(listaEvento);
 
         // Apaga arquivos txt antigos
         remove("dados/config.txt");
@@ -54,6 +55,7 @@ int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente* li
         remove("dados/fornecedor.txt");
         remove("dados/operador.txt");
         remove("dados/recurso.txt");
+        remove("dados/evento.txt");
 
         return 1;
     } else {
@@ -65,6 +67,8 @@ int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente* li
         fornecedorSalvarTXT(listaFornecedor);
         operadorSalvarTXT(listaOperador);
         recursoSalvarTXT(listaRecurso);
+        eventoSalvarTXT(ListaEvento *listaEvento);
+        movimentacaoSalvarTXT(ListaMovimentacao *lista);
 
         // Apaga arquivos binarios antigos
         remove("dados/config.bin");
@@ -74,6 +78,8 @@ int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente* li
         remove("dados/fornecedor.bin");
         remove("dados/operador.bin");
         remove("dados/recurso.bin");
+        remove("dados/evento.bin");
+        remove("dados/transacoes.bin");
 
         return 1;
     }

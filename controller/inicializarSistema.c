@@ -22,6 +22,7 @@ void inicializarSistema() {
     ListaEquipe* listaEquipe = NULL;
     ListaRecurso* listaRecurso = NULL;
     ListaOperador* listaOperador = NULL;
+    ListaEvento* listaEvento = NULL;
 
     //===========================================
     // Le da memoria
@@ -60,6 +61,8 @@ void inicializarSistema() {
     fornecedorListaLiberar(listaFornecedor);
     operadorListaLiberar(listaOperador);
     recursoListaLiberar(listaRecurso);
+    eventoListaLiberar(listaEvento);
+    transacaoListaLiberar(listaTransacoes);
 
     printf("\n\n");
 }

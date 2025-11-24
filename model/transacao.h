@@ -1,8 +1,10 @@
 #ifndef TRANSACAO_H
 #define TRANSACAO_H
 
+#include <stdbool.h>
 #include "evento.h"
-// enums para tipo de transação
+
+// ===== ENUMS =====
 typedef enum {
     TIPO_ENTRADA,
     TIPO_SAIDA
@@ -15,20 +17,21 @@ typedef enum {
     FORMA_PIX
 } FormaPagamento;
 
-// === ESTRUTURAS BASES ===
-// movientação de caixa
+// ===== ESTRUTURAS BASE =====
+
+// Movimentação de Caixa
 typedef struct {
     int id;
-    char data[11];
-    char hora[6];
-    TipoTransacao tipo;  // entrada ou saída
+    char data[11];          // dd/mm/aaaa
+    char hora[6];           // hh:mm
+    TipoTransacao tipo;
     float valor;
     FormaPagamento formaPagamento;
     char descricao[200];
-    int codigoEvento;  // se relacionado a um evento
+    int codigoEvento;       // 0 se não relacionado a evento
 } MovimentacaoCaixa;
 
-// === CONTAS A RECEBER ===
+// Contas a Receber
 typedef struct {
     int codigo;
     int codigoCliente;
@@ -38,12 +41,12 @@ typedef struct {
     float valorRestante;
     char dataEmissao[11];
     char dataVencimento[11];
-    char dataPagamento[11];  // vazio se não pago
-    bool pago = true;  // 0 = não pago, 1(true) = pago
+    char dataPagamento[11];
+    bool pago;              // false = não pago, true = pago
     char observacoes[200];
 } ContaReceber;
 
-// === CONTAS A PAGAR ===
+// Contas a Pagar
 typedef struct {
     int codigo;
     int codigoFornecedor;
@@ -53,11 +56,11 @@ typedef struct {
     char dataEmissao[11];
     char dataVencimento[11];
     char dataPagamento[11];
-    bool pago = true;  // 0 = não pago, 1(true) = pago
+    bool pago;
     char descricao[200];
 } ContaPagar;
 
-// === NOTA FISCAL DE ENTRADA ===
+// Nota Fiscal de Entrada
 typedef struct {
     int codigoRecurso;
     char descricao[100];
@@ -75,53 +78,113 @@ typedef struct {
     ItemNotaFiscal* itens;
     int qtdItens;
     float valorTotal;
-
-    // Forma de pagamento
-    int pagoAVista;  // 1 = sim, 0 = não
+    int pagoAVista;
     float valorEntrada;
     int numeroParcelas;
 } NotaFiscalEntrada;
+
+// ===== ESTRUTURAS DE LISTAS ENCADEADAS =====
+
+typedef struct ListaMovimentacao {
+    MovimentacaoCaixa movimentacao;
+    struct ListaMovimentacao *prox;
+} ListaMovimentacao;
+
+typedef struct ListaContaReceber {
+    ContaReceber conta;
+    struct ListaContaReceber *prox;
+} ListaContaReceber;
+
+typedef struct ListaContaPagar {
+    ContaPagar conta;
+    struct ListaContaPagar *prox;
+} ListaContaPagar;
+
+// ===== FUNÇÕES DE INICIALIZAÇÃO =====
+void movimentacaoCaixaInit(MovimentacaoCaixa *mov);
+void contaReceberInit(ContaReceber *cr);
+void contaPagarInit(ContaPagar *cp);
+
+void listaMovimentacaoInit(ListaMovimentacao **lista);
+void listaContaReceberInit(ListaContaReceber **lista);
+void listaContaPagarInit(ListaContaPagar **lista);
 
 // ===== FUNÇÕES AUXILIARES =====
 void obterDataAtual(char *data);
 void obterDataHoraAtual(char *data, char *hora);
 void calcularDataVencimento(char *dataVenc, int dias);
 
+// ===== CRUD MOVIMENTAÇÃO DE CAIXA =====
+int movimentacaoAdicionar(ListaMovimentacao **lista, MovimentacaoCaixa mov);
+MovimentacaoCaixa* movimentacaoBuscar(ListaMovimentacao *lista, int id);
+void movimentacaoListaLiberar(ListaMovimentacao *lista);
+
+// ===== CRUD CONTA A RECEBER =====
+int contaReceberAdicionar(ListaContaReceber **lista, ContaReceber conta);
+ContaReceber* contaReceberBuscar(ListaContaReceber *lista, int codigo);
+ContaReceber* contaReceberBuscarPorEvento(ListaContaReceber *lista, int codigoEvento);
+void contaReceberListaLiberar(ListaContaReceber *lista);
+
+// ===== CRUD CONTA A PAGAR =====
+int contaPagarAdicionar(ListaContaPagar **lista, ContaPagar conta);
+ContaPagar* contaPagarBuscar(ListaContaPagar *lista, int codigo);
+void contaPagarListaLiberar(ListaContaPagar *lista);
+
 // ===== FUNÇÕES DE CAIXA =====
-float obterSaldoCaixa();
-int registrarEntradaCaixa(float valor, FormaPagamento forma,
+float obterSaldoCaixa(ListaMovimentacao *lista);
+int registrarEntradaCaixa(ListaMovimentacao **lista, float valor, FormaPagamento forma,
                           const char* descricao, int codigoEvento);
-int registrarSaidaCaixa(float valor, const char* descricao);
+int registrarSaidaCaixa(ListaMovimentacao **lista, float valor, const char* descricao);
 
 // ===== FUNÇÕES DE CONTAS A RECEBER =====
-ContaReceber* buscarContaReceberPorCodigo(int codigo);
-int gerarContaReceber(int codigoCliente, int codigoEvento, float valor);
-int baixarContaReceber(int codigoConta, float valorPagamento, FormaPagamento forma);
+int gerarContaReceber(ListaContaReceber **lista, int codigoCliente, int codigoEvento, float valor);
+int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
+                       int codigoConta, float valorPagamento, FormaPagamento forma);
 
 // ===== FUNÇÕES DE CONTAS A PAGAR =====
-ContaPagar* buscarContaPagarPorCodigo(int codigo);
-int gerarContaPagar(int codigoFornecedor, float valor, int diasVencimento,
-                    const char* descricao);
-int baixarContaPagar(int codigoConta);
+int gerarContaPagar(ListaContaPagar **lista, int codigoFornecedor, float valor,
+                    int diasVencimento, const char* descricao);
+int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int codigoConta);
 
 // ===== INTEGRAÇÃO COM EVENTOS =====
-int eventoGerarContaReceber(TipoEvento *evento);
-int eventoReceberPagamento(int codigoEvento, float valor, FormaPagamento forma);
+int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista);
+int eventoReceberPagamento(int codigoEvento, ListaContaReceber *lista,
+                           ListaMovimentacao **listaMov, float valor, FormaPagamento forma);
 
 // ===== RELATÓRIOS =====
-void relatorioFluxoCaixa();
-void relatorioContasReceber();
-void relatorioContasPagar();
+void relatorioFluxoCaixa(ListaMovimentacao *lista);
+void relatorioContasReceber(ListaContaReceber *lista);
+void relatorioContasPagar(ListaContaPagar *lista);
 
-// ===== PERSISTÊNCIA =====
-int salvarTransacoesTXT();
-int carregarTransacoesTXT();
+// ===== PERSISTÊNCIA - MOVIMENTAÇÕES =====
+int movimentacaoSalvarTXT(ListaMovimentacao *lista);
+int movimentacaoLerTXT(ListaMovimentacao **lista);
+int movimentacaoSalvarBIN(ListaMovimentacao *lista);
+int movimentacaoLerBIN(ListaMovimentacao **lista);
 
-// ===== NOTA FISCAL (se você for implementar) =====
+// ===== PERSISTÊNCIA - CONTAS A RECEBER =====
+int contaReceberSalvarTXT(ListaContaReceber *lista);
+int contaReceberLerTXT(ListaContaReceber **lista);
+int contaReceberSalvarBIN(ListaContaReceber *lista);
+int contaReceberLerBIN(ListaContaReceber **lista);
+
+// ===== PERSISTÊNCIA - CONTAS A PAGAR =====
+int contaPagarSalvarTXT(ListaContaPagar *lista);
+int contaPagarLerTXT(ListaContaPagar **lista);
+int contaPagarSalvarBIN(ListaContaPagar *lista);
+int contaPagarLerBIN(ListaContaPagar **lista);
+
+// ===== FUNÇÕES AUXILIARES DE PERSISTÊNCIA =====
+int transacaoSalvarTudo(ListaMovimentacao *listaMov, ListaContaReceber *listaCR,
+                        ListaContaPagar *listaCP, int tipoArquivo);
+int transacaoCarregarTudo(ListaMovimentacao **listaMov, ListaContaReceber **listaCR,
+                         ListaContaPagar **listaCP, int tipoArquivo);
+
+// ===== NOTA FISCAL (implementação futura) =====
 NotaFiscalEntrada* criarNotaFiscal(int codigoFornecedor, float frete, float imposto);
 int adicionarItemNotaFiscal(NotaFiscalEntrada* nf, int codigoRecurso,
                             const char* descricao, float precoCusto, int quantidade);
 int finalizarNotaFiscal(NotaFiscalEntrada* nf, int pagoAVista,
                        float valorEntrada, int numeroParcelas);
 
-#endif //TRANSACAO_H
+#endif // TRANSACAO_H

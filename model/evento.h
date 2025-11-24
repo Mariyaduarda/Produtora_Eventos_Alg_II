@@ -61,8 +61,7 @@ typedef struct {
     char nome[100];
 
     // datas e locais do evento
-    struct tm dataInicio; // formatar como dd/mm/aaaa
-    struct tm dataFim;
+
     // char horaInicio[6];  // hh mm
     // char horaFim[6];
 

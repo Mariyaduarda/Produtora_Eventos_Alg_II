@@ -187,19 +187,89 @@ void printMenuEventos() {
 }
 
 // ===== MENU DE TRANSACOES =====
-void printMenuFinanceiro() {
+void printMenuTransacaoPrincipal() {
     limparTela();
     printf(
         "\n======================================================================"
-        "\n | # Gerenciamento de Transações                                       | "
-        "\n |==================================================================| "
-        "\n |   1. Gerar Conta a Receeer                                                 | "
-        "\n |   2. Ver Conta a Receber                                              | "
-        "\n |   3. Ver Contas do Evento                                               | "| "
-        "\n |   4. Atualizar Margem de Lucro                                               | "| "
-        "\n |==================================================================| "
-        "\n |   0. Voltar                                                      | "
+        "\n | # Gerenciamento Financeiro                                       |"
+        "\n |==================================================================|"
+        "\n |   1. Movimentação de Caixa                                      |"
+        "\n |   2. Contas a Receber                                            |"
+        "\n |   3. Contas a Pagar                                              |"
+        "\n |   4. Nota Fiscal de Entrada                                      |"
+        "\n |   5. Relatórios                                                  |"
+        "\n |==================================================================|"
+        "\n |   0. Voltar                                                      |"
         "\n======================================================================"
     );
 }
+
+// ===== MENU MVIMENTACAO DO CAIXA =====
+void printMenuMovimentacaoCaixa(float saldo) {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Movimentação de Caixa                                          |"
+        "\n======================================================================"
+        "\n | Saldo Atual: R$ %.2f                                              "
+        "\n |------------------------------------------------------------------|"
+        "\n |   1. Registrar Entrada                                           |"
+        "\n |   2. Registrar Saída                                             |"
+        "\n |   3. Consultar Movimentações                                     |"
+        "\n |------------------------------------------------------------------|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================",
+        saldo
+    );
+}
+
+// ===== MENU CONTAS A RECEBER =====
+void printMenuContasReceber() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Contas a Receber                                               |"
+        "\n======================================================================"
+        "\n |   1. Gerar Conta (via Evento)                                    |"
+        "\n |   2. Baixar Conta (Receber Pagamento)                            |"
+        "\n |   3. Consultar Conta específica                                  |"
+        "\n |   4. Listar Todas as Contas                                      |"
+        "\n |------------------------------------------------------------------|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================"
+    );
+}
+// ===== MENU CONTAS A PAGAR =====
+void printMenuContasPagar() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Contas a Pagar                                                 |"
+        "\n======================================================================"
+        "\n |   1. Gerar Conta Manual                                          |"
+        "\n |   2. Baixar Conta (Efetuar Pagamento)                            |"
+        "\n |   3. Consultar Conta específica                                  |"
+        "\n |   4. Listar Todas as Contas                                      |"
+        "\n |------------------------------------------------------------------|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================"
+    );
+}
+// ===== MENU RELATORIOS =====
+void printMenuRelatorios() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Relatórios Financeiros                                         |"
+        "\n======================================================================"
+        "\n |   1. Fluxo de Caixa                                              |"
+        "\n |   2. Contas a Receber                                            |"
+        "\n |   3. Contas a Pagar                                              |"
+        "\n |------------------------------------------------------------------|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================"
+    );
+}
+
+
 

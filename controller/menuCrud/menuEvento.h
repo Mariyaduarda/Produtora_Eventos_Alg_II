@@ -6,6 +6,7 @@
 #include "../../model/recurso.h"
 #include "../../model/equipe.h"
 #include "../../model/fornecedor.h"
+#include "../../model/transacoes.h"
 
 #include "../../utils/utils_tela.h"
 #include "../../utils/recebeDados.h"

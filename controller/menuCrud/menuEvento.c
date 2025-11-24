@@ -1,4 +1,4 @@
-#include "menu_evento.h"
+#include "menuEvento.h"
 
 // ========== FUNÇÃO PARA RECEBER DADOS DO EVENTO ==========
 TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente) {
@@ -608,21 +608,21 @@ void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config) {
 void menuEventoRelatorio(TipoEvento *evento, TipoConfig *config) {
     limparTela();
     imprimirCabecalho("RELATÓRIO COMPLETO DO EVENTO", config);
-    
+
     printf("\n%s=== INFORMAÇÕES GERAIS ===%s\n", config->cor, RESET);
     printf("ID: %d\n", evento->id);
     printf("Nome: %s\n", evento->nome);
     printf("Cliente: %d\n", evento->codigoCliente);
-    printf("Data Início: %02d/%02d/%04d\n", 
+    printf("Data Início: %02d/%02d/%04d\n",
            evento->dataInicio.tm_mday,
            evento->dataInicio.tm_mon + 1,
            evento->dataInicio.tm_year + 1900);
-    printf("Data Fim: %02d/%02d/%04d\n", 
+    printf("Data Fim: %02d/%02d/%04d\n",
            evento->dataFim.tm_mday,
            evento->dataFim.tm_mon + 1,
            evento->dataFim.tm_year + 1900);
     printf("Local: %s - %s/%s\n", evento->localEvento, evento->cidade, evento->uf);
-    
+
     printf("\n%s=== STATUS ===%s ", config->cor, RESET);
     switch(evento->status) {
         case STATUS_ORCAMENTO:
@@ -638,14 +638,15 @@ void menuEventoRelatorio(TipoEvento *evento, TipoConfig *config) {
             printf("Cancelado\n");
             break;
     }
-    
+
     printf("\n%s=== CUSTOS ===%s\n", config->cor, RESET);
     printf("Recursos:    R$ %.2f\n", evento->custoTotalRecursos);
     printf("Equipe:      R$ %.2f\n", evento->custoTotalEquipe);
     printf("Fornecedores: R$ %.2f\n", evento->custoTotalForn);
     printf("%s--------------------------------%s\n", config->cor, RESET);
     printf("Custo Total: R$ %.2f\n", evento->custoTotal);
-    
+
     printf("\n%s=== VALORES ===%s\n", config->cor, RESET);
     printf("Margem de Lucro: %.2f%%\n", evento->margemLucro);
-    printf("%sValor Final: R$ %.2f
+    printf("%sValor Final: R$ %.2f%\n", evento->valorFinal);
+    }

@@ -23,6 +23,9 @@ bool validarSenha(const char *senha);
 bool validarUsuario(const char *usuario);
 int validarDadosCliente(TipoCliente *cliente, char *mensagemErro);
 int validaCodigo(int codigo);
+int ehBissexto(int ano);
+bool validarData(const char *dataStr);
+
 // Funcoes de utilidade para mudar a tela
 void limparTela();
 void esperaEnter();
