@@ -158,7 +158,7 @@ bool validarNome(const char *nome) {
     // assegura nao comecar nem terminar com espaco
     if (nome[0] == ' ' || nome[len-1] == ' ') return false;
 
-    // verifica caracteres validos e presenca de espaço
+    // verifica caracteres validos e presenca de espaco
     for (i = 0; i < len; i++) {
         if (isalpha( (unsigned char)nome[i]) || nome[i] == ' ' || nome[i] == '\''
             || nome[i] == '-' || nome[i] == '.' || nome[i] >= 0xC0) { // 0xC0 p/ carcateres acentuados
@@ -167,7 +167,7 @@ bool validarNome(const char *nome) {
             return false;
         }
     }
-    // retornar false se não tem espaço
+    // retornar false se nao tem espaco
     if (!tem_espaco) return false;
     return true;
 }

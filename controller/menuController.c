@@ -28,6 +28,22 @@ void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **
                 menuTransacao(produtora, config);
                 break;
             case 4:
+                // Salvar dados    
+                if (config->salvar_como_binario) {
+                    configSalvarBIN(*config);
+                    remove("config.txt");
+                    printMensagem("Configuracoes salvas em binario","#");
+                } else {
+                    configSalvarTXT(*config);
+                    remove("config.bin");
+                    printMensagem("Configuracoes salvas em texto","#");
+                }
+
+                // Salva os dados na memoria
+                salvarMemoria(config, produtora, *listaCliente, *listaFornecedor,
+                    *listaEquipe,  *listaEvento, *listaRecurso, *listaOperador, 
+                    *listaMovimentacao, *listaContaReceber, *listaContaPagar);
+
                 esperaEnter();
                 break;
             case 5:

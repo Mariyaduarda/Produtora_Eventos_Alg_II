@@ -1,6 +1,6 @@
 #include "menuEvento.h"
 
-// ========== FUNÇÃO PARA RECEBER DADOS DO EVENTO ==========
+// ========== FUNCAO PARA RECEBER DADOS DO EVENTO ==========
 TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente) {
     // Recebe um novo Evento do usuario e retorna o evento preenchido
     TipoEvento evento;
@@ -31,19 +31,7 @@ void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *list
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
-        limparTela();
-        printf(
-            "\n======================================================================"
-            "\n | # Gerenciamento de Eventos                                       | "
-            "\n |==================================================================| "
-            "\n |   1. Adicionar                                                   | "
-            "\n |   2. Remover                                                     | "
-            "\n |   3. Buscar/Editar                                               | "
-            "\n |   4. Listar                                                      | "
-            "\n |==================================================================| "
-            "\n |   0. Voltar                                                      | "
-            "\n======================================================================"
-        );
+        printMenuEventos(config);
 
         // Recebe a escolha do usuario
         escolha = recebeInt(0, 4, "Digite uma opcao", "#", config->validar_dados);
@@ -477,7 +465,7 @@ void menuEventoEditarDatas(TipoEvento *evento, TipoConfig *config) {
     }
 }
 
-// ========== EDITAR DADOS BÁSICOS ==========
+// ========== EDITAR DADOS BASICOS ==========
 void menuEventoEditarDados(TipoEvento *evento, ListaCliente *listaCliente, TipoConfig *config) {
     if (evento == NULL) {
         printNaoEncontrado();
@@ -699,7 +687,7 @@ void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config) {
     if (sucesso) printAtualizarSucesso();
     else printAtualizarFalha();
 }
-// ========== RELATÓRIO ==========
+// ========== RELATORIO ==========
 void menuEventoRelatorio(TipoEvento *evento, TipoConfig *config) {
     if (evento == NULL) {
         printNaoEncontrado();

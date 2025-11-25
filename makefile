@@ -6,7 +6,7 @@ OBJS = $(SRCS:.c=.o)
 TARGET = main.exe
 
 
-# Alvo padrão: compila, executa e limpa
+# Alvo padrao: compila, executa e limpa
 all: $(TARGET)
 	./$(TARGET)
 	$(MAKE) clean
@@ -22,7 +22,7 @@ clean:
 
 help:
 	@echo "==============================================="
-	@echo " HELP - COMANDOS DISPONÍVEIS NO MAKEFILE  "
+	@echo " HELP - COMANDOS DISPONIVEIS NO MAKEFILE  "
 	@echo "==============================================="
 	@echo ""
 	@echo "   make          || Compila, executa e limpa o projeto"
@@ -31,7 +31,7 @@ help:
 	@echo ""
 	@echo "-----------------------------------------------"
 	@echo "⚙️  Compilador: $(CC)"
-	@echo "📂 Diretórios de código-fonte: $(SRC_DIRS)"
+	@echo "📂 Diretorios de codigo-fonte: $(SRC_DIRS)"
 	@echo "==============================================="
 	@echo ""
 

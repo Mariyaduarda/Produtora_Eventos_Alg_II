@@ -20,7 +20,7 @@ typedef enum {
 
 // ===== ESTRUTURAS BASE =====
 
-// Movimentação de Caixa
+// Movimentacao de Caixa
 typedef struct {
     int id;
     char data[11];          // dd/mm/aaaa
@@ -29,7 +29,7 @@ typedef struct {
     float valor;
     FormaPagamento formaPagamento;
     char descricao[200];
-    int codigoEvento;       // 0 se não relacionado a evento
+    int codigoEvento;       // 0 se nao relacionado a evento
 } MovimentacaoCaixa;
 
 // Contas a Receber
@@ -43,7 +43,7 @@ typedef struct {
     char dataEmissao[11];
     char dataVencimento[11];
     char dataPagamento[11];
-    bool pago;              // false = não pago, true = pago
+    bool pago;              // false = nao pago, true = pago
     char observacoes[200];
 } ContaReceber;
 
@@ -101,7 +101,7 @@ typedef struct ListaContaPagar {
     struct ListaContaPagar *prox;
 } ListaContaPagar;
 
-// ===== FUNÇÕES DE INICIALIZAÇÃO =====
+// ===== FUNCOES DE INICIALIZACAO =====
 void movimentacaoCaixaInit(MovimentacaoCaixa *mov);
 void contaReceberInit(ContaReceber *cr);
 void contaPagarInit(ContaPagar *cp);
@@ -110,12 +110,12 @@ void listaMovimentacaoInit(ListaMovimentacao **lista);
 void listaContaReceberInit(ListaContaReceber **lista);
 void listaContaPagarInit(ListaContaPagar **lista);
 
-// ===== FUNÇÕES AUXILIARES =====
+// ===== FUNCOES AUXILIARES =====
 void obterDataAtual(char *data);
 void obterDataHoraAtual(char *data, char *hora);
 void calcularDataVencimento(char *dataVenc, int dias);
 
-// ===== CRUD MOVIMENTAÇÃO DE CAIXA =====
+// ===== CRUD MOVIMENTACAO DE CAIXA =====
 int movimentacaoAdicionar(ListaMovimentacao **lista, MovimentacaoCaixa mov);
 MovimentacaoCaixa* movimentacaoBuscar(ListaMovimentacao *lista, int id);
 void movimentacaoListaLiberar(ListaMovimentacao *lista);
@@ -131,33 +131,33 @@ int contaPagarAdicionar(ListaContaPagar **lista, ContaPagar conta);
 ContaPagar* contaPagarBuscar(ListaContaPagar *lista, int codigo);
 void contaPagarListaLiberar(ListaContaPagar *lista);
 
-// ===== FUNÇÕES DE CAIXA =====
+// ===== FUNCOES DE CAIXA =====
 float obterSaldoCaixa(ListaMovimentacao *lista);
 int registrarEntradaCaixa(ListaMovimentacao **lista, float valor, FormaPagamento forma,
                           const char* descricao, int codigoEvento);
 int registrarSaidaCaixa(ListaMovimentacao **lista, float valor, const char* descricao);
 
-// ===== FUNÇÕES DE CONTAS A RECEBER =====
+// ===== FUNCOES DE CONTAS A RECEBER =====
 int gerarContaReceber(ListaContaReceber **lista, int codigoCliente, int codigoEvento, float valor);
 int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
                        int codigoConta, float valorPagamento, FormaPagamento forma);
 
-// ===== FUNÇÕES DE CONTAS A PAGAR =====
+// ===== FUNCOES DE CONTAS A PAGAR =====
 int gerarContaPagar(ListaContaPagar **lista, int codigoFornecedor, float valor,
                     int diasVencimento, const char* descricao);
 int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int codigoConta);
 
-// ===== INTEGRAÇÃO COM EVENTOS =====
+// ===== INTEGRACAO COM EVENTOS =====
 int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista);
 int eventoReceberPagamento(int codigoEvento, ListaContaReceber *lista,
                            ListaMovimentacao **listaMov, float valor, FormaPagamento forma);
 
-// ===== RELATÓRIOS =====
+// ===== RELATORIOS =====
 void relatorioFluxoCaixa(ListaMovimentacao *lista);
 void relatorioContasReceber(ListaContaReceber *lista);
 void relatorioContasPagar(ListaContaPagar *lista);
 
-// ===== PERSISTÊNCIA - MOVIMENTAÇÕES =====
+// ===== PERSISTÊNCIA - MOVIMENTACOES =====
 int movimentacaoSalvarTXT(ListaMovimentacao *lista);
 int movimentacaoLerTXT(ListaMovimentacao **lista);
 int movimentacaoSalvarBIN(ListaMovimentacao *lista);
@@ -175,13 +175,13 @@ int contaPagarLerTXT(ListaContaPagar **lista);
 int contaPagarSalvarBIN(ListaContaPagar *lista);
 int contaPagarLerBIN(ListaContaPagar **lista);
 
-// ===== FUNÇÕES AUXILIARES DE PERSISTÊNCIA =====
+// ===== FUNCOES AUXILIARES DE PERSISTÊNCIA =====
 int transacaoSalvarTudo(ListaMovimentacao *listaMov, ListaContaReceber *listaCR,
                         ListaContaPagar *listaCP, int tipoArquivo);
 int transacaoCarregarTudo(ListaMovimentacao **listaMov, ListaContaReceber **listaCR,
                          ListaContaPagar **listaCP, int tipoArquivo);
 
-// ===== NOTA FISCAL (implementação futura) =====
+// ===== NOTA FISCAL (implementacao futura) =====
 NotaFiscalEntrada* criarNotaFiscal(int codigoFornecedor, float frete, float imposto);
 int adicionarItemNotaFiscal(NotaFiscalEntrada* nf, int codigoRecurso,
                             const char* descricao, float precoCusto, int quantidade);

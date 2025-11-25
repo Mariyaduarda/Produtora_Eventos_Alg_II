@@ -1,6 +1,6 @@
 #include "transacao.h"
 
-// ===== INICIALIZAÇÃO =====
+// ===== INICIALIZACAO =====
 
 void movimentacaoCaixaInit(MovimentacaoCaixa *mov) {
     mov->id = 0;
@@ -40,7 +40,7 @@ void contaPagarInit(ContaPagar *cp) {
     strcpy(cp->descricao, "");
 }
 
-// ===== INICIALIZAÇÃO DE LISTAS =====
+// ===== INICIALIZACAO DE LISTAS =====
 
 void listaMovimentacaoInit(ListaMovimentacao **lista) {
     *lista = NULL;
@@ -54,7 +54,7 @@ void listaContaPagarInit(ListaContaPagar **lista) {
     *lista = NULL;
 }
 
-// ===== FUNÇÕES AUXILIARES =====
+// ===== FUNCOES AUXILIARES =====
 
 void obterDataAtual(char *data) {
     time_t t = time(NULL);
@@ -76,7 +76,7 @@ void calcularDataVencimento(char *dataVenc, int dias) {
     sprintf(dataVenc, "%02d/%02d/%04d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
 }
 
-// ===== CRUD MOVIMENTAÇÃO DE CAIXA =====
+// ===== CRUD MOVIMENTACAO DE CAIXA =====
 
 int movimentacaoAdicionar(ListaMovimentacao **lista, MovimentacaoCaixa mov) {
     ListaMovimentacao *novo = (ListaMovimentacao *)malloc(sizeof(ListaMovimentacao));
@@ -221,7 +221,7 @@ void contaPagarListaLiberar(ListaContaPagar *lista) {
     }
 }
 
-// ===== FUNÇÕES DE CAIXA =====
+// ===== FUNCOES DE CAIXA =====
 
 float obterSaldoCaixa(ListaMovimentacao *lista) {
     float saldo = 0.0;
@@ -278,7 +278,7 @@ int registrarSaidaCaixa(ListaMovimentacao **lista, float valor, const char* desc
     return movimentacaoAdicionar(lista, mov);
 }
 
-// ===== FUNÇÕES DE CONTAS A RECEBER =====
+// ===== FUNCOES DE CONTAS A RECEBER =====
 
 int gerarContaReceber(ListaContaReceber **lista, int codigoCliente, int codigoEvento, float valor) {
     ContaReceber cr;
@@ -302,7 +302,7 @@ int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
                        int codigoConta, float valorPagamento, FormaPagamento forma) {
     ContaReceber* cr = contaReceberBuscar(lista, codigoConta);
     if (cr == NULL) {
-        printf("Erro: Conta não encontrada!\n");
+        printf("Erro: Conta nao encontrada!\n");
         return 0;
     }
 
@@ -344,7 +344,7 @@ int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
     return 1;
 }
 
-// ===== FUNÇÕES DE CONTAS A PAGAR =====
+// ===== FUNCOES DE CONTAS A PAGAR =====
 
 int gerarContaPagar(ListaContaPagar **lista, int codigoFornecedor, float valor,
                     int diasVencimento, const char* descricao) {
@@ -379,7 +379,7 @@ int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int c
 
     float valor = cp->valorRestante;
 
-    // Registra saída no caixa
+    // Registra saida no caixa
     char desc[200];
     snprintf(desc, 200, "Pagamento - %s", cp->descricao);
 
@@ -396,7 +396,7 @@ int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int c
     return 1;
 }
 
-// ===== INTEGRAÇÃO COM EVENTOS =====
+// ===== INTEGRACAO COM EVENTOS =====
 
 int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista) {
     if (evento == NULL) {
@@ -440,19 +440,19 @@ int eventoReceberPagamento(int codigoEvento, ListaContaReceber *lista,
     return baixarContaReceber(lista, listaMov, cr->codigo, valor, forma);
 }
 
-// ===== RELATÓRIOS =====
+// ===== RELATORIOS =====
 void relatorioFluxoCaixa(ListaMovimentacao *lista) {
     printf("\n========== FLUXO DE CAIXA ==========\n");
     printf("Saldo Atual: R$ %.2f\n\n", obterSaldoCaixa(lista));
 
     printf("%-6s %-12s %-8s %-10s %-10s %-15s %-30s\n",
-           "ID", "Data", "Hora", "Tipo", "Valor", "Forma Pgto", "Descrição");
+           "ID", "Data", "Hora", "Tipo", "Valor", "Forma Pgto", "Descricao");
     printf("----------------------------------------------------------------------------------------\n");
 
     ListaMovimentacao *atual = lista;
     while (atual != NULL) {
         MovimentacaoCaixa *m = &atual->movimentacao;
-        const char *tipo = (m->tipo == TIPO_ENTRADA) ? "ENTRADA" : "SAÍDA";
+        const char *tipo = (m->tipo == TIPO_ENTRADA) ? "ENTRADA" : "SAIDA";
         const char *forma = (m->formaPagamento == FORMA_DINHEIRO) ? "Dinheiro" :
                            (m->formaPagamento == FORMA_PIX) ? "PIX" :
                            (m->formaPagamento == FORMA_DEBITO) ? "Debito" : "Credito";
@@ -480,7 +480,7 @@ void relatorioContasReceber(ListaContaReceber *lista) {
                cr->codigo, cr->codigoCliente, cr->codigoEvento);
         printf("Valor Total: R$ %.2f | Pago: R$ %.2f | Restante: R$ %.2f\n",
                cr->valorTotal, cr->valorPago, cr->valorRestante);
-        printf("Emissão: %s | Vencimento: %s | Status: %s\n",
+        printf("Emissao: %s | Vencimento: %s | Status: %s\n",
                cr->dataEmissao, cr->dataVencimento, cr->pago ? "PAGO" : "EM ABERTO");
         printf("---------------------------------------------------\n");
 
@@ -504,10 +504,10 @@ void relatorioContasPagar(ListaContaPagar *lista) {
         totalAberto += cp->valorRestante;
 
         printf("\nConta: %d | Fornecedor: %d\n", cp->codigo, cp->codigoFornecedor);
-        printf("Descrição: %s\n", cp->descricao);
+        printf("Descricao: %s\n", cp->descricao);
         printf("Valor Total: R$ %.2f | Pago: R$ %.2f | Restante: R$ %.2f\n",
                cp->valorTotal, cp->valorPago, cp->valorRestante);
-        printf("Emissão: %s | Vencimento: %s | Status: %s\n",
+        printf("Emissao: %s | Vencimento: %s | Status: %s\n",
                cp->dataEmissao, cp->dataVencimento, cp->pago ? "PAGO" : "EM ABERTO");
         printf("---------------------------------------------------\n");
 
@@ -518,9 +518,9 @@ void relatorioContasPagar(ListaContaPagar *lista) {
     printf("Total em Aberto: R$ %.2f\n", totalAberto);
 }
 
-// Adicione estas funções ao arquivo transacao.c
+// Adicione estas funcoes ao arquivo transacao.c
 
-// ===== PERSISTÊNCIA - MOVIMENTAÇÕES =====
+// ===== PERSISTÊNCIA - MOVIMENTACOES =====
 
 int movimentacaoSalvarTXT(ListaMovimentacao *lista){
     FILE* fp = fopen("dados/movimentacoes.txt", "w");
@@ -738,7 +738,7 @@ int contaPagarLerBIN(ListaContaPagar** lista) {
     return 1;
 }
 
-// ===== FUNÇÃO AUXILIAR PARA SALVAR TUDO =====
+// ===== FUNCAO AUXILIAR PARA SALVAR TUDO =====
 
 int transacaoSalvarTudo(ListaMovimentacao *listaMov, ListaContaReceber *listaCR,
                         ListaContaPagar *listaCP, int tipoArquivo) {

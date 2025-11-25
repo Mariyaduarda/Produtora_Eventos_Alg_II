@@ -15,7 +15,7 @@
 #include "../../view/mostrarItem.h"
 #include "../../view/mensagens.h"
 
-// Funções principais do menu
+// Funcoes principais do menu
 TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente);
 void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *listaCliente,
                 ListaRecurso *listaRecurso, ListaEquipe *listaEquipe, 
@@ -28,7 +28,7 @@ void menuEventoAtualizar(ListaEvento **listaEvento, ListaCliente *listaCliente, 
 void menuEventoBuscar(ListaEvento **listaEvento, TipoConfig *config);
 void menuEventoListar(ListaEvento *listaEvento, TipoConfig *config);
 
-// Gestão de recursos, equipe e fornecedores do evento
+// Gestao de recursos, equipe e fornecedores do evento
 void menuEventoGerenciar(ListaEvento *listaEvento, ListaRecurso *listaRecurso, 
                          ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor, 
                          TipoConfig *config);
@@ -45,17 +45,17 @@ void menuEventoAdicionarFornecedor(TipoEvento *evento, ListaFornecedor *listaFor
 void menuEventoRemoverFornecedor(TipoEvento *evento, TipoConfig *config);
 void menuEventoListarFornecedores(TipoEvento *evento, TipoConfig *config);
 
-// Edição de dados e datas
+// Edicao de dados e datas
 void menuEventoEditarDados(TipoEvento *evento, ListaCliente *listaCliente, TipoConfig *config);
 void menuEventoEditarDatas(TipoEvento *evento, TipoConfig *config);
 void menuEventoGerenciarCompleto(ListaEvento **listaEvento, ListaRecurso *listaRecurso,
                                   ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor,
                                   TipoConfig *config);
 
-// Mudança de status
+// Mudanca de status
 void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config);
 
-// Relatórios
+// Relatorios
 void menuEventoRelatorio(TipoEvento *evento, TipoConfig *config);
 
 #endif // MENU_EVENTO_H
