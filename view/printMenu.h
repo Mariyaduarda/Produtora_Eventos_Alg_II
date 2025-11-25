@@ -27,4 +27,9 @@ void printMenuContasReceber();
 void printMenuContasPagar();
 void printMenuRelatorios();
 
+void printMenuCRUD();
+
+void printMenuEventos();
+void printMenuEventoGerenciar(TipoEvento *evento, TipoConfig *config);
+
 #endif // PRINT_MENU_H

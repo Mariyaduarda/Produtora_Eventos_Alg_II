@@ -21,7 +21,7 @@ void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *list
                 ListaRecurso *listaRecurso, ListaEquipe *listaEquipe, 
                 ListaFornecedor *listaFornecedor, TipoConfig *config);
 
-// CRUD básico
+// CRUD basico
 void menuEventoAdicionar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config);
 void menuEventoRemover(ListaEvento **listaEvento, TipoConfig *config);
 void menuEventoAtualizar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config);
@@ -44,6 +44,13 @@ void menuEventoListarEquipes(TipoEvento *evento, TipoConfig *config);
 void menuEventoAdicionarFornecedor(TipoEvento *evento, ListaFornecedor *listaFornecedor, TipoConfig *config);
 void menuEventoRemoverFornecedor(TipoEvento *evento, TipoConfig *config);
 void menuEventoListarFornecedores(TipoEvento *evento, TipoConfig *config);
+
+// Edição de dados e datas
+void menuEventoEditarDados(TipoEvento *evento, ListaCliente *listaCliente, TipoConfig *config);
+void menuEventoEditarDatas(TipoEvento *evento, TipoConfig *config);
+void menuEventoGerenciarCompleto(ListaEvento **listaEvento, ListaRecurso *listaRecurso,
+                                  ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor,
+                                  TipoConfig *config);
 
 // Mudança de status
 void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config);

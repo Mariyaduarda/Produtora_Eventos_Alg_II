@@ -50,9 +50,19 @@ void inicializarSistema() {
     //===========================================
     // Roda o menu principal
     menuPrincipal(&config, &produtora, &listaCliente, &listaFornecedor,
-        &listaEquipe, &listaRecurso, &listaOperador, &listaMovimentacao, &listaContaReceber, &listaContaPagar);
+        &listaEquipe, &listaRecurso, &listaEvento, &listaOperador, &listaMovimentacao, &listaContaReceber, &listaContaPagar);
 
     //===========================================
+    // Salva as configuracoes
+    if (config.salvar_como_binario) {
+        configSalvarBIN(config);
+        remove("config.txt");
+        printMensagem("Configuracoes salvas em binario","#");
+    } else {
+        configSalvarTXT(config);
+        remove("config.bin");
+        printMensagem("Configuracoes salvas em texto","#");
+    }
     // Salva os dados na memoria
     salvarMemoria(&config, &produtora, listaCliente, listaFornecedor,
         listaEquipe,  listaEvento, listaRecurso, listaOperador, listaMovimentacao, listaContaReceber, listaContaPagar);

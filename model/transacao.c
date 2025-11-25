@@ -259,7 +259,7 @@ int registrarSaidaCaixa(ListaMovimentacao **lista, float valor, const char* desc
     float saldo = obterSaldoCaixa(*lista);
 
     if (saldo < valor) {
-        printf("Erro: Saldo insuficiente em caixa (Saldo: R$ %.2f | Necessário: R$ %.2f)!\n",
+        printf("Erro: Saldo insuficiente em caixa (Saldo: R$ %.2f | Necessario: R$ %.2f)!\n",
                saldo, valor);
         return 0;
     }
@@ -307,7 +307,7 @@ int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
     }
 
     if (cr->pago) {
-        printf("Erro: Conta já está paga!\n");
+        printf("Erro: Conta ja esta paga!\n");
         return 0;
     }
 
@@ -326,7 +326,7 @@ int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
         obterDataAtual(cr->dataPagamento);
     }
 
-    // Registra entrada no caixa (exceto crédito)
+    // Registra entrada no caixa (exceto credito)
     if (forma != FORMA_CREDITO) {
         char desc[200];
         snprintf(desc, 200, "Recebimento cliente - Conta %d - Evento %d",
@@ -368,12 +368,12 @@ int gerarContaPagar(ListaContaPagar **lista, int codigoFornecedor, float valor,
 int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int codigoConta) {
     ContaPagar* cp = contaPagarBuscar(lista, codigoConta);
     if (cp == NULL) {
-        printf("Erro: Conta não encontrada!\n");
+        printMensagem("Conta nao encontrada!", "ERRO");
         return 0;
     }
 
     if (cp->pago) {
-        printf("Erro: Conta já está paga!\n");
+        printMensagem("Conta ja esta paga!", "ERRO");
         return 0;
     }
 
@@ -392,7 +392,7 @@ int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int c
     cp->pago = true;
     obterDataAtual(cp->dataPagamento);
 
-    printf("Conta paga com sucesso! Valor: R$ %.2f\n", valor);
+    printMensagem("Conta paga com sucesso!", "SUCESSO");
     return 1;
 }
 
@@ -400,12 +400,12 @@ int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int c
 
 int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista) {
     if (evento == NULL) {
-        printf("Erro: Evento inválido!\n");
+        printMensagem("Evento invalido!", "ERRO");
         return 0;
     }
 
     if (evento->status != STATUS_APROVADO) {
-        printf("Erro: Evento precisa estar aprovado para gerar conta a receber!\n");
+        printMensagem("Evento precisa estar aprovado para gerar conta a receber!", "ERRO");
         return 0;
     }
 
@@ -418,7 +418,7 @@ int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista) {
     );
 
     if (codigoConta > 0) {
-        printf("Conta a receber #%d gerada com sucesso!\n", codigoConta);
+        printMensagem("Conta a receber gerada com sucesso!", "SUCESSO");
         printf("Cliente: %d | Evento: %d | Valor: R$ %.2f\n",
                evento->codigoCliente, evento->id, evento->valorFinal);
         return codigoConta;
@@ -455,7 +455,7 @@ void relatorioFluxoCaixa(ListaMovimentacao *lista) {
         const char *tipo = (m->tipo == TIPO_ENTRADA) ? "ENTRADA" : "SAÍDA";
         const char *forma = (m->formaPagamento == FORMA_DINHEIRO) ? "Dinheiro" :
                            (m->formaPagamento == FORMA_PIX) ? "PIX" :
-                           (m->formaPagamento == FORMA_DEBITO) ? "Débito" : "Crédito";
+                           (m->formaPagamento == FORMA_DEBITO) ? "Debito" : "Credito";
 
         printf("%-6d %-12s %-8s %-10s R$ %8.2f %-15s %-30s\n",
                m->id, m->data, m->hora, tipo, m->valor, forma, m->descricao);

@@ -9,6 +9,43 @@
 #include <string.h>
 #include <time.h>
 
+// Itens e listas internas por evento
+typedef struct {
+    int codigoRecurso;
+    int qtd;
+    int diasEvento;
+    double valorUnitario;
+    double subtotal;
+} ItemRecursoEvento;
+
+typedef struct ListaRecursoEvento{
+    struct ListaRecursoEvento *prox;
+    ItemRecursoEvento item;
+} ListaRecursoEvento;
+
+typedef struct {
+    int codigoFunc;
+    double valorDiaria;
+    int numDias;
+    double subtotal;
+} ItemEquipeEvento;
+
+typedef struct ListaEquipeEvento{
+    struct ListaEquipeEvento *prox;
+    ItemEquipeEvento item;
+} ListaEquipeEvento;
+
+typedef struct {
+    int codigoFornecedor;
+    char descricaoServico[200];
+    double valorServico;
+} ItemFornecedorEvento;
+
+typedef struct ListaFornecedorEvento{
+    struct ListaFornecedorEvento *prox;
+    ItemFornecedorEvento item;
+} ListaFornecedorEvento;
+
 // tipo enumerado para status
 typedef enum {
     STATUS_ORCAMENTO,
@@ -19,20 +56,18 @@ typedef enum {
 
 // struct principal do evento
 typedef struct {
-    int id;
-    int codigoCliente;  // Cliente relacionado ao evento
-    bool ativo;
-    char nome[100];
-
-    // status do evento
-    StatusEvento status;
+    int id;            //
+    int codigoCliente; // Cliente relacionado ao evento
+    bool ativo;        // se o evento esta ativo ou foi removido
+    char nome[100];    //
 
     // Atributos do evento
-    struct tm dataInicio;
-    struct tm dataFim;
-    char localEvento[150];
-    char cidade[50];
-    char uf[4];
+    StatusEvento status;   // status do evento
+    struct tm dataInicio;  //
+    struct tm dataFim;     //
+    char localEvento[150]; //
+    char cidade[50];       //
+    char uf[4];            //
 
     // valores a serem calculados
     double custoTotalRecursos; //
@@ -42,7 +77,12 @@ typedef struct {
     double margemLucro;        // percentual (ex: 20.0 para 20%)
     double valorFinal;         // valor a cobrar do cliente
 
-    char obs[500];
+    // listas de itens associados ao evento
+    ListaRecursoEvento *listaRecursos;
+    ListaEquipeEvento *listaEquipes;
+    ListaFornecedorEvento *listaFornecedores;
+
+    char obs[500];         // observacoes
 } TipoEvento;
 
 typedef struct ListaEvento{
@@ -61,6 +101,15 @@ int eventoAtualizar(ListaEvento *listaEvento, TipoEvento eventoAtualizado, int i
 TipoEvento* eventoBuscar(ListaEvento *listaEvento, int id);
 void eventoListaLiberar(ListaEvento* listaEvento);
 
+// Liberar listas internas do evento
+void eventoLiberarRecursos(TipoEvento *evento);
+void eventoLiberarEquipes(TipoEvento *evento);
+void eventoLiberarFornecedores(TipoEvento *evento);
+void eventoLiberarTodosItens(TipoEvento *evento);
+
+// Editar campos do evento
+int eventoSetDatas(TipoEvento *evento, struct tm dataInicio, struct tm dataFim);
+
 //=========== GESTAO GERAL ===========
 int eventoUnirRecurso(TipoEvento *evento, ListaRecurso *listaGlobalRecursos, int codigoRecurso,
     int qtd, int diasEvento);
@@ -68,6 +117,19 @@ int eventoUnirEquipe(TipoEvento *evento, ListaEquipe *listaGlobalEquipe, int cod
     double valorDiaria, int numDias);
 int eventoUnirFornecedor(TipoEvento *evento, ListaFornecedor *listaGlobalFornecedor, int codigoFornecedor,
     const char *descricaoServico, double valorServico);
+
+// Operacoes sobre listas internas do evento
+int eventoAdicionarRecurso(TipoEvento *evento, ItemRecursoEvento item);
+ItemRecursoEvento* eventoBuscarRecurso(TipoEvento *evento, int codigoRecurso);
+int eventoRemoverRecurso(TipoEvento *evento, int codigoRecurso);
+
+int eventoAdicionarEquipe(TipoEvento *evento, ItemEquipeEvento item);
+ItemEquipeEvento* eventoBuscarEquipe(TipoEvento *evento, int codigoFunc);
+int eventoRemoverEquipe(TipoEvento *evento, int codigoFunc);
+
+int eventoAdicionarFornecedor(TipoEvento *evento, ItemFornecedorEvento item);
+ItemFornecedorEvento* eventoBuscarFornecedor(TipoEvento *evento, int codigoFornecedor);
+int eventoRemoverFornecedor(TipoEvento *evento, int codigoFornecedor);
 
 //=========== MUDANCA DE STAUS ===========
 int eventoAprovar(TipoEvento *evento);

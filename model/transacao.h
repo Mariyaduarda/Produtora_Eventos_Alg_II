@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "evento.h"
+#include "../view/mensagens.h"
 
 // ===== ENUMS =====
 typedef enum {

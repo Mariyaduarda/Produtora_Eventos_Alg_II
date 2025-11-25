@@ -87,8 +87,8 @@ bool validarCNPJ(const char *cpf_cnpj) {
 
 // funcao unica p/ cpf e cnpj
 bool validarCPF_CNPJ(const char *documento, bool usa_CPF) {
-    if ( usa_CPF) { // usa cpf é uma flag, podia ser usaCNPJ tb
-        return validarCPF(documento); // doc é minha string const
+    if ( usa_CPF) { // usa cpf e uma flag, podia ser usaCNPJ tb
+        return validarCPF(documento); // doc e minha string const
                                       // q vai escolher entre cpf e cnpj
     }
     else {
@@ -227,7 +227,7 @@ int ehBissexto(int ano) {
 bool validarData(const char *dataStr){
     int dia, mes, ano;
 
-    // se n coicidir com 3 nao é ok
+    // se n coicidir com 3 nao e ok
     if(sscanf(dataStr, "%d/%d/%d", &dia, &mes,&ano) != 3)
     return false;
 

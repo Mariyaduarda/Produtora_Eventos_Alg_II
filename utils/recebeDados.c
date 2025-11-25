@@ -191,7 +191,7 @@ void recebeNome(char *str, bool validacao){
 void recebeUsuario(char *str, bool validacao){
     while (1){
         // recebe o dado em si
-        recebeString(str, 20, "Digite o Usuario","de 3 até 20 digitos", validacao);
+        recebeString(str, 20, "Digite o Usuario","de 3 ate 20 digitos", validacao);
 
         // aqui vai a validacao
         if (validarUsuario(str) || !validacao) break;
@@ -206,7 +206,7 @@ int recebeID(bool validacao){
          id = recebeInt(1, 1000000, "Digite o ID", "Min. 1", false);
         if (!validacao || validaCodigo(id))
             break;
-        printMensagem("ID inválido!", "ERRO");
+        printMensagem("ID invalido!", "ERRO");
     }
     return id;
 }

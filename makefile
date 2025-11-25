@@ -26,7 +26,7 @@ help:
 	@echo "==============================================="
 	@echo ""
 	@echo "   make          || Compila, executa e limpa o projeto"
-	@echo "   make clean    || Remove arquivos objetos e o executável"
+	@echo "   make clean    || Remove arquivos objetos e o executavel"
 	@echo "   make help     || Mostra esta mensagem de ajuda"
 	@echo ""
 	@echo "-----------------------------------------------"

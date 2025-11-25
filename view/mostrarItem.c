@@ -120,12 +120,13 @@ void printItemEvento(TipoEvento evento) {
     printf("\n | Data Inicio     | %-46s | ", dataInicioStr);
     printf("\n | Data Fim        | %-46s | ", dataFimStr);
     printf("\n | Local           | %-46s | ", evento.localEvento);
-    printf("\n | Cidade/UF       | %-20s / %-4s      | ", evento.cidade, evento.uf);
-    printf("\n | Custo Recursos  | R$%-41.2f | ", evento.custoTotalRecursos);
-    printf("\n | Custo Equipe    | R$%-41.2f | ", evento.custoTotalEquipe);
-    printf("\n | Custo Fornecd.  | R$%-41.2f | ", evento.custoTotalForn);
-    printf("\n | Custo Total     | R$%-41.2f | ", evento.custoTotal);
+    printf("\n | Cidade          | %-46s | ", evento.cidade);
+    printf("\n | Unidade Federal | %-46s | ", evento.uf);
+    printf("\n | Custo Recursos  | R$%-44.2f | ", evento.custoTotalRecursos);
+    printf("\n | Custo Equipe    | R$%-44.2f | ", evento.custoTotalEquipe);
+    printf("\n | Custo Fornecd.  | R$%-44.2f | ", evento.custoTotalForn);
+    printf("\n | Custo Total     | R$%-44.2f | ", evento.custoTotal);
     printf("\n | Margem Lucro(%%) | %-46.2f | ", evento.margemLucro);
-    printf("\n | Valor Final     | R$%-41.2f | ", evento.valorFinal);
+    printf("\n | Valor Final     | R$%-44.2f | ", evento.valorFinal);
     printf("\n | Observacoes     | %-46s | ", evento.obs);
 }

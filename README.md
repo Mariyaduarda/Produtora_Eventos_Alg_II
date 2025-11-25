@@ -11,7 +11,7 @@
 
 	   make          || Compila, executa e limpa o projeto
 	   
-	   make clean    || Remove arquivos objetos e o executável
+	   make clean    || Remove arquivos objetos e o executavel
 	   
 	   make help     || Mostra comandos disponíveis
 

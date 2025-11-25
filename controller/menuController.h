@@ -34,7 +34,7 @@
 
 void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
     ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
-    ListaRecurso **listaRecurso, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
+    ListaRecurso **listaRecurso, ListaEvento **listaEvento, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
     ListaContaReceber **listaContaReceber, ListaContaPagar **listaContaPagar);
 
 void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 

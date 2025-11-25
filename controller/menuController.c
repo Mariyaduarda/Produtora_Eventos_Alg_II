@@ -2,7 +2,7 @@
 
 void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
     ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
-    ListaRecurso **listaRecurso, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
+    ListaRecurso **listaRecurso, ListaEvento **listaEvento, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
     ListaContaReceber **listaContaReceber, ListaContaPagar **listaContaPagar) 
 {
     // Enquanto o usuario n quiser sair, continua no menu
@@ -13,16 +13,24 @@ void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **
 
         // Recebe a escolha do usuario
         escolha = recebeInt(0, 7, "Digite uma opcao", "#", config->validar_dados);
-        
+
         switch (escolha){
             case 1:
-                // Gerenciar dados
+                // Gerenciar dados (CRUD)
                 menuCRUD(config, produtora, listaCliente, listaFornecedor, listaEquipe, listaRecurso, listaOperador);
                 break;
             case 2:
-                // Salvar dados
+                // Gerenciar Eventos
+                menuEvento(NULL, listaEvento, *listaCliente, *listaRecurso, *listaEquipe, *listaFornecedor, config);
                 break;
             case 3:
+                // Gerenciar Financeiro
+                menuTransacao(produtora, config);
+                break;
+            case 4:
+                esperaEnter();
+                break;
+            case 5:
                 // Configuracoes
                 menuConfig(config);
                 break;
@@ -75,6 +83,7 @@ void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **lista
             case 6:
                 // Gerenciar Recursos e Equipamentos
                 menuRecurso(listaRecurso, config);
+                break;
             case 0:
                 // Sair
                 return;

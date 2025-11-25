@@ -27,6 +27,7 @@
         "menuconfig.h": "c",
         "config.h": "c",
         "model_arquivo.h": "c",
-        "menuevento.h": "c"
+        "menuevento.h": "c",
+        "transacao.h": "c"
     }
 }

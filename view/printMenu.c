@@ -6,11 +6,13 @@ void printMenuPrincipal(TipoProdutora produtora){
     limparTela();
     printf(
         "\n======================================================================"
-        "\n | # Sistema de Gestao - %-43s | "
+        "\n | # Sistema de Gestao - %-42s | "
         "\n |==================================================================| "
         "\n |   1. Menu de Gerenciamento de dados                              | "
-        "\n |   2. Salvar dados                                                | "
-        "\n |   3. Configuracoes                                               | "
+        "\n |   2. Gerenciar Eventos                                           | "
+        "\n |   3. Gerenciar Financeiro                                        | "
+        "\n |   4. Salvar dados                                                | "
+        "\n |   5. Configuracoes                                               | "
         "\n |==================================================================| "
         "\n |   0. Sair                                                        | "
         "\n======================================================================"
@@ -166,26 +168,6 @@ void printMenuConfig(TipoConfig config){
     );
 }
 
-// ===== MENU DE EVENTOS =====
-void printMenuEventos() {
-    limparTela();
-    printf(
-        "\n======================================================================"
-        "\n | # Gerenciamento de Eventos                                       | "
-        "\n |==================================================================| "
-        "\n |   1. Novo Evento                                                 | "
-        "\n |   2. Listar Eventos                                              | "
-        "\n |   3. Editar Evento                                               | "
-        "\n |   4. Gerenciar Financeiro de Evento                              | "
-        "\n |   5. Aprovar Evento                                              | "
-        "\n |   6. Finalizar Evento                                            | "
-        "\n |   7. Cancelar Evento                                             | "
-        "\n |==================================================================| "
-        "\n |   0. Voltar                                                      | "
-        "\n======================================================================"
-    );
-}
-
 // ===== MENU DE TRANSACOES =====
 void printMenuTransacaoPrincipal() {
     limparTela();
@@ -271,5 +253,41 @@ void printMenuRelatorios() {
     );
 }
 
+// ===== MENU DE EVENTOS =====
+void printMenuEventos() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Eventos                                       | "
+        "\n |==================================================================| "
+        "\n |   1. Novo Evento                                                 | "
+        "\n |   2. Listar Eventos                                              | "
+        "\n |   3. Editar Evento                                               | "
+        "\n |   4. Gerenciar Financeiro de Evento                              | "
+        "\n |   5. Aprovar Evento                                              | "
+        "\n |   6. Finalizar Evento                                            | "
+        "\n |   7. Cancelar Evento                                             | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
 
-
+void printMenuEventoGerenciar(TipoEvento *evento, TipoConfig *config) {
+    limparTela();
+    printItemEvento(*evento);
+    
+    printf(
+        "\n======================================================================"
+        "\n |   1. Editar Dados Basicos                                        | "
+        "\n |   2. Editar Datas                                                | "
+        "\n |   3. Gerenciar Recursos                                          | "
+        "\n |   4. Gerenciar Equipes                                           | "
+        "\n |   5. Gerenciar Fornecedores                                      | "
+        "\n |   6. Mudar Status                                                | "
+        "\n |   7. Ver Relatorio                                               | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
