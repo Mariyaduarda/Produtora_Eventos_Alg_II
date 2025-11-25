@@ -18,6 +18,9 @@
 #include "../model/operador.h"
 #include "../model/recurso.h"
 
+#include "../model/evento.h"
+#include "../model/transacao.h"
+
 // Inclui todos os menus CRUD
 #include "menuCRUD/menuConfig.h"
 #include "menuCRUD/menuProdutora.h"
@@ -26,8 +29,16 @@
 #include "menuCRUD/menuFornecedor.h"
 #include "menuCRUD/menuOperador.h"
 #include "menuCRUD/menuRecurso.h"
+#include "menuCRUD/menuEvento.h"
+#include "menuCRUD/menuTransacao.h"
 
-void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
-void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
+void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
+    ListaRecurso **listaRecurso, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
+    ListaContaReceber **listaContaReceber, ListaContaPagar **listaContaPagar);
+
+void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, 
+    ListaOperador **listaOperador);
 
 #endif // MENU_CONTROLLER_H

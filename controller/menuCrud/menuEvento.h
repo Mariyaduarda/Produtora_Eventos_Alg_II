@@ -6,7 +6,7 @@
 #include "../../model/recurso.h"
 #include "../../model/equipe.h"
 #include "../../model/fornecedor.h"
-#include "../../model/transacoes.h"
+#include "../../model/transacao.h"
 
 #include "../../utils/utils_tela.h"
 #include "../../utils/recebeDados.h"
@@ -17,7 +17,7 @@
 
 // Funções principais do menu
 TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente);
-void menuEvento(ListaEvento **listaEvento, ListaCliente *listaCliente, 
+void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *listaCliente,
                 ListaRecurso *listaRecurso, ListaEquipe *listaEquipe, 
                 ListaFornecedor *listaFornecedor, TipoConfig *config);
 

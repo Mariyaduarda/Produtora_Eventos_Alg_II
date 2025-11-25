@@ -213,7 +213,7 @@ bool validarUsuario(const char *usuario) {
     return true;
     }
 // ====== VALIDACAO DE CODIGO=====
-bool validaCodigo(int codigo) { // sem ponteiro é um valor!
+int validaCodigo(int codigo) {
     return codigo > 0;
 }
 

@@ -2,7 +2,8 @@
 
 void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
     ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
-    ListaRecurso **listaRecurso, ListaOperador **listaOperador) 
+    ListaRecurso **listaRecurso, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
+    ListaContaReceber **listaContaReceber, ListaContaPagar **listaContaPagar) 
 {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=1;

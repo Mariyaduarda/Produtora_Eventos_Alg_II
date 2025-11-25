@@ -1,138 +1,215 @@
 #include "menuTransacao.h"
-
-TipoProdutora menuProdutoraRecebe(TipoConfig *config) {
-    // Recebe uma nova Produtora do usuario e retorna a produtora preenchida
-    TipoTransacao transacao;
-    transacaoInit(&transacao);
-
-    // Recebe os dados da produtora
-    recebeString(produtora.nomeFantasia, 100, "Digite o Nome Fantasia","Max. 100", config->validar_dados);
-    recebeString(produtora.razaoSocial, 100, "Digite a Razao Social","Max. 100", config->validar_dados);
-    recebeString(produtora.inscricaoEstadual, 20, "Digite a Inscricao Estadual","9 Digitos", config->validar_dados);
-    recebeCNPJ(produtora.cnpj, config->validar_dados);
-    recebeString(produtora.endereco, 100, "Digite o Endereco","Max. 100", config->validar_dados);
-    recebeTelefone(produtora.telefone, config->validar_dados);
-    recebeEmail(produtora.email, config->validar_dados);
-    recebeString(produtora.nomeDoResponsavel, 100, "Digite o Nome do Responsavel","Max. 100", config->validar_dados);
-    recebeTelefone(produtora.telefoneDoResponsavel, config->validar_dados);
-    produtora.margemDeLucro = recebeFloat(0, 1000000, "Digite a Margem de Lucro", "Entre 0 e 1m", config->validar_dados);
-
-    return transacao;
-}
-
-void menuProdutoraAtualizar(TipoProdutora* produtora, TipoConfig *config) {
-    // Atualiza os dados da produtora
-    TipoProdutora novoProdutora;
-    novoProdutora = menuProdutoraRecebe(config);
-    *produtora = novoProdutora;
-}
-
-void menuProdutoraApagar(TipoProdutora* produtora, TipoConfig *config) {
-    // Apaga os dados da produtora
-
-    // Pede confirmacao
-    if (recebeConfirma()) {
-        produtoraInit(produtora);
-        printMensagem("Dados apagados com sucesso","#");
-    } else{
-        printMensagem("Operacao cancelada","#");
-    }
-
-}
+#include "../../model/transacao.h"
+#include "../../view/printMenu.h"
+#include "../../view/mensagens.h"
 
 void menuTransacao(TipoProdutora* produtora, TipoConfig *config) {
-    // Enquanto o usuario n quiser sair, continua no menu
-    int escolha = 0;
-    do{
-        // Exibe o menu de Produtora
-        printMenuTransacao(*produtora);
+	// Listas locais para movimentacoes e contas
+	ListaMovimentacao *listaMov = NULL;
+	ListaContaReceber *listaCR = NULL;
+	ListaContaPagar *listaCP = NULL;
 
-        // Recebe a escolha do usuario
-        escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
+	// Carrega dados existentes (0 = txt, 1 = binario)
+	int tipoArquivo = config->salvar_como_binario ? 1 : 0;
+	transacaoCarregarTudo(&listaMov, &listaCR, &listaCP, tipoArquivo);
 
-        switch(opcao) {
-            case 1: {
-                // Gerar conta a receber
-                if(evento->status != STATUS_APROVADO) {
-                    printf("Evento precisa estar aprovado!\n");
-                    break;
-                }
+	int escolha = 0;
+	while (1) {
+		printMenuTransacaoPrincipal();
+		escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
 
-                int codigo = eventoGerarContaReceber(evento);
-                if(codigo > 0) {
-                    printf("\nConta #%d gerada com sucesso!\n", codigo);
-                }
-                break;
-            }
+		if (escolha == 0) break;
 
-            case 2: {
-                // Receber pagamento
-                float valor;
-                int forma;
+		switch (escolha) {
+			case 1: { // Movimentacao de Caixa
+				int sub;
+				float saldo = obterSaldoCaixa(listaMov);
+				do {
+					printMenuMovimentacaoCaixa(saldo);
+					sub = recebeInt(0, 3, "Digite uma opcao", "#", config->validar_dados);
+					switch (sub) {
+						case 1: { // Registrar Entrada
+							float valor = recebeFloat(0.01f, 100000000.0f, "Valor da entrada", "", config->validar_dados);
+							int forma = recebeInt(0, 3, "Forma de pagamento (0-Dinheiro,1-Debito,2-Credito,3-PIX)", "#", config->validar_dados);
+							char descricao[200];
+							recebeString(descricao, 200, "Descricao", "Max.200", config->validar_dados);
+							int codigoEvento = recebeID(config->validar_dados);
+							int id = registrarEntradaCaixa(&listaMov, valor, (FormaPagamento)forma, descricao, codigoEvento);
+							if (id) printAdicionarSucesso(); else printAdicionarFalha();
+							esperaEnter();
+							saldo = obterSaldoCaixa(listaMov);
+							break;
+						}
+						case 2: { // Registrar Saida
+							float valor = recebeFloat(0.01f, 100000000.0f, "Valor da saida", "", config->validar_dados);
+							char descricao[200];
+							recebeString(descricao, 200, "Descricao", "Max.200", config->validar_dados);
+							int ok = registrarSaidaCaixa(&listaMov, valor, descricao);
+							if (ok) printAdicionarSucesso(); else printAdicionarFalha();
+							esperaEnter();
+							saldo = obterSaldoCaixa(listaMov);
+							break;
+						}
+						case 3: { // Consultar Movimentacoes
+							limparTela();
+							ListaMovimentacao *it = listaMov;
+							if (it == NULL) { printMensagem("Nenhuma movimentacao cadastrada","#"); }
+							while (it != NULL) {
+								MovimentacaoCaixa m = it->movimentacao;
+								printf("\n=[ ID: %d ]-----------------------------------------\n", m.id);
+								printf(" Data: %s %s\n", m.data, m.hora);
+								printf(" Tipo: %s\n", m.tipo==TIPO_ENTRADA?"Entrada":"Saida");
+								printf(" Valor: R$ %.2f\n", m.valor);
+								printf(" Forma: %d\n", m.formaPagamento);
+								printf(" Descricao: %s\n", m.descricao);
+								printf(" Evento (ID): %d\n", m.codigoEvento);
+								it = it->prox;
+							}
+							esperaEnter();
+							break;
+						}
+					}
+				} while (sub != 0);
+				break;
+			}
+			case 2: { // Contas a Receber
+				int sub;
+				do {
+					printMenuContasReceber();
+					sub = recebeInt(0, 4, "Digite uma opcao", "#", config->validar_dados);
+					switch (sub) {
+						case 1: { // Gerar Conta (via Evento)
+							int codigoCliente = recebeID(config->validar_dados);
+							int codigoEvento = recebeID(config->validar_dados);
+							float valor = recebeFloat(0.0f, 100000000.0f, "Valor total", "", config->validar_dados);
+							int codigo = gerarContaReceber(&listaCR, codigoCliente, codigoEvento, valor);
+							if (codigo) printAdicionarSucesso(); else printAdicionarFalha();
+							esperaEnter();
+							break;
+						}
+						case 2: { // Baixar Conta (Receber Pagamento)
+							int codigoConta = recebeID(config->validar_dados);
+							float valorPago = recebeFloat(0.0f, 100000000.0f, "Valor do pagamento", "", config->validar_dados);
+							int forma = recebeInt(0, 3, "Forma de pagamento", "#", config->validar_dados);
+							int ok = baixarContaReceber(listaCR, &listaMov, codigoConta, valorPago, (FormaPagamento)forma);
+							if (ok) printAdicionarSucesso(); else printAdicionarFalha();
+							esperaEnter();
+							break;
+						}
+						case 3: { // Consultar Conta especifica
+							int codigo = recebeID(config->validar_dados);
+							ContaReceber *cr = contaReceberBuscar(listaCR, codigo);
+							if (cr == NULL) { printNaoEncontrado(); }
+							else {
+								limparTela();
+								printf("\nConta: %d\nCliente: %d\nEvento: %d\nValor Total: R$ %.2f\nValor Pago: R$ %.2f\nValor Restante: R$ %.2f\nPago: %s\n",
+									cr->codigo, cr->codigoCliente, cr->codigoEvento, cr->valorTotal, cr->valorPago, cr->valorRestante, cr->pago?"Sim":"Nao");
+							}
+							esperaEnter();
+							break;
+						}
+						case 4: { // Listar Todas as Contas
+							limparTela();
+							ListaContaReceber *it = listaCR;
+							if (it == NULL) { printMensagem("Nenhuma conta cadastrada","#"); }
+							while (it != NULL) {
+								ContaReceber c = it->conta;
+								printf("\n=[ Codigo: %d ]---------------------------------\n", c.codigo);
+								printf(" Cliente: %d\n Evento: %d\n Valor Total: R$ %.2f\n Valor Pago: R$ %.2f\n Restante: R$ %.2f\n Pago: %s\n",
+									c.codigoCliente, c.codigoEvento, c.valorTotal, c.valorPago, c.valorRestante, c.pago?"Sim":"Nao");
+								it = it->prox;
+							}
+							esperaEnter();
+							break;
+						}
+					}
+				} while (sub != 0);
+				break;
+			}
+			case 3: { // Contas a Pagar
+				int sub;
+				do {
+					printMenuContasPagar();
+					sub = recebeInt(0, 4, "Digite uma opcao", "#", config->validar_dados);
+					switch (sub) {
+						case 1: { // Gerar Conta Manual
+							int codigoFornecedor = recebeID(config->validar_dados);
+							float valor = recebeFloat(0.0f, 100000000.0f, "Valor total", "", config->validar_dados);
+							int dias = recebeInt(0, 3650, "Dias para vencimento", "#", config->validar_dados);
+							char descricao[200];
+							recebeString(descricao, 200, "Descricao", "Max.200", config->validar_dados);
+							int codigo = gerarContaPagar(&listaCP, codigoFornecedor, valor, dias, descricao);
+							if (codigo) printAdicionarSucesso(); else printAdicionarFalha();
+							esperaEnter();
+							break;
+						}
+						case 2: { // Baixar Conta (Efetuar Pagamento)
+							int codigoConta = recebeID(config->validar_dados);
+							int ok = baixarContaPagar(listaCP, &listaMov, codigoConta);
+							if (ok) printAdicionarSucesso(); else printAdicionarFalha();
+							esperaEnter();
+							break;
+						}
+						case 3: { // Consultar Conta especifica
+							int codigo = recebeID(config->validar_dados);
+							ContaPagar *cp = contaPagarBuscar(listaCP, codigo);
+							if (cp == NULL) { printNaoEncontrado(); }
+							else {
+								limparTela();
+								printf("\nConta: %d\nFornecedor: %d\nValor Total: R$ %.2f\nValor Pago: R$ %.2f\nValor Restante: R$ %.2f\nPago: %s\n",
+									cp->codigo, cp->codigoFornecedor, cp->valorTotal, cp->valorPago, cp->valorRestante, cp->pago?"Sim":"Nao");
+							}
+							esperaEnter();
+							break;
+						}
+						case 4: { // Listar Todas as Contas
+							limparTela();
+							ListaContaPagar *it = listaCP;
+							if (it == NULL) { printMensagem("Nenhuma conta cadastrada","#"); }
+							while (it != NULL) {
+								ContaPagar c = it->conta;
+								printf("\n=[ Codigo: %d ]---------------------------------\n", c.codigo);
+								printf(" Fornecedor: %d\n Valor Total: R$ %.2f\n Valor Pago: R$ %.2f\n Restante: R$ %.2f\n Pago: %s\n",
+									c.codigoFornecedor, c.valorTotal, c.valorPago, c.valorRestante, c.pago?"Sim":"Nao");
+								it = it->prox;
+							}
+							esperaEnter();
+							break;
+						}
+					}
+				} while (sub != 0);
+				break;
+			}
+			case 4: { // Nota Fiscal de Entrada (implementacao simplificada)
+				limparTela();
+				printMensagem("Funcionalidade em desenvolvimento","#");
+				esperaEnter();
+				break;
+			}
+			case 5: { // Relatorios
+				int sub;
+				do {
+					printMenuRelatorios();
+					sub = recebeInt(0, 3, "Digite uma opcao", "#", config->validar_dados);
+					switch (sub) {
+						case 1: relatorioFluxoCaixa(listaMov); esperaEnter(); break;
+						case 2: relatorioContasReceber(listaCR); esperaEnter(); break;
+						case 3: relatorioContasPagar(listaCP); esperaEnter(); break;
+					}
+				} while (sub != 0);
+				break;
+			}
+			default:
+				printOpcaoInvalida();
+				esperaEnter();
+		}
+	}
 
-                printf("Valor a receber: R$ ");
-                scanf("%f", &valor);
+	// Ao sair, salva tudo
+	transacaoSalvarTudo(listaMov, listaCR, listaCP, tipoArquivo);
 
-                printf("\nForma de pagamento:\n");
-                printf("0-Dinheiro | 1-Débito | 2-Crédito | 3-PIX\n");
-                printf("Escolha: ");
-                scanf("%d", &forma);
-                getchar();
-
-                if(eventoReceberPagamento(evento->id, valor, (FormaPagamento)forma)) {
-                    printf("\nPagamento recebido com sucesso!\n");
-                }
-                break;
-            }
-
-            case 3: {
-                // Ver contas do evento
-                printf("\n===== CONTAS A RECEBER DO EVENTO =====\n");
-                extern ContaReceber contasReceber[];
-                extern int totalContasReceber;
-
-                int encontrou = 0;
-                for(int i = 0; i < totalContasReceber; i++) {
-                    if(contasReceber[i].codigoEvento == evento->id) {
-                        encontrou = 1;
-                        ContaReceber *cr = &contasReceber[i];
-                        printf("\nConta #%d\n", cr->codigo);
-                        printf("Valor Total: R$ %.2f\n", cr->valorTotal);
-                        printf("Valor Pago: R$ %.2f\n", cr->valorPago);
-                        printf("Valor Restante: R$ %.2f\n", cr->valorRestante);
-                        printf("Status: %s\n", cr->pago ? "PAGO" : "EM ABERTO");
-                        printf("Vencimento: %s\n", cr->dataVencimento);
-                        printf("-----------------------------------\n");
-                    }
-                }
-
-                if(!encontrou) {
-                    printf("Nenhuma conta encontrada para este evento.\n");
-                }
-                break;
-            }
-
-            case 4: {
-                // Atualizar margem de lucro
-                float novaMargen;
-                printf("Nova margem de lucro (%%): ");
-                scanf("%f", &novaMargen);
-                getchar();
-
-                evento->margemLucro = novaMargen;
-                eventoRecalcularTotais(evento);
-
-                printf("Margem atualizada! Novo valor final: R$ %.2f\n",
-                       evento->valorFinal);
-                break;
-            }
-
-            case 0:
-                break;
-
-            default:
-                printf("Opção inválida!\n");
-        }
-    } while(opcao != 0);
+	// Liberar memoria
+	movimentacaoListaLiberar(listaMov);
+	contaReceberListaLiberar(listaCR);
+	contaPagarListaLiberar(listaCP);
 }
-

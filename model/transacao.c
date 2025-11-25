@@ -525,283 +525,219 @@ void relatorioContasPagar(ListaContaPagar *lista) {
 
 // ===== PERSISTÊNCIA - MOVIMENTAÇÕES =====
 
-int movimentacaoSalvarTXT(ListaMovimentacao *lista) {
-    FILE *arquivo = fopen("dados/movimentacoes.txt", "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo de movimentações!\n");
-        return 0;
+int movimentacaoSalvarTXT(ListaMovimentacao *lista){
+    FILE* fp = fopen("dados/movimentacoes.txt", "w");
+    if(fp == NULL) return 0;
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaMovimentacao* aux = lista;
+    while (aux != NULL) {
+        fprintf(fp, "%d,%s,%s,%d,%.2f,%d,%s,%d\n",
+        aux->movimentacao.id,
+        aux->movimentacao.data,
+        aux->movimentacao.hora,
+        aux->movimentacao.tipo,
+        aux->movimentacao.valor,
+        aux->movimentacao.formaPagamento,
+        aux->movimentacao.descricao,
+        aux->movimentacao.codigoEvento);
+        aux = aux->prox;
     }
-
-    ListaMovimentacao *atual = lista;
-    while (atual != NULL) {
-        fprintf(arquivo, "%d|%s|%s|%d|%.2f|%d|%s|%d\n",
-                atual->movimentacao.id,
-                atual->movimentacao.data,
-                atual->movimentacao.hora,
-                atual->movimentacao.tipo,
-                atual->movimentacao.valor,
-                atual->movimentacao.formaPagamento,
-                atual->movimentacao.descricao,
-                atual->movimentacao.codigoEvento);
-
-        atual = atual->prox;
-    }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
 int movimentacaoLerTXT(ListaMovimentacao **lista) {
-    FILE *arquivo = fopen("dados/movimentacoes.txt", "r");
-    if (arquivo == NULL) {
-        printf("Aviso: Arquivo de movimentações não encontrado. Criando novo.\n");
-        return 0;
-    }
-
+    FILE *fp = fopen("dados/movimentacoes.txt", "r");
+    if(fp == NULL) return 0;
     MovimentacaoCaixa temp;
     int tipo, forma;
-
-    while (fscanf(arquivo, "%d|%10[^|]|%5[^|]|%d|%f|%d|%199[^|]|%d\n",
-                  &temp.id,
-                  temp.data,
-                  temp.hora,
-                  &tipo,
-                  &temp.valor,
-                  &forma,
-                  temp.descricao,
-                  &temp.codigoEvento) == 8) {
-
+    while(fscanf(fp, "%d,%[^,],%[^,],%d,%f,%d,%[^,],%d\n",
+        &temp.id,
+        temp.data,
+        temp.hora,
+        &tipo,
+        &temp.valor,
+        &forma,
+        temp.descricao,
+        &temp.codigoEvento) == 8)
+    {
         temp.tipo = (TipoTransacao)tipo;
         temp.formaPagamento = (FormaPagamento)forma;
-
         movimentacaoAdicionar(lista, temp);
     }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
-int movimentacaoSalvarBIN(ListaMovimentacao *lista) {
-    FILE *arquivo = fopen("dados/movimentacoes.bin", "wb");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo binário de movimentações!\n");
-        return 0;
+int movimentacaoSalvarBIN(ListaMovimentacao* lista) {
+    FILE* fp = fopen("dados/movimentacoes.bin", "wb");
+    if (fp == NULL) return 0;
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaMovimentacao* aux = lista;
+    while (aux != NULL) {
+        fwrite(&aux->movimentacao, sizeof(MovimentacaoCaixa), 1, fp);
+        aux = aux->prox;
     }
-
-    ListaMovimentacao *atual = lista;
-    while (atual != NULL) {
-        fwrite(&atual->movimentacao, sizeof(MovimentacaoCaixa), 1, arquivo);
-        atual = atual->prox;
-    }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
-int movimentacaoLerBIN(ListaMovimentacao **lista) {
-    FILE *arquivo = fopen("dados/movimentacoes.bin", "rb");
-    if (arquivo == NULL) {
-        printf("Aviso: Arquivo binário de movimentações não encontrado.\n");
-        return 0;
-    }
-
+int movimentacaoLerBIN(ListaMovimentacao** lista) {
+    FILE* fp = fopen("dados/movimentacoes.bin", "rb");
+    if (fp == NULL) return 0;
     MovimentacaoCaixa temp;
-
-    while (fread(&temp, sizeof(MovimentacaoCaixa), 1, arquivo) == 1) {
+    while (fread(&temp, sizeof(MovimentacaoCaixa), 1, fp) == 1) {
         movimentacaoAdicionar(lista, temp);
     }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
 // ===== PERSISTÊNCIA - CONTAS A RECEBER =====
 
-int contaReceberSalvarTXT(ListaContaReceber *lista) {
-    FILE *arquivo = fopen("dados/contas_receber.txt", "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo de contas a receber!\n");
-        return 0;
+int contaReceberSalvarTXT(ListaContaReceber *lista){
+    FILE* fp = fopen("dados/contas_receber.txt", "w");
+    if(fp == NULL) return 0;
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaContaReceber* aux = lista;
+    while (aux != NULL) {
+        fprintf(fp, "%d,%d,%d,%.2f,%.2f,%.2f,%s,%s,%s,%d,%s\n",
+        aux->conta.codigo,
+        aux->conta.codigoCliente,
+        aux->conta.codigoEvento,
+        aux->conta.valorTotal,
+        aux->conta.valorPago,
+        aux->conta.valorRestante,
+        aux->conta.dataEmissao,
+        aux->conta.dataVencimento,
+        aux->conta.dataPagamento,
+        aux->conta.pago ? 1 : 0,
+        aux->conta.observacoes);
+        aux = aux->prox;
     }
-
-    ListaContaReceber *atual = lista;
-    while (atual != NULL) {
-        fprintf(arquivo, "%d|%d|%d|%.2f|%.2f|%.2f|%s|%s|%s|%d|%s\n",
-                atual->conta.codigo,
-                atual->conta.codigoCliente,
-                atual->conta.codigoEvento,
-                atual->conta.valorTotal,
-                atual->conta.valorPago,
-                atual->conta.valorRestante,
-                atual->conta.dataEmissao,
-                atual->conta.dataVencimento,
-                atual->conta.dataPagamento,
-                atual->conta.pago ? 1 : 0,
-                atual->conta.observacoes);
-
-        atual = atual->prox;
-    }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
 int contaReceberLerTXT(ListaContaReceber **lista) {
-    FILE *arquivo = fopen("dados/contas_receber.txt", "r");
-    if (arquivo == NULL) {
-        printf("Aviso: Arquivo de contas a receber não encontrado. Criando novo.\n");
-        return 0;
-    }
-
+    FILE *fp = fopen("dados/contas_receber.txt", "r");
+    if(fp == NULL) return 0;
     ContaReceber temp;
     int pago;
-
-    while (fscanf(arquivo, "%d|%d|%d|%f|%f|%f|%10[^|]|%10[^|]|%10[^|]|%d|%199[^\n]\n",
-                  &temp.codigo,
-                  &temp.codigoCliente,
-                  &temp.codigoEvento,
-                  &temp.valorTotal,
-                  &temp.valorPago,
-                  &temp.valorRestante,
-                  temp.dataEmissao,
-                  temp.dataVencimento,
-                  temp.dataPagamento,
-                  &pago,
-                  temp.observacoes) == 11) {
-
+    while(fscanf(fp, "%d,%d,%d,%f,%f,%f,%[^,],%[^,],%[^,],%d,%[^\n]\n",
+        &temp.codigo,
+        &temp.codigoCliente,
+        &temp.codigoEvento,
+        &temp.valorTotal,
+        &temp.valorPago,
+        &temp.valorRestante,
+        temp.dataEmissao,
+        temp.dataVencimento,
+        temp.dataPagamento,
+        &pago,
+        temp.observacoes) == 11)
+    {
         temp.pago = (pago == 1);
         contaReceberAdicionar(lista, temp);
     }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
-int contaReceberSalvarBIN(ListaContaReceber *lista) {
-    FILE *arquivo = fopen("dados/contas_receber.bin", "wb");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo binário de contas a receber!\n");
-        return 0;
+int contaReceberSalvarBIN(ListaContaReceber* lista) {
+    FILE* fp = fopen("dados/contas_receber.bin", "wb");
+    if (fp == NULL) return 0;
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaContaReceber* aux = lista;
+    while (aux != NULL) {
+        fwrite(&aux->conta, sizeof(ContaReceber), 1, fp);
+        aux = aux->prox;
     }
-
-    ListaContaReceber *atual = lista;
-    while (atual != NULL) {
-        fwrite(&atual->conta, sizeof(ContaReceber), 1, arquivo);
-        atual = atual->prox;
-    }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
-int contaReceberLerBIN(ListaContaReceber **lista) {
-    FILE *arquivo = fopen("dados/contas_receber.bin", "rb");
-    if (arquivo == NULL) {
-        printf("Aviso: Arquivo binário de contas a receber não encontrado.\n");
-        return 0;
-    }
-
+int contaReceberLerBIN(ListaContaReceber** lista) {
+    FILE* fp = fopen("dados/contas_receber.bin", "rb");
+    if (fp == NULL) return 0;
     ContaReceber temp;
-
-    while (fread(&temp, sizeof(ContaReceber), 1, arquivo) == 1) {
+    while (fread(&temp, sizeof(ContaReceber), 1, fp) == 1) {
         contaReceberAdicionar(lista, temp);
     }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
 // ===== PERSISTÊNCIA - CONTAS A PAGAR =====
 
-int contaPagarSalvarTXT(ListaContaPagar *lista) {
-    FILE *arquivo = fopen("dados/contas_pagar.txt", "w");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo de contas a pagar!\n");
-        return 0;
+int contaPagarSalvarTXT(ListaContaPagar *lista){
+    FILE* fp = fopen("dados/contas_pagar.txt", "w");
+    if(fp == NULL) return 0;
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaContaPagar* aux = lista;
+    while (aux != NULL) {
+        fprintf(fp, "%d,%d,%.2f,%.2f,%.2f,%s,%s,%s,%d,%s\n",
+        aux->conta.codigo,
+        aux->conta.codigoFornecedor,
+        aux->conta.valorTotal,
+        aux->conta.valorPago,
+        aux->conta.valorRestante,
+        aux->conta.dataEmissao,
+        aux->conta.dataVencimento,
+        aux->conta.dataPagamento,
+        aux->conta.pago ? 1 : 0,
+        aux->conta.descricao);
+        aux = aux->prox;
     }
-
-    ListaContaPagar *atual = lista;
-    while (atual != NULL) {
-        fprintf(arquivo, "%d|%d|%.2f|%.2f|%.2f|%s|%s|%s|%d|%s\n",
-                atual->conta.codigo,
-                atual->conta.codigoFornecedor,
-                atual->conta.valorTotal,
-                atual->conta.valorPago,
-                atual->conta.valorRestante,
-                atual->conta.dataEmissao,
-                atual->conta.dataVencimento,
-                atual->conta.dataPagamento,
-                atual->conta.pago ? 1 : 0,
-                atual->conta.descricao);
-
-        atual = atual->prox;
-    }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
 int contaPagarLerTXT(ListaContaPagar **lista) {
-    FILE *arquivo = fopen("dados/contas_pagar.txt", "r");
-    if (arquivo == NULL) {
-        printf("Aviso: Arquivo de contas a pagar não encontrado. Criando novo.\n");
-        return 0;
-    }
-
+    FILE *fp = fopen("dados/contas_pagar.txt", "r");
+    if(fp == NULL) return 0;
     ContaPagar temp;
     int pago;
-
-    while (fscanf(arquivo, "%d|%d|%f|%f|%f|%10[^|]|%10[^|]|%10[^|]|%d|%199[^\n]\n",
-                  &temp.codigo,
-                  &temp.codigoFornecedor,
-                  &temp.valorTotal,
-                  &temp.valorPago,
-                  &temp.valorRestante,
-                  temp.dataEmissao,
-                  temp.dataVencimento,
-                  temp.dataPagamento,
-                  &pago,
-                  temp.descricao) == 10) {
-
+    while(fscanf(fp, "%d,%d,%f,%f,%f,%[^,],%[^,],%[^,],%d,%[^\n]\n",
+        &temp.codigo,
+        &temp.codigoFornecedor,
+        &temp.valorTotal,
+        &temp.valorPago,
+        &temp.valorRestante,
+        temp.dataEmissao,
+        temp.dataVencimento,
+        temp.dataPagamento,
+        &pago,
+        temp.descricao) == 10)
+    {
         temp.pago = (pago == 1);
         contaPagarAdicionar(lista, temp);
     }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
-int contaPagarSalvarBIN(ListaContaPagar *lista) {
-    FILE *arquivo = fopen("dados/contas_pagar.bin", "wb");
-    if (arquivo == NULL) {
-        printf("Erro ao abrir arquivo binário de contas a pagar!\n");
-        return 0;
+int contaPagarSalvarBIN(ListaContaPagar* lista) {
+    FILE* fp = fopen("dados/contas_pagar.bin", "wb");
+    if (fp == NULL) return 0;
+    if (lista == NULL) { fclose(fp); return 0; }
+    ListaContaPagar* aux = lista;
+    while (aux != NULL) {
+        fwrite(&aux->conta, sizeof(ContaPagar), 1, fp);
+        aux = aux->prox;
     }
-
-    ListaContaPagar *atual = lista;
-    while (atual != NULL) {
-        fwrite(&atual->conta, sizeof(ContaPagar), 1, arquivo);
-        atual = atual->prox;
-    }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 
-int contaPagarLerBIN(ListaContaPagar **lista) {
-    FILE *arquivo = fopen("dados/contas_pagar.bin", "rb");
-    if (arquivo == NULL) {
-        printf("Aviso: Arquivo binário de contas a pagar não encontrado.\n");
-        return 0;
-    }
-
+int contaPagarLerBIN(ListaContaPagar** lista) {
+    FILE* fp = fopen("dados/contas_pagar.bin", "rb");
+    if (fp == NULL) return 0;
     ContaPagar temp;
-
-    while (fread(&temp, sizeof(ContaPagar), 1, arquivo) == 1) {
+    while (fread(&temp, sizeof(ContaPagar), 1, fp) == 1) {
         contaPagarAdicionar(lista, temp);
     }
-
-    fclose(arquivo);
+    fclose(fp);
     return 1;
 }
 

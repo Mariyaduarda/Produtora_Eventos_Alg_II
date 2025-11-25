@@ -97,3 +97,35 @@ void printItemRecurso(TipoRecurso recurso) {
     printf("\n | Preco Custo   | R$%-46.2f | ", recurso.precoCusto);
     printf("\n | Valor Locacao | R$%-46.2f | ", recurso.valorLocacao);
 }
+
+void printItemEvento(TipoEvento evento) {
+    char dataInicioStr[20] = "";
+    char dataFimStr[20] = "";
+    if (evento.dataInicio.tm_year != 0) strftime(dataInicioStr, sizeof(dataInicioStr), "%d/%m/%Y", &evento.dataInicio);
+    if (evento.dataFim.tm_year != 0) strftime(dataFimStr, sizeof(dataFimStr), "%d/%m/%Y", &evento.dataFim);
+
+    const char *statusStr;
+    switch (evento.status) {
+        case STATUS_ORCAMENTO: statusStr = "Orcamento"; break;
+        case STATUS_APROVADO: statusStr = "Aprovado"; break;
+        case STATUS_FINALIZADO: statusStr = "Finalizado"; break;
+        case STATUS_CANCELADO: statusStr = "Cancelado"; break;
+        default: statusStr = "Desconhecido"; break;
+    }
+
+    printf("\n=[ ID: %-4d ]=========================================================", evento.id);
+    printf("\n | Nome Evento     | %-46s | ", evento.nome);
+    printf("\n | Cliente (ID)    | %-46d | ", evento.codigoCliente);
+    printf("\n | Status          | %-46s | ", statusStr);
+    printf("\n | Data Inicio     | %-46s | ", dataInicioStr);
+    printf("\n | Data Fim        | %-46s | ", dataFimStr);
+    printf("\n | Local           | %-46s | ", evento.localEvento);
+    printf("\n | Cidade/UF       | %-20s / %-4s      | ", evento.cidade, evento.uf);
+    printf("\n | Custo Recursos  | R$%-41.2f | ", evento.custoTotalRecursos);
+    printf("\n | Custo Equipe    | R$%-41.2f | ", evento.custoTotalEquipe);
+    printf("\n | Custo Fornecd.  | R$%-41.2f | ", evento.custoTotalForn);
+    printf("\n | Custo Total     | R$%-41.2f | ", evento.custoTotal);
+    printf("\n | Margem Lucro(%%) | %-46.2f | ", evento.margemLucro);
+    printf("\n | Valor Final     | R$%-41.2f | ", evento.valorFinal);
+    printf("\n | Observacoes     | %-46s | ", evento.obs);
+}

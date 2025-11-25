@@ -211,12 +211,11 @@ int recebeID(bool validacao){
     return id;
 }
 
-void recebeData(const char *dataStr, bool validacao){
+void recebeData(char *dataStr, bool validacao){
     while(1){
         recebeString(dataStr, 11, "Digite a data (dd/mm/aaaa)", "Formato: dd/mm/aaaa", validacao);
 
-        if(validarData(DataStr) || !validacao) break;
+        if(validarData(dataStr) || !validacao) break;
         printMensagem("Formato de data invalido!", "ERRO");
-        }
     }
 }

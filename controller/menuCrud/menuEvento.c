@@ -2,85 +2,21 @@
 
 // ========== FUNÇÃO PARA RECEBER DADOS DO EVENTO ==========
 TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente) {
-    // vai receber um novo evento do usuario e retorna o evento pronto
+    // Recebe um novo Evento do usuario e retorna o evento preenchido
     TipoEvento evento;
     eventoInit(&evento);
-    
-    limparTela();
-    imprimirCabecalho("CADASTRO DE EVENTO", config);
-    char entradaInicio[11], entradaFim[11];
 
-    // Nome do evento
-    printf("\n%sNome do Evento:%s ", config->cor, RESET);
-    recebeString(evento.nome, 100, "Digite o nome do evento", "Max. 100", config->validar_dados);
-
-    evento.dataInicio.tm_mday = recebeInt();
-    evento.dataInicio.tm_mday = recebeInt();
-    evento.dataInicio.tm_year = recebeInt() - 1900;
-
-    printf("\n%s=== DATA DE FIM ===%s\n", config->cor, RESET);
-    printf("%sDia:%s ", config->cor, RESET);
-    evento.dataFim.tm_mday = recebeInt(1, 31, "Dia", "1-31", config->validar_dados);
-    printf("%sMês:%s ", config->cor, RESET);
-    evento.dataFim.tm_mon = recebeInt(1, 12, "Mês", "1-12", config->validar_dados) - 1;
-    printf("%sAno:%s ", config->cor, RESET);
-    evento.dataFim.tm_year = recebeInt(1900, 2100, "Ano", "1900-2035", config->validar_dados) - 1900;
-
-    //recebeString(evento.entradaInicio, 10, "Digite data de início (dd/mm/aaaa)", "Formato inválido", config->validar_dados);
-    //recebeString(evento.entradaFim, 10, "Digite data de início (dd/mm/aaaa)", "Formato inválido", config->validar_dados);
-    recebeString(evento.localEvento, 150, "Digite o local do evento", "Max. 150", config->validar_dados);
-    recebeString(evento.cidade, 50, "Digite a cidade do evento", "Max. 50", config->validar_dados);
-    recebeString(evento.uf, 4, "Digite o estado do evento", "Max. 4", config->validar_dados);
-    evento.codigoCliente = recebeInt();
-    recebeString(evento.obs, 500, "Digite as observacoes do evento", "Max. 500", config->validar_dados);
-    evento.margemLucro = recebeDouble();
-
-    TipoCliente *cliente = clienteBuscar(listaCliente, evento.codigoCliente);
-    if (cliente == NULL) {
-        printf("\n%s[AVISO] Cliente não encontrado!%s\n", VERMELHO, RESET);
-        pausar();
-        eventoInit(&evento);
-        return evento;
-    }
-    
-    // Datas
-    printf("\n%s=== DATA DE INÍCIO ===%s\n", config->cor, RESET);
-    printf("%sDia:%s ", config->cor, RESET);
-    evento.dataInicio.tm_mday = recebeInt();
-    printf("%sMês:%s ", config->cor, RESET);
-    evento.dataInicio.tm_mday = recebeInt();
-    printf("%sAno:%s ", config->cor, RESET);
-    evento.dataInicio.tm_year = recebeInt() - 1900;
-    
-    printf("\n%s=== DATA DE FIM ===%s\n", config->cor, RESET);
-    printf("%sDia:%s ", config->cor, RESET);
-    evento.dataFim.tm_mday = recebeInt();
-    printf("%sMês:%s ", config->cor, RESET);
-    evento.dataFim.tm_mon = recebeInt() - 1;
-    printf("%sAno:%s ", config->cor, RESET);
-    evento.dataFim.tm_year = recebeInt() - 1900;
-    
-    // Local
-    printf("\n%sLocal do Evento:%s ", config->cor, RESET);
-    recebeString(evento.localEvento, 150);
-    
-    printf("%sCidade:%s ", config->cor, RESET);
-    recebeString(evento.cidade, 50);
-    
-    printf("%sUF:%s ", config->cor, RESET);
-    recebeString(evento.uf, 3);
-    
-    // Margem de lucro
-    printf("\n%sMargem de Lucro (%%):%s ", config->cor, RESET);
-    evento.margemLucro = recebeDouble();
-
+    // Recebe os dados do evento
+    evento.id = 0; // ID sera atribuido automaticamente
+    recebeString(evento.nome, 100, "Digite o Nome do Evento", "Max. 100", config->validar_dados);
+    evento.codigoCliente = recebeID(config->validar_dados); // ID do cliente relacionado
+    recebeString(evento.localEvento, 150, "Digite o Local do Evento", "Max. 150", config->validar_dados);
+    recebeString(evento.cidade, 50, "Digite a Cidade", "Max. 50", config->validar_dados);
+    recebeString(evento.uf, 4, "Digite a UF", "Max. 4", config->validar_dados);
+    evento.margemLucro = recebeFloat(0.0, 100.0, "Digite a Margem de Lucro (%)", "0.0 - 100.0", config->validar_dados);
+    recebeString(evento.obs, 500, "Digite observacoes", "Max. 500", config->validar_dados);
     evento.status = STATUS_ORCAMENTO;
-    evento.listaRecursos = NULL;
-    evento.listaEquipes = NULL;
-    evento.listaFornecedores = NULL;
-    
-    eventoRecalcularTotais(&evento);
-    
+
     return evento;
 }
 
@@ -88,496 +24,371 @@ TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente) {
 void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *listaCliente,
                 ListaRecurso *listaRecurso, ListaEquipe *listaEquipe, 
                 ListaFornecedor *listaFornecedor, TipoConfig *config) {
-    
-    int escolha = 0;
-    do {
-       // exibi menu do evento
-       printfMenuEvento(*evento);
-       escolha = recebeInt(0, 2, "Digite uma opcao", "#", config->validar_dados);
+    // Enquanto o usuario n quiser sair, continua no menu
+    int escolha=0;
+    do{
+        // Exibe o menu de Evento
+        printMenuEventos();
 
-        opcao = recebeInt();
-        
-        switch(escolha) {
+        // Recebe a escolha do usuario
+        escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
+
+        switch (escolha){
             case 1:
+                // Adicionar Evento
                 menuEventoAdicionar(listaEvento, listaCliente, config);
                 esperaEnter();
                 break;
             case 2:
+                // Remover Evento
                 menuEventoRemover(listaEvento, config);
                 esperaEnter();
                 break;
             case 3:
+                // Atualizar Evento
                 menuEventoAtualizar(listaEvento, listaCliente, config);
                 esperaEnter();
                 break;
             case 4:
-                menuEventoBuscar(*listaEvento, config);
+                // Buscar Evento
+                menuEventoBuscar(listaEvento, config);
                 esperaEnter();
                 break;
             case 5:
+                // Listar Eventos
                 menuEventoListar(*listaEvento, config);
                 esperaEnter();
                 break;
-            case 6:
-                menuEventoGerenciar(*listaEvento, listaRecurso, listaEquipe, listaFornecedor, config);
-                esperaEnter();
-                break;
-            case 7:
-                menuEventoMudarStatus(*listaEvento, config);
-                esperaEnter();
-                break;
-            case 8:
-                {
-                    limparTela();
-                    imprimirCabecalho("RELATÓRIO DO EVENTO", config);
-                    printf("\n%sDigite o ID do evento:%s ", config->cor, RESET);
-                    int id = recebeInt();
-                    TipoEvento *evento = eventoBuscar(*listaEvento, id);
-                    if (evento != NULL) {
-                        menuEventoRelatorio(evento, config);
-                    } else {
-                        msgErro("Evento não encontrado!");
-                    }
-                    pausar();
-                }
-                break;
             case 0:
-                msgInfo("Voltando...");
+                // Voltar ao menu principal
                 break;
             default:
-                msgErro("Opção inválida!");
-                pausar();
+                // Opcao invalida
+                printOpcaoInvalida();
+                esperaEnter();
         }
-        
-    } while(opcao != 0);
+    }while (escolha != 0);
 }
 
 // ========== CRUD BÁSICO ==========
 void menuEventoAdicionar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config) {
-    TipoEvento novoEvento = menuEventoRecebe(config, listaCliente);
-    
-    if (strlen(novoEvento.nome) > 1) {
-        if (eventoAdicionar(listaEvento, novoEvento)) {
-            msgSucesso("Evento adicionado com sucesso!");
-        } else {
-            msgErro("Erro ao adicionar evento!");
-        }
+    // Guarda o novo item
+    TipoEvento novo;
+
+    // Enquanto o usuario nao confirmar, roda dnv
+    while (1){
+        novo = menuEventoRecebe(config, listaCliente); // Recebe os valores do usuario
+
+        // Mostra os dados que foram inseridos
+        printItemEvento(novo);
+
+        if( recebeConfirma() ) break;  // Pergunta o usuario se ta td certo
     }
-    pausar();
+
+    // Realmente adiciona na lista
+    if ( eventoAdicionar(listaEvento, novo) ) printAdicionarSucesso();
+    else printAdicionarFalha();
 }
 
 void menuEventoRemover(ListaEvento **listaEvento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("REMOVER EVENTO", config);
-    
-    printf("\n%sDigite o ID do evento a remover:%s ", config->cor, RESET);
-    int id = recebeInt();
-    
-    if (eventoRemover(listaEvento, id)) {
-        msgSucesso("Evento removido com sucesso!");
-    } else {
-        msgErro("Erro ao remover evento!");
+    int ID = recebeID(config->validar_dados); // recebe o ID do item que vai ser removido
+
+    // Busca o Item q vai ser removido
+    TipoEvento *evento; // Para guardar resultado de busca
+    evento = eventoBuscar(*listaEvento, ID);
+    if (evento == NULL){
+        printNaoEncontrado();
+        return;
     }
-    pausar();
+
+    // Mostra o Item que vai ser removido
+    printItemEvento(*evento);
+
+    // Pede confirmacao, se tiver ok, remove o evento
+    if (recebeConfirma()){
+        eventoRemover(listaEvento, ID);
+        printRemoverSucesso();
+    }
 }
 
-void menuEventoAtualizar(TipoEvento* evento, TipoConfig *config) {
+void menuEventoAtualizar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config) {
+    // Declara um novo item pra receber os dados atualizados
+    TipoEvento novoEvento;
+    TipoEvento* velhoEvento;
 
+    // Recebe o ID do item que vai ser atualizado
+    int ID = recebeID(config->validar_dados);
+    velhoEvento = eventoBuscar(*listaEvento, ID);
 
-    ListaRecurso *rec = evento->listaRecursos;
-    ListaEquipe *eq = evento->listaEquipes;
-    ListaFornecedor *forne = evento->listaFornecedores;
+    // Se esse ID n existe, mostra erro
+    if (velhoEvento == NULL){
+        printNaoEncontrado();
+        return;
+    }
 
-    TipoEvento novo = menuEventoRecebe(config);
-    *evento = novo;
+    // Caso contrario, recebe os novos dados
+    novoEvento = menuEventoRecebe(config, listaCliente);
 
-    evento->listaRecursos = rec;
-    evento->listaEquipes = eq;
-    evento->listaFornecedores = forne;
+    // ===============================
+    // Mostra as mudancas
+
+    // Printa os antigos dados
+    printMensagem("Dados Antigos","=");
+    printItemEvento(*velhoEvento);
+
+    // Printa os novos dados
+    printMensagem("Dados Novos","=");
+    printItemEvento(novoEvento);
+
+    // ===============================
+    // Confirma se o usuario realmente quer atualizar
+    if (recebeConfirma()){
+        eventoAtualizar(*listaEvento, novoEvento, ID);
+        printAtualizarSucesso();
+    }
 }
 
 void menuEventoBuscar(ListaEvento *listaEvento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("BUSCAR EVENTO", config);
-    
-    printf("\n%sDigite o ID do evento:%s ", config->cor, RESET);
-    int id = recebeInt();
-    
-    TipoEvento *evento = eventoBuscar(listaEvento, id);
-    
-    if (evento != NULL) {
-        printf("\n%s=== EVENTO ENCONTRADO ===%s\n", config->cor, RESET);
-        mostrarEvento(evento, config); // Você precisará implementar essa função no mostrarItem.c
-    } else {
-        msgErro("Evento não encontrado!");
+    TipoEvento *evento; // Para guardar resultado de busca
+    evento = eventoBuscar(listaEvento, recebeID(config->validar_dados));
+    if (evento != NULL){
+        printItemEvento(*evento);
     }
-    pausar();
+    else printNaoEncontrado();
 }
+
 
 void menuEventoListar(ListaEvento *listaEvento, TipoConfig *config) {
     limparTela();
-    imprimirCabecalho("LISTA DE EVENTOS", config);
-    
+
+    // Lista todos os eventos cadastrados
     if (listaEvento == NULL) {
-        msgInfo("Nenhum evento cadastrado.");
-        pausar();
+        printMensagem("Nenhum item cadastrado","#");
         return;
     }
-    
-    ListaEvento *atual = listaEvento;
-    int contador = 0;
 
-    // Listar eventos
-    printf("\n===== LISTA DE EVENTOS =====\n");
-    ListaEvento *atual = listaEventos;
-    while(atual != NULL) {
-        if(atual->evento.ativo) {
-            printf("\nID: %d | %s\n", atual->evento.id, atual->evento.nome);
-            printf("Status: ");
-            switch(atual->evento.status) {
-                case STATUS_ORCAMENTO: printf("Orçamento\n"); break;
-                case STATUS_APROVADO: printf("Aprovado\n"); break;
-                case STATUS_FINALIZADO: printf("Finalizado\n"); break;
-                case STATUS_CANCELADO: printf("Cancelado\n"); break;
-            }
-            printf("Valor Final: R$ %.2f\n", atual->evento.valorFinal);
-            printf("-----------------------------------\n");
-        }
+    ListaEvento *atual = listaEvento; // comeca auxiliar no comeco da lista
+    while (atual != NULL) {
+        // Se Item estiver ativo, printa
+        if (atual->evento.ativo) printItemEvento(atual->evento);
         atual = atual->prox;
     }
-    
-    if (contador == 0) {
-        msgInfo("Nenhum evento ativo encontrado.");
-    }
-    
-    pausar();
+
+    printf("\n");
 }
 
 // ========== GERENCIAR EVENTO ==========
 void menuEventoGerenciar(ListaEvento *listaEvento, ListaRecurso *listaRecurso, 
                          ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor, 
                          TipoConfig *config) {
-    
-    limparTela();
-    imprimirCabecalho("GERENCIAR EVENTO", config);
-    
-    printf("\n%sDigite o ID do evento:%s ", config->cor, RESET);
-    int id = recebeInt();
-    
-    TipoEvento *evento = eventoBuscar(listaEvento, id);
+    int ID = recebeID(config->validar_dados); // Recebe o ID do evento
+    TipoEvento *evento = eventoBuscar(listaEvento, ID);
     
     if (evento == NULL) {
-        msgErro("Evento não encontrado!");
-        pausar();
+        printNaoEncontrado();
         return;
     }
     
-    int opcao;
-    
+    // Menu para gerenciar recursos, equipes e fornecedores
+    int escolha = 0;
     do {
-        limparTela();
-        imprimirCabecalho("GERENCIAR: " + evento->nome, config);
+        printMensagem("Gerenciar Evento", "=");
+        printf("1. Adicionar Recurso\n");
+        printf("2. Remover Recurso\n");
+        printf("3. Listar Recursos\n");
+        printf("4. Adicionar Equipe\n");
+        printf("5. Remover Equipe\n");
+        printf("6. Listar Equipes\n");
+        printf("7. Adicionar Fornecedor\n");
+        printf("8. Remover Fornecedor\n");
+        printf("9. Listar Fornecedores\n");
+        printf("0. Voltar\n");
         
-        printf("\n%s=== RECURSOS ===%s\n", config->cor, RESET);
-        printf("%s1.%s Adicionar Recurso\n", config->cor, RESET);
-        printf("%s2.%s Remover Recurso\n", config->cor, RESET);
-        printf("%s3.%s Listar Recursos\n", config->cor, RESET);
+        escolha = recebeInt(0, 9, "Digite uma opcao", "#", config->validar_dados);
         
-        printf("\n%s=== EQUIPE ===%s\n", config->cor, RESET);
-        printf("%s4.%s Adicionar Membro da Equipe\n", config->cor, RESET);
-        printf("%s5.%s Remover Membro da Equipe\n", config->cor, RESET);
-        printf("%s6.%s Listar Equipe\n", config->cor, RESET);
-        
-        printf("\n%s=== FORNECEDORES ===%s\n", config->cor, RESET);
-        printf("%s7.%s Adicionar Fornecedor\n", config->cor, RESET);
-        printf("%s8.%s Remover Fornecedor\n", config->cor, RESET);
-        printf("%s9.%s Listar Fornecedores\n", config->cor, RESET);
-        
-        printf("\n%s0.%s Voltar\n", config->cor, RESET);
-        
-        printf("\n%sOpção:%s ", config->cor, RESET);
-        opcao = recebeInt();
-        
-        switch(opcao) {
+        switch (escolha) {
             case 1:
                 menuEventoAdicionarRecurso(evento, listaRecurso, config);
+                esperaEnter();
                 break;
             case 2:
                 menuEventoRemoverRecurso(evento, config);
+                esperaEnter();
                 break;
             case 3:
                 menuEventoListarRecursos(evento, config);
+                esperaEnter();
                 break;
             case 4:
                 menuEventoAdicionarEquipe(evento, listaEquipe, config);
+                esperaEnter();
                 break;
             case 5:
                 menuEventoRemoverEquipe(evento, config);
+                esperaEnter();
                 break;
             case 6:
                 menuEventoListarEquipes(evento, config);
+                esperaEnter();
                 break;
             case 7:
                 menuEventoAdicionarFornecedor(evento, listaFornecedor, config);
+                esperaEnter();
                 break;
             case 8:
                 menuEventoRemoverFornecedor(evento, config);
+                esperaEnter();
                 break;
             case 9:
                 menuEventoListarFornecedores(evento, config);
+                esperaEnter();
                 break;
-            case 0:
-                msgInfo("Voltando...");
-                break;
-            default:
-                msgErro("Opção inválida!");
-                pausar();
         }
-        
-    } while(opcao != 0);
+    } while (escolha != 0);
 }
 
 // ========== RECURSOS DO EVENTO ==========
 void menuEventoAdicionarRecurso(TipoEvento *evento, ListaRecurso *listaRecurso, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("ADICIONAR RECURSO AO EVENTO", config);
-    
-    printf("\n%sDigite o ID do recurso:%s ", config->cor, RESET);
-    int codigoRecurso = recebeInt();
-    
-    printf("%sQuantidade:%s ", config->cor, RESET);
-    int qtd = recebeInt();
-    
-    printf("%sDias do evento:%s ", config->cor, RESET);
-    int dias = recebeInt();
-    
-    if (eventoUnirRecurso(evento, listaRecurso, codigoRecurso, qtd, dias)) {
-        msgSucesso("Recurso adicionado com sucesso!");
-    } else {
-        msgErro("Erro ao adicionar recurso! Verifique se o recurso existe e tem estoque.");
-    }
-    pausar();
-}
-
-void menuEventoRemoverRecurso(TipoEvento *evento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("REMOVER RECURSO DO EVENTO", config);
-    
-    printf("\n%sDigite o código do recurso a remover:%s ", config->cor, RESET);
-    int codigo = recebeInt();
-    
-    if (eventoRemoverRecurso(evento, codigo)) {
-        msgSucesso("Recurso removido com sucesso!");
-    } else {
-        msgErro("Erro ao remover recurso!");
-    }
-    pausar();
-}
-
-void menuEventoListarRecursos(TipoEvento *evento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("RECURSOS DO EVENTO", config);
-    
-    if (evento->listaRecursos == NULL) {
-        msgInfo("Nenhum recurso adicionado ao evento.");
-        pausar();
+    if (evento == NULL) {
+        printNaoEncontrado();
         return;
     }
     
-    ListaRecurso *atual = evento->listaRecursos;
+    int codigoRecurso = recebeID(config->validar_dados);
+    int qtd = recebeInt(1, 1000, "Digite a quantidade", "1 - 1000", config->validar_dados);
+    int diasEvento = recebeInt(1, 365, "Digite o numero de dias do evento", "1 - 365", config->validar_dados);
     
-    printf("\n%s%-6s %-15s %-8s %-12s%s\n", config->cor, "Código", "Qtd", "Dias", "Subtotal", RESET);
-    printf("%s%s%s\n", config->cor, "---------------------------------------------", RESET);
-    
-    while (atual != NULL) {
-        printf("%-6d %-15d %-8d R$ %.2f\n", 
-               atual->item.codigoRecurso,
-               atual->item.qtd,
-               atual->item.diasEvento,
-               atual->item.subtotal);
-        atual = atual->prox;
+    if (eventoUnirRecurso(evento, listaRecurso, codigoRecurso, qtd, diasEvento)) {
+        printAdicionarSucesso();
+    } else {
+        printAdicionarFalha();
+    }
+}
+
+void menuEventoRemoverRecurso(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
     }
     
-    printf("\n%sCusto Total em Recursos: R$ %.2f%s\n", config->cor, evento->custoTotalRecursos, RESET);
+    // Implemente a logica de remocao de recurso conforme necessario
+    printMensagem("Funcionalidade em desenvolvimento", "#");
+}
+
+void menuEventoListarRecursos(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
+    }
     
-    pausar();
+    limparTela();
+    printMensagem("Recursos do Evento", "=");
+    // Implemente a listagem de recursos do evento conforme necessario
+    printf("Custo Total de Recursos: R$ %.2f\n", evento->custoTotalRecursos);
 }
 
 // ========== EQUIPE DO EVENTO ==========
 void menuEventoAdicionarEquipe(TipoEvento *evento, ListaEquipe *listaEquipe, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("ADICIONAR MEMBRO DA EQUIPE", config);
-    
-    printf("\n%sDigite o ID do funcionário:%s ", config->cor, RESET);
-    int codigoFunc = recebeInt();
-    
-    printf("%sValor da diária:%s R$ ", config->cor, RESET);
-    double valorDiaria = recebeDouble();
-    
-    printf("%sNúmero de dias:%s ", config->cor, RESET);
-    int numDias = recebeInt();
-    
-    if (eventoUnirEquipe(evento, listaEquipe, codigoFunc, valorDiaria, numDias)) {
-        msgSucesso("Membro da equipe adicionado com sucesso!");
-    } else {
-        msgErro("Erro ao adicionar membro! Verifique se o funcionário existe.");
-    }
-    pausar();
-}
-
-void menuEventoRemoverEquipe(TipoEvento *evento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("REMOVER MEMBRO DA EQUIPE", config);
-    
-    printf("\n%sDigite o código do funcionário a remover:%s ", config->cor, RESET);
-    int codigo = recebeInt();
-    
-    if (eventoRemoverEquipe(evento, codigo)) {
-        msgSucesso("Membro removido com sucesso!");
-    } else {
-        msgErro("Erro ao remover membro!");
-    }
-    pausar();
-}
-
-void menuEventoListarEquipes(TipoEvento *evento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("EQUIPE DO EVENTO", config);
-    
-    if (evento->listaEquipes == NULL) {
-        msgInfo("Nenhum membro da equipe adicionado.");
-        pausar();
+    if (evento == NULL) {
+        printNaoEncontrado();
         return;
     }
     
-    ListaEquipe *atual = evento->listaEquipes;
+    int codigoFunc = recebeID(config->validar_dados);
+    double valorDiaria = recebeFloat(0.0, 100000.0, "Digite o valor da diaria", "0.0 - 100000.0", config->validar_dados);
+    int numDias = recebeInt(1, 365, "Digite o numero de dias", "1 - 365", config->validar_dados);
     
-    printf("\n%s%-6s %-12s %-8s %-12s%s\n", config->cor, "Código", "Diária", "Dias", "Subtotal", RESET);
-    printf("%s%s%s\n", config->cor, "---------------------------------------------", RESET);
-    
-    while (atual != NULL) {
-        printf("%-6d R$ %-12.2f %-8d R$ %.2f\n", 
-               atual->item.codigoFunc,
-               atual->item.valorDiaria,
-               atual->item.numDias,
-               atual->item.subtotal);
-        atual = atual->prox;
+    if (eventoUnirEquipe(evento, listaEquipe, codigoFunc, valorDiaria, numDias)) {
+        printAdicionarSucesso();
+    } else {
+        printAdicionarFalha();
+    }
+}
+
+void menuEventoRemoverEquipe(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
     }
     
-    printf("\n%sCusto Total da Equipe: R$ %.2f%s\n", config->cor, evento->custoTotalEquipe, RESET);
+    // Implemente a logica de remocao de equipe conforme necessario
+    printMensagem("Funcionalidade em desenvolvimento", "#");
+}
+
+void menuEventoListarEquipes(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
+    }
     
-    pausar();
+    limparTela();
+    printMensagem("Equipes do Evento", "=");
+    // Implemente a listagem de equipes do evento conforme necessario
+    printf("Custo Total de Equipe: R$ %.2f\n", evento->custoTotalEquipe);
 }
 
 // ========== FORNECEDORES DO EVENTO ==========
 void menuEventoAdicionarFornecedor(TipoEvento *evento, ListaFornecedor *listaFornecedor, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("ADICIONAR FORNECEDOR", config);
-    
-    printf("\n%sDigite o ID do fornecedor:%s ", config->cor, RESET);
-    int codigoFornecedor = recebeInt();
-    
-    char descricaoServico[150];
-    printf("%sDescrição do serviço:%s ", config->cor, RESET);
-    recebeString(descricaoServico, 150);
-    
-    printf("%sValor do serviço:%s R$ ", config->cor, RESET);
-    double valorServico = recebeDouble();
-    
-    if (eventoUnirFornecedor(evento, listaFornecedor, codigoFornecedor, descricaoServico, valorServico)) {
-        msgSucesso("Fornecedor adicionado com sucesso!");
-    } else {
-        msgErro("Erro ao adicionar fornecedor! Verifique se o fornecedor existe.");
-    }
-    pausar();
-}
-
-void menuEventoRemoverFornecedor(TipoEvento *evento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("REMOVER FORNECEDOR", config);
-    
-    printf("\n%sDigite o código do fornecedor a remover:%s ", config->cor, RESET);
-    int codigo = recebeInt();
-    
-    if (eventoRemoverFornecedor(evento, codigo)) {
-        msgSucesso("Fornecedor removido com sucesso!");
-    } else {
-        msgErro("Erro ao remover fornecedor!");
-    }
-    pausar();
-}
-
-void menuEventoListarFornecedores(TipoEvento *evento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("FORNECEDORES DO EVENTO", config);
-    
-    if (evento->listaFornecedores == NULL) {
-        msgInfo("Nenhum fornecedor adicionado.");
-        pausar();
+    if (evento == NULL) {
+        printNaoEncontrado();
         return;
     }
     
-    ListaFornecedor *atual = evento->listaFornecedores;
+    int codigoFornecedor = recebeID(config->validar_dados);
+    char descricaoServico[500];
+    recebeString(descricaoServico, 500, "Digite a descricao do servico", "Max. 500", config->validar_dados);
+    double valorServico = recebeFloat(0.0, 1000000.0, "Digite o valor do servico", "0.0 - 1000000.0", config->validar_dados);
     
-    printf("\n%s%-6s %-30s %-12s%s\n", config->cor, "Código", "Descrição", "Valor", RESET);
-    printf("%s%s%s\n", config->cor, "-----------------------------------------------------", RESET);
-    
-    while (atual != NULL) {
-        printf("%-6d %-30s R$ %.2f\n", 
-               atual->item.codigoFornecedor,
-               atual->item.descricaoServico,
-               atual->item.valorServico);
-        atual = atual->prox;
+    if (eventoUnirFornecedor(evento, listaFornecedor, codigoFornecedor, descricaoServico, valorServico)) {
+        printAdicionarSucesso();
+    } else {
+        printAdicionarFalha();
+    }
+}
+
+void menuEventoRemoverFornecedor(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
     }
     
-    printf("\n%sCusto Total com Fornecedores: R$ %.2f%s\n", config->cor, evento->custoTotalForn, RESET);
+    // Implemente a logica de remocao de fornecedor conforme necessario
+    printMensagem("Funcionalidade em desenvolvimento", "#");
+}
+
+void menuEventoListarFornecedores(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
+    }
     
-    pausar();
+    limparTela();
+    printMensagem("Fornecedores do Evento", "=");
+    // Implemente a listagem de fornecedores do evento conforme necessario
+    printf("Custo Total de Fornecedores: R$ %.2f\n", evento->custoTotalForn);
 }
 
 // ========== MUDAR STATUS ==========
 void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config) {
-    limparTela();
-    imprimirCabecalho("MUDAR STATUS DO EVENTO", config);
-    
-    printf("\n%sDigite o ID do evento:%s ", config->cor, RESET);
-    int id = recebeInt();
-    
-    TipoEvento *evento = eventoBuscar(listaEvento, id);
+    int ID = recebeID(config->validar_dados);
+    TipoEvento *evento = eventoBuscar(listaEvento, ID);
     
     if (evento == NULL) {
-        msgErro("Evento não encontrado!");
-        pausar();
+        printNaoEncontrado();
         return;
     }
     
-    printf("\n%sStatus atual:%s ", config->cor, RESET);
-    switch(evento->status) {
-        case STATUS_ORCAMENTO:
-            printf("Orçamento\n");
-            break;
-        case STATUS_APROVADO:
-            printf("Aprovado\n");
-            break;
-        case STATUS_FINALIZADO:
-            printf("Finalizado\n");
-            break;
-        case STATUS_CANCELADO:
-            printf("Cancelado\n");
-            break;
-    }
+    printItemEvento(*evento);
     
-    printf("\n%sNovo status:%s\n", config->cor, RESET);
-    printf("%s1.%s Orçamento\n", config->cor, RESET);
-    printf("%s2.%s Aprovado\n", config->cor, RESET);
-    printf("%s3.%s Finalizado\n", config->cor, RESET);
-    printf("%s4.%s Cancelado\n", config->cor, RESET);
-    printf("\n%sOpção:%s ", config->cor, RESET);
+    printf("\n1. Orcamento\n");
+    printf("2. Aprovado\n");
+    printf("3. Finalizado\n");
+    printf("4. Cancelado\n");
     
-    int opcao = recebeInt();
+    int escolha = recebeInt(1, 4, "Escolha o novo status", "#", config->validar_dados);
+    
     int sucesso = 0;
-    
-    switch(opcao) {
+    switch (escolha) {
         case 1:
             sucesso = eventoOrcamento(evento);
             break;
@@ -590,63 +401,26 @@ void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config) {
         case 4:
             sucesso = eventoCancelar(evento);
             break;
-        default:
-            msgErro("Opção inválida!");
-            pausar();
-            return;
     }
     
-    if (sucesso) {
-        msgSucesso("Status alterado com sucesso!");
-    } else {
-        msgErro("Erro ao alterar status!");
-    }
-    pausar();
+    if (sucesso) printAtualizarSucesso();
+    else printAtualizarFalha();
 }
-
 // ========== RELATÓRIO ==========
 void menuEventoRelatorio(TipoEvento *evento, TipoConfig *config) {
+    if (evento == NULL) {
+        printNaoEncontrado();
+        return;
+    }
+    
     limparTela();
-    imprimirCabecalho("RELATÓRIO COMPLETO DO EVENTO", config);
-
-    printf("\n%s=== INFORMAÇÕES GERAIS ===%s\n", config->cor, RESET);
-    printf("ID: %d\n", evento->id);
-    printf("Nome: %s\n", evento->nome);
-    printf("Cliente: %d\n", evento->codigoCliente);
-    printf("Data Início: %02d/%02d/%04d\n",
-           evento->dataInicio.tm_mday,
-           evento->dataInicio.tm_mon + 1,
-           evento->dataInicio.tm_year + 1900);
-    printf("Data Fim: %02d/%02d/%04d\n",
-           evento->dataFim.tm_mday,
-           evento->dataFim.tm_mon + 1,
-           evento->dataFim.tm_year + 1900);
-    printf("Local: %s - %s/%s\n", evento->localEvento, evento->cidade, evento->uf);
-
-    printf("\n%s=== STATUS ===%s ", config->cor, RESET);
-    switch(evento->status) {
-        case STATUS_ORCAMENTO:
-            printf("Orçamento\n");
-            break;
-        case STATUS_APROVADO:
-            printf("Aprovado\n");
-            break;
-        case STATUS_FINALIZADO:
-            printf("Finalizado\n");
-            break;
-        case STATUS_CANCELADO:
-            printf("Cancelado\n");
-            break;
-    }
-
-    printf("\n%s=== CUSTOS ===%s\n", config->cor, RESET);
-    printf("Recursos:    R$ %.2f\n", evento->custoTotalRecursos);
-    printf("Equipe:      R$ %.2f\n", evento->custoTotalEquipe);
-    printf("Fornecedores: R$ %.2f\n", evento->custoTotalForn);
-    printf("%s--------------------------------%s\n", config->cor, RESET);
-    printf("Custo Total: R$ %.2f\n", evento->custoTotal);
-
-    printf("\n%s=== VALORES ===%s\n", config->cor, RESET);
-    printf("Margem de Lucro: %.2f%%\n", evento->margemLucro);
-    printf("%sValor Final: R$ %.2f%\n", evento->valorFinal);
-    }
+    printMensagem("Relatorio do Evento", "=");
+    printItemEvento(*evento);
+    printf("\nCustos:\n");
+    printf("  Recursos: R$ %.2f\n", evento->custoTotalRecursos);
+    printf("  Equipe: R$ %.2f\n", evento->custoTotalEquipe);
+    printf("  Fornecedores: R$ %.2f\n", evento->custoTotalForn);
+    printf("  TOTAL: R$ %.2f\n", evento->custoTotal);
+    printf("\nMargem de Lucro: %.2f%%\n", evento->margemLucro);
+    printf("Valor Final: R$ %.2f\n", evento->valorFinal);
+}

@@ -21,6 +21,4 @@ void printMenuEquipe();
 void printMenuRecurso();
 void printMenuOperador();
 
-void printMenuEvento();
-
 #endif // PRINT_MENU_H
