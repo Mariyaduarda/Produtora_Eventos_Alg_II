@@ -27,8 +27,20 @@ void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *list
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
-        // Exibe o menu de Evento
-        printMenuEventos();
+        limparTela();
+        printf(
+            "\n======================================================================"
+            "\n | # Gerenciamento de Eventos                                       | "
+            "\n |==================================================================| "
+            "\n |   1. Adicionar                                                   | "
+            "\n |   2. Remover                                                     | "
+            "\n |   3. Atualizar                                                   | "
+            "\n |   4. Buscar                                                      | "
+            "\n |   5. Listar                                                      | "
+            "\n |==================================================================| "
+            "\n |   0. Voltar                                                      | "
+            "\n======================================================================"
+        );
 
         // Recebe a escolha do usuario
         escolha = recebeInt(0, 5, "Digite uma opcao", "#", config->validar_dados);
@@ -148,9 +160,9 @@ void menuEventoAtualizar(ListaEvento **listaEvento, ListaCliente *listaCliente, 
     }
 }
 
-void menuEventoBuscar(ListaEvento *listaEvento, TipoConfig *config) {
+void menuEventoBuscar(ListaEvento **listaEvento, TipoConfig *config) {
     TipoEvento *evento; // Para guardar resultado de busca
-    evento = eventoBuscar(listaEvento, recebeID(config->validar_dados));
+    evento = eventoBuscar(*listaEvento, recebeID(config->validar_dados));
     if (evento != NULL){
         printItemEvento(*evento);
     }
@@ -254,15 +266,8 @@ void menuEventoAdicionarRecurso(TipoEvento *evento, ListaRecurso *listaRecurso, 
         return;
     }
     
-    int codigoRecurso = recebeID(config->validar_dados);
-    int qtd = recebeInt(1, 1000, "Digite a quantidade", "1 - 1000", config->validar_dados);
-    int diasEvento = recebeInt(1, 365, "Digite o numero de dias do evento", "1 - 365", config->validar_dados);
-    
-    if (eventoUnirRecurso(evento, listaRecurso, codigoRecurso, qtd, diasEvento)) {
-        printAdicionarSucesso();
-    } else {
-        printAdicionarFalha();
-    }
+    // Implemente a logica de adicionar recurso conforme necessario
+    printMensagem("Funcionalidade em desenvolvimento", "#");
 }
 
 void menuEventoRemoverRecurso(TipoEvento *evento, TipoConfig *config) {
@@ -294,15 +299,8 @@ void menuEventoAdicionarEquipe(TipoEvento *evento, ListaEquipe *listaEquipe, Tip
         return;
     }
     
-    int codigoFunc = recebeID(config->validar_dados);
-    double valorDiaria = recebeFloat(0.0, 100000.0, "Digite o valor da diaria", "0.0 - 100000.0", config->validar_dados);
-    int numDias = recebeInt(1, 365, "Digite o numero de dias", "1 - 365", config->validar_dados);
-    
-    if (eventoUnirEquipe(evento, listaEquipe, codigoFunc, valorDiaria, numDias)) {
-        printAdicionarSucesso();
-    } else {
-        printAdicionarFalha();
-    }
+    // Implemente a logica de adicionar equipe conforme necessario
+    printMensagem("Funcionalidade em desenvolvimento", "#");
 }
 
 void menuEventoRemoverEquipe(TipoEvento *evento, TipoConfig *config) {
@@ -334,16 +332,8 @@ void menuEventoAdicionarFornecedor(TipoEvento *evento, ListaFornecedor *listaFor
         return;
     }
     
-    int codigoFornecedor = recebeID(config->validar_dados);
-    char descricaoServico[500];
-    recebeString(descricaoServico, 500, "Digite a descricao do servico", "Max. 500", config->validar_dados);
-    double valorServico = recebeFloat(0.0, 1000000.0, "Digite o valor do servico", "0.0 - 1000000.0", config->validar_dados);
-    
-    if (eventoUnirFornecedor(evento, listaFornecedor, codigoFornecedor, descricaoServico, valorServico)) {
-        printAdicionarSucesso();
-    } else {
-        printAdicionarFalha();
-    }
+    // Implemente a logica de adicionar fornecedor conforme necessario
+    printMensagem("Funcionalidade em desenvolvimento", "#");
 }
 
 void menuEventoRemoverFornecedor(TipoEvento *evento, TipoConfig *config) {

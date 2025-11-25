@@ -25,7 +25,7 @@ void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *list
 void menuEventoAdicionar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config);
 void menuEventoRemover(ListaEvento **listaEvento, TipoConfig *config);
 void menuEventoAtualizar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config);
-void menuEventoBuscar(ListaEvento *listaEvento, TipoConfig *config);
+void menuEventoBuscar(ListaEvento **listaEvento, TipoConfig *config);
 void menuEventoListar(ListaEvento *listaEvento, TipoConfig *config);
 
 // Gestão de recursos, equipe e fornecedores do evento

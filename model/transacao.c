@@ -409,9 +409,6 @@ int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista) {
         return 0;
     }
 
-    // Recalcula totais do evento
-    eventoRecalcularTotais(evento);
-
     // Gera conta a receber
     int codigoConta = gerarContaReceber(
         lista,

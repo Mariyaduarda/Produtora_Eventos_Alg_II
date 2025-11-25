@@ -21,6 +21,10 @@ void printMenuEquipe();
 void printMenuRecurso();
 void printMenuOperador();
 
-void printMenuEvento();
+void printMenuTransacaoPrincipal();
+void printMenuMovimentacaoCaixa(float saldo);
+void printMenuContasReceber();
+void printMenuContasPagar();
+void printMenuRelatorios();
 
 #endif // PRINT_MENU_H

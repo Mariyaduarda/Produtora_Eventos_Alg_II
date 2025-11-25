@@ -138,7 +138,7 @@ void eventoListaLiberar(ListaEvento* lista) {
 }
 
 //=========== UNIR RECURSOS, EQUIPES E FORNECEDORES ===========
-// Funções comentadas - dependem de estruturas externas
+
 /*
 int eventoUnirRecurso(TipoEvento *evento, ListaRecurso *listaGlobalRecursos, int codigoRecurso,
     int qtd, int diasEvento) {
