@@ -36,8 +36,9 @@ void inicializarSistema() {
     else                            printMensagem("Nenhuma configuracao encontrada, usando padrao","#");
 
     // Le os dados
-    if (lerMemoria(&config, &produtora, &listaCliente, &listaFornecedor, &listaEquipe,
-        &listaEvento, &listaRecurso, &listaOperador, &listaMovimentacao, &listaContaReceber, &listaContaPagar)) {
+    if (lerMemoria(&config, &produtora, &listaCliente, &listaFornecedor, 
+        &listaEquipe, &listaEvento, &listaRecurso, &listaOperador, 
+        &listaMovimentacao, &listaContaReceber, &listaContaPagar)) {
         // se conseguiu ler, avisa
         printMensagem("Dados carregados com sucesso","#");
     } else{
@@ -50,7 +51,8 @@ void inicializarSistema() {
     //===========================================
     // Roda o menu principal
     menuPrincipal(&config, &produtora, &listaCliente, &listaFornecedor,
-        &listaEquipe, &listaRecurso, &listaEvento, &listaOperador, &listaMovimentacao, &listaContaReceber, &listaContaPagar);
+        &listaEquipe, &listaRecurso, &listaEvento, &listaOperador, 
+        &listaMovimentacao, &listaContaReceber, &listaContaPagar);
 
     //===========================================
     // Salva as configuracoes
@@ -65,7 +67,8 @@ void inicializarSistema() {
     }
     // Salva os dados na memoria
     salvarMemoria(&config, &produtora, listaCliente, listaFornecedor,
-        listaEquipe,  listaEvento, listaRecurso, listaOperador, listaMovimentacao, listaContaReceber, listaContaPagar);
+        listaEquipe,  listaEvento, listaRecurso, listaOperador, 
+        listaMovimentacao, listaContaReceber, listaContaPagar);
 
     //===========================================
     // Liberar memoria de tds as listas

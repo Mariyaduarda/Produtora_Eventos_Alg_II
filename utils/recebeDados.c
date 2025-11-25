@@ -204,7 +204,7 @@ int recebeID(bool validacao){
 
     while(1){
          id = recebeInt(1, 1000000, "Digite o ID", "Min. 1", false);
-        if (!validacao || validaCodigo(id))
+        if (validaCodigo(id) || !validacao)
             break;
         printMensagem("ID invalido!", "ERRO");
     }

@@ -140,13 +140,6 @@ bool validarTelefone(const char *telefone) {
     return (digitos == 10 || digitos == 11);
 }
 
-// //===== FUNCAO AUXILIARES PARA UTF-8 =====
-// // retorna qnts bytes um caractere UTF-8 ocupa
-// int bytes_utf8(unsigned char caracter) {
-//     if (caracter < 0x80) returb 1;
-//     if (caracter >= 0xC2)
-// }
-
 // // ===== VALIDACAO DO NOME ======
 bool validarNome(const char *nome) {
     int i = 0, len = strlen(nome);
@@ -172,7 +165,7 @@ bool validarNome(const char *nome) {
     return true;
 }
 
-
+// ====== VALIDACAO DE SENHA =====
 bool validarSenha(const char *senha) {
     int i, len = strlen(senha);
     bool tem_maiuscula = false, tem_minuscula = false;

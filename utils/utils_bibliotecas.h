@@ -1,7 +1,3 @@
-//
-// Created by alunos on 07/10/2025.
-//
-
 #ifndef UTILS_BIBLIOTECAS_H
 #define UTILS_BIBLIOTECAS_H
 
