@@ -125,7 +125,8 @@ void menuEquipeListar(ListaEquipe *lista, TipoConfig *config) {
         atual = atual->prox;
     }
     
-    printf("\n");
+    // barra de baixo
+    printf("\n======================================================================");
 }
 
 void menuEquipe(ListaEquipe **listaEquipe, TipoConfig *config) {

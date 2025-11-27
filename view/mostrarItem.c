@@ -157,8 +157,7 @@ void printItemEvento(TipoEvento evento) {
 }
 
 void printItemRecursoEvento(ItemRecursoEvento item, TipoRecurso recurso){
-    printf("\n |Nome                    |ID  |QTD.|Dias |Preco Unit. |Preco Total | " );
-    printf("\n |%-24s|%-4d|%-4d|%-5d|R$%-7.2f|R$%-7.2f|"
+    printf("\n |%-24s|%-4d|%-4d|%-5d|R$%-10.2f|R$%-10.2f|"
         ,recurso.descricao,item.idRecurso,item.qtd,item.qtdTempo,item.precoUnitario,item.precoTotal);
 }
 

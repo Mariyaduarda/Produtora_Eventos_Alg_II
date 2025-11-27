@@ -21,7 +21,7 @@ void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **
                 break;
             case 2:
                 // Gerenciar Eventos
-                menuEvento(NULL, listaEvento, *listaCliente, *listaRecurso, *listaEquipe, *listaFornecedor, config);
+                menuEvento(listaEvento, listaCliente, listaRecurso, listaEquipe, listaFornecedor, config);
                 break;
             case 3:
                 // Gerenciar Financeiro

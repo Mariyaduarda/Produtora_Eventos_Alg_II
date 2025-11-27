@@ -29,9 +29,9 @@
 TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente);
 
 // ========== MENU PRINCIPAL DE EVENTOS ==========
-void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *listaCliente,
-                ListaRecurso *listaRecurso, ListaEquipe *listaEquipe, 
-                ListaFornecedor *listaFornecedor, TipoConfig *config);
+void menuEvento(ListaEvento **listaEvento, ListaCliente **listaCliente,
+                ListaRecurso **listaRecurso, ListaEquipe **listaEquipe, 
+                ListaFornecedor **listaFornecedor, TipoConfig *config);
 
 // CRUD DE EVENTOS
 void menuEventoAdicionar(ListaEvento **listaEvento, ListaCliente *listaCliente, TipoConfig *config);
@@ -46,9 +46,10 @@ void menuEventoListar(ListaEvento *listaEvento, TipoConfig *config);
 
 //===============================================
 // MENU DE GERENCIAR EVENTO COMPLETO
+
 void menuEventoGerenciar(ListaEvento *listaEvento, ListaRecurso *listaRecurso, 
-                         ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor, 
-                         TipoConfig *config);
+                         ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor,
+                         ListaCliente *listaCliente, TipoConfig *config) ;
 
 // ========== RECURSOS DO EVENTO ==========
 void menuEventoRecurso(ListaEvento *listaEvento, TipoEvento *evento, ListaRecurso *listaRecurso, TipoConfig *config);
@@ -87,7 +88,7 @@ void menuEventoFornecedorListar(ListaFornecedor *listaFornecedor, TipoEvento *ev
 void menuEventoEditarDados(TipoEvento *evento, ListaCliente *listaCliente, TipoConfig *config);
 
 // ========== MUDAR STATUS ==========
-void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config);
+void menuEventoMudarStatus(TipoEvento *evento, TipoConfig *config);
 
 // ========== RELATORIO ==========
 void menuEventoRelatorio(TipoEvento *evento, TipoConfig *config);

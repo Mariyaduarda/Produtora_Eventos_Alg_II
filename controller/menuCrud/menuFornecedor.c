@@ -130,7 +130,8 @@ void menuFornecedorListar(ListaFornecedor *lista, TipoConfig *config) {
         atual = atual->prox;
     }
     
-    printf("\n");
+    // barra de baixo
+    printf("\n======================================================================");
 }
 
 void menuFornecedor(ListaFornecedor **listaFornecedor, TipoConfig *config) {

@@ -127,9 +127,9 @@ void menuClienteListar(ListaCliente *lista, TipoConfig *config) {
         if (atual->cliente.ativo) printItemCliente(atual->cliente);
         atual = atual->prox;
     }
-
-
-    printf("\n");
+    
+    // barra de baixo
+    printf("\n======================================================================");
 }
 
 void menuCliente(ListaCliente **listaCliente, TipoConfig *config) {

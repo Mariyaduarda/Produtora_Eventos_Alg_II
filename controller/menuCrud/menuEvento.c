@@ -16,6 +16,7 @@ TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente) {
     recebeString(evento.localEvento, 150, "Digite o Local do Evento", "Max. 150", config->validar_dados);
     recebeString(evento.cidade, 50, "Digite a Cidade do Evento", "Max. 50", config->validar_dados);
     recebeString(evento.uf, 4, "Digite a UF do Evento", "Max. 4", config->validar_dados);
+    evento.margemLucro = recebeInt(0,100, "Digite a margem de Lucro", "Entre 0 e 100", config->validar_dados);
     
     // Recebe datas
     printMensagem("Data de Inicio do Evento", "-");
@@ -31,9 +32,9 @@ TipoEvento menuEventoRecebe(TipoConfig *config, ListaCliente *listaCliente) {
 }
 
 // ========== MENU PRINCIPAL DE EVENTOS ==========
-void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *listaCliente,
-                ListaRecurso *listaRecurso, ListaEquipe *listaEquipe, 
-                ListaFornecedor *listaFornecedor, TipoConfig *config) {
+void menuEvento(ListaEvento **listaEvento, ListaCliente **listaCliente,
+                ListaRecurso **listaRecurso, ListaEquipe **listaEquipe, 
+                ListaFornecedor **listaFornecedor, TipoConfig *config) {
     // Enquanto o usuario n quiser sair, continua no menu
     int escolha=0;
     do{
@@ -45,7 +46,7 @@ void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *list
         switch (escolha){
             case 1:
                 // Adicionar Evento
-                menuEventoAdicionar(listaEvento, listaCliente, config);
+                menuEventoAdicionar(listaEvento,*listaCliente, config);
                 esperaEnter();
                 break;
             case 2:
@@ -55,7 +56,7 @@ void menuEvento(TipoEvento* evento,ListaEvento **listaEvento, ListaCliente *list
                 break;
             case 3:
                 // Buscar e editar evento
-                menuEventoGerenciar(*listaEvento, listaRecurso, listaEquipe, listaFornecedor, config);
+                menuEventoGerenciar(*listaEvento, *listaRecurso, *listaEquipe, *listaFornecedor, *listaCliente, config);
                 break;
             case 4:
                 // Listar Eventos
@@ -188,14 +189,15 @@ void menuEventoListar(ListaEvento *listaEvento, TipoConfig *config) {
         atual = atual->prox;
     }
 
-    printf("\n");
+    // barra de baixo
+    printf("\n======================================================================");
 }
 
 //===============================================
 // MENU DE GERENCIAR EVENTO COMPLETO
 void menuEventoGerenciar(ListaEvento *listaEvento, ListaRecurso *listaRecurso, 
-                         ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor, 
-                         TipoConfig *config) 
+                         ListaEquipe *listaEquipe, ListaFornecedor *listaFornecedor,
+                         ListaCliente *listaCliente, TipoConfig *config) 
 {   // menu completo para gerenciar um evento
 
     int ID = recebeID(config->validar_dados); // Recebe o ID do evento
@@ -218,6 +220,23 @@ void menuEventoGerenciar(ListaEvento *listaEvento, ListaRecurso *listaRecurso,
         escolha = recebeInt(0, 9, "Digite uma opcao", "#", config->validar_dados);
         
         switch (escolha) {
+            case 1:
+                menuEventoEditarDados(evento, listaCliente, config);
+                break;
+            case 2:
+                menuEventoRecurso(listaEvento,evento,listaRecurso,config);
+                break;
+            case 3:
+                menuEventoEquipe(listaEvento,evento,listaEquipe,config);
+                break;
+            case 4:
+                menuEventoFornecedor(listaEvento,evento,listaFornecedor,config);
+                break;
+            case 5:
+                menuEventoMudarStatus(evento,config);
+                break;
+            case 6:
+                break;
 
         }
     } while (escolha != 0);
@@ -293,14 +312,14 @@ void menuEventoRecursoAdicionar(ListaEvento *listaEvento, TipoEvento *evento, Li
     // Verifica se o os dias estao ok
     int duracaoEvento = calculaDiferencaDias(evento->dataInicio, evento->dataFim);
     if (novoItem.qtdTempo > duracaoEvento) {
-        printMensagem("O recurso nao pode ser usado por mais dias do que a duracao do evento", "!");
+        printMensagem("Quantidade Invalida de Dias", "!");
         return;
     }
 
     // Verifica se a qtd esta ok
     int qtdAlocada  = recursoContarUsoPeriodo(listaEvento, idRecurso, evento->dataInicio, evento->dataFim);
     if ((qtdAlocada + novoItem.qtd) > recurso->qtdEstoque) {
-        printMensagem("Nao ha estoque suficiente deste recurso para o periodo do evento", "!");
+        printMensagem("Nao ha estoque suficiente", "!");
         return;
     }
 
@@ -682,14 +701,7 @@ void menuEventoEditarDados(TipoEvento *evento, ListaCliente *listaCliente, TipoC
 }
 
 // ========== MUDAR STATUS ==========
-void menuEventoMudarStatus(ListaEvento *listaEvento, TipoConfig *config) {
-    int ID = recebeID(config->validar_dados);
-    TipoEvento *evento = eventoBuscar(listaEvento, ID);
-    
-    if (evento == NULL) {
-        printNaoEncontrado();
-        return;
-    }
+void menuEventoMudarStatus(TipoEvento *evento, TipoConfig *config) {
     
     printItemEvento(*evento);
     
