@@ -168,10 +168,10 @@ void menuTransacaoContaReceber(ListaContaReceber **listaCR, ListaMovimentacao **
 
 // Subrotinas para Contas a Receber
 void menuTransacaoContaReceber_GerarConta(ListaContaReceber **listaCR, TipoConfig *config) {
-	int codigoCliente = recebeID(config->validar_dados);
+	int idCliente = recebeID(config->validar_dados);
 	int codigoEvento = recebeID(config->validar_dados);
 	float valor = recebeFloat(0.0f, 100000000.0f, "Valor total", "", config->validar_dados);
-	int codigo = gerarContaReceber(listaCR, codigoCliente, codigoEvento, valor);
+	int codigo = gerarContaReceber(listaCR, idCliente, codigoEvento, valor);
 	if (codigo) printAdicionarSucesso(); else printAdicionarFalha();
 	esperaEnter();
 }
@@ -194,7 +194,7 @@ void menuTransacaoContaReceber_ConsultarContaEspecifica(ListaContaReceber **list
 	else {
 		limparTela();
 		printf("\nConta: %d\nCliente: %d\nEvento: %d\nValor Total: R$ %.2f\nValor Pago: R$ %.2f\nValor Restante: R$ %.2f\nPago: %s\n",
-			cr->codigo, cr->codigoCliente, cr->codigoEvento, cr->valorTotal, cr->valorPago, cr->valorRestante, cr->pago?"Sim":"Nao");
+			cr->codigo, cr->idCliente, cr->codigoEvento, cr->valorTotal, cr->valorPago, cr->valorRestante, cr->pago?"Sim":"Nao");
 	}
 	esperaEnter();
 }
@@ -208,7 +208,7 @@ void menuTransacaoContaReceber_ListarTodas(ListaContaReceber **listaCR) {
 		ContaReceber c = it->conta;
 		printf("\n=[ Codigo: %d ]---------------------------------\n", c.codigo);
 		printf(" Cliente: %d\n Evento: %d\n Valor Total: R$ %.2f\n Valor Pago: R$ %.2f\n Restante: R$ %.2f\n Pago: %s\n",
-			c.codigoCliente, c.codigoEvento, c.valorTotal, c.valorPago, c.valorRestante, c.pago?"Sim":"Nao");
+			c.idCliente, c.codigoEvento, c.valorTotal, c.valorPago, c.valorRestante, c.pago?"Sim":"Nao");
 		it = it->prox;
 	}
 	esperaEnter();
@@ -242,12 +242,12 @@ void menuTransacaoContaPagar(ListaContaPagar **listaCP, ListaMovimentacao **list
 
 // Subrotinas para Contas a Pagar
 void menuTransacaoContaPagar_GerarContaManual(ListaContaPagar **listaCP, TipoConfig *config) {
-	int codigoFornecedor = recebeID(config->validar_dados);
+	int idFornecedor = recebeID(config->validar_dados);
 	float valor = recebeFloat(0.0f, 100000000.0f, "Valor total", "", config->validar_dados);
 	int dias = recebeInt(0, 3650, "Dias para vencimento", "#", config->validar_dados);
 	char descricao[200];
 	recebeString(descricao, 200, "Descricao", "Max.200", config->validar_dados);
-	int codigo = gerarContaPagar(listaCP, codigoFornecedor, valor, dias, descricao);
+	int codigo = gerarContaPagar(listaCP, idFornecedor, valor, dias, descricao);
 	if (codigo) printAdicionarSucesso(); else printAdicionarFalha();
 	esperaEnter();
 }
@@ -268,7 +268,7 @@ void menuTransacaoContaPagar_ConsultarContaEspecifica(ListaContaPagar **listaCP,
 	else {
 		limparTela();
 		printf("\nConta: %d\nFornecedor: %d\nValor Total: R$ %.2f\nValor Pago: R$ %.2f\nValor Restante: R$ %.2f\nPago: %s\n",
-			cp->codigo, cp->codigoFornecedor, cp->valorTotal, cp->valorPago, cp->valorRestante, cp->pago?"Sim":"Nao");
+			cp->codigo, cp->idFornecedor, cp->valorTotal, cp->valorPago, cp->valorRestante, cp->pago?"Sim":"Nao");
 	}
 	esperaEnter();
 }
@@ -282,7 +282,7 @@ void menuTransacaoContaPagar_ListarTodas(ListaContaPagar **listaCP) {
 		ContaPagar c = it->conta;
 		printf("\n=[ Codigo: %d ]---------------------------------\n", c.codigo);
 		printf(" Fornecedor: %d\n Valor Total: R$ %.2f\n Valor Pago: R$ %.2f\n Restante: R$ %.2f\n Pago: %s\n",
-			c.codigoFornecedor, c.valorTotal, c.valorPago, c.valorRestante, c.pago?"Sim":"Nao");
+			c.idFornecedor, c.valorTotal, c.valorPago, c.valorRestante, c.pago?"Sim":"Nao");
 		it = it->prox;
 	}
 	esperaEnter();

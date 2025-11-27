@@ -6,7 +6,8 @@ void equipeInit(TipoEquipe *equipe){
     strcpy(equipe->nome,   "-");
     strcpy(equipe->cpf,    "-");
     strcpy(equipe->funcao, "-");
-    equipe->valorDiariaHora = 0.0;
+    equipe->tipoValor = 0;
+    equipe->valor = 0;
 }
 
 void equipeListaInit(ListaEquipe *lista){
@@ -144,13 +145,14 @@ int equipeSalvarTXT(ListaEquipe *lista){
     // Percorre a lista printando tudo no txt
     while (aux != NULL) {
         // Printa um item
-        fprintf(fp, "%d,%d,%s,%s,%s,%f\n",
+        fprintf(fp, "%d,%d,%s,%s,%s,%d,%f\n",
         aux->equipe.ativo,
         aux->equipe.id,
         aux->equipe.nome,
         aux->equipe.cpf,
         aux->equipe.funcao,
-        aux->equipe.valorDiariaHora);
+        aux->equipe.tipoValor,
+        aux->equipe.valor);
 
         // Avanca
         aux = aux->prox;
@@ -169,13 +171,14 @@ int equipeLerTXT(ListaEquipe **lista) {
     // como nao tem assinatura de bool, le como int e atribui depois
     int ativoTemp;
     
-    while (fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%f\n",
+    while (fscanf(fp, "%d,%d,%[^,],%[^,],%[^,],%d,%f\n",
         &ativoTemp,
         &temp.id,
         temp.nome,
         temp.cpf,
         temp.funcao,
-        &temp.valorDiariaHora) == 6)
+        &temp.tipoValor,
+        &temp.valor) == 7)
     {
         // atribui os booleanos
         temp.ativo = ativoTemp;

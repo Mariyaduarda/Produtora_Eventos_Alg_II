@@ -35,7 +35,7 @@ typedef struct {
 // Contas a Receber
 typedef struct {
     int codigo;
-    int codigoCliente;
+    int idCliente;
     int codigoEvento;
     float valorTotal;
     float valorPago;
@@ -50,7 +50,7 @@ typedef struct {
 // Contas a Pagar
 typedef struct {
     int codigo;
-    int codigoFornecedor;
+    int idFornecedor;
     float valorTotal;
     float valorPago;
     float valorRestante;
@@ -63,7 +63,7 @@ typedef struct {
 
 // Nota Fiscal de Entrada
 typedef struct {
-    int codigoRecurso;
+    int idRecurso;
     char descricao[100];
     float precoCusto;
     int quantidade;
@@ -72,7 +72,7 @@ typedef struct {
 
 typedef struct {
     int numero;
-    int codigoFornecedor;
+    int idFornecedor;
     char dataEmissao[11];
     float valorFrete;
     float valorImposto;
@@ -138,12 +138,12 @@ int registrarEntradaCaixa(ListaMovimentacao **lista, float valor, FormaPagamento
 int registrarSaidaCaixa(ListaMovimentacao **lista, float valor, const char* descricao);
 
 // ===== FUNCOES DE CONTAS A RECEBER =====
-int gerarContaReceber(ListaContaReceber **lista, int codigoCliente, int codigoEvento, float valor);
+int gerarContaReceber(ListaContaReceber **lista, int idCliente, int codigoEvento, float valor);
 int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
                        int codigoConta, float valorPagamento, FormaPagamento forma);
 
 // ===== FUNCOES DE CONTAS A PAGAR =====
-int gerarContaPagar(ListaContaPagar **lista, int codigoFornecedor, float valor,
+int gerarContaPagar(ListaContaPagar **lista, int idFornecedor, float valor,
                     int diasVencimento, const char* descricao);
 int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int codigoConta);
 
@@ -182,8 +182,8 @@ int transacaoCarregarTudo(ListaMovimentacao **listaMov, ListaContaReceber **list
                          ListaContaPagar **listaCP, int tipoArquivo);
 
 // ===== NOTA FISCAL (implementacao futura) =====
-NotaFiscalEntrada* criarNotaFiscal(int codigoFornecedor, float frete, float imposto);
-int adicionarItemNotaFiscal(NotaFiscalEntrada* nf, int codigoRecurso,
+NotaFiscalEntrada* criarNotaFiscal(int idFornecedor, float frete, float imposto);
+int adicionarItemNotaFiscal(NotaFiscalEntrada* nf, int idRecurso,
                             const char* descricao, float precoCusto, int quantidade);
 int finalizarNotaFiscal(NotaFiscalEntrada* nf, int pagoAVista,
                        float valorEntrada, int numeroParcelas);

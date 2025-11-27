@@ -15,7 +15,10 @@ typedef struct {
     char nome[100];
     char cpf[20];
     char funcao[50];
-    float valorDiariaHora;
+    
+    // Para o pagamento
+    int tipoValor; // 0: Fixo, 1: Por hora, 2: Por Dia
+    float valor;   // valor em si
 } TipoEquipe;
 
 typedef struct ListaEquipe{

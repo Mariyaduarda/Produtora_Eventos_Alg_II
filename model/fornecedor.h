@@ -19,6 +19,10 @@ typedef struct {
     char endereco[100];
     char telefone[20];
     char tipoServico[100];
+
+    // Para o pagamento
+    int tipoValor; // 0: Fixo, 1: Por hora, 2: Por Dia
+    float valor;   // valor em si
 } TipoFornecedor;
 
 typedef struct ListaFornecedor{

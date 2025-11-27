@@ -1,7 +1,6 @@
-//
-// Created by alunos on 07/10/2025.
-//
-#include "utils_bibliotecas.h"
+
+#include "utils_validacoes.h"
+
 // ===== VALIDACAO DO CPF ======
 bool validarCPF(const char *cpf_cnpj) {
     int i, j = 0, digito1 = 0, digito2 = 0;
@@ -228,7 +227,7 @@ bool validarData(const char *dataStr){
     if(dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2035)
     return false;
 
-int diasNoMes[] = {31, ehBissexto(ano) ? 29 : 28, 31, 30, 31, 30,
+    int diasNoMes[] = {31, ehBissexto(ano) ? 29 : 28, 31, 30, 31, 30,
                        31, 31, 30, 31, 30, 31};
     if (dia > diasNoMes[mes - 1])
         return false;

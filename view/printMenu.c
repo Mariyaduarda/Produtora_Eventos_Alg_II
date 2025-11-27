@@ -277,12 +277,83 @@ void printMenuEventoGerenciar(TipoEvento *evento, TipoConfig *config) {
     printf(
         "\n======================================================================"
         "\n |   1. Editar Dados Basicos                                        | "
-        "\n |   2. Editar Datas                                                | "
-        "\n |   3. Gerenciar Recursos                                          | "
-        "\n |   4. Gerenciar Equipes                                           | "
-        "\n |   5. Gerenciar Fornecedores                                      | "
-        "\n |   6. Mudar Status                                                | "
-        "\n |   7. Ver Relatorio                                               | "
+        "\n |   2. Gerenciar Recursos                                          | "
+        "\n |   3. Gerenciar Equipes                                           | "
+        "\n |   4. Gerenciar Fornecedores                                      | "
+        "\n |   5. Mudar Status                                                | "
+        "\n |   6. Ver Relatorio                                               | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+
+void printMenuEventoGerenciarRecursos(TipoEvento *evento, TipoConfig *config) {
+    limparTela();
+    printItemEvento(*evento);
+    
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Recursos do Evento                            | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar Recurso                                           | "
+        "\n |   2. Remover Recurso                                             | "
+        "\n |   3. Listar Recursos                                             | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+
+void printMenuEventoGerenciarEquipes(TipoEvento *evento, TipoConfig *config) {
+    limparTela();
+    printItemEvento(*evento);
+    
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Equipes do Evento                             | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar Equipe                                            | "
+        "\n |   2. Remover Equipe                                              | "
+        "\n |   3. Listar Equipes                                              | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+
+void printMenuEventoGerenciarFornecedores(TipoEvento *evento, TipoConfig *config) {
+    limparTela();
+    printItemEvento(*evento);
+    
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Fornecedores do Evento                        | "
+        "\n |==================================================================| "
+        "\n |   1. Adicionar Fornecedor                                        | "
+        "\n |   2. Remover Fornecedor                                          | "
+        "\n |   3. Listar Fornecedores                                        | "
+        "\n |==================================================================| "
+        "\n |   0. Voltar                                                      | "
+        "\n======================================================================"
+    );
+}
+
+void printMenuEventoGerenciarDados(TipoEvento *evento, TipoConfig *config) {
+    limparTela();
+    printItemEvento(*evento);
+    
+    printf(
+        "\n======================================================================"
+        "\n | # Gerenciamento de Dados Basicos do Evento                       | "
+        "\n |==================================================================| "
+        "\n |   1. Editar Nome                                                 | "
+        "\n |   2. Editar Local                                                | "
+        "\n |   3. Editar Cidade                                               | "
+        "\n |   4. Editar UF                                                   | "
+        "\n |   5. Editar Margem de Lucro                                      | "
+        "\n |   6. Editar Observacoes                                          | "
+        "\n |   7. Editar Datas                                                | "
         "\n |==================================================================| "
         "\n |   0. Voltar                                                      | "
         "\n======================================================================"

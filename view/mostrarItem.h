@@ -23,4 +23,8 @@ void printItemProdutora(TipoProdutora produtora);
 void printItemRecurso(TipoRecurso recurso);
 void printItemEvento(TipoEvento evento);
 
+void printItemRecursoEvento(ItemRecursoEvento item, TipoRecurso recurso);
+void printItemEquipeEvento(ItemEquipeEvento item, TipoEquipe equipe);
+void printItemFornecedorEvento(ItemFornecedorEvento item, TipoFornecedor fornecedor);
+
 #endif // MOSTRAR_ITEM_H

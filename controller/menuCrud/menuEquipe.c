@@ -10,7 +10,8 @@ TipoEquipe menuEquipeRecebe(TipoConfig *config) {
     recebeString(equipe.nome, 100, "Digite o Nome","Max. 100", config->validar_dados);
     recebeCPF(equipe.cpf, config->validar_dados);
     recebeString(equipe.funcao, 50, "Digite a Funcao","Max. 50", config->validar_dados);
-    equipe.valorDiariaHora = recebeFloat(0, 1000000, "Digite o Valor da Diaria", "Entre 0 e 1m", config->validar_dados);
+    equipe.tipoValor = recebeInt(0,2,"Digite o tipo de pagamento","0:Fixo | 1:Por hora | 2:Por Dia",config->validar_dados);
+    equipe.valor = recebeFloat(0, 1000000, "Digite o valor do pagamento", "Entre 0 e 1m", config->validar_dados);
 
     return equipe;
 }
@@ -81,7 +82,6 @@ void menuEquipeAtualizar(ListaEquipe **listaEquipe, TipoConfig *config){
     printMensagem("Dados Antigos","=");
     
     printItemEquipe(*velhoEquipe);
-    
     
     // Printa os novos dados
     printMensagem("Dados Novos","=");

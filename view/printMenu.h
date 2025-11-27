@@ -31,5 +31,10 @@ void printMenuCRUD();
 
 void printMenuEventos();
 void printMenuEventoGerenciar(TipoEvento *evento, TipoConfig *config);
+void printMenuEventoGerenciarDados(TipoEvento *evento, TipoConfig *config);
+
+void printMenuEventoGerenciarRecursos(TipoEvento *evento, TipoConfig *config);
+void printMenuEventoGerenciarEquipes(TipoEvento *evento, TipoConfig *config);
+void printMenuEventoGerenciarFornecedores(TipoEvento *evento, TipoConfig *config);
 
 #endif // PRINT_MENU_H

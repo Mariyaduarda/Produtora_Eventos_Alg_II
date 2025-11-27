@@ -13,6 +13,8 @@ TipoFornecedor menuFornecedorRecebe(TipoConfig *config) {
     recebeString(fornecedor.endereco, 100, "Digite o Endereco","Max. 100", config->validar_dados);
     recebeTelefone(fornecedor.telefone, config->validar_dados);
     recebeString(fornecedor.tipoServico, 100, "Digite o Tipo de Servico","Max. 100", config->validar_dados);
+    fornecedor.tipoValor = recebeInt(0,2,"Digite o tipo de pagamento","0:Fixo | 1:Por hora | 2:Por Dia",config->validar_dados);
+    fornecedor.valor = recebeFloat(0, 1000000, "Digite o valor do pagamento", "Entre 0 e 1m", config->validar_dados);
 
     return fornecedor;
 }

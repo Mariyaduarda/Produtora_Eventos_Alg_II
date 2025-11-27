@@ -15,7 +15,7 @@ void movimentacaoCaixaInit(MovimentacaoCaixa *mov) {
 
 void contaReceberInit(ContaReceber *cr) {
     cr->codigo = 0;
-    cr->codigoCliente = 0;
+    cr->idCliente = 0;
     cr->codigoEvento = 0;
     cr->valorTotal = 0.0;
     cr->valorPago = 0.0;
@@ -29,7 +29,7 @@ void contaReceberInit(ContaReceber *cr) {
 
 void contaPagarInit(ContaPagar *cp) {
     cp->codigo = 0;
-    cp->codigoFornecedor = 0;
+    cp->idFornecedor = 0;
     cp->valorTotal = 0.0;
     cp->valorPago = 0.0;
     cp->valorRestante = 0.0;
@@ -280,11 +280,11 @@ int registrarSaidaCaixa(ListaMovimentacao **lista, float valor, const char* desc
 
 // ===== FUNCOES DE CONTAS A RECEBER =====
 
-int gerarContaReceber(ListaContaReceber **lista, int codigoCliente, int codigoEvento, float valor) {
+int gerarContaReceber(ListaContaReceber **lista, int idCliente, int codigoEvento, float valor) {
     ContaReceber cr;
     contaReceberInit(&cr);
 
-    cr.codigoCliente = codigoCliente;
+    cr.idCliente = idCliente;
     cr.codigoEvento = codigoEvento;
     cr.valorTotal = valor;
     cr.valorPago = 0.0;
@@ -346,12 +346,12 @@ int baixarContaReceber(ListaContaReceber *lista, ListaMovimentacao **listaMov,
 
 // ===== FUNCOES DE CONTAS A PAGAR =====
 
-int gerarContaPagar(ListaContaPagar **lista, int codigoFornecedor, float valor,
+int gerarContaPagar(ListaContaPagar **lista, int idFornecedor, float valor,
                     int diasVencimento, const char* descricao) {
     ContaPagar cp;
     contaPagarInit(&cp);
 
-    cp.codigoFornecedor = codigoFornecedor;
+    cp.idFornecedor = idFornecedor;
     cp.valorTotal = valor;
     cp.valorPago = 0.0;
     cp.valorRestante = valor;
@@ -381,7 +381,7 @@ int baixarContaPagar(ListaContaPagar *lista, ListaMovimentacao **listaMov, int c
 
     // Registra saida no caixa
     char desc[200];
-    snprintf(desc, 200, "Pagamento - %s", cp->descricao);
+    snprintf(desc, 212, "Pagamento - %s", cp->descricao);
 
     if (!registrarSaidaCaixa(listaMov, valor, desc)) {
         return 0;
@@ -412,7 +412,7 @@ int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista) {
     // Gera conta a receber
     int codigoConta = gerarContaReceber(
         lista,
-        evento->codigoCliente,
+        evento->idCliente,
         evento->id,
         evento->valorFinal
     );
@@ -420,7 +420,7 @@ int eventoGerarContaReceber(TipoEvento *evento, ListaContaReceber **lista) {
     if (codigoConta > 0) {
         printMensagem("Conta a receber gerada com sucesso!", "SUCESSO");
         printf("Cliente: %d | Evento: %d | Valor: R$ %.2f\n",
-               evento->codigoCliente, evento->id, evento->valorFinal);
+               evento->idCliente, evento->id, evento->valorFinal);
         return codigoConta;
     }
 
@@ -477,7 +477,7 @@ void relatorioContasReceber(ListaContaReceber *lista) {
         totalAberto += cr->valorRestante;
 
         printf("\nConta: %d | Cliente: %d | Evento: %d\n",
-               cr->codigo, cr->codigoCliente, cr->codigoEvento);
+               cr->codigo, cr->idCliente, cr->codigoEvento);
         printf("Valor Total: R$ %.2f | Pago: R$ %.2f | Restante: R$ %.2f\n",
                cr->valorTotal, cr->valorPago, cr->valorRestante);
         printf("Emissao: %s | Vencimento: %s | Status: %s\n",
@@ -503,7 +503,7 @@ void relatorioContasPagar(ListaContaPagar *lista) {
         totalPago += cp->valorPago;
         totalAberto += cp->valorRestante;
 
-        printf("\nConta: %d | Fornecedor: %d\n", cp->codigo, cp->codigoFornecedor);
+        printf("\nConta: %d | Fornecedor: %d\n", cp->codigo, cp->idFornecedor);
         printf("Descricao: %s\n", cp->descricao);
         printf("Valor Total: R$ %.2f | Pago: R$ %.2f | Restante: R$ %.2f\n",
                cp->valorTotal, cp->valorPago, cp->valorRestante);
@@ -600,7 +600,7 @@ int contaReceberSalvarTXT(ListaContaReceber *lista){
     while (aux != NULL) {
         fprintf(fp, "%d,%d,%d,%.2f,%.2f,%.2f,%s,%s,%s,%d,%s\n",
         aux->conta.codigo,
-        aux->conta.codigoCliente,
+        aux->conta.idCliente,
         aux->conta.codigoEvento,
         aux->conta.valorTotal,
         aux->conta.valorPago,
@@ -623,7 +623,7 @@ int contaReceberLerTXT(ListaContaReceber **lista) {
     int pago;
     while(fscanf(fp, "%d,%d,%d,%f,%f,%f,%[^,],%[^,],%[^,],%d,%[^\n]\n",
         &temp.codigo,
-        &temp.codigoCliente,
+        &temp.idCliente,
         &temp.codigoEvento,
         &temp.valorTotal,
         &temp.valorPago,
@@ -675,7 +675,7 @@ int contaPagarSalvarTXT(ListaContaPagar *lista){
     while (aux != NULL) {
         fprintf(fp, "%d,%d,%.2f,%.2f,%.2f,%s,%s,%s,%d,%s\n",
         aux->conta.codigo,
-        aux->conta.codigoFornecedor,
+        aux->conta.idFornecedor,
         aux->conta.valorTotal,
         aux->conta.valorPago,
         aux->conta.valorRestante,
@@ -697,7 +697,7 @@ int contaPagarLerTXT(ListaContaPagar **lista) {
     int pago;
     while(fscanf(fp, "%d,%d,%f,%f,%f,%[^,],%[^,],%[^,],%d,%[^\n]\n",
         &temp.codigo,
-        &temp.codigoFornecedor,
+        &temp.idFornecedor,
         &temp.valorTotal,
         &temp.valorPago,
         &temp.valorRestante,

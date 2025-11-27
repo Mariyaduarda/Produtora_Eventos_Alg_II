@@ -12,11 +12,11 @@ typedef struct {
     bool ativo;
 
     // Atributos
-    char descricao[150];
-    char categoria[50];
-    int qtdEstoque;
-    float precoCusto;
-    float valorLocacao;
+    char descricao[150]; //
+    char categoria[50];  //
+    float precoCusto;    // preco da compra do item
+    int qtdEstoque;      // quantidade de itens que podem ser alocados em um dia
+    float valorLocacao;  // valor por hora da locacao
 } TipoRecurso;
 
 typedef struct ListaRecurso{
