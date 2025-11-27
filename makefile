@@ -6,10 +6,8 @@ OBJS = $(SRCS:.c=.o)
 TARGET = main.exe
 
 
-# Alvo padrao: compila, executa e limpa
 all: $(TARGET)
 	./$(TARGET)
-	$(MAKE) clean
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)

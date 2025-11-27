@@ -94,7 +94,7 @@ void printItemFornecedor(TipoFornecedor fornecedor) {
         printf("\n | CPF      | %-53s | ", formatado);
     }
 
-    printf("\n | Valor  | R$%-53.2f | ", fornecedor.valor);
+    printf("\n | Valor    | R$%-51.2f | ", fornecedor.valor);
     switch (fornecedor.tipoValor){
         case 0:
             printf("\n | Tipo     | Valor Fixo                                            | ");
@@ -131,11 +131,21 @@ void printItemEvento(TipoEvento evento) {
 
     const char *statusStr;
     switch (evento.status) {
-        case STATUS_ORCAMENTO: statusStr = "Orcamento"; break;
-        case STATUS_APROVADO: statusStr = "Aprovado"; break;
-        case STATUS_FINALIZADO: statusStr = "Finalizado"; break;
-        case STATUS_CANCELADO: statusStr = "Cancelado"; break;
-        default: statusStr = "Desconhecido"; break;
+        case STATUS_ORCAMENTO: 
+            statusStr = "Orcamento"; 
+            break;
+        case STATUS_APROVADO: 
+            statusStr = "Aprovado"; 
+            break;
+        case STATUS_FINALIZADO: 
+            statusStr = "Finalizado"; 
+            break;
+        case STATUS_CANCELADO: 
+            statusStr = "Cancelado"; 
+            break;
+        default: 
+            statusStr = "Desconhecido"; 
+            break;
     }
 
     printf("\n=[ ID: %-4d ]=========================================================", evento.id);
@@ -167,13 +177,16 @@ void printItemEquipeEvento(ItemEquipeEvento item, TipoEquipe equipe){
 
     printf("\n======================================================================");
     printf("\n |Nome                    |ID  |Dias |Preco   |Preco Total          | ");
-    printf("\n |%-24s|%-4d|%-5d|R$%-3.2lf|R$%-16.2f|"
+    printf("\n |%-24s|%-4d|%-5d|R$%-6.2lf|R$%-19.2f|"
         ,equipe.nome,item.idEquipe,item.qtdTempo, item.precoValor, item.precoTotal);
     printf("\n |CPF     | %-55s | ", cpfFormatado);
-    printf("\n |Funcao                                                            | ");
-    printf("\n |%-67s| ",equipe.funcao);
+    printf("\n |Funcao:                                                           | ");
+    printf("\n |%-66s| ",equipe.funcao);
 }
 void printItemFornecedorEvento(ItemFornecedorEvento item, TipoFornecedor fornecedor){
-    printf("\n |%-24s|%-4d|%-5d|%-5d|R$%-7.2f|R$%-7.2f|"
-        ,fornecedor.nomeFantasia,item.idFornecedor,item.qtdTempo,item.precoTipo,item.precoValor,item.precoTotal);
+    
+    printf("\n======================================================================");
+    printf("\n |Nome                    |ID  |Dias |Preco   |Preco Total          | ");
+    printf("\n |%-24s|%-4d|%-5d|R$%-6.2lf|R$%-19.2f|"
+        ,fornecedor.nomeFantasia,item.idFornecedor,item.qtdTempo, item.precoValor, item.precoTotal);
 }

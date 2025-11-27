@@ -137,7 +137,7 @@ int fornecedorSalvarTXT(ListaFornecedor *lista){
     if (lista == NULL) { fclose(fp); return 0; }
     ListaFornecedor *atual = lista;
     while(atual != NULL){
-        fprintf(fp, "%d;%d;%d;%s;%s;%s;%s;%s;%s,%d,%f\n",
+        fprintf(fp, "%d,%d,%d,%s,%s,%s,%s,%s,%s,%d,%f\n",
                 atual->fornecedor.id,
                 atual->fornecedor.ativo,
                 atual->fornecedor.usa_CNPJ,

@@ -553,7 +553,7 @@ void eventoCalcularTotal(TipoEvento *evento) {
                         + evento->custoTotalFornecedor;
 
     // Custo a mandar pro cliente, contando a margem de lucro
-    evento->valorFinal = evento->custoTotal * (1.0 + evento->margemLucro);
+    evento->valorFinal = evento->custoTotal + (evento->custoTotal + evento->margemLucro);
 }
 
 //==================================================

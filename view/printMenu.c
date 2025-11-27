@@ -332,7 +332,7 @@ void printMenuEventoGerenciarFornecedores(TipoEvento *evento, TipoConfig *config
         "\n |==================================================================| "
         "\n |   1. Adicionar Fornecedor                                        | "
         "\n |   2. Remover Fornecedor                                          | "
-        "\n |   3. Listar Fornecedores                                        | "
+        "\n |   3. Listar Fornecedores                                         | "
         "\n |==================================================================| "
         "\n |   0. Voltar                                                      | "
         "\n======================================================================"
