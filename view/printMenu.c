@@ -359,3 +359,27 @@ void printMenuEventoGerenciarDados(TipoEvento *evento, TipoConfig *config) {
         "\n======================================================================"
     );
 }
+
+int printMenuImportacaoExportacao() {
+    int opcao;
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Menu de Importacao/Exportacao                                  |"
+        "\n |==================================================================|"
+        "\n | EXPORTACAO                                                       |"
+        "\n |   1. Exportar Todos os Dados                                     |"
+        "\n |   2. Exportar Clientes                                           |"
+        "\n |   3. Exportar Fornecedores                                       |"
+        "\n |   4. Exportar Eventos                                            |"
+        "\n |------------------------------------------------------------------|"
+        "\n | IMPORTACAO                                                       |"
+        "\n |   5. Importar Clientes                                           |"
+        "\n |   6. Importar Fornecedores                                       |"
+        "\n |   7. Importar Eventos                                            |"
+        "\n |==================================================================|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================"
+        "\n Opcao: "
+    );
+}
