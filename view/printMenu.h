@@ -37,4 +37,8 @@ void printMenuEventoGerenciarRecursos(TipoEvento *evento, TipoConfig *config);
 void printMenuEventoGerenciarEquipes(TipoEvento *evento, TipoConfig *config);
 void printMenuEventoGerenciarFornecedores(TipoEvento *evento, TipoConfig *config);
 
+// ========== MENUS DE IMPORTACAO E EXPORTACAO ==========
+void printMenuExportacao(void);
+void printMenuImportacao(void);
+
 #endif // PRINT_MENU_H

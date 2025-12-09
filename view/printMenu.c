@@ -11,8 +11,9 @@ void printMenuPrincipal(TipoProdutora produtora){
         "\n |   1. Menu de Gerenciamento de dados                              | "
         "\n |   2. Gerenciar Eventos                                           | "
         "\n |   3. Gerenciar Financeiro                                        | "
-        "\n |   4. Salvar dados                                                | "
-        "\n |   5. Configuracoes                                               | "
+        "\n |   4. Importacao e Exportacao de Dados                            | "
+        "\n |   5. Salvar dados                                                | "
+        "\n |   6. Configuracoes                                               | "
         "\n |==================================================================| "
         "\n |   0. Sair                                                        | "
         "\n======================================================================"
@@ -360,26 +361,37 @@ void printMenuEventoGerenciarDados(TipoEvento *evento, TipoConfig *config) {
     );
 }
 
-int printMenuImportacaoExportacao() {
-    int opcao;
+void printMenuExportacao() {
     limparTela();
     printf(
         "\n======================================================================"
-        "\n | # Menu de Importacao/Exportacao                                  |"
+        "\n | # Exportacao de Dados                                            |"
         "\n |==================================================================|"
-        "\n | EXPORTACAO                                                       |"
         "\n |   1. Exportar Todos os Dados                                     |"
         "\n |   2. Exportar Clientes                                           |"
         "\n |   3. Exportar Fornecedores                                       |"
         "\n |   4. Exportar Eventos                                            |"
-        "\n |------------------------------------------------------------------|"
-        "\n | IMPORTACAO                                                       |"
-        "\n |   5. Importar Clientes                                           |"
-        "\n |   6. Importar Fornecedores                                       |"
-        "\n |   7. Importar Eventos                                            |"
+        "\n |   5. Exportar Recursos                                           |"
+        "\n |   6. Exportar Equipes                                            |"
         "\n |==================================================================|"
         "\n |   0. Voltar                                                      |"
         "\n======================================================================"
-        "\n Opcao: "
+    );
+}
+
+void printMenuImportacao() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Importacao de Dados                                            |"
+        "\n |==================================================================|"
+        "\n |   1. Importar Clientes                                           |"
+        "\n |   2. Importar Fornecedores                                       |"
+        "\n |   3. Importar Eventos                                            |"
+        "\n |   4. Importar Recursos                                           |"
+        "\n |   5. Importar Equipes                                            |"
+        "\n |==================================================================|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================"
     );
 }

@@ -23,5 +23,12 @@ void printValorInvalido();
 void printMensagem(char *msg1, char *msg2);
 int recebeConfirma();
 int recebeMetodoDeSalvamento();
+void viewMenuImportacaoExportacao();
+void viewSolicitarNomeArquivo(char* nomeArquivo, const char* titulo);
+void exibirMensagemInfo(const char* mensagem);
+void exibirMensagemProcessando(const char* mensagem);
+void exibirMensagemSucesso(const char* mensagem);
+void exibirMensagemErro(const char* mensagem);
+void viewAguardarContinuar(void);
 
 #endif // MENSAGENS_H

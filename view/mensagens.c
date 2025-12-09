@@ -1,4 +1,5 @@
 #include "mensagens.h"
+#include "../utils/utils_tela.h"
 
 // ====================================
 // SUCESSO OU FALHA
@@ -60,4 +61,46 @@ void printMensagem(char *msg1, char *msg2){
     printf("\n [ %s ]",msg1);                 //msg 1
     for (int i=0 ; i<=n ; i++) printf("="); // =
     printf("[ %s ] ",msg2);                 //msg 2
+}
+
+void viewMenuImportacaoExportacao() {
+    limparTela();
+    printf(
+        "\n======================================================================"
+        "\n | # Importacao e Exportacao de Dados                               |"
+        "\n |==================================================================|"
+        "\n |   1. Exportar Dados                                              |"
+        "\n |   2. Importar Dados                                              |"
+        "\n |==================================================================|"
+        "\n |   0. Voltar                                                      |"
+        "\n======================================================================"
+    );
+}
+
+void viewSolicitarNomeArquivo(char* nomeArquivo, const char* titulo) {
+    printf("\n%s\n", titulo);
+    printf("Digite o nome do arquivo (sem extensao): ");
+    fgets(nomeArquivo, 256, stdin);
+    nomeArquivo[strcspn(nomeArquivo, "\n")] = 0;
+}
+
+void exibirMensagemInfo(const char* mensagem) {
+    printf("\n[INFO] %s\n", mensagem);
+}
+
+void exibirMensagemProcessando(const char* mensagem) {
+    printf("\n[PROCESSANDO] %s\n", mensagem);
+}
+
+void exibirMensagemSucesso(const char* mensagem) {
+    printf("\n[SUCESSO] %s\n", mensagem);
+}
+
+void exibirMensagemErro(const char* mensagem) {
+    printf("\n[ERRO] %s\n", mensagem);
+}
+
+void viewAguardarContinuar(void) {
+    printf("\nPressione ENTER para continuar...");
+    getchar();
 }
