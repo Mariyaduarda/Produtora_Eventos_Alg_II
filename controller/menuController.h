@@ -17,6 +17,10 @@
 #include "../model/fornecedor.h"
 #include "../model/operador.h"
 #include "../model/recurso.h"
+#include "../model/transacao.h"
+#include "../model/feedback.h"
+#include "../model/evento.h"
+#include "../model/model_arquivo.h"
 
 // Inclui todos os menus CRUD
 #include "menuCRUD/menuConfig.h"
@@ -26,8 +30,16 @@
 #include "menuCRUD/menuFornecedor.h"
 #include "menuCRUD/menuOperador.h"
 #include "menuCRUD/menuRecurso.h"
+#include "menuCRUD/menuEvento.h"
+#include "menuCRUD/menuTransacao.h"
 
-void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
-void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, ListaOperador **listaOperador);
+void menuPrincipal(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
+    ListaRecurso **listaRecurso, ListaEvento **listaEvento, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
+    ListaContaReceber **listaContaReceber, ListaContaPagar **listaContaPagar);
+
+void menuCRUD(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaRecurso **listaRecurso, 
+    ListaOperador **listaOperador);
 
 #endif // MENU_CONTROLLER_H

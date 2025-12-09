@@ -22,6 +22,10 @@ void inicializarSistema() {
     ListaEquipe* listaEquipe = NULL;
     ListaRecurso* listaRecurso = NULL;
     ListaOperador* listaOperador = NULL;
+    ListaEvento* listaEvento = NULL;
+    ListaMovimentacao* listaMovimentacao = NULL;
+    ListaContaReceber* listaContaReceber = NULL;
+    ListaContaPagar* listaContaPagar = NULL;
 
     //===========================================
     // Le da memoria
@@ -32,7 +36,9 @@ void inicializarSistema() {
     else                            printMensagem("Nenhuma configuracao encontrada, usando padrao","#");
 
     // Le os dados
-    if (lerMemoria(&config, &produtora, &listaCliente, &listaFornecedor, &listaEquipe, &listaRecurso, &listaOperador)) {
+    if (lerMemoria(&config, &produtora, &listaCliente, &listaFornecedor, 
+        &listaEquipe, &listaEvento, &listaRecurso, &listaOperador, 
+        &listaMovimentacao, &listaContaReceber, &listaContaPagar)) {
         // se conseguiu ler, avisa
         printMensagem("Dados carregados com sucesso","#");
     } else{
@@ -44,13 +50,25 @@ void inicializarSistema() {
 
     //===========================================
     // Roda o menu principal
-    menuPrincipal(&config, &produtora, &listaCliente, &listaFornecedor, &listaEquipe, &listaRecurso, &listaOperador);
+    menuPrincipal(&config, &produtora, &listaCliente, &listaFornecedor,
+        &listaEquipe, &listaRecurso, &listaEvento, &listaOperador, 
+        &listaMovimentacao, &listaContaReceber, &listaContaPagar);
 
     //===========================================
+    // Salva as configuracoes
+    if (config.salvar_como_binario) {
+        configSalvarBIN(config);
+        remove("config.txt");
+        printMensagem("Configuracoes salvas em binario","#");
+    } else {
+        configSalvarTXT(config);
+        remove("config.bin");
+        printMensagem("Configuracoes salvas em texto","#");
+    }
     // Salva os dados na memoria
-    salvarMemoria(&config, &produtora, 
-        listaCliente, listaFornecedor, 
-        listaEquipe, listaRecurso, listaOperador);
+    salvarMemoria(&config, &produtora, listaCliente, listaFornecedor,
+        listaEquipe,  listaEvento, listaRecurso, listaOperador, 
+        listaMovimentacao, listaContaReceber, listaContaPagar);
 
     //===========================================
     // Liberar memoria de tds as listas
@@ -60,6 +78,10 @@ void inicializarSistema() {
     fornecedorListaLiberar(listaFornecedor);
     operadorListaLiberar(listaOperador);
     recursoListaLiberar(listaRecurso);
+    eventoListaLiberar(listaEvento);
+    movimentacaoListaLiberar(listaMovimentacao);
+    contaReceberListaLiberar(listaContaReceber);
+    contaPagarListaLiberar(listaContaPagar);
 
     printf("\n\n");
 }

@@ -1,0 +1,101 @@
+/*
+ * View de Importação/Exportação - Sistema de Controle Gerencial
+ * Disciplina: Algoritmos II
+ */
+
+#include "menuImpoExpo.h"
+#include "../../utils/utils_tela.h"
+
+// ========== MENUS ==========
+int viewMenuImportacaoExportacao(void) {
+    int opcao;
+    
+    limparTela();
+    exibirCabecalhoExportacao();
+    
+    printf("\n┌─────────────────────────────────────┐\n");
+    printf("│  IMPORTAÇÃO E EXPORTAÇÃO DE DADOS   │\n");
+    printf("├─────────────────────────────────────┤\n");
+    printf("│ 1. Exportar Dados                   │\n");
+    printf("│ 2. Importar Dados                   │\n");
+    printf("│ 0. Voltar ao Menu Principal         │\n");
+    printf("└─────────────────────────────────────┘\n");
+    printf("\nEscolha uma opção: ");
+    
+    scanf("%d", &opcao);
+    getchar();
+    
+    return opcao;
+}
+
+// ========== SOLICITAÇÕES DE ENTRADA ==========
+void viewSolicitarNomeArquivo(char* nomeArquivo, const char* titulo) {
+    printf("\n%s\n", titulo);
+    printf("Digite o nome do arquivo (sem extensão): ");
+    fgets(nomeArquivo, 256, stdin);
+    
+    // Remove quebra de linha
+    size_t len = strlen(nomeArquivo);
+    if (len > 0 && nomeArquivo[len-1] == '\n') {
+        nomeArquivo[len-1] = '\0';
+    }
+}
+
+// ========== EXIBIÇÃO DE RESULTADOS ==========
+void viewExibirSucessoExportacao(int quantidade, const char* nomeArquivo, const char* tipo) {
+    printf("\n✓ EXPORTAÇÃO REALIZADA COM SUCESSO!\n");
+    printf("  Tipo: %s\n", tipo);
+    printf("  Quantidade: %d registros\n", quantidade);
+    printf("  Arquivo: %s.csv\n", nomeArquivo);
+}
+
+void viewExibirResultadoImportacao(int resultado, int quantidade, const char* tipo) {
+    if (resultado == 1) {
+        printf("\n✓ IMPORTAÇÃO REALIZADA COM SUCESSO!\n");
+        printf("  Tipo: %s\n", tipo);
+        printf("  Quantidade: %d registros importados\n", quantidade);
+    } else {
+        printf("\n✗ Erro na importação do arquivo!\n");
+    }
+}
+
+// ========== MENSAGENS E CONTROLES ==========
+void exibirCabecalhoExportacao(void) {
+    printf("\n╔═════════════════════════════════════╗\n");
+    printf("║   SISTEMA DE EVENTOS - EXPORTAÇÃO   ║\n");
+    printf("╚═════════════════════════════════════╝\n");
+}
+
+void exibirMensagemSucesso(const char* mensagem) {
+    printf("\n✓ SUCESSO: %s\n", mensagem);
+}
+
+void exibirMensagemErro(const char* mensagem) {
+    printf("\n✗ ERRO: %s\n", mensagem);
+}
+
+void exibirMensagemInfo(const char* mensagem) {
+    printf("\nℹ INFO: %s\n", mensagem);
+}
+
+void exibirMensagemProcessando(const char* mensagem) {
+    printf("\n⟳ PROCESSANDO: %s\n", mensagem);
+}
+
+void exibirResumoExportacao(int totalClientes, int totalFornecedores, 
+                           int totalEventos, int totalRecursos, int totalEquipes) {
+    printf("\n┌─────────────────────────────────────┐\n");
+    printf("│  RESUMO DA EXPORTAÇÃO               │\n");
+    printf("├─────────────────────────────────────┤\n");
+    printf("│ Clientes:        %3d                │\n", totalClientes);
+    printf("│ Fornecedores:    %3d                │\n", totalFornecedores);
+    printf("│ Eventos:         %3d                │\n", totalEventos);
+    printf("│ Recursos:        %3d                │\n", totalRecursos);
+    printf("│ Equipes:         %3d                │\n", totalEquipes);
+    printf("└─────────────────────────────────────┘\n");
+}
+
+void viewAguardarContinuar(void) {
+    printf("\nPressione ENTER para continuar...");
+    getchar();
+}

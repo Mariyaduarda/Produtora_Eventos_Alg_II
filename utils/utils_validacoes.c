@@ -1,9 +1,6 @@
-//
-// Created by alunos on 07/10/2025.
-//
-#include "utils_bibliotecas.h"
 
-#include <ctype.h>
+#include "utils_validacoes.h"
+
 // ===== VALIDACAO DO CPF ======
 bool validarCPF(const char *cpf_cnpj) {
     int i, j = 0, digito1 = 0, digito2 = 0;
@@ -89,8 +86,8 @@ bool validarCNPJ(const char *cpf_cnpj) {
 
 // funcao unica p/ cpf e cnpj
 bool validarCPF_CNPJ(const char *documento, bool usa_CPF) {
-    if ( usa_CPF) { // usa cpf é uma flag, podia ser usaCNPJ tb
-        return validarCPF(documento); // doc é minha string const
+    if ( usa_CPF) { // usa cpf e uma flag, podia ser usaCNPJ tb
+        return validarCPF(documento); // doc e minha string const
                                       // q vai escolher entre cpf e cnpj
     }
     else {
@@ -142,13 +139,6 @@ bool validarTelefone(const char *telefone) {
     return (digitos == 10 || digitos == 11);
 }
 
-// //===== FUNCAO AUXILIARES PARA UTF-8 =====
-// // retorna qnts bytes um caractere UTF-8 ocupa
-// int bytes_utf8(unsigned char caracter) {
-//     if (caracter < 0x80) returb 1;
-//     if (caracter >= 0xC2)
-// }
-
 // // ===== VALIDACAO DO NOME ======
 bool validarNome(const char *nome) {
     int i = 0, len = strlen(nome);
@@ -160,7 +150,7 @@ bool validarNome(const char *nome) {
     // assegura nao comecar nem terminar com espaco
     if (nome[0] == ' ' || nome[len-1] == ' ') return false;
 
-    // verifica caracteres validos e presenca de espaço
+    // verifica caracteres validos e presenca de espaco
     for (i = 0; i < len; i++) {
         if (isalpha( (unsigned char)nome[i]) || nome[i] == ' ' || nome[i] == '\''
             || nome[i] == '-' || nome[i] == '.' || nome[i] >= 0xC0) { // 0xC0 p/ carcateres acentuados
@@ -169,12 +159,12 @@ bool validarNome(const char *nome) {
             return false;
         }
     }
-    // retornar false se não tem espaço
+    // retornar false se nao tem espaco
     if (!tem_espaco) return false;
     return true;
 }
 
-
+// ====== VALIDACAO DE SENHA =====
 bool validarSenha(const char *senha) {
     int i, len = strlen(senha);
     bool tem_maiuscula = false, tem_minuscula = false;
@@ -214,3 +204,33 @@ bool validarUsuario(const char *usuario) {
         }
     return true;
     }
+// ====== VALIDACAO DE CODIGO=====
+int validaCodigo(int codigo) {
+    return codigo > 0;
+}
+
+// ====== VALIDACAO DE DATA=====
+// metodo de ano bissexto para incluir ao validar data
+int ehBissexto(int ano) {
+    return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+// vou validar as datas de transacao de recebe e a pagar
+bool validarData(const char *dataStr){
+    int dia, mes, ano;
+
+    // se n coicidir com 3 nao e ok
+    if(sscanf(dataStr, "%d/%d/%d", &dia, &mes,&ano) != 3)
+    return false;
+
+    // confere a veracidade da logica de dia mes e ano
+    if(dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1900 || ano > 2035)
+    return false;
+
+    int diasNoMes[] = {31, ehBissexto(ano) ? 29 : 28, 31, 30, 31, 30,
+                       31, 31, 30, 31, 30, 31};
+    if (dia > diasNoMes[mes - 1])
+        return false;
+
+    return true; // data valida portanto true
+}

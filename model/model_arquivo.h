@@ -11,16 +11,20 @@
 #include "../model/equipe.h"
 #include "../model/recurso.h"
 #include "../model/operador.h"
+#include "../model/evento.h"
+#include "../model/transacao.h"
 
 // pra usar as funcoes de print
 #include "../view/mensagens.h"
 
 int lerMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente **listaCliente, 
-    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, 
-    ListaRecurso **listaRecurso, ListaOperador **listaOperador);
+    ListaFornecedor **listaFornecedor, ListaEquipe **listaEquipe, ListaEvento **listaEvento,
+    ListaRecurso **listaRecurso, ListaOperador **listaOperador, ListaMovimentacao **listaMovimentacao,
+    ListaContaReceber **listaContaReceber, ListaContaPagar **listaContaPagar);
 
 int salvarMemoria(TipoConfig *config, TipoProdutora *produtora, ListaCliente *listaCliente, 
-    ListaFornecedor *listaFornecedor, ListaEquipe *listaEquipe,
-    ListaRecurso *listaRecurso, ListaOperador *listaOperador);
+    ListaFornecedor *listaFornecedor, ListaEquipe *listaEquipe, ListaEvento *listaEvento,
+    ListaRecurso *listaRecurso, ListaOperador *listaOperador, ListaMovimentacao *listaMovimentacao,
+    ListaContaReceber *listaContaReceber, ListaContaPagar *listaContaPagar);
 
 #endif // MODEL_ARQUIVO_H

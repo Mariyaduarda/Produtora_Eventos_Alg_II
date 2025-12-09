@@ -125,7 +125,8 @@ void menuOperadorListar(ListaOperador *lista, TipoConfig *config) {
         atual = atual->prox;
     }
     
-    printf("\n");
+    // barra de baixo
+    printf("\n======================================================================");
 }
 
 void menuOperador(ListaOperador **listaOperador, TipoConfig *config) {

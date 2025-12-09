@@ -128,7 +128,8 @@ void menuRecursoListar(ListaRecurso *lista, TipoConfig *config) {
         atual = atual->prox;
     }
     
-    printf("\n");
+    // barra de baixo
+    printf("\n======================================================================");
 }
 
 void menuRecurso(ListaRecurso **listaRecurso, TipoConfig *config) {

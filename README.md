@@ -5,15 +5,15 @@
 
 🗓️ Disciplina: Algoritmos II (2025)
 
-🧱 Linguagem de Programação: C
+🧱 Linguagem de Programacao: C
  
 ⚙️ Como usar o Makefile:
 
 	   make          || Compila, executa e limpa o projeto
 	   
-	   make clean    || Remove arquivos objetos e o executável
+	   make clean    || Remove arquivos objetos e o executavel
 	   
-	   make help     || Mostra comandos disponíveis
+	   make help     || Mostra comandos disponiveis
 
 💡 Estrutura do Projeto
 

@@ -13,6 +13,9 @@ void fornecedorInit(TipoFornecedor *fornecedor){
     strcpy(fornecedor->endereco,     "-");
     strcpy(fornecedor->telefone,     "-");
     strcpy(fornecedor->tipoServico,  "-");
+    
+    fornecedor->tipoValor = 0;
+    fornecedor->valor = 0;
 }
 
 void fornecedorListaInit(ListaFornecedor *lista){
@@ -134,7 +137,7 @@ int fornecedorSalvarTXT(ListaFornecedor *lista){
     if (lista == NULL) { fclose(fp); return 0; }
     ListaFornecedor *atual = lista;
     while(atual != NULL){
-        fprintf(fp, "%d;%d;%d;%s;%s;%s;%s;%s;%s\n",
+        fprintf(fp, "%d,%d,%d,%s,%s,%s,%s,%s,%s,%d,%f\n",
                 atual->fornecedor.id,
                 atual->fornecedor.ativo,
                 atual->fornecedor.usa_CNPJ,
@@ -143,7 +146,9 @@ int fornecedorSalvarTXT(ListaFornecedor *lista){
                 atual->fornecedor.cpf_cnpj,
                 atual->fornecedor.endereco,
                 atual->fornecedor.telefone,
-                atual->fornecedor.tipoServico);
+                atual->fornecedor.tipoServico,
+                atual->fornecedor.tipoValor,
+                atual->fornecedor.valor);
         atual = atual->prox;
     }
 
@@ -153,28 +158,36 @@ int fornecedorSalvarTXT(ListaFornecedor *lista){
 
 int fornecedorLerTXT(ListaFornecedor **lista) {
     FILE *fp = fopen("dados/fornecedor.txt", "r");
-    if(fp == NULL) return 0;
+    if (fp == NULL) return 0;
 
-    TipoFornecedor temp;
-    // como nao tem assinatura de bool, le como int e atribui depois
-    int ativoTemp, usaCNPJTemp;
-    
-    while(fscanf(fp, "%d,%d,%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",
-        &ativoTemp,
-        &temp.id,
-        &usaCNPJTemp,
-        temp.nomeFantasia,
-        temp.razaoSocial,
-        temp.cpf_cnpj,
-        temp.endereco,
-        temp.telefone,
-        temp.tipoServico) == 9) 
-    {
-        // atribui os booleanos
-        temp.ativo = ativoTemp;
-        temp.usa_CNPJ = usaCNPJTemp;
+    char linha[512]; // buffer para cada linha
+    while (fgets(linha, sizeof(linha), fp)) {
+        TipoFornecedor temp;
+        int ativoTemp, usaCNPJTemp;
 
-        //adiciona na lista
+        // Usa sscanf com limites de tamanho para evitar overflow
+        int campos = sscanf(linha, "%d,%d,%d,%99[^,],%99[^,],%19[^,],%99[^,],%19[^,],%99[^,],%d,%f",
+            &ativoTemp,
+            &temp.id,
+            &usaCNPJTemp,
+            temp.nomeFantasia,
+            temp.razaoSocial,
+            temp.cpf_cnpj,
+            temp.endereco,
+            temp.telefone,
+            temp.tipoServico,
+            &temp.tipoValor,
+            &temp.valor
+        );
+
+        if (campos != 11) {
+            // linha mal formatada, ignora
+            continue;
+        }
+
+        temp.ativo = ativoTemp != 0;
+        temp.usa_CNPJ = usaCNPJTemp != 0;
+
         fornecedorAdicionar(lista, temp);
     }
 

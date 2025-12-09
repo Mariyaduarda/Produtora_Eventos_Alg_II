@@ -21,4 +21,24 @@ void printMenuEquipe();
 void printMenuRecurso();
 void printMenuOperador();
 
+void printMenuTransacaoPrincipal();
+void printMenuMovimentacaoCaixa(float saldo);
+void printMenuContasReceber();
+void printMenuContasPagar();
+void printMenuRelatorios();
+
+void printMenuCRUD();
+
+void printMenuEventos();
+void printMenuEventoGerenciar(TipoEvento *evento, TipoConfig *config);
+void printMenuEventoGerenciarDados(TipoEvento *evento, TipoConfig *config);
+
+void printMenuEventoGerenciarRecursos(TipoEvento *evento, TipoConfig *config);
+void printMenuEventoGerenciarEquipes(TipoEvento *evento, TipoConfig *config);
+void printMenuEventoGerenciarFornecedores(TipoEvento *evento, TipoConfig *config);
+
+// ========== MENUS DE IMPORTACAO E EXPORTACAO ==========
+void printMenuExportacao(void);
+void printMenuImportacao(void);
+
 #endif // PRINT_MENU_H

@@ -11,6 +11,8 @@
 #include "../model/recurso.h"
 #include "../model/operador.h"
 #include "../model/model_arquivo.h"
+#include "../model/evento.h"
+#include "../model/transacao.h"
 
 #include "menuController.h"
 
